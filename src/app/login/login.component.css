@@ -32,10 +32,10 @@ label{
   padding-top:7px;
   padding-bottom:7px;
   color:white;
+  backdrop-filter: blur(53px);
 }
 
 .login-button{
-
   background-color: #f5deb3;
   border-radius: 12px;
   font-size: 25px;
