@@ -1,0 +1,10 @@
+.game-gallery {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr); /* Para mostrar 3 juegos por fila*/
+  gap: 10px; /* Esto añade un espacio de 10px entre las imágenes */
+}
+.game img {
+  width: 50%;
+  height: 80%;
+}
+
