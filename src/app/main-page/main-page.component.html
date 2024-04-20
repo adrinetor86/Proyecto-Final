@@ -1,0 +1,16 @@
+<div class="game-gallery">
+  <div *ngFor="let game of games" class="game">
+      <img [src]="game.url" [alt]="game.title">
+    <div class="title">
+      <a [routerLink]="['/infoGame/' + game.title]">
+        {{game.title}}
+      </a>
+    </div>
+  </div>
+  <div class="login-button">
+    <a (click)="goToLogin()">
+      <img src="./assets/login.png" alt="Imagen no disponible">
+    </a>
+  </div>
+</div>
+

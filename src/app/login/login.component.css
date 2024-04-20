@@ -53,13 +53,15 @@ cursor: pointer;
 
 .div-enlaces-formulario{
   display:  flex;
-  justify-content: space-between;
+  flex-direction: column;
   padding-top: 5px;
 }
 .div-enlaces-formulario a{
 
   color:white;
   font-size:10px;
+  white-space: nowrap; /* Evita que los enlaces se envuelvan en el mismo espacio */
+  margin-bottom: 5px;
 }
 
 .prueba{
