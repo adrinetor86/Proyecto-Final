@@ -9,7 +9,7 @@ const appRoutes: Routes = [
   { path: '', component: MainPageComponent },
   { path: 'login', component: LoginComponent },
   // { path: 'infoGame', component: InfoGameComponent },
-  { path: 'infoGame/:title', component: InfoGameComponent },
+  { path: 'infoGame/:id', component: InfoGameComponent },
   { path: 'not-found', component: NotFoundComponent },
   { path: '**', redirectTo: '/not-found', pathMatch: 'full'}
 ]

@@ -1,4 +1,16 @@
 /* You can add global styles to this file, and also import other style files */
-body{
-  background-color: #efe9e9;
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
 }
+body{
+  /*background-color: #efe9e9;*/
+  background-color: #545454;
+
+}
+
+/*a{*/
+/*  text-decoration: none;*/
+/*  color: #e30b0b;*/
+/*}*/

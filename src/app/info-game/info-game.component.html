@@ -1,1 +1,3 @@
-<p>Estás en el juego {{ title }}!!!!!!!!!!!!</p>
+<p *ngIf="juego;else noencontrado">Estás en el juego {{ juego.title }}!!!!!!!!!!!!</p>
+<ng-template #noencontrado>
+  <h2>El título no existe</h2></ng-template>
