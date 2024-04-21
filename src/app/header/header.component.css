@@ -29,9 +29,8 @@ nav a{
   transition: all .5s;
   border-radius: 3rem;
 }
-nav a:hover:not(a.icono){
+nav a:hover:not(.icono):not(li.logo a) {
   background-color: #f0f0f0;
-
 }
 nav li:first-child{
   margin-right: auto;

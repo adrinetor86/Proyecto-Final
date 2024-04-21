@@ -24,10 +24,8 @@ import { RadioButtonModule } from 'primeng/radiobutton';
 import { RatingModule } from 'primeng/rating';
 import { ToolbarModule } from 'primeng/toolbar';
 import {SplitButtonModule} from "primeng/splitbutton";
-
-
-
-
+import { NewAccountComponent } from './new-account/new-account.component';
+import { ForgottenPasswordComponent } from './forgotten-password/forgotten-password.component';
 
 @NgModule({
   declarations: [
@@ -36,7 +34,9 @@ import {SplitButtonModule} from "primeng/splitbutton";
     MainPageComponent,
     NotFoundComponent,
     InfoGameComponent,
-    HeaderComponent
+    HeaderComponent,
+    NewAccountComponent,
+    ForgottenPasswordComponent
   ],
   imports: [
     BrowserModule,

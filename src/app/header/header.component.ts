@@ -8,12 +8,6 @@ import {Router} from "@angular/router";
 })
 export class HeaderComponent {
 
-
   constructor(private router:Router) {}
-
-
-  goToLogin(){
-    this.router.navigate(['/login']);
-  }
 
 }
