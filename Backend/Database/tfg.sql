@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 21-04-2024 a las 23:51:24
+-- Tiempo de generación: 22-04-2024 a las 00:05:36
 -- Versión del servidor: 10.4.28-MariaDB
 -- Versión de PHP: 8.2.4
 
@@ -22,6 +22,35 @@ SET time_zone = "+00:00";
 --
 CREATE DATABASE IF NOT EXISTS `tfg` DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci;
 USE `tfg`;
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `comments`
+--
+
+CREATE TABLE IF NOT EXISTS `comments` (
+  `id_comment` int(11) NOT NULL AUTO_INCREMENT,
+  `user` varchar(15) DEFAULT NULL,
+  `id_game` int(11) DEFAULT NULL,
+  `content_comment` varchar(200) NOT NULL,
+  `parent_comment` int(11) DEFAULT NULL,
+  `comment_date` datetime NOT NULL,
+  PRIMARY KEY (`id_comment`),
+  KEY `user` (`user`),
+  KEY `id_game` (`id_game`),
+  KEY `fk_comment` (`parent_comment`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- RELACIONES PARA LA TABLA `comments`:
+--   `user`
+--       `users` -> `username`
+--   `id_game`
+--       `games` -> `id`
+--   `parent_comment`
+--       `comments` -> `id_comment`
+--
 
 -- --------------------------------------------------------
 
@@ -221,6 +250,14 @@ CREATE TABLE IF NOT EXISTS `users` (
 --
 -- Restricciones para tablas volcadas
 --
+
+--
+-- Filtros para la tabla `comments`
+--
+ALTER TABLE `comments`
+  ADD CONSTRAINT `comments_ibfk_1` FOREIGN KEY (`user`) REFERENCES `users` (`username`),
+  ADD CONSTRAINT `comments_ibfk_2` FOREIGN KEY (`id_game`) REFERENCES `games` (`id`),
+  ADD CONSTRAINT `fk_comment` FOREIGN KEY (`parent_comment`) REFERENCES `comments` (`id_comment`);
 
 --
 -- Filtros para la tabla `games_genders`
