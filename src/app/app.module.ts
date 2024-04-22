@@ -26,6 +26,7 @@ import { ToolbarModule } from 'primeng/toolbar';
 import {SplitButtonModule} from "primeng/splitbutton";
 import { NewAccountComponent } from './new-account/new-account.component';
 import { ForgottenPasswordComponent } from './forgotten-password/forgotten-password.component';
+import { FooterComponent } from './footer/footer.component';
 
 @NgModule({
   declarations: [
@@ -36,7 +37,8 @@ import { ForgottenPasswordComponent } from './forgotten-password/forgotten-passw
     InfoGameComponent,
     HeaderComponent,
     NewAccountComponent,
-    ForgottenPasswordComponent
+    ForgottenPasswordComponent,
+    FooterComponent
   ],
   imports: [
     BrowserModule,

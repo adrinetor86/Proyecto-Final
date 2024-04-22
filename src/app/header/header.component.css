@@ -59,11 +59,10 @@ nav li:first-child{
 /*  }*/
 /*}*/
 .logo{
-  background-image: url("/assets/LOGOOOOOOO-removebg-preview.png");
+  background-image: url("/assets/logo.png");
   background-repeat: no-repeat;
   background-position: center;
   background-size: 100px ;
-
   width: 10%;
 }
 img{
