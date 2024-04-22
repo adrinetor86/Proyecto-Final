@@ -8,7 +8,7 @@ export class JuegosService {
   // indico que es un objeto de tipo Juego
   games:Juego[] = [
     { title: 'Zelda Breath of the Wild', url: '../assets/zelda.jpg', id: 1 },
-    { title: 'Mario Oddysey', url: '../assets/mario2.jpg', id: 2 },
+    { title: 'Mario Oddysey', url: '../assets/mario_buena_.jpg', id: 2 },
     { title: 'Celeste', url: '../assets/celeste.png', id: 3 },
     { title: 'Hollow Knight', url: '../assets/hollow.jpg', id: 4 },
     { title: 'Animal Crossing', url: '../assets/animal.jpg', id: 5 },
