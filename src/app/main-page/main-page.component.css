@@ -6,16 +6,25 @@
 
 }
 .game img {
-  width: 50%;
-  height: 80%;
+
+  width:60%;
+  height: 90%;
 }
 
 .game{
+  margin:1rem;
   display: flex;
   justify-content: center;
   flex-flow: column nowrap;
   align-items: center;
+
 }
+
+/*.game{*/
+/*  display:grid;*/
+/*  grid-template-columns: repeat(3,minmax(150px,1fr));*/
+/*gap:32px;*/
+/*}*/
 
 a{
   text-decoration: none;
