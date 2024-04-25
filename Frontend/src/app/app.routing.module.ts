@@ -4,8 +4,8 @@ import {NotFoundComponent} from "./not-found/not-found.component";
 import {LoginComponent} from "./login/login.component";
 import {MainPageComponent} from "./main-page/main-page.component";
 import {InfoGameComponent} from "./info-game/info-game.component";
-import {NewAccountComponent} from "./new-account/new-account.component";
-import {ForgottenPasswordComponent} from "./forgotten-password/forgotten-password.component";
+import {NewAccountComponent} from "./login/new-account/new-account.component";
+import {ForgottenPasswordComponent} from "./login/forgotten-password/forgotten-password.component";
 
 const appRoutes: Routes = [
   { path: '', component: MainPageComponent },

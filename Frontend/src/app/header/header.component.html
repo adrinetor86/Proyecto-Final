@@ -1,18 +1,28 @@
 
 <nav>
-  <ul>
+
+  <ul [class.menuOpen]="menuOpen">
 
     <li class="logo"> <a routerLink="/"></a></li>
-    <li class="hideOnMobile"><a href="#">Blog</a></li>
-    <li class="hideOnMobile"><a href="#">Products</a></li>
-    <li class="hideOnMobile"><a href="#">About</a></li>
-    <li class="hideOnMobile"><a href="#">Forum</a></li>
-    <li class="hideOnMobile">
+    <li class="hideOnMobile" [class.hideOnMobile]="!menuOpen" ><a href="#">Blog</a></li>
+    <li class="hideOnMobile" [class.hideOnMobile]="!menuOpen" ><a href="#">Products</a></li>
+    <li class="hideOnMobile" [class.hideOnMobile]="!menuOpen" ><a href="#">About</a></li>
+    <li class="hideOnMobile" [class.hideOnMobile]="!menuOpen" ><a href="#">Forum</a></li>
+    <li class="hideOnMobile" [class.hideOnMobile]="!menuOpen">
+
+      @if(!menuOpen){
       <a [routerLink]="['/login']"  class="icono">
-        <p-avatar icon="pi pi-user" styleClass="mr-2" size="large"  [style]="{ 'background-color': '#9c27b0', color: '#ffffff' }" shape="circle">
-        </p-avatar></a></li>
-    <li class="menu-button"><a href="#"><svg xmlns="http://www.w3.org/2000/svg" height="26" viewBox="0 96 960 960" width="26"><path d="M120 816v-60h720v60H120Zm0-210v-60h720v60H120Zm0-210v-60h720v60H120Z"/></svg></a></li>
+        <p-avatar icon="pi pi-user" styleClass="mr-2" size="large"  [style]="{ 'background-color': '#9c27b0', color: '#ffffff' }" shape="circle"></p-avatar></a>
+      }@else {
+      <a [routerLink]="['/login']"  class="icono">Iniciar Sesion/Registrarse</a>
+      }
+
+    </li>
+
+
+    <li class="menu-button"><a  (click)="toggleMenu()" ><svg xmlns="http://www.w3.org/2000/svg" height="26" viewBox="0 96 960 960" width="26"><path d="M120 816v-60h720v60H120Zm0-210v-60h720v60H120Zm0-210v-60h720v60H120Z"/></svg></a></li>
   </ul>
 </nav>
+<!--<p>Width: {{windowWidth}}px, Height: {{windowHeight}}px</p>-->
 
 

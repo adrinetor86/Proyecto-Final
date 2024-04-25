@@ -24,8 +24,8 @@ import { RadioButtonModule } from 'primeng/radiobutton';
 import { RatingModule } from 'primeng/rating';
 import { ToolbarModule } from 'primeng/toolbar';
 import {SplitButtonModule} from "primeng/splitbutton";
-import { NewAccountComponent } from './new-account/new-account.component';
-import { ForgottenPasswordComponent } from './forgotten-password/forgotten-password.component';
+import { NewAccountComponent } from "./login/new-account/new-account.component";
+import { ForgottenPasswordComponent } from './login/forgotten-password/forgotten-password.component';
 import { FooterComponent } from './footer/footer.component';
 
 @NgModule({

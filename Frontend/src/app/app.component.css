@@ -1,0 +1,15 @@
+/*header{*/
+/*  align-items: center;*/
+/*  background-color: transparent;*/
+
+/*  top: 0;*/
+/*  transition: .2s;*/
+/*  !*width: 100%;*!*/
+/*  z-index: 2;*/
+/*}*/
+/*@media (max-width: 600px) {*/
+/*  header {*/
+/*    flex-direction: column;*/
+/*    padding: 10px;*/
+/*  }*/
+/*}*/

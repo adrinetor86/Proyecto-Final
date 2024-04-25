@@ -1,6 +1,6 @@
-
 .div-padre-formulario{
   height: 100vh;
+  /*background-color:red;*/
   display: flex;
   justify-content: center;
   align-items: center;
@@ -47,7 +47,7 @@ label{
 
 
 .login-button:hover{
-cursor: pointer;
+  cursor: pointer;
 }
 
 
@@ -70,4 +70,3 @@ cursor: pointer;
   color:white;
   font-size:14px;
 }
-

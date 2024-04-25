@@ -1,3 +1,39 @@
-<p *ngIf="juego;else noencontrado">Estás en el juego {{ juego.title }}!!!!!!!!!!!!</p>
-<ng-template #noencontrado>
-  <h2>El título no existe</h2></ng-template>
+<!--<p *ngIf="juego;else noencontrado">Estás en el juego {{ juego.title }}!!!!!!!!!!!!</p>-->
+<!--<ng-template #noencontrado>-->
+<!--  <h2>El título no existe</h2></ng-template>-->
+
+
+@if(juego){
+
+<div class="container-info-juego">
+
+<div class="juego">
+
+
+<div class="contenedor-foto">
+
+<img src="{{juego.url}}">
+
+</div>
+
+<div class="datos-juego" >
+
+<p><b>Juego: </b>{{juego.title}}</p>
+<p><b>Plataformas: </b>(Plataformas)</p>
+<p><b>Desarrollador: </b>(Desarrollador)</p>
+<p><b>Sinopsis: </b>(La Sinopsis)</p>
+
+
+
+</div>
+
+
+</div>
+
+
+</div>
+
+
+}@else{
+<h2>El título no existe</h2>
+}
