@@ -12,4 +12,5 @@ npm install primeng
 * Poder permitirle al usuario que se cambie la foto de perfil y sus datos (tener unas 5 imagenes default que pueda elegir o que las importe de su ordena)
 * Cuando das like a un comentario y no estas logeado te lleva directo a login (Obviamente tener en cuenta si ese usuario)
 * Darle alguna funcionalidad a los botones del footer y header
-* Borrar el componente not found e intentar redireccionar a main page 
+* Borrar el componente not found e intentar redireccionar a main page
+* Menos espacio entre los juegos
