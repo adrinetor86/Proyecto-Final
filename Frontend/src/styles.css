@@ -22,6 +22,7 @@ body{
     rgba(255,255,255,0.03) 5%,transparent 5%, transparent 100%),
   linear-gradient(90deg, rgb(54, 51, 154),rgb(148, 25, 101));
 
+
   background-size:cover;
   background-repeat: no-repeat;
   background-attachment: fixed;
