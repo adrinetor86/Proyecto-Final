@@ -1,1 +1,23 @@
 AQUI HAY QUE SUBIR LA DOCUMENTACION DEL PROYECTO
+
+*********************************** DJANGO *********************************
+-> Instalar python
+	https://www.python.org/downloads/windows/
+	(VERSION 3.12.3 - OPCION Windows installer (64-bit))
+
+	*EN POWERSHELL* (Para confirmar instalacion)
+	 python --version
+
+-> Instalar Django
+	*EN POWERSHELL*
+	pip install Django==5.0.4
+
+	(Para confirmar instalacion)
+	python -m django --version
+
+-> Iniciar servidor Django
+	*EN POWERSHELL* *Ruta primer Backend donde esta el archivo manage.py*
+	cd ./Backend
+	python manage.py runserver
+		
+	

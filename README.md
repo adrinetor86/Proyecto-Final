@@ -1,10 +1,30 @@
-# Proyecto
+# PROYECTO
+
+## FRONTEND
 
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 17.3.0.  
-# Para crear nuevos componentes (PONER EL --module app)
-ng g c header --module app
-# Instalar Prime Angular
-npm install primeng
+### Para crear nuevos componentes (Poner EL --module app)
+    ng g c header --module app
+### Instalar Prime Angular
+    npm install primeng
+
+## BACKEND
+
+### Instalar python 
+https://www.python.org/downloads/
+
+    python --version
+* Version debe ser la "3.12.3"
+
+### Instalar Django
+    pip install Django==5.0.4
+    python -m django --version
+
+### Iniciar servidor django
+    cd ./Backend
+    python manage.py runserver
+
+Ruta base de Django: http://127.0.0.1:8000/
 
 
 # COSAS A TENER EN CUENTA / IDEAS

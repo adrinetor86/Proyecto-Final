@@ -16,7 +16,11 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path
+from Backend.views import index, current_date, games
 
 urlpatterns = [
     path('admin/', admin.site.urls),
+    path('api/v1/games/', games, name='games'),
+    path('index/<int:age>/', index, name='index'),
+    path('currentDate/', current_date, name='date'),
 ]
