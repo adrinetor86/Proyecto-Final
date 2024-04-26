@@ -7,7 +7,6 @@ import {NotFoundComponent} from "./not-found/not-found.component";
 import {InfoGameComponent} from "./info-game/info-game.component";
 import {HeaderComponent } from './header/header.component';
 import {AvatarModule} from "primeng/avatar";
-import "primeicons/primeicons.css";
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { FormsModule } from '@angular/forms';
