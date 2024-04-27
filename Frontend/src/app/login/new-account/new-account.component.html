@@ -1,22 +1,24 @@
 
 <div class="div-padre-formulario">
-  <form>
+  <form #formNewAccount="ngForm">
     <div class="formulario">
       <div>
         <label>Usuario</label><br>
-        <input class="input-formulario" type="text">
+        <input class="input-formulario" type="text" ngModel name="username" required>
         <br><br>
         <label>Correo</label><br>
-        <input class="input-formulario" type="text">
+        <input class="input-formulario" type="text" ngModel name="email" email required #email="ngModel">
+        <span *ngIf="!email.valid && email.touched">El email introducido no es válido!</span>
         <br><br>
         <label>Contraseña</label><br>
-        <input class="input-formulario" type="text">
+        <input class="input-formulario" type="text" ngModel name="password" required>
 
       </div>
 
 
       <div class="prueba">
-        <button class="login-button" type="submit">Create Account</button>
+        <button class="login-button" type="submit"
+        [disabled]="!formNewAccount.valid">Create Account</button>
       </div>
 
     </div>

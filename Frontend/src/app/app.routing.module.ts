@@ -10,7 +10,6 @@ import {ForgottenPasswordComponent} from "./login/forgotten-password/forgotten-p
 const appRoutes: Routes = [
   { path: '', component: MainPageComponent },
   { path: 'login', component: LoginComponent },
-  // { path: 'infoGame', component: InfoGameComponent },
   { path: 'newAccount', component: NewAccountComponent },
   { path: 'forgottenPassword', component: ForgottenPasswordComponent },
   { path: 'infoGame/:id', component: InfoGameComponent },

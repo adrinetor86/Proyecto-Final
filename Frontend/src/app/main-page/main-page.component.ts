@@ -1,5 +1,4 @@
 import {Component, OnInit} from '@angular/core';
-import {Router} from "@angular/router";
 import {JuegosService} from "../servicios/juegos.service";
 import {Juego} from "../interfaces/juego";
 
