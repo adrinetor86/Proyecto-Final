@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 28-04-2024 a las 21:37:53
+-- Tiempo de generación: 28-04-2024 a las 23:46:50
 -- Versión del servidor: 10.4.28-MariaDB
 -- Versión de PHP: 8.2.4
 
@@ -34,7 +34,7 @@ CREATE TABLE IF NOT EXISTS `comments` (
   `id_comment` int(11) NOT NULL AUTO_INCREMENT,
   `user` varchar(15) DEFAULT NULL,
   `id_game` int(11) DEFAULT NULL,
-  `content_comment` varchar(200) NOT NULL,
+  `content_comment` text NOT NULL,
   `parent_comment` int(11) DEFAULT NULL,
   `comment_date` datetime NOT NULL,
   PRIMARY KEY (`id_comment`),
@@ -78,7 +78,7 @@ DROP TABLE IF EXISTS `games`;
 CREATE TABLE IF NOT EXISTS `games` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `title` varchar(200) NOT NULL,
-  `synopsis` varchar(1000) DEFAULT NULL,
+  `synopsis` text DEFAULT NULL,
   `developer` varchar(50) NOT NULL,
   `link_download` varchar(200) NOT NULL,
   `link_trailer` varchar(200) DEFAULT NULL,
