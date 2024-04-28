@@ -15,7 +15,7 @@ class Games:
         self.__connection = bd.connect(**config.DATABASE)
 
     def select_games(self) -> dict | None:
-        sql = "SELECT * FROM " + self.__tables["games"]
+        sql = "SELECT id, title, release_date FROM " + self.__tables["games"]
 
         try:
             cursor = self.__connection.cursor(dictionary=True)
@@ -31,9 +31,6 @@ class Games:
     def select_game(self, id) -> dict | None:
         sql = f"SELECT * FROM {self.__tables["games"]} WHERE id = {id}"
 
-        genders = self.__get_genders(id)
-        plataforms = self.__get_plataforms(id)
-
         try:
             cursor = self.__connection.cursor(dictionary=True)
             cursor.execute(sql)
@@ -43,8 +40,9 @@ class Games:
             print(f'\033[91mError get games {id}: {error.msg}')
             return [{'error': 'error en la conexion en la base de datos'}]
 
-        dict_return[0]["genders"] = genders
-        dict_return[0]["plataforms"] = plataforms
+        dict_return[0]["genders"] = self.__get_genders(id)
+        dict_return[0]["plataforms"] = self.__get_plataforms(id)
+        dict_return[0]["comments"] = self.__get_comments(id)
 
         return dict_return
 
@@ -85,3 +83,19 @@ class Games:
             return ""
 
         return plataforms.strip(",")
+
+    #SELECT * FROM comments where id_game = 1 and parent_comment = 3
+    #ESTA CONSULTA SIRVE PARA LOS HIJOS DEL COMENTARIO
+    def __get_comments(self, id) -> str:
+        sql = f"SELECT id_comment, user, content_comment, comment_date FROM comments where id_game =  {id} and parent_comment IS NULL LIMIT 10"
+
+        try:
+            cursor = self.__connection.cursor(dictionary=True)
+            cursor.execute(sql)
+            data = cursor.fetchall()
+            cursor.close()
+        except mysql.connector.Error as error:
+            print(f'Error get plataforms: {error.msg}')
+            return ""
+
+        return data

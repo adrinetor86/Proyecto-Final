@@ -34,7 +34,7 @@ class ControllerGames:
         if len(self.__title) > 200 or len(self.__title) == 0:
             return False
 
-        if len(self.__synopsis) > 500 or len(self.__synopsis) < 10:
+        if len(self.__synopsis) > 1000 or len(self.__synopsis) < 10:
             return False
 
         if len(self.__developer) > 50 or len(self.__developer) == 0:
