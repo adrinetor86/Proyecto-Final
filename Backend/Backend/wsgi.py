@@ -1,5 +1,5 @@
 """
-WSGI config for Backend project.
+WSGI conf.py for Backend project.
 
 It exposes the WSGI callable as a module-level variable named ``application``.
 

@@ -1,5 +1,5 @@
 """
-ASGI config for Backend project.
+ASGI conf.py for Backend project.
 
 It exposes the ASGI callable as a module-level variable named ``application``.
 

@@ -1,52 +1,14 @@
-import json
-from datetime import datetime
-from django.http import JsonResponse
-import mysql
-import mysql.connector as bd
-from django.http import HttpResponse
-
-def get_connection():
-    dataBase = {
-        'host': 'localhost',
-        'port': 3306,
-        'user': 'root',
-        'password': '',
-        'database': 'tfg'
-    }
-
-    return bd.connect(**dataBase)
-
-def getAll() -> dict | None:
-    sql = "SELECT * FROM games"
-    dict_return = None
-
-    try:
-        conection = get_connection()
-        cursor = conection.cursor(dictionary=True)
-        cursor.execute(sql)
-        dict_return = cursor.fetchall()
-        cursor.close()
-    except mysql.connector.Error as error:
-        print(f'\033[91mError while connecting to: {error.msg}')
-        return [{'error': 'error en la conexion en la base de datos'}]
-
-    return dict_return
+from django.http import JsonResponse, HttpResponse
+from Backend.Controllers.controller_games import ControllerGames
 
 def games(request):
-    data = getAll()
+    controller = ControllerGames()
+    data = controller.get_games()
 
-    if data[0].get("error", "") == "":
-        dict_games = {'games': data}
-    else:
-        dict_games = {'error': data}
-    return JsonResponse(dict_games)
+    return JsonResponse(data)
 
-def index(request):
-    return HttpResponse("primera pagina prueba")
+def game(request, id):
+    controller = ControllerGames()
+    data = controller.get_game(id)
 
-def current_date(request):
-    mi_fecha = """
-    <h1> {0} </h1>
-    """
-
-    return HttpResponse(mi_fecha.format(datetime.now()))
+    return JsonResponse(data)
