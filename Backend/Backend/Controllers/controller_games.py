@@ -22,6 +22,13 @@ class ControllerGames:
         self.__games_model = Games()
         return {"game": self.__games_model.select_game(id)}
 
+    def child_comments(self, id_game, id_comment, offset):
+        if id_game and id_comment:
+            self.__games_model = Games()
+            return {"comments": self.__games_model.get_child_comments(id_game, id_comment, offset)}
+        else:
+            return {"comments": "no params"}
+
     def insert_game(self):
         if not self.__validate_fields():
             return {"error": "Invalid type fields"}

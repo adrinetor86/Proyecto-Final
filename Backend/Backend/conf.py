@@ -5,3 +5,7 @@ DATABASE = {
         'password': '',
         'database': 'tfg'
     }
+
+SALT = 'JaCKeT-'
+
+SECRET_KEY = 'cHepA_AntObs'
