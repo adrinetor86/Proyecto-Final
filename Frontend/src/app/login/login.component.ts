@@ -18,14 +18,15 @@ export class LoginComponent {
   onSubmit(){
     const userNameValue= this.formAccount.value.username;
     const passwordValue = this.formAccount.value.password;
-    if (this.validateService.validateUser(userNameValue,passwordValue)){
-      this.route.navigate(["/"]);
-    }
-    else{
-      this.errorValidate = true;
-      this.errorMessage = "Usuario o contraseña incorrectos";
-      this.formAccount.reset();
-    }
+    console.log(userNameValue, passwordValue);
+    // if (this.validateService.validateUser(userNameValue,passwordValue)){
+    //   this.route.navigate(["/"]);
+    // }
+    // else{
+    //   this.errorValidate = true;
+    //   this.errorMessage = "Usuario o contraseña incorrectos";
+    //   this.formAccount.reset();
+    // }
   }
 
 }
