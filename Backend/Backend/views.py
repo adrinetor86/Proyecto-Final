@@ -7,7 +7,7 @@ def games(request):
     controller = ControllerGames()
     data = controller.get_games()
 
-    return JsonResponse(data)
+    return JsonResponse(data, status=200)
 
 def game(request, id):
     controller = ControllerGames()
@@ -35,7 +35,7 @@ def login(request):
 def register(request):
     controller = ControllerUser()
     controller.register()
-    return HttpResponse(status=200)
+    return HttpResponse('Funciona', status=200)
 
 #DEBERE PASAR UN COUNT DE LOS COMENTARIOS QUE HAYA, SI ES INFERIOR A 10 EN EL
 #FRONT NO DEBERA INDICAR "MOSTRAR MAS COMENTARIOS", YA QUE NO QUEDAN MAS.
