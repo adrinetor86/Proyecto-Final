@@ -4,21 +4,20 @@
     <div class="formulario">
       <div>
         <label>Usuario</label><br>
-        <input class="input-formulario" type="text" ngModel name="username" required>
+        <input class="input-formulario" type="text" ngModel name="usernameNew" required>
         <br><br>
         <label>Correo</label><br>
-        <input class="input-formulario" type="text" ngModel name="email" email required #email="ngModel">
-        <span *ngIf="!email.valid && email.touched">El email introducido no es válido!</span>
+        <input class="input-formulario" type="email" ngModel name="emailNew" email required #email="ngModel">
         <br><br>
         <label>Contraseña</label><br>
-        <input class="input-formulario" type="text" ngModel name="password" required>
+        <input class="input-formulario" type="password" ngModel name="passwordNew" required>
 
       </div>
 
 
       <div class="prueba">
         <button class="login-button" type="submit"
-        [disabled]="!formNewAccount.valid">Create Account</button>
+        [disabled]="!formNewAccount.valid" (click)="registerNewUser()">Create Account</button>
       </div>
 
     </div>

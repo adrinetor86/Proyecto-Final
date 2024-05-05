@@ -2,6 +2,7 @@ from django.http import JsonResponse, HttpResponse
 from Backend.Controllers.controller_games import ControllerGames
 from Backend.Controllers.controller_user import ControllerUser
 from Backend.Libs.jsonWebTokken import create_token, decode_token
+from django.views.decorators.csrf import csrf_exempt
 
 def games(request):
     controller = ControllerGames()
@@ -31,7 +32,6 @@ def login(request):
         return HttpResponse(pista, status=200)
     else:
         return HttpResponse(status=403)
-
 def register(request):
     controller = ControllerUser()
     controller.register()
