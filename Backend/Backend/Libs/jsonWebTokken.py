@@ -16,9 +16,9 @@ def create_token(email, username):
     }
 
     encoded_jwt = jwt.encode(data, config.SECRET_KEY, algorithm='HS256')
-    encoded_jwt = jwt.encode(data, config.SECRET_KEY, algorithm='HS256')
+    encoded_jwt_refresh = jwt.encode(data_refresh, config.SECRET_KEY, algorithm='HS256')
 
-    return encoded_jwt
+    return [encoded_jwt, encoded_jwt_refresh]
 
 def decode_token(encoded_jwt):
     try:

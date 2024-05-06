@@ -1,6 +1,7 @@
 import datetime
 import re
 from Backend.Models.user import User
+import Backend.Libs.validate_data as validator
 
 class ControllerUser:
 
@@ -11,8 +12,12 @@ class ControllerUser:
             self.__rol = rol
 
     def register(self):
-        self.__user_model = User()
-        self.__user_model.insert_user(self.__email, self.__username, self.__password, self.__rol)
+        if validator.validate_email(self.__email) and validator.validate_username(self.__username) and validator.validate_password(self.__password):
+            self.__user_model = User()
+
+            return self.__user_model.insert_user(self.__email, self.__username, self.__password, self.__rol)
+        else:
+            return {"error": "Void fields", "code": 409}
 
     def login(self):
         self.__user_model = User()

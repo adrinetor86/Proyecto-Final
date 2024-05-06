@@ -22,7 +22,7 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('api/v1/games/', games, name='games'),
     path('api/v1/games/<id>/', game, name='game'),
-    path('login/<email>/<password>/', login, name='login'),
+    path('login/', login, name='login'),
     path('register/', register, name='register'),
     path('comment/<id_game>/<id_comment>/', child_comments, name='child_comments'),
     path('comment/<id_game>/<id_comment>/<offset>/', child_comments, name='child_comments_offset'),
