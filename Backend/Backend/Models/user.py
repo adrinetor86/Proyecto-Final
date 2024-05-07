@@ -83,11 +83,11 @@ class User:
                     self.__ph.verify(password_hashed, (config.SALT + password))
                     return {"username": username}
                 else:
-                    return {"error": "Unknown error", "code": 400}
+                    return {"error": "Unknown error, try again", "code": 400}
             else:
                 return {"error": "Email not found", "code": 404}
         except argon2.exceptions.VerifyMismatchError:
-            return {"error": "Incorrect password", "code": 404}
+            return {"error": "Incorrect password or email", "code": 404}
         except Exception as e:
             return {"error": "Unknown error", "code": 400}
 
