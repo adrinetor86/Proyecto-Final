@@ -5,7 +5,7 @@ from Backend.Libs.jsonWebTokken import create_token, decode_token
 from django.views.decorators.csrf import csrf_exempt
 
 @csrf_exempt
-def games(request, page = 1):
+def games(request, page=1):
     if request.method == 'GET':
         if page.isnumeric():
             controller = ControllerGames()

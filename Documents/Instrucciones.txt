@@ -20,4 +20,13 @@ AQUI HAY QUE SUBIR LA DOCUMENTACION DEL PROYECTO
 	cd ./Backend
 	python manage.py runserver
 		
-	
+
+******************************= RUTAS =***********************************************
+ANOTACION: Todo empezara por 127.0.0.1:8000/
+ANOTACION: Las paginas iran de 15 juegos en 15 juegos (1 pagina = 15 primeros juegos, 2 pagina = del 15 al 30 juego)
+
+api/v1/games/ -> Saca los juegos de la pagina 1 (pagina por defecto).
+api/v1/games/<page>/ -> saca los juegos de la pagina que se indique.
+api/v1/game/<id>/ -> Saca toda la informacion de un juego especifico.
+login/ -> url para confirmar usuario y contraseña
+register/ -> Envia datos para loguear usuario
