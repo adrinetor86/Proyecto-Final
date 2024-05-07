@@ -12,15 +12,15 @@ class ControllerUser:
             self.__rol = rol
 
     def register(self):
-        if self.__email != '' and self.__username != '' and self.__password != '':
-            if validator.validate_email(self.__email) and validator.validate_username(self.__username) and validator.validate_password(self.__password):
-                self.__user_model = User()
+        print(f"Email: {self.__email}")
+        print(f"Username: {self.__username}")
+        print(f"Password: {self.__password}")
+        if validator.validate_email(self.__email) and validator.validate_username(self.__username) and validator.validate_password(self.__password):
+            self.__user_model = User()
 
-                return self.__user_model.insert_user(self.__email, self.__username, self.__password, self.__rol)
-            else:
-                return {"error": "some field is incorrect", "code": 409}
+            return self.__user_model.insert_user(self.__email, self.__username, self.__password, self.__rol)
         else:
-            return {"error": "exist void fields", "code": 409}
+            return {"error": "Void fields", "code": 409}
 
     def login(self):
         self.__user_model = User()
