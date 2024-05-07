@@ -12,14 +12,11 @@ export class NewAccountComponent {
   constructor(private validService: ValidService) {
   }
   registerNewUser(): void {
-    const usernameValue = this.formNewAccount.value.usernameNew;
     const email = this.formNewAccount.value.emailNew;
+    const username = this.formNewAccount.value.usernameNew;
     const password = this.formNewAccount.value.passwordNew;
-    const rol = 1;
-    console.log(usernameValue,email,password)
-    this.validService.registerNewUser(email, usernameValue, password, rol).subscribe(resData =>{
+    this.validService.registerNewUser(email, username, password).subscribe(resData =>{
       console.log(resData);
     });
-    this.formNewAccount.reset();
   }
 }

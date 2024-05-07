@@ -31,6 +31,7 @@ class User:
 
                     return {"success": "Account created successfully"}
                 except mysql.connector.Error as error:
+                    print("Error: ", error)
                     return {"error": "Unknown error, try again", "code": 400}
             else:
                 return {"error": "Email already exists", "code": 409}
