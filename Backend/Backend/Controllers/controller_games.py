@@ -14,9 +14,9 @@ class ControllerGames:
             self.__games_model = None
 
 
-    def get_games(self):
+    def get_games(self, page):
         self.__games_model = Games()
-        return {"games": self.__games_model.select_games()}
+        return {"games": self.__games_model.select_games(page)}
 
     def get_game(self, id):
         self.__games_model = Games()

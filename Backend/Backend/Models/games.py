@@ -14,8 +14,10 @@ class Games:
         }
         self.__connection = bd.connect(**config.DATABASE)
 
-    def select_games(self) -> dict | None:
-        sql = "SELECT id, title, release_date FROM " + self.__tables["games"]
+    def select_games(self, page) -> dict | None:
+        limit = page * 15
+        offset = limit - 15
+        sql = f"SELECT id, title, release_date FROM {self.__tables["games"]} LIMIT {limit} OFFSET {offset}"
 
         try:
             cursor = self.__connection.cursor(dictionary=True)

@@ -21,9 +21,10 @@ from Backend.views import games, game, login, register, child_comments
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('api/v1/games/', games, name='games'),
-    path('api/v1/games/<id>/', game, name='game'),
+    path('api/v1/games/<page>', games, name='games'),
+    path('api/v1/game/<id>/', game, name='game'),
     path('login/', login, name='login'),
     path('register/', register, name='register'),
     path('comment/<id_game>/<id_comment>/', child_comments, name='child_comments'),
-    path('comment/<id_game>/<id_comment>/<offset>/', child_comments, name='child_comments_offset'),
+    path('comment/<id_game>/<id_comment>/<offset>/', child_comments, name='child_comments_offset'), #cargar mas comentarios
 ]

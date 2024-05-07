@@ -5,12 +5,15 @@ from Backend.Libs.jsonWebTokken import create_token, decode_token
 from django.views.decorators.csrf import csrf_exempt
 
 @csrf_exempt
-def games(request):
+def games(request, page = 1):
     if request.method == 'GET':
-        controller = ControllerGames()
-        data = controller.get_games()
+        if page.isnumeric():
+            controller = ControllerGames()
+            data = controller.get_games(page)
 
-        return JsonResponse(data, status=200)
+            return JsonResponse(data, status=200)
+        else:
+            return JsonResponse({"Error": "Invalid page"}, status=400)
     else:
         return JsonResponse({"error": "Bad Request"}, status=405)
 
