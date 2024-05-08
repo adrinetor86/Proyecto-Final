@@ -4,7 +4,7 @@
       <div>
         <label>Usuario</label><br>
         <!--          <fieldset class="input-formulario"><legend>Usuario</legend></fieldset>-->
-        <input class="input-formulario" type="text" ngModel name="username" required>
+        <input class="input-formulario" type="text" ngModel name="username" required minlength="5">
         <br><br>
         <label>Contraseña</label><br>
         <input class="input-formulario" type="password" ngModel name="password" required>
@@ -14,7 +14,7 @@
       <div class="prueba">
         <p *ngIf="errorValidate">{{errorMessage}}</p>
         <button class="login-button" type="submit"
-                [disabled]="!form.valid" (click)="onSubmit()">Login</button>
+                [disabled]="!form.valid" (click)="loginUser()">Login</button>
 
         <div class="div-enlaces-formulario">
           <a routerLink="/newAccount">Crear una cuenta</a>

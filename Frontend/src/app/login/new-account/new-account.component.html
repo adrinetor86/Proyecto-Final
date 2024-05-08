@@ -4,13 +4,17 @@
     <div class="formulario">
       <div>
         <label>Usuario</label><br>
-        <input class="input-formulario" type="text" ngModel name="usernameNew" required>
+        <input class="input-formulario" type="text" ngModel name="usernameNew" required minLength="5">
         <br><br>
         <label>Correo</label><br>
-        <input class="input-formulario" type="email" ngModel name="emailNew" email required #email="ngModel">
+        <input class="input-formulario" type="email" ngModel name="emailNew" email required>
         <br><br>
         <label>Contraseña</label><br>
         <input class="input-formulario" type="password" ngModel name="passwordNew" required>
+        <br><br>
+        <span *ngIf="errorMessage" class="p-error" id="error">
+          Error al registrarse, revise la longitud de los datos proporcionados
+        </span>
 
       </div>
 

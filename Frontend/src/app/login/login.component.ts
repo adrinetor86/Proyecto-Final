@@ -2,6 +2,7 @@ import {Component, ViewChild} from '@angular/core';
 import {NgForm} from "@angular/forms";
 import {ValidService} from "../servicios/validate.service";
 import {Router} from "@angular/router";
+import {catchError, of} from "rxjs";
 
 
 @Component({
@@ -15,18 +16,20 @@ export class LoginComponent {
   errorMessage = '';
   errorValidate = false;
 
-  onSubmit(){
+  loginUser(){
     const userNameValue= this.formAccount.value.username;
     const passwordValue = this.formAccount.value.password;
     console.log(userNameValue, passwordValue);
-    // if (this.validateService.validateUser(userNameValue,passwordValue)){
-    //   this.route.navigate(["/"]);
-    // }
-    // else{
-    //   this.errorValidate = true;
-    //   this.errorMessage = "Usuario o contraseña incorrectos";
-    //   this.formAccount.reset();
-    // }
+    this.validateService.testDataLogin(userNameValue, passwordValue).pipe(
+      catchError(() => {
+        this.errorValidate = true;
+        return of(null);
+      })
+    ).subscribe(response=>{
+      if (response!==null){
+        this.route.navigate(['/']);
+      }
+    })
   }
 
 }
