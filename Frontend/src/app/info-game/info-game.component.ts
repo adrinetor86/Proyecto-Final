@@ -29,6 +29,11 @@ export class InfoGameComponent implements OnInit,OnDestroy{
 
   subcripcion:Subscription;
   suscripcionPrueba: Subscription;
+  seeMore = false;
+  seeMoreButton = "Ver más";
+  seeLess = "Ver menos";
+  searchDot: number;
+
   constructor(private route: ActivatedRoute,private juegoservice:JuegosService, private http: HttpClient ) { }
 
   ngOnInit(): void {
@@ -42,11 +47,13 @@ export class InfoGameComponent implements OnInit,OnDestroy{
         this.http.get('http://127.0.0.1:8000/api/v1/game/'+parseInt(params['id'])+'/').subscribe(JuegoRecibido => {
           console.log(JuegoRecibido);
           this.juegoPrueba= JuegoRecibido['game'];
-
+          this.searchDot = this.juegoPrueba.synopsis.indexOf('.')
       })
 
      });
-
+  }
+  lookFullSynopsis(){
+    return this.seeMore = !this.seeMore;
   }
   isEmpty(obj: any) {
     return Object.keys(obj).length > 0;

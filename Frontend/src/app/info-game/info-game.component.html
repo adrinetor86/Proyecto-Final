@@ -58,7 +58,15 @@
 <p><b>Juego: </b>{{juegoPrueba.title}}</p>
 <p><b>Plataformas: </b>{{juegoPrueba.plataforms}}</p>
 <p><b>Desarrollador: </b>{{juegoPrueba.developer}}</p>
-<p><b>Sinopsis: </b>{{juegoPrueba.synopsis}}</p>
+<b>Sinopsis: </b>
+  <div>
+    <p>
+      {{seeMore ? juegoPrueba.synopsis:(juegoPrueba.synopsis | slice:0:searchDot+1)}}
+    </p>
+    <button (click)="lookFullSynopsis()">{{seeMore ? seeLess : seeMoreButton}}</button>
+  </div>
+
+
 
 
 

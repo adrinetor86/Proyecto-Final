@@ -49,6 +49,30 @@ label{
 .login-button:hover{
   cursor: pointer;
 }
+.p-error {
+  display: block;
+  background-color: #f8d7da; /* Color de fondo rojo claro */
+  color: #721c24; /* Color de texto rojo oscuro */
+  padding: 10px 15px; /* Espaciado interno */
+  border-radius: 5px; /* Bordes redondeados */
+  border: 1px solid #f5c6cb; /* Borde rojo */
+  margin-bottom: 10px; /* Margen inferior */
+  font-size: 14px; /* Tamaño de fuente */
+}
+
+.p-error::before {
+  content: "⚠️"; /* Agregar un símbolo de advertencia */
+  margin-right: 10px; /* Espaciado a la derecha del símbolo */
+}
+
+.p-error a {
+  color: #721c24; /* Color de los enlaces en el mensaje de error */
+  font-weight: bold; /* Texto en negrita */
+}
+
+.p-error a:hover {
+  text-decoration: underline; /* Subrayar al pasar el mouse */
+}
 
 
 .div-enlaces-formulario{

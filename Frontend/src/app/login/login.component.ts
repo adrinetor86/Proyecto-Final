@@ -17,21 +17,21 @@ export class LoginComponent {
   errorValidate = false;
 
   loginUser(){
-    const userNameValue= this.formAccount.value.username;
+    const email= this.formAccount.value.email;
     const passwordValue = this.formAccount.value.password;
-    console.log(userNameValue, passwordValue);
-    this.validateService.testDataLogin(userNameValue, passwordValue).pipe(
+    console.log(email, passwordValue);
+    this.validateService.testDataLogin(email, passwordValue).pipe(
       catchError(() => {
         this.errorValidate = true;
-        console.log("Error A");
+        this.errorMessage = 'Credenciales incorrectas';
         return of(null);
       })
     ).subscribe(response=>{
       if (response!==null){
-        console.log("Error B");
         this.route.navigate(['/']);
       }
     })
+    this.formAccount.reset();
   }
 
 }
