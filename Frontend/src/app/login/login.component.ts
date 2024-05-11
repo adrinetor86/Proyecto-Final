@@ -23,10 +23,12 @@ export class LoginComponent {
     this.validateService.testDataLogin(userNameValue, passwordValue).pipe(
       catchError(() => {
         this.errorValidate = true;
+        console.log("Error A");
         return of(null);
       })
     ).subscribe(response=>{
       if (response!==null){
+        console.log("Error B");
         this.route.navigate(['/']);
       }
     })

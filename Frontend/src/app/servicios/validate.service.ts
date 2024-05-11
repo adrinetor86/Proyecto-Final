@@ -20,11 +20,13 @@ export class ValidService {
 
     return this.httpClient.post("http://127.0.0.1:8000/register/", body.toString(), { headers });
   }
-  testDataLogin(username: string, password: string): Observable<Object> {
+  testDataLogin(email: string, password: string): Observable<Object> {
     const headers = { 'Content-Type': 'application/x-www-form-urlencoded' };
     const body = new HttpParams()
-    .set('username', username)
+    .set('email', email)
     .set('password', password);
+    console.log("dwwdwd");
+    // return this.httpClient.get("http://127.0.0.1:8000/login/", { headers, body });
     return this.httpClient.post("http://127.0.0.1:8000/login/", body.toString(), { headers });
   }
 

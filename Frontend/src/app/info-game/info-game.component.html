@@ -3,7 +3,44 @@
 <!--  <h2>El título no existe</h2></ng-template>-->
 
 
-@if(juego){
+<!--@if(juego){-->
+
+<!--<div class="container-info-juego">-->
+
+<!--<div class="juego">-->
+
+
+<!--<div class="contenedor-foto">-->
+
+<!--<img src="{{juego.url}}">-->
+
+<!--</div>-->
+
+<!--<div class="datos-juego" >-->
+
+<!--<p><b>Juego: </b>{{juego.title}}</p>-->
+<!--<p><b>Plataformas: </b>(Plataformas)</p>-->
+<!--<p><b>Desarrollador: </b>(Desarrollador)</p>-->
+<!--<p><b>Sinopsis: </b>(La Sinopsis)</p>-->
+
+
+
+<!--</div>-->
+
+
+<!--</div>-->
+
+
+<!--</div>-->
+
+
+<!--}@else{-->
+<!--<h2>El título no existe</h2>-->
+<!--}-->
+
+
+
+@if(juegoPrueba.id){
 
 <div class="container-info-juego">
 
@@ -18,10 +55,10 @@
 
 <div class="datos-juego" >
 
-<p><b>Juego: </b>{{juego.title}}</p>
-<p><b>Plataformas: </b>(Plataformas)</p>
-<p><b>Desarrollador: </b>(Desarrollador)</p>
-<p><b>Sinopsis: </b>(La Sinopsis)</p>
+<p><b>Juego: </b>{{juegoPrueba.title}}</p>
+<p><b>Plataformas: </b>{{juegoPrueba.plataforms}}</p>
+<p><b>Desarrollador: </b>{{juegoPrueba.developer}}</p>
+<p><b>Sinopsis: </b>{{juegoPrueba.synopsis}}</p>
 
 
 
