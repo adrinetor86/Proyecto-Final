@@ -16,11 +16,11 @@ class ControllerGames:
 
     def get_games(self, page):
         self.__games_model = Games()
-        return {"games": self.__games_model.select_games(page)}
+        return self.__games_model.select_games(page)
 
     def get_game(self, id):
         self.__games_model = Games()
-        return {"game": self.__games_model.select_game(id)}
+        return self.__games_model.select_game(id)
 
     def child_comments(self, id_game, id_comment, offset):
         if id_game and id_comment:

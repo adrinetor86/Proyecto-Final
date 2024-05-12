@@ -5,11 +5,19 @@ from Backend.Libs.jsonWebTokken import create_token, decode_token
 from django.views.decorators.csrf import csrf_exempt
 
 @csrf_exempt
-def games(request, page=1):
+def games(request, page='1'):
     if request.method == 'GET':
         if page.isnumeric():
             controller = ControllerGames()
-            data = controller.get_games(page)
+            response = controller.get_games(page)
+
+            if response.get("error", "") == "":
+                return JsonResponse(response, status=200)
+            else:
+                error = response.get("error", "")
+                code = response.get("code", 400)
+
+                return JsonResponse({"error": error}, status=code)
 
             return JsonResponse(data, status=200)
         else:
@@ -22,9 +30,15 @@ def game(request, id):
     if request.method == 'GET':
         if id.isnumeric():
             controller = ControllerGames()
-            data = controller.get_game(id)
+            response = controller.get_game(id)
 
-            return JsonResponse(data)
+            if response.get("error", "") == "":
+                return JsonResponse(response, status=200)
+            else:
+                error = response.get("error", "")
+                code = response.get("code", 400)
+
+                return JsonResponse({"error": error}, status=code)
         else:
             return JsonResponse({"Error": "Invalid ID"}, status=400)
     else:
@@ -78,3 +92,6 @@ def child_comments(request, id_game, id_comment, offset = 0):
     data = controller.child_comments(id_game, id_comment, offset)
 
     return JsonResponse(data)
+
+def error_url(request):
+    return JsonResponse({"error": "Page not found, check url"}, status=404)

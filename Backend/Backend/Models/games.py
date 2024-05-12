@@ -15,7 +15,7 @@ class Games:
         self.__connection = bd.connect(**config.DATABASE)
 
     def select_games(self, page) -> dict | None:
-        limit = page * 15
+        limit = int(page) * 15
         offset = limit - 15
         sql = f"SELECT id, title, release_date FROM {self.__tables["games"]} LIMIT {limit} OFFSET {offset}"
 
@@ -24,11 +24,15 @@ class Games:
             cursor.execute(sql)
             dict_return = cursor.fetchall()
             cursor.close()
+
+            if len(dict_return) == 0:
+                return {"error": "No games in this page", "code": 404}
+            else:
+                return {"games": dict_return}
+
         except mysql.connector.Error as error:
             print(f'\033[91mError get all games: {error.msg}')
-            return [{'error': 'error en la conexion en la base de datos'}]
-
-        return dict_return
+            return {"error": "unknown error, check values given", "code": 404}
 
     def select_game(self, id) -> dict | None:
         sql = f"SELECT * FROM {self.__tables["games"]} WHERE id = {id}"
@@ -38,19 +42,19 @@ class Games:
             cursor.execute(sql)
             dict_return = cursor.fetchall()
             cursor.close()
-        except mysql.connector.Error as error:
-            print(f'\033[91mError get games {id}: {error.msg}')
-            return [{'error': 'error en la conexion en la base de datos'}]
+        except mysql.connector.Error:
+            return {'error': 'unknown error, check values given'}
 
         if len(dict_return) != 0:
             dict_return = dict_return[0]
             dict_return["genders"] = self.__get_genders(id)
             dict_return["plataforms"] = self.__get_plataforms(id)
             dict_return["comments"] = self.__get_comments(id)
-        else:
-            return {}
 
-        return dict_return
+            return dict_return
+        else:
+            return {"error": "game not found", "code": 403}
+
 
     def __get_genders(self, id) -> str:
         sql = (f"SELECT name_gender FROM {self.__tables["type_genders"]} " 

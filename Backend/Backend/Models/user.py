@@ -86,9 +86,9 @@ class User:
                 else:
                     return {"error": "Unknown error, try again", "code": 400}
             else:
-                return {"error": "Email not found", "code": 404}
+                return {"error": "Email not found", "code": 403}
         except argon2.exceptions.VerifyMismatchError:
-            return {"error": "Incorrect password or email", "code": 404}
+            return {"error": "Incorrect password or email", "code": 403}
         except Exception as e:
             return {"error": "Unknown error", "code": 400}
 

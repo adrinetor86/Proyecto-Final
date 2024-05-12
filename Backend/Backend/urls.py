@@ -16,14 +16,15 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path
-from Backend.views import games, game, login, register, child_comments
+from Backend.views import games, game, login, register, child_comments, error_url
 
 urlpatterns = [
     path('admin/', admin.site.urls),
+    path('login/', login, name='login'),
     path('api/v1/games/', games, name='games'),
     path('api/v1/games/<page>/', games, name='games'),
+    path('api/v1/game/', error_url, name='error'),
     path('api/v1/game/<id>/', game, name='game'),
-    path('login/', login, name='login'),
     path('register/', register, name='register'),
     path('comment/<id_game>/<id_comment>/', child_comments, name='child_comments'),
     path('comment/<id_game>/<id_comment>/<offset>/', child_comments, name='child_comments_offset'), #cargar mas comentarios
