@@ -30,3 +30,7 @@ api/v1/games/<page>/ -> saca los juegos de la pagina que se indique.
 api/v1/game/<id>/ -> Saca toda la informacion de un juego especifico.
 login/ -> url para confirmar usuario y contraseña
 register/ -> Envia datos para loguear usuario
+
+*************************** OBTENER BASE DE DATOS ***************************************************
+cd .\Backend\
+python .\update_database.py

@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 28-04-2024 a las 23:46:50
+-- Tiempo de generación: 12-05-2024 a las 07:07:33
 -- Versión del servidor: 10.4.28-MariaDB
 -- Versión de PHP: 8.2.4
 
@@ -44,16 +44,6 @@ CREATE TABLE IF NOT EXISTS `comments` (
 ) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
--- RELACIONES PARA LA TABLA `comments`:
---   `user`
---       `users` -> `username`
---   `id_game`
---       `games` -> `id`
---   `parent_comment`
---       `comments` -> `id_comment`
---
-
---
 -- Truncar tablas antes de insertar `comments`
 --
 
@@ -83,13 +73,10 @@ CREATE TABLE IF NOT EXISTS `games` (
   `link_download` varchar(200) NOT NULL,
   `link_trailer` varchar(200) DEFAULT NULL,
   `release_date` date DEFAULT NULL,
+  `front_page` longtext DEFAULT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `title` (`title`)
 ) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-
---
--- RELACIONES PARA LA TABLA `games`:
---
 
 --
 -- Truncar tablas antes de insertar `games`
@@ -100,10 +87,10 @@ TRUNCATE TABLE `games`;
 -- Volcado de datos para la tabla `games`
 --
 
-INSERT INTO `games` (`id`, `title`, `synopsis`, `developer`, `link_download`, `link_trailer`, `release_date`) VALUES
-(1, 'Genshin Impact', 'Genshin Impact tiene lugar en el mundo de fantasía de Teyvat, hogar de siete naciones, cada una de las cuales está ligada a un elemento diferente y gobernada por un dios (arconte) diferente. La historia sigue a The Traveller, un aventurero interestelar que, al comienzo del juego, se separa de su hermano gemelo después de que los dos aterrizan en Teyvat. A partir de entonces, el Viajero viaja a través de las naciones de Teyvat en busca del hermano perdido, acompañado por su guía, Paimon . En el camino, los dos se hacen amigos de innumerables personas, se involucran en los asuntos de sus naciones y comienzan a desentrañar los misterios de la tierra.', 'miHoYo', 'https://genshin.hoyoverse.com/es/company/about', 'https://www.youtube.com/watch?v=TAlKhARUcoY&ab_channel=GenshinImpact', '2020-09-28'),
-(2, 'The Forest', 'The Forest es un videojuego de terror y supervivencia desarrollado y publicado por Endnight Games. El juego se desarrolla en una remota península densamente boscosa, donde el personaje del jugador Eric LeBlanc debe luchar contra monstruos caníbales, mientras busca a su hijo Timmy después de un accidente aéreo.', 'Endnight Games Ltd', 'https://store.steampowered.com/agecheck/app/242760/?l=spanish', 'https://www.youtube.com/watch?v=7mwn5U2PNvk&ab_channel=GameSpot', '2014-05-30'),
-(3, 'Subnautica', 'Desciende a las profundidades de un mundo submarino alienígena lleno de belleza y peligros. Crea equipamiento, pilota submarinos, terraforma el terreno, y burla los peligros para explorar exhuberantes arrecifes de coral, volcanes, sistemas de cuevas y más - Todo mientras intentas sobrevivir.', 'Unknown Worlds Entertainment', 'https://store.steampowered.com/app/264710/Subnautica/?l=spanish', 'https://www.youtube.com/watch?v=_7BzngvURrk&ab_channel=Subnautica', '2018-01-23');
+INSERT INTO `games` (`id`, `title`, `synopsis`, `developer`, `link_download`, `link_trailer`, `release_date`, `front_page`) VALUES
+(1, 'Genshin Impact', 'Genshin Impact tiene lugar en el mundo de fantasÃ­a de Teyvat, hogar de siete naciones, cada una de las cuales estÃ¡ ligada a un elemento diferente y gobernada por un dios (arconte) diferente. La historia sigue a The Traveller, un aventurero interestelar que, al comienzo del juego, se separa de su hermano gemelo despuÃ©s de que los dos aterrizan en Teyvat. A partir de entonces, el Viajero viaja a travÃ©s de las naciones de Teyvat en busca del hermano perdido, acompaÃ±ado por su guÃ­a, Paimon . En el camino, los dos se hacen amigos de innumerables personas, se involucran en los asuntos de sus naciones y comienzan a desentraÃ±ar los misterios de la tierra.', 'miHoYo', 'https://genshin.hoyoverse.com/es/company/about', 'https://www.youtube.com/watch?v=TAlKhARUcoY&ab_channel=GenshinImpact', '2020-09-28', NULL),
+(2, 'The Forest', 'The Forest es un videojuego de terror y supervivencia desarrollado y publicado por Endnight Games. El juego se desarrolla en una remota penÃ­nsula densamente boscosa, donde el personaje del jugador Eric LeBlanc debe luchar contra monstruos canÃ­bales, mientras busca a su hijo Timmy despuÃ©s de un accidente aÃ©reo.', 'Endnight Games Ltd', 'https://store.steampowered.com/agecheck/app/242760/?l=spanish', 'https://www.youtube.com/watch?v=7mwn5U2PNvk&ab_channel=GameSpot', '2014-05-30', NULL),
+(3, 'Subnautica', 'Desciende a las profundidades de un mundo submarino alienÃ­gena lleno de belleza y peligros. Crea equipamiento, pilota submarinos, terraforma el terreno, y burla los peligros para explorar exhuberantes arrecifes de coral, volcanes, sistemas de cuevas y mÃ¡s - Todo mientras intentas sobrevivir.', 'Unknown Worlds Entertainment', 'https://store.steampowered.com/app/264710/Subnautica/?l=spanish', 'https://www.youtube.com/watch?v=_7BzngvURrk&ab_channel=Subnautica', '2018-01-23', NULL);
 
 -- --------------------------------------------------------
 
@@ -118,14 +105,6 @@ CREATE TABLE IF NOT EXISTS `games_genders` (
   PRIMARY KEY (`id_gender`,`id_game`),
   KEY `id_game` (`id_game`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-
---
--- RELACIONES PARA LA TABLA `games_genders`:
---   `id_gender`
---       `type_genders` -> `id_type_gender`
---   `id_game`
---       `games` -> `id`
---
 
 --
 -- Truncar tablas antes de insertar `games_genders`
@@ -158,12 +137,6 @@ CREATE TABLE IF NOT EXISTS `games_maps` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
--- RELACIONES PARA LA TABLA `games_maps`:
---   `id_game`
---       `games` -> `id`
---
-
---
 -- Truncar tablas antes de insertar `games_maps`
 --
 
@@ -181,14 +154,6 @@ CREATE TABLE IF NOT EXISTS `games_plataforms` (
   PRIMARY KEY (`id_plataform`,`id_game`),
   KEY `id_game` (`id_game`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-
---
--- RELACIONES PARA LA TABLA `games_plataforms`:
---   `id_plataform`
---       `type_plataform` -> `id_type_plataform`
---   `id_game`
---       `games` -> `id`
---
 
 --
 -- Truncar tablas antes de insertar `games_plataforms`
@@ -221,14 +186,6 @@ CREATE TABLE IF NOT EXISTS `log_actions` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
--- RELACIONES PARA LA TABLA `log_actions`:
---   `id_log_action`
---       `type_actions` -> `id_type_actions`
---   `user`
---       `users` -> `username`
---
-
---
 -- Truncar tablas antes de insertar `log_actions`
 --
 
@@ -252,11 +209,7 @@ CREATE TABLE IF NOT EXISTS `rols` (
   `type_rol` varchar(15) NOT NULL,
   PRIMARY KEY (`id_rol`),
   UNIQUE KEY `type_rol` (`type_rol`)
-) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-
---
--- RELACIONES PARA LA TABLA `rols`:
---
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Truncar tablas antes de insertar `rols`
@@ -287,10 +240,6 @@ CREATE TABLE IF NOT EXISTS `type_actions` (
 ) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
--- RELACIONES PARA LA TABLA `type_actions`:
---
-
---
 -- Truncar tablas antes de insertar `type_actions`
 --
 
@@ -318,10 +267,6 @@ CREATE TABLE IF NOT EXISTS `type_genders` (
 ) ENGINE=InnoDB AUTO_INCREMENT=16 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
--- RELACIONES PARA LA TABLA `type_genders`:
---
-
---
 -- Truncar tablas antes de insertar `type_genders`
 --
 
@@ -331,16 +276,16 @@ TRUNCATE TABLE `type_genders`;
 --
 
 INSERT INTO `type_genders` (`id_type_gender`, `name_gender`) VALUES
-(1, 'Fantástico'),
+(1, 'Fantastico'),
 (2, 'RPG'),
-(3, 'Animación'),
+(3, 'Animacion'),
 (4, 'Supervivencia'),
 (5, 'Aventura'),
-(6, 'Acción'),
+(6, 'Accion'),
 (7, 'Arcade'),
 (8, 'Deportes'),
 (9, 'Estrategia'),
-(10, 'Simulación'),
+(10, 'Simulacion'),
 (11, 'Juegos de mesa'),
 (12, 'Shooter'),
 (13, 'Terror'),
@@ -358,11 +303,7 @@ CREATE TABLE IF NOT EXISTS `type_plataform` (
   `id_type_plataform` int(2) NOT NULL AUTO_INCREMENT,
   `name_plataform` varchar(50) DEFAULT NULL,
   PRIMARY KEY (`id_type_plataform`)
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-
---
--- RELACIONES PARA LA TABLA `type_plataform`:
---
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Truncar tablas antes de insertar `type_plataform`
@@ -376,7 +317,8 @@ TRUNCATE TABLE `type_plataform`;
 INSERT INTO `type_plataform` (`id_type_plataform`, `name_plataform`) VALUES
 (1, 'Play Station'),
 (2, 'XBOX'),
-(3, 'PC');
+(3, 'PC'),
+(4, 'Nintendo');
 
 -- --------------------------------------------------------
 
@@ -388,19 +330,13 @@ DROP TABLE IF EXISTS `users`;
 CREATE TABLE IF NOT EXISTS `users` (
   `email` varchar(100) NOT NULL,
   `username` varchar(15) DEFAULT NULL,
-  `password` varchar(20) NOT NULL,
+  `password` text NOT NULL,
   `date_creation` date DEFAULT NULL,
   `rol_user` int(11) DEFAULT NULL,
   PRIMARY KEY (`email`),
   UNIQUE KEY `username` (`username`),
   KEY `rol_user` (`rol_user`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-
---
--- RELACIONES PARA LA TABLA `users`:
---   `rol_user`
---       `rols` -> `id_rol`
---
 
 --
 -- Truncar tablas antes de insertar `users`
@@ -412,6 +348,7 @@ TRUNCATE TABLE `users`;
 --
 
 INSERT INTO `users` (`email`, `username`, `password`, `date_creation`, `rol_user`) VALUES
+('JacketKawaii@gmail.com', 'Jack_uwu', 'Jacket1234', '2024-05-12', 2),
 ('Nahuelhidalgo1204@gmail.com', 'Darling1204', 'Nahuel123456', '2024-04-20', 1),
 ('usuariorandom@gmail.com', 'random1234', 'random1234', '2024-04-20', 3);
 
