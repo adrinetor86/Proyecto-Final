@@ -4,6 +4,11 @@ export interface Juego {
     id: number;
 }
 
+export interface juegoMain{
+  id:number;
+  title:string;
+  release_date:string;
+}
 export interface JuegoPrueba {
   id:0;
   title:string;

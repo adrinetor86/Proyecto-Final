@@ -25,8 +25,7 @@ export class ValidService {
     const body = new HttpParams()
     .set('email', email)
     .set('password', password);
-    console.log("dwwdwd");
-    // return this.httpClient.get("http://127.0.0.1:8000/login/", { headers, body });
+
     return this.httpClient.post("http://127.0.0.1:8000/login/", body.toString(), { headers });
   }
 

@@ -26,6 +26,8 @@ import {SplitButtonModule} from "primeng/splitbutton";
 import { NewAccountComponent } from "./login/new-account/new-account.component";
 import { ForgottenPasswordComponent } from './login/forgotten-password/forgotten-password.component';
 import { FooterComponent } from './footer/footer.component';
+import { BuscadorComponent } from './main-page/buscador/buscador.component';
+import { PaginadoComponent } from './main-page/paginado/paginado.component';
 
 @NgModule({
   declarations: [
@@ -37,7 +39,9 @@ import { FooterComponent } from './footer/footer.component';
     HeaderComponent,
     NewAccountComponent,
     ForgottenPasswordComponent,
-    FooterComponent
+    FooterComponent,
+    BuscadorComponent,
+    PaginadoComponent
   ],
   imports: [
     BrowserModule,

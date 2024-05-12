@@ -1,11 +1,17 @@
 import { Injectable } from '@angular/core';
-import {Juego} from "../interfaces/juego";
+import {Juego, juegoMain} from "../interfaces/juego";
+import {Observable, Subscription, timeout} from "rxjs";
+import {HttpClient, HttpParams} from "@angular/common/http";
 
 @Injectable({
   providedIn: 'root'
 })
 export class JuegosService {
   // indico que es un objeto de tipo Juego
+  peticionHttp : HttpClient;
+  pruebaDatos: any;
+  suscripcion: Subscription;
+
   games:Juego[] = [
     { title: 'Zelda Breath of the Wild', url: 'https://assets.nintendo.com/image/upload/ar_16:9,b_auto:border,c_lpad/b_white/f_auto/q_auto/dpr_1.5/ncom/software/switch/70010000000025/7137262b5a64d921e193653f8aa0b722925abc5680380ca0e18a5cfd91697f58', id: 1 },
     { title: 'Mario Oddysey', url: 'https://assets.nintendo.com/image/upload/f_auto/q_auto/dpr_1.5/ncom/software/switch/70010000001130/c42553b4fd0312c31e70ec7468c6c9bccd739f340152925b9600631f2d29f8b5', id: 2 },
@@ -16,12 +22,41 @@ export class JuegosService {
     { title: 'Valorant', url: 'https://e00-elmundo.uecdn.es/assets/multimedia/imagenes/2021/06/03/16227169457277.jpg',id: 7 },
     { title: 'ARK', url: 'https://cloudfront-us-east-1.images.arcpublishing.com/copesa/LGKRJHVJTJGLHF4HJPR7K576WM.jpg', id: 8 },
     { title: 'GTA 5', url: 'https://www.allkeyshop.com/blog/wp-content/uploads/GTA-5-Game-Pass.webp',id: 9 },
-
-
   ];
 
 
-  constructor() { }
+  gamesPrueba:juegoMain[] = [];
+  private counter=0;
+
+  constructor(private http: HttpClient) { }
+
+  getJuegosApi():Observable<juegoMain[]> {
+
+    return this.http.get<juegoMain[]>("http://127.0.0.1:8000/api/v1/games/");
+      // this.suscripcion=
+      // this.http.get("http://127.0.0.1:8000/api/v1/games/").subscribe(JuegosRecibidos => {
+      //
+      //   for (let game of JuegosRecibidos['games']){
+      //     this.gamesPrueba.push(game);
+      //   }
+      //   console.log('JuegosPrueba')
+      //   // console.log(this.gamesPrueba)
+      //
+      //   setInterval(() => {
+      //     this.counter++;
+      //     console.log(this.counter);
+      //   }, 1000);
+    // });
+    //
+    //
+    // return this.gamesPrueba;
+
+  }
+
+  cerrarConexion(){
+    this.suscripcion.unsubscribe();
+  }
+
 
   getJuegobyId(id: number):Juego {
     console.log('Entra')

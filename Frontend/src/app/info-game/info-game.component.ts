@@ -26,7 +26,7 @@ export class InfoGameComponent implements OnInit,OnDestroy{
     genders:'',
     plataforms:'',
     }
-
+  respuestaError: boolean;
   subcripcion:Subscription;
   suscripcionPrueba: Subscription;
   seeMore = false;
@@ -37,6 +37,7 @@ export class InfoGameComponent implements OnInit,OnDestroy{
   constructor(private route: ActivatedRoute,private juegoservice:JuegosService, private http: HttpClient ) { }
 
   ngOnInit(): void {
+    this.respuestaError= false;
     this.subcripcion=
      this.route.params.subscribe(params => {
         this.juego = this.juegoservice.getJuegobyId(parseInt(params['id']))
@@ -45,11 +46,21 @@ export class InfoGameComponent implements OnInit,OnDestroy{
     this.suscripcionPrueba=
       this.route.params.subscribe(params => {
         this.http.get('http://127.0.0.1:8000/api/v1/game/'+parseInt(params['id'])+'/').subscribe(JuegoRecibido => {
-          console.log(JuegoRecibido);
-          this.juegoPrueba= JuegoRecibido['game'];
-          this.searchDot = this.juegoPrueba.synopsis.indexOf('.')
-      })
+          console.log(JuegoRecibido)
 
+          if(!JuegoRecibido['error']){
+            this.juegoPrueba = JuegoRecibido as JuegoPrueba;
+            this.searchDot = this.juegoPrueba.synopsis.indexOf('.')
+          }else{
+            this.juegoPrueba = JuegoRecibido['error']['error'];
+            console.log("ERRORRRR")
+            console.log(this.juegoPrueba);
+          }
+      },error => {
+        this.respuestaError= true;
+        console.log(error['error']['error']);
+
+        });
      });
   }
   lookFullSynopsis(){
