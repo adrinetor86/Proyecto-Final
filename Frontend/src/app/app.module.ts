@@ -28,6 +28,7 @@ import { ForgottenPasswordComponent } from './login/forgotten-password/forgotten
 import { FooterComponent } from './footer/footer.component';
 import { BuscadorComponent } from './main-page/buscador/buscador.component';
 import { PaginadoComponent } from './main-page/paginado/paginado.component';
+import {NgxPaginationModule} from 'ngx-pagination';
 
 @NgModule({
   declarations: [
@@ -64,7 +65,8 @@ import { PaginadoComponent } from './main-page/paginado/paginado.component';
     RadioButtonModule,
     DropdownModule,
     ButtonModule,
-    SplitButtonModule
+    SplitButtonModule,
+    NgxPaginationModule
   ],
   providers: [],
   bootstrap: [AppComponent]

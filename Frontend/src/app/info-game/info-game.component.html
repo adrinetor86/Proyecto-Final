@@ -40,45 +40,76 @@
 
 
 
-@if(respuestaError == false){
+<!--@if(respuestaError == false){-->
+
+<!--<div class="container-info-juego">-->
+
+<!--<div class="juego">-->
+
+
+<!--<div class="contenedor-foto">-->
+
+
+<!--  <img *ngif(juego.url !=undefined) src="{{juego.url}}">-->
+
+<!--</div>-->
+
+<!--<div class="datos-juego" >-->
+
+<!--<p><b>Juego: </b>{{juegoPrueba.title}}</p>-->
+<!--<p><b>Plataformas: </b>{{juegoPrueba.plataforms}}</p>-->
+<!--<p><b>Desarrollador: </b>{{juegoPrueba.developer}}</p>-->
+
+<!--&lt;!&ndash;  <div>&ndash;&gt;-->
+<!--&lt;!&ndash;    <p>&ndash;&gt;-->
+<!--&lt;!&ndash;      {{seeMore ? juegoPrueba.synopsis:(juegoPrueba.synopsis | slice:0:searchDot+1)}}&ndash;&gt;-->
+<!--&lt;!&ndash;    </p>&ndash;&gt;-->
+<!--&lt;!&ndash;    <button (click)="lookFullSynopsis()">{{seeMore ? seeLess : seeMoreButton}}</button>&ndash;&gt;-->
+<!--&lt;!&ndash;  </div>&ndash;&gt;-->
+
+<!--</div>-->
+
+<!--  <div class="sinopsis">-->
+<!--      <b>Sinopsis: </b>-->
+<!--      {{juegoPrueba.synopsis}}-->
+<!--  </div>-->
+
+<!--</div>-->
+
+
+<!--</div>-->
+
+
+<!--}@else{-->
+<!--<h2>El título no existe</h2>-->
+<!--}-->
 
 <div class="container-info-juego">
+  <div class="container">
 
-<div class="juego">
+    <div class="Foto">
+      <img class="imagen-portada" [src]="juego.url" alt="No se encontro la imagen">
+<!--      <img *ngif(juego.url !=undefined) src="{{juego.url}}">-->
+    </div>
+    <div class="Informacion">
+        <p><b>Juego: </b>{{juegoPrueba.title}}</p><br>
+        <p><b>Plataformas: </b>{{juegoPrueba.plataforms}}</p><br>
+        <p><b>Desarrollador: </b>{{juegoPrueba.developer}}</p><br>
+        <p><b>Fecha Salida: </b>Fecha Salida</p><br>
+        <p><b>Link Trailer: </b>Link Trailer</p><br>
+        <p><b>Link-Descarga: </b>Link Descarga</p><br>
+    </div>
+    <div class="Mapas">
+      CARUSEL MAPAS
+    </div>
+    <div class="Sinopsis">
+      <b>Sinopsis: </b>
+<!--      PONERLO FUERA DE LA CAJA (SINOPSIS)-->
+          {{juegoPrueba.synopsis}}
+    </div>
+    <div class="Comentarios">COMENTARIOS</div>
 
 
-<div class="contenedor-foto">
 
-<img src="{{juego.url}}">
-
-</div>
-
-<div class="datos-juego" >
-
-<p><b>Juego: </b>{{juegoPrueba.title}}</p>
-<p><b>Plataformas: </b>{{juegoPrueba.plataforms}}</p>
-<p><b>Desarrollador: </b>{{juegoPrueba.developer}}</p>
-<b>Sinopsis: </b>
-  <div>
-    <p>
-      {{seeMore ? juegoPrueba.synopsis:(juegoPrueba.synopsis | slice:0:searchDot+1)}}
-    </p>
-    <button (click)="lookFullSynopsis()">{{seeMore ? seeLess : seeMoreButton}}</button>
   </div>
-
-
-
-
-
 </div>
-
-
-</div>
-
-
-</div>
-
-
-}@else{
-<h2>El título no existe</h2>
-}

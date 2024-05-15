@@ -43,6 +43,7 @@ export class InfoGameComponent implements OnInit,OnDestroy{
         this.juego = this.juegoservice.getJuegobyId(parseInt(params['id']))
 
        })
+
     this.suscripcionPrueba=
       this.route.params.subscribe(params => {
         this.http.get('http://127.0.0.1:8000/api/v1/game/'+parseInt(params['id'])+'/').subscribe(JuegoRecibido => {
