@@ -18,8 +18,6 @@ def games(request, page='1'):
                 code = response.get("code", 400)
 
                 return JsonResponse({"error": error}, status=code)
-
-            return JsonResponse(data, status=200)
         else:
             return JsonResponse({"Error": "Invalid page"}, status=400)
     else:
@@ -95,3 +93,44 @@ def child_comments(request, id_game, id_comment, offset = 0):
 
 def error_url(request):
     return JsonResponse({"error": "Page not found, check url"}, status=404)
+
+def confirm_exist_user(request):
+    if request.method == 'POST':
+        controller = ControllerUser(email=request.POST.get("email", ""))
+        response = controller.confirm_exist_user()
+
+        if response.get("success", "") != "":
+            return JsonResponse({response.get("success", "")}, status=200)
+        else:
+            return JsonResponse({response.get("error", "")}, status=response.get("code", ""))
+    else:
+        return JsonResponse({"error": "Bad Request"}, status=405)
+
+def confirm_code(request):
+    if request.method == 'POST':
+        controller = ControllerUser(email=request.POST.get("email", ""))
+        code = request.POST.get("code", "")
+        if controller.confirm_code(code):
+            token = create_token(request.POST.get("email", ""), "")
+            return JsonResponse({"success": "Correct code", "token": token}, status=200)
+        else:
+            return JsonResponse({"error": "Incorrect code or expired code"}, status=400)
+    else:
+        return JsonResponse({"error": "Bad Request"}, status=405)
+
+def change_password(request):
+    if request.method == 'POST':
+        authorization_token = request.headers.get('Authorization', "")
+        response_token = decode_token(authorization_token)
+        if response_token.get("success", "") != "":
+            controller = ControllerUser(email=request.POST.get("email", ""), password=request.POST.get("new_password", ""))
+            response = controller.change_password()
+
+            if response.get("success", "") != "":
+                return JsonResponse({response.get("success", "")}, status=200)
+            else:
+                return JsonResponse({response.get("error", "")}, status=response.get("code", ""))
+        else:
+            return JsonResponse({response_token.get("error", "")}, status=response_token.get("code", ""))
+    else:
+        return JsonResponse({"error": "Bad Request"}, status=405)
