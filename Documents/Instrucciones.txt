@@ -30,6 +30,9 @@ api/v1/games/<page>/ -> saca los juegos de la pagina que se indique.
 api/v1/game/<id>/ -> Saca toda la informacion de un juego especifico.
 login/ -> url para confirmar usuario y contraseña
 register/ -> Envia datos para loguear usuario
+confirm_user/ -> Necesita por POST email como "email" y confirma si existe el email para cambiar contraseña
+confirm_code/ -> Necesita por POST el email como "email" y el codigo enviado al usuario por correo como "code" y verifica si existe
+change_password/ -> Necesita por POST token enviado en url anterior, el email como "email" y la nueva contraseña como "new_password"
 
 *************************** OBTENER BASE DE DATOS ***************************************************
 cd .\Backend\
