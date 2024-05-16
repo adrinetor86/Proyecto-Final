@@ -85,7 +85,7 @@ def register(request):
 #DEBERE PASAR UN COUNT DE LOS COMENTARIOS QUE HAYA, SI ES INFERIOR A 10 EN EL
 #FRONT NO DEBERA INDICAR "MOSTRAR MAS COMENTARIOS", YA QUE NO QUEDAN MAS.
 @csrf_exempt
-def child_comments(request, id_game, id_comment, offset = 0):
+def child_comments(request, id_game, id_comment, offset=0):
     controller = ControllerGames()
     data = controller.child_comments(id_game, id_comment, offset)
 
@@ -94,43 +94,54 @@ def child_comments(request, id_game, id_comment, offset = 0):
 def error_url(request):
     return JsonResponse({"error": "Page not found, check url"}, status=404)
 
+@csrf_exempt
 def confirm_exist_user(request):
     if request.method == 'POST':
         controller = ControllerUser(email=request.POST.get("email", ""))
         response = controller.confirm_exist_user()
 
         if response.get("success", "") != "":
-            return JsonResponse({response.get("success", "")}, status=200)
+            return JsonResponse({"success": response.get("success", "")}, status=200)
         else:
-            return JsonResponse({response.get("error", "")}, status=response.get("code", ""))
+            error = response.get("error", "Unknown error")
+            code = response.get("code", 400)
+            return JsonResponse({"error": error}, status=code)
     else:
         return JsonResponse({"error": "Bad Request"}, status=405)
 
+@csrf_exempt
 def confirm_code(request):
     if request.method == 'POST':
-        controller = ControllerUser(email=request.POST.get("email", ""))
-        code = request.POST.get("code", "")
-        if controller.confirm_code(code):
-            token = create_token(request.POST.get("email", ""), "")
-            return JsonResponse({"success": "Correct code", "token": token}, status=200)
+        if request.POST.get("email", "") != "":
+            controller = ControllerUser(email=request.POST.get("email", ""))
+            code = request.POST.get("code", "")
+            if controller.confirm_code(code):
+                token = create_token(request.POST.get("email", ""), "")
+                return JsonResponse({"success": "Correct code", "token": token}, status=200)
+            else:
+                return JsonResponse({"error": "Incorrect code or expired code"}, status=400)
         else:
-            return JsonResponse({"error": "Incorrect code or expired code"}, status=400)
+            return JsonResponse({"error": "email is void"}, status=409)
     else:
         return JsonResponse({"error": "Bad Request"}, status=405)
 
+@csrf_exempt
 def change_password(request):
     if request.method == 'POST':
-        authorization_token = request.headers.get('Authorization', "")
-        response_token = decode_token(authorization_token)
-        if response_token.get("success", "") != "":
-            controller = ControllerUser(email=request.POST.get("email", ""), password=request.POST.get("new_password", ""))
-            response = controller.change_password()
+        if request.POST.get("email", "") != "":
+            authorization_token = request.headers.get("Authorization", "")
+            response_token = decode_token(authorization_token)
+            if response_token.get("success", "") != "":
+                controller = ControllerUser(email=request.POST.get("email", ""), password=request.POST.get("new_password", ""))
+                response = controller.change_password()
 
-            if response.get("success", "") != "":
-                return JsonResponse({response.get("success", "")}, status=200)
+                if response.get("success", "") != "":
+                    return JsonResponse({"success": response.get("success", "")}, status=200)
+                else:
+                    return JsonResponse({"error": response.get("error", "")}, status=response.get("code", ""))
             else:
-                return JsonResponse({response.get("error", "")}, status=response.get("code", ""))
+                return JsonResponse({"error": response_token.get("error", "Unknown error")}, status=response_token.get("code", 400))
         else:
-            return JsonResponse({response_token.get("error", "")}, status=response_token.get("code", ""))
+            return JsonResponse({"error": "email is void"}, status=409)
     else:
         return JsonResponse({"error": "Bad Request"}, status=405)

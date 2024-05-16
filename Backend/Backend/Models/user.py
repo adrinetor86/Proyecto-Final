@@ -73,6 +73,7 @@ class User:
 
             if len(dict_return) != 0:
                 code = self.__create_code(email)
+                print("el codigo es: " + str(code))
                 if code != 0:
                     if self.__send_email(email, code):
                         return {"success": "This email exist", "code": 200}
@@ -116,7 +117,7 @@ class User:
     def __create_code(self, email):
         code = random.randint(10000, 99999)
 
-        sql = f"INSERT INTO {self.__tables["codes"]} VALUES ('{email}', {code})"
+        sql = f"INSERT INTO {self.__tables["codes"]} (email, code) VALUES ('{email}', {code})"
 
         try:
             cursor = self.__connection.cursor()
@@ -135,7 +136,7 @@ class User:
 
         # Información de inicio de sesión en el servidor SMTP
         sender_email = 'antobsgames@gmail.com'
-        password = 'malditojacket123'
+        password = 'g v d d b x a pe w v z x g p r'
 
         # Crear objeto mensaje
         mensaje = MIMEMultipart()
@@ -144,8 +145,47 @@ class User:
         mensaje['Subject'] = 'Account confirmation code'
 
         # Cuerpo del correo
-        cuerpo = f'Tu codigo para {email} es: {code}'
-        mensaje.attach(MIMEText(cuerpo, 'plain'))
+        cuerpo = (f"<head>"
+            f"    <title>Confirmación de Código de Verificación</title>"
+            f"    <style>"
+            f"        *{{"
+            f"            margin: 0;"
+            f"        }}"
+            f"       body{{"
+            f"            height: 100vh;"
+            f"            display: flex;"
+            f"            flex-flow: column;"
+            f"            justify-content: center;"
+            f"            align-items: center;"
+            f"            background-image: url('Backend/Images/fondo4.jpg');"
+            f"            background-size: cover;"
+            f"            background-repeat: no-repeat;"
+            f"            background-position: bottom;"
+            f"        }}"
+            f"        p{{"
+            f"            font-weight: bold;"
+            f"        }}"
+            f"        p{{"
+            f"            margin: 2% 0 2% 0;"
+            f"            text-align: center;"
+            f"        }}"
+            f"        #code{{"
+            f"            font-size: larger;"
+            f"            align-items: center;"
+            f"            color: rgb(211, 175, 81);"
+            f"        }}"
+            f"    </style>"
+            f"</head>"
+            f"<body>"
+            f"    <p>Estimado {email},</p>"
+            f"    <p>Para completar el proceso de verificación de tu cuenta, requerimos que ingreses el código de verificación proporcionado a continuación:</p>"
+            f"    <p id='code'>{code}</p>"
+            f"    <p>Por favor, asegúrate de introducir este código en la plataforma correspondiente para validar tu cuenta de manera efectiva.</p>"
+            f"    <p>Si tienes alguna pregunta o necesitas asistencia adicional, no dudes en ponerte en contacto con nuestro equipo de soporte. Estamos aquí para ayudarte en cualquier momento.</p>"
+            f"    <p><strong>Antobs Company</strong></p>"
+            f"    <p>{sender_email}</p>"
+            f"</body>")
+        mensaje.attach(MIMEText(cuerpo, 'html'))
 
         # Iniciar sesión en el servidor SMTP y enviar el correo
         try:

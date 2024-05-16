@@ -10,20 +10,19 @@ class ControllerUser:
             self.__username = username
             self.__password = password
             self.__rol = rol
+            self.__user_model = User()
 
     def register(self):
         print(f"Email: {self.__email}")
         print(f"Username: {self.__username}")
         print(f"Password: {self.__password}")
         if validator.validate_email(self.__email) and validator.validate_username(self.__username) and validator.validate_password(self.__password):
-            self.__user_model = User()
 
             return self.__user_model.insert_user(self.__email, self.__username, self.__password, self.__rol)
         else:
             return {"error": "Void or incorrect fields", "code": 409}
 
     def login(self):
-        self.__user_model = User()
         return self.__user_model.confirm_user(self.__email.lower(), self.__password)
 
     def confirm_exist_user(self):

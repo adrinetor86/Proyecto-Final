@@ -1,0 +1,39 @@
+<head>
+    <title>Confirmación de Código de Verificación</title>
+    <style>
+        *{
+            margin: 0;
+        }
+        body{
+            height: 100vh;
+            display: flex;
+            flex-flow: column;
+            justify-content: center;
+            align-items: center;
+            background-image: url(./fondo4.jpg);
+            background-size: cover;
+            background-repeat: no-repeat;
+            background-position: bottom;
+        }
+        p, h2{
+            color: white;
+            font-weight: bold;
+        }
+        p{
+            margin: 2% 0 2% 0;
+            text-align: center;
+        }
+        h2{
+            color: rgb(211, 175, 81);
+        }
+    </style>
+</head>
+<body>
+    <p>Estimado {email},</p>
+    <p>Para completar el proceso de verificación de tu cuenta, requerimos que ingreses el código de verificación proporcionado a continuación:</p>
+    <h2>{code}</h2>
+    <p>Por favor, asegúrate de introducir este código en la plataforma correspondiente para validar tu cuenta de manera efectiva.</p>
+    <p>Si tienes alguna pregunta o necesitas asistencia adicional, no dudes en ponerte en contacto con nuestro equipo de soporte. Estamos aquí para ayudarte en cualquier momento.</p>
+    <p><strong>Antobs Company</strong></p>
+    <p>{sender_email}</p>
+</body>
