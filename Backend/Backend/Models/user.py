@@ -65,6 +65,8 @@ class User:
     def confirm_exist_user(self, email):
         sql = f"SELECT email FROM {self.__tables["users"]} WHERE email = '{email}'"
 
+        print("el email que llega es:" + email)
+
         try:
             cursor = self.__connection.cursor(dictionary=True)
             cursor.execute(sql)
@@ -73,7 +75,6 @@ class User:
 
             if len(dict_return) != 0:
                 code = self.__create_code(email)
-                print("el codigo es: " + str(code))
                 if code != 0:
                     if self.__send_email(email, code):
                         return {"success": "This email exist", "code": 200}
@@ -82,7 +83,7 @@ class User:
                 else:
                     return {"error": "unknown error when generating code", "code": 400}
             else:
-                return {"success": "This email not exist", "code": 400}
+                return {"error": "This email not exist", "code": 400}
         except mysql.connector.Error:
             return {"error": "Unknown error, try again", "code": 400}
 
@@ -97,8 +98,10 @@ class User:
         except mysql.connector.Error:
             return False
 
+        print(dict_return)
+
         if len(dict_return) != 0:
-            return dict_return[0]["code"] == code
+            return str(dict_return[0]["code"]) == code
         else:
             return False
 
@@ -110,6 +113,7 @@ class User:
             cursor.execute(sql)
             cursor.close()
             self.__connection.commit()
+
             return {"success": "password changed successfully", "code": 200}
         except mysql.connector.Error:
             return {"error": "Unknown error, try again", "code": 400}
@@ -145,46 +149,48 @@ class User:
         mensaje['Subject'] = 'Account confirmation code'
 
         # Cuerpo del correo
-        cuerpo = (f"<head>"
-            f"    <title>Confirmación de Código de Verificación</title>"
-            f"    <style>"
-            f"        *{{"
-            f"            margin: 0;"
-            f"        }}"
-            f"       body{{"
-            f"            height: 100vh;"
-            f"            display: flex;"
-            f"            flex-flow: column;"
-            f"            justify-content: center;"
-            f"            align-items: center;"
-            f"            background-image: url('Backend/Images/fondo4.jpg');"
-            f"            background-size: cover;"
-            f"            background-repeat: no-repeat;"
-            f"            background-position: bottom;"
-            f"        }}"
-            f"        p{{"
-            f"            font-weight: bold;"
-            f"        }}"
-            f"        p{{"
-            f"            margin: 2% 0 2% 0;"
-            f"            text-align: center;"
-            f"        }}"
-            f"        #code{{"
-            f"            font-size: larger;"
-            f"            align-items: center;"
-            f"            color: rgb(211, 175, 81);"
-            f"        }}"
-            f"    </style>"
-            f"</head>"
-            f"<body>"
-            f"    <p>Estimado {email},</p>"
-            f"    <p>Para completar el proceso de verificación de tu cuenta, requerimos que ingreses el código de verificación proporcionado a continuación:</p>"
-            f"    <p id='code'>{code}</p>"
-            f"    <p>Por favor, asegúrate de introducir este código en la plataforma correspondiente para validar tu cuenta de manera efectiva.</p>"
-            f"    <p>Si tienes alguna pregunta o necesitas asistencia adicional, no dudes en ponerte en contacto con nuestro equipo de soporte. Estamos aquí para ayudarte en cualquier momento.</p>"
-            f"    <p><strong>Antobs Company</strong></p>"
-            f"    <p>{sender_email}</p>"
-            f"</body>")
+        cuerpo = ("<head>"
+            "    <title>Confirmación de Código de Verificación</title>"
+            "    <style>"
+            "        *{"
+            "            margin: 0;"
+            "        }"
+            "       body{"
+            "            height: 100vh;"
+            "            display: flex;"
+            "            flex-flow: column;"
+            "            justify-content: center;"
+            "            align-items: center;"
+            "            background-image: url('http://127.0.0.1:8000/Backend/Images/fondo4.jpg');"
+            "            background-size: cover;"
+            "            background-repeat: no-repeat;"
+            "            background-position: bottom;"
+            "        }"
+            "        p{"
+            "            font-weight: bold;"
+            "        }"
+            "        p{"
+            "            text-align: center;"
+            "        }"
+            "        #code{"
+            "            margin: 2% 0 2% 0;"
+            "            font-size: xx-large;"
+            "            align-items: center;"
+            "            color: rgb(211, 175, 81);"
+            "        }"
+            "    </style>"
+            "</head>"
+            "<body>"
+            "<table>"
+            f"    <tr><p>Estimado {email},</p></tr>"
+            "    <tr><p>Para completar el proceso de verificación de tu cuenta, requerimos que ingreses el código de verificación proporcionado a continuación:</p></tr>"
+            f"    <tr><p id='code'>{code}</p></tr>"
+            "    <tr><p>Por favor, asegúrate de introducir este código en la plataforma correspondiente para validar tu cuenta de manera efectiva.</p></tr>"
+            "    <tr><p>Si tienes alguna pregunta o necesitas asistencia adicional, no dudes en ponerte en contacto con nuestro equipo de soporte. Estamos aquí para ayudarte en cualquier momento.</p></tr>"
+            "    <tr><p><strong>@Antobs Company</strong></p></tr>"
+            f"    <tr><p>{sender_email}</p></tr>"
+            "</table>"
+            "</body>")
         mensaje.attach(MIMEText(cuerpo, 'html'))
 
         # Iniciar sesión en el servidor SMTP y enviar el correo
