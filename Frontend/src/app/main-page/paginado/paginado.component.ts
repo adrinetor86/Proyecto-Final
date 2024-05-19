@@ -2,8 +2,6 @@ import { Component } from '@angular/core';
 import { Paginas } from "../../interfaces/pagina";
 import {PaginatorState} from "primeng/paginator";
 
-
-
 @Component({
   selector: 'app-paginado',
   templateUrl: './paginado.component.html',
