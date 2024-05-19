@@ -118,7 +118,7 @@ class User:
         except mysql.connector.Error:
             return {"error": "Unknown error, try again", "code": 400}
 
-    def get_profile(self, username):
+    def get_your_profile(self, username):
         sql = (f"SELECT email, username, date_creation, "
                f"CASE"
                f" WHEN rol_user = 1 THEN 'Administrator'"
@@ -127,6 +127,24 @@ class User:
                f" END AS rol"
                f", profile_picture"
                f" FROM users WHERE username = '{username}'")
+
+        try:
+            cursor = self.__connection.cursor(dictionary=True)
+            cursor.execute(sql)
+            dict_return = cursor.fetchall()
+            cursor.close()
+
+            if dict_return[0]["profile_picture"] == None:
+                with open(os.path.normpath(os.path.join(os.path.dirname(os.path.abspath(__file__)), '..', 'Images', 'Profile', 'default.txt')), 'r') as file:
+                    picture_profile = file.read()
+                    dict_return[0]["profile_picture"] = picture_profile
+
+            return {"profile": dict_return[0]}
+        except mysql.connector.Error:
+            return {"error": "Cannot get profile", "code": 400}
+
+    def get_other_profile(self, username):
+        sql = (f"SELECT username, date_creation, profile_picture FROM users WHERE username = '{username}'")
 
         try:
             cursor = self.__connection.cursor(dictionary=True)

@@ -41,8 +41,11 @@ class ControllerUser:
         else:
             return {"error": "Void or incorrect fields", "code": 409}
 
-    def get_profile(self):
-        return self.__user_model.get_profile(self.__username)
+    def get_your_profile(self):
+        return self.__user_model.get_your_profile(self.__username)
+
+    def get_other_profile(self):
+        return self.__user_model.get_other_profile(self.__username)
 
     def change_picture(self):
         return self.__user_model.change_picture(self.__picture, self.__username)

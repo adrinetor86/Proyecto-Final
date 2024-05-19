@@ -41,3 +41,14 @@ def decode_token(encoded_jwt):
     except jwt.InvalidTokenError:
         print("Token inválido.")
         return {"error": "Invalid token", "code": 400}
+
+def confirm_user(encoded_jwt, username):
+    try:
+        payload = jwt.decode(encoded_jwt, config.SECRET_KEY, algorithms=['HS256'])
+        return payload['username'] == username
+    except jwt.ExpiredSignatureError: #401
+        print("El token ha expirado.")
+        return False
+    except jwt.InvalidTokenError:
+        print("Token inválido.")
+        return False

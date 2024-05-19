@@ -1,7 +1,7 @@
 from django.http import JsonResponse, HttpResponse
 from Backend.Controllers.controller_games import ControllerGames
 from Backend.Controllers.controller_user import ControllerUser
-from Backend.Libs.jsonWebTokken import create_token, decode_token
+from Backend.Libs.jsonWebTokken import create_token, decode_token, confirm_user
 from django.views.decorators.csrf import csrf_exempt
 
 @csrf_exempt
@@ -178,11 +178,27 @@ def change_password(request):
     else:
         return JsonResponse({"error": "Bad Request"}, status=405)
 
-def profile(request, username):
-    if request.method == 'GET':
-        controller = ControllerUser(username=username)
+def your_profile(request, username):
+    if request.method == 'POST':
+        authorization_token = request.headers.get("Authorization", "")
 
-        response = controller.get_profile()
+        if confirm_user(authorization_token, username):
+            controller = ControllerUser(username=username)
+            response = controller.get_your_profile()
+
+            if response.get("error", "") == "":
+                return JsonResponse(response, status=200)
+            else:
+                return JsonResponse({"error": response.get("error", "Unknokn error")}, status=response.get("code", 400))
+        else:
+            return JsonResponse({"error": "Invalid access token"}, status=401)
+    else:
+        return JsonResponse({"error": "Bad Request"}, status=405)
+
+def view_profile(request, username):
+    if request.method == 'POST':
+        controller = ControllerUser(username=username)
+        response = controller.get_other_profile()
 
         if response.get("error", "") == "":
             return JsonResponse(response, status=200)
@@ -192,8 +208,8 @@ def profile(request, username):
         return JsonResponse({"error": "Bad Request"}, status=405)
 
 def change_picture(request, username):
-    if request.method == 'POST':
-        picture = request.POST.get("picture")
+    if request.method == 'GET':
+        picture = request.GET.get("picture")
         controller = ControllerUser(username=username, picture=picture)
 
         response = controller.change_picture()
