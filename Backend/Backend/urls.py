@@ -21,7 +21,7 @@ from Backend.views import games, game, login, register, child_comments, error_ur
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('login/', login, name='login'),
-    path('api/v1/games/', games, name='games'),
+    path('api/v1/games/', search, name='search'),
     path('api/v1/games/<page>/', games, name='games'),
     path('api/v1/game/', error_url, name='error'),
     path('api/v1/game/<id>/', game, name='game'),

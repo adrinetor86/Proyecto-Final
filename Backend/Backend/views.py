@@ -44,10 +44,24 @@ def game(request, id):
 
 def search(request):
     if request.method == 'GET':
-        value = request.GET.get("value")
+        value = request.GET.get("value", "")
+        page = request.GET.get("page", 1)
+
+        try:
+            page = int(page)
+        except ValueError:
+            page = 1
+
         controller = ControllerGames(title=value)
-        response = controller.search()
-        return JsonResponse(response, status=200)
+        response = controller.search(page)
+
+        if response.get("error", "") == "":
+            return JsonResponse(response, status=200)
+        else:
+            error = response.get("error", "")
+            code = response.get("code", 403)
+
+            return JsonResponse({"error": error}, status=code)
     else:
         return JsonResponse({"error": "Bad Request"}, status=405)
 

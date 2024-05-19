@@ -36,10 +36,10 @@ class ControllerGames:
 
         print("intentas insertar un juego")
 
-    def search(self):
+    def search(self, page):
         self.__games_model = Games()
 
-        return self.__games_model.search_game(self.__title)
+        return self.__games_model.search_game(self.__title, page)
 
     def __validate_fields(self):
 

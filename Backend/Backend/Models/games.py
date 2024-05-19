@@ -1,3 +1,4 @@
+import math
 import mysql
 import mysql.connector as bd
 import Backend.conf as config
@@ -56,8 +57,18 @@ class Games:
             return {"error": "game not found", "code": 403}
 
 #HACER IMAGANES
-    def search_game(self, value: str):
-        sql = f"SELECT title, front_page FROM {self.__tables["games"]} WHERE title LIKE '%{value}%'"
+    def search_game(self, value: str, page: int):
+        limit = page * 15
+        offset = limit - 15
+        sql = f"SELECT id, title, front_page FROM {self.__tables["games"]} WHERE title LIKE '%{value}%' LIMIT {limit} OFFSET {offset}"
+
+        total_page = self.__total_pages(value)
+
+        if total_page == -1:
+            return {"error": "Unknown error", "code": 400}
+
+        prev = self.__get_prev(page, value)
+        next = self.__get_next(page, total_page, value)
 
         try:
             cursor = self.__connection.cursor(dictionary=True)
@@ -65,9 +76,52 @@ class Games:
             dict_return = cursor.fetchall()
             cursor.close()
 
-            return {"results": dict_return}
+            return {"prev": prev,
+                    "next": next,
+                    "current_page": page,
+                    "total_page": total_page,
+                    "min_result": offset+1,
+                    "max_result": offset + len(dict_return),
+                    "results": dict_return}
         except mysql.connector.Error:
-            return {"error": "unknown error, check values given"}
+            return {"error": "unknown error, check values given", "code": 400}
+
+    def __get_next(self, page, total_page, value):
+        if page != total_page:
+            next = f'api/v1/games/?page={page+1}'
+
+            if value != "":
+                next = next + '&value=' + value
+        else:
+            next = None
+
+        return next
+
+    def __get_prev(self, page, value):
+        if page != 1:
+            prev = f'search/?page={page-1}'
+
+            if value != "":
+                prev = prev + '&value=' + value
+        else:
+            prev = None
+
+        return prev
+
+    def __total_pages(self, value: str) -> int:
+        sql = f"SELECT count(*) FROM {self.__tables["games"]} WHERE title LIKE '%{value}%'"
+
+        try:
+            cursor = self.__connection.cursor(dictionary=True)
+            cursor.execute(sql)
+            dict_return = cursor.fetchall()
+            cursor.close()
+
+            total_pages = math.ceil(dict_return[0]["count(*)"] / 15)
+
+            return total_pages
+        except mysql.connector.Error:
+            return -1
 
     def __get_genders(self, id) -> str:
         sql = (f"SELECT name_gender FROM {self.__tables["type_genders"]} " 
