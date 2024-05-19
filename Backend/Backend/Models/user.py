@@ -119,7 +119,14 @@ class User:
             return {"error": "Unknown error, try again", "code": 400}
 
     def get_profile(self, username):
-        sql = f"SELECT email, username, date_creation, profile_picture FROM users WHERE username = '{username}'"
+        sql = (f"SELECT email, username, date_creation, "
+               f"CASE"
+               f" WHEN rol_user = 1 THEN 'Administrator'"
+               f" WHEN rol_user = 2 THEN 'Editor'"
+               f" ELSE 'User'"
+               f" END AS rol"
+               f", profile_picture"
+               f" FROM users WHERE username = '{username}'")
 
         try:
             cursor = self.__connection.cursor(dictionary=True)
