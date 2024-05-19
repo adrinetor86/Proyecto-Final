@@ -1,3 +1,4 @@
+import os
 import random
 import smtplib
 from email.mime.multipart import MIMEMultipart
@@ -98,8 +99,6 @@ class User:
         except mysql.connector.Error:
             return False
 
-        print(dict_return)
-
         if len(dict_return) != 0:
             return str(dict_return[0]["code"]) == code
         else:
@@ -118,6 +117,28 @@ class User:
             return {"success": "password changed successfully", "code": 200}
         except mysql.connector.Error:
             return {"error": "Unknown error, try again", "code": 400}
+
+    def get_profile(self, username):
+        sql = f"SELECT email, username, date_creation, profile_picture FROM users WHERE username = '{username}'"
+
+        try:
+            cursor = self.__connection.cursor(dictionary=True)
+            cursor.execute(sql)
+            dict_return = cursor.fetchall()
+            cursor.close()
+
+            if dict_return[0]["profile_picture"] == None:
+                with open(os.path.normpath(os.path.join(os.path.dirname(os.path.abspath(__file__)), '..', 'Images', 'Profile', 'default.txt')), 'r') as file:
+                    picture_profile = file.read()
+                    dict_return[0]["profile_picture"] = picture_profile
+            else:
+                with open(os.path.normpath(os.path.join(os.path.dirname(os.path.abspath(__file__)), '..', 'Images', 'Profile', (username + '.txt'))), 'r') as file:
+                    picture_profile = file.read()
+                    dict_return[0]["profile_picture"] = picture_profile
+
+            return {"profile": dict_return[0]}
+        except mysql.connector.Error:
+            return {"error": "Cannot get profile", "code": 400}
 
     def __create_code(self, email):
         code = random.randint(10000, 99999)

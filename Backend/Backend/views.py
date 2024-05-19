@@ -175,3 +175,13 @@ def change_password(request):
             return JsonResponse({"error": "email is void"}, status=409)
     else:
         return JsonResponse({"error": "Bad Request"}, status=405)
+
+def profile(request, username):
+    controller = ControllerUser(username=username)
+
+    response = controller.get_profile()
+
+    if response.get("error", "") == "":
+        return JsonResponse(response, status=200)
+    else:
+        return JsonResponse({"error": response.get("error", "Unknokn error")}, status=200)

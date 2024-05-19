@@ -39,3 +39,6 @@ class ControllerUser:
             return self.__user_model.change_password(self.__email, self.__password)
         else:
             return {"error": "Void or incorrect fields", "code": 409}
+
+    def get_profile(self):
+        return self.__user_model.get_profile(self.__username)

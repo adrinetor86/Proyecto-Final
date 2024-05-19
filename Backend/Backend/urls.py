@@ -16,7 +16,7 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path
-from Backend.views import games, game, login, register, child_comments, error_url, confirm_exist_user, confirm_code, change_password, search
+from Backend.views import games, game, login, register, child_comments, error_url, confirm_exist_user, confirm_code, change_password, search, profile
 
 urlpatterns = [
     path('admin/', admin.site.urls),
@@ -31,5 +31,6 @@ urlpatterns = [
     path('confirm_code/', confirm_code, name='confirm_code'),
     path('change_password/', change_password, name='change_password'),
     path('comment/<id_game>/<id_comment>/', child_comments, name='child_comments'),
-    path('comment/<id_game>/<id_comment>/<offset>/', child_comments, name='child_comments_offset',), #cargar mas comentarios
+    path('comment/<id_game>/<id_comment>/<offset>/', child_comments, name='child_comments_offset'),
+    path('profile/<username>', profile, name='profile')
 ]
