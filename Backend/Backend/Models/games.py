@@ -55,6 +55,18 @@ class Games:
         else:
             return {"error": "game not found", "code": 403}
 
+    def search_game(self, value: str):
+        sql = f"SELECT title FROM {self.__tables["games"]} WHERE title LIKE '{value}%'"
+
+        try:
+            cursor = self.__connection.cursor(dictionary=True)
+            cursor.execute(sql)
+            dict_return = cursor.fetchall()
+            cursor.close()
+
+            return {"games": dict_return}
+        except mysql.connector.Error:
+            return {"error": "unknown error, check values given"}
 
     def __get_genders(self, id) -> str:
         sql = (f"SELECT name_gender FROM {self.__tables["type_genders"]} " 

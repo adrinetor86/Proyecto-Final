@@ -42,6 +42,15 @@ def game(request, id):
     else:
         return JsonResponse({"error": "Bad Request"}, status=405)
 
+def search(request):
+    if request.method == 'GET':
+        value = request.GET.get("value")
+        controller = ControllerGames(title=value)
+        response = controller.search()
+        return JsonResponse(response, status=200)
+    else:
+        return JsonResponse({"error": "Bad Request"}, status=405)
+
 #Loguea al usuario y genera un codigo de error distinto segun el fallo
 @csrf_exempt
 def login(request):
