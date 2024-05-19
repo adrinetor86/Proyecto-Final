@@ -1,16 +1,14 @@
-
 <div class="div-padre-formulario">
-  <form #formForgotten="ngForm">
+  <form #formCodeVerify="ngForm">
     <div class="formulario">
       <div>
-        <label>Correo</label><br>
-        <input class="input-formulario" type="text" ngModel name="email" email required #email="ngModel">
-        <span *ngIf="!email.valid"></span>
+        <label>Introduzca el codigo de verificacion</label><br>
+        <input class="input-formulario" type="text" ngModel required name="code" pattern="[0-9]{5}">
       </div>
       <p class="p-error" *ngIf="errorMessage"> {{ errorMessage }}</p>
       <div class="prueba" style="display: flex ">
-        <button class="cancel" type="button" (click)="cancelRecoveryPassword()">Cancelar</button>
-        <button class="password-recovery-button" type="submit" [disabled]="!formForgotten.valid" (click)="recoveryPassword()">Send Code</button>
+        <button class="cancel" type="button" (click)="cancelSendCode()">Cancelar</button>
+        <button class="password-recovery-button" type="submit" [disabled]="!formCodeVerify.valid" (click)="verifyCode()">Continue</button>
       </div>
 
     </div>
@@ -26,4 +24,5 @@
     <div class="drop-drop-5"></div>
   </div>
 </div>
+
 

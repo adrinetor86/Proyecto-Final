@@ -20,7 +20,24 @@
   justify-content: center;
 
 }
+.cancel {
+  background-color: #f44336;
+  border: none;
+  color: white;
+  padding: 15px 32px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 18px;
+  margin: 4px 2px;
+  cursor: pointer;
+  border-radius: 12px;
+}
 
+.cancel:hover {
+  background-color: #da190b;
+  color: white;
+}
 label{
   color:white;
   font-size: 20px;
@@ -32,17 +49,20 @@ label{
   padding-top:7px;
   padding-bottom:7px;
   color:white;
+  width: 20vh;
   backdrop-filter: blur(53px);
 }
 
 .login-button{
   background-color: #f5deb3;
   border-radius: 12px;
-  font-size: 25px;
-  padding-left:65px;
-  padding-right:65px;
-  padding-top:5px;
-  padding-bottom:5px;
+  font-size: 22px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  padding: 15px 32px;
+  margin: 4px 2px;
+  cursor: pointer;
 }
 
 
@@ -51,27 +71,27 @@ label{
 }
 .p-error {
   display: block;
-  background-color: #f8d7da; /* Color de fondo rojo claro */
-  color: #721c24; /* Color de texto rojo oscuro */
-  padding: 10px 15px; /* Espaciado interno */
-  border-radius: 5px; /* Bordes redondeados */
-  border: 1px solid #f5c6cb; /* Borde rojo */
-  margin-bottom: 10px; /* Margen inferior */
-  font-size: 14px; /* Tamaño de fuente */
+  background-color: #f8d7da;
+  color: #721c24;
+  padding: 10px 15px;
+  border-radius: 5px;
+  border: 1px solid #f5c6cb;
+  margin-bottom: 10px;
+  font-size: 14px;
 }
 
 .p-error::before {
-  content: "⚠️"; /* Agregar un símbolo de advertencia */
-  margin-right: 10px; /* Espaciado a la derecha del símbolo */
+  content: "⚠️";
+  margin-right: 10px;
 }
 
 .p-error a {
-  color: #721c24; /* Color de los enlaces en el mensaje de error */
-  font-weight: bold; /* Texto en negrita */
+  color: #721c24;
+  font-weight: bold;
 }
 
 .p-error a:hover {
-  text-decoration: underline; /* Subrayar al pasar el mouse */
+  text-decoration: underline;
 }
 
 

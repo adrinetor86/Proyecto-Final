@@ -20,11 +20,11 @@ export class LoginComponent {
   loginUser(){
     const email= this.formAccount.value.email;
     const passwordValue = this.formAccount.value.password;
-    console.log(email, passwordValue);
     this.validateService.testDataLogin(email, passwordValue).pipe(
-      catchError(() => {
+      catchError((error) => {
         this.errorValidate = true;
         this.errorMessage = 'Credenciales incorrectas';
+        console.log(error);
         return of(null);
       })
     ).subscribe(response=>{
@@ -35,6 +35,9 @@ export class LoginComponent {
       }
     })
     this.formAccount.reset();
+  }
+  cancelLogin(){
+    this.route.navigate(['/']);
   }
 
 }

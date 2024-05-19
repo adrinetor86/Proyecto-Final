@@ -29,10 +29,14 @@ import { FooterComponent } from './footer/footer.component';
 import { BuscadorComponent } from './main-page/buscador/buscador.component';
 import { PaginadoComponent } from './main-page/paginado/paginado.component';
 import {NgxPaginationModule} from 'ngx-pagination';
+
+import {CatchCodeVerificationComponent} from "./catch-code-verification/catch-code-verification.component";
+import {ChangeOldPasswordComponent} from "./change-old-password/change-old-password.component";
 import {LoginInterceptor} from "./interceptores/login.interceptor";
 import {CarouselModule} from "primeng/carousel";
 import {AuthInterceptor} from "./interceptores/auth.interceptor";
 import {PaginatorModule} from "primeng/paginator";
+
 
 @NgModule({
   declarations: [
@@ -47,6 +51,9 @@ import {PaginatorModule} from "primeng/paginator";
     FooterComponent,
     BuscadorComponent,
     PaginadoComponent,
+    
+    CatchCodeVerificationComponent,
+    ChangeOldPasswordComponent
   ],
   imports: [
     BrowserModule,

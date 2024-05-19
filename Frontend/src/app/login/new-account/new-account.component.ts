@@ -33,7 +33,9 @@ export class NewAccountComponent {
         this.router.navigate(['/login']);
     });
     this.formNewAccount.reset();
-
+  }
+  cancelRegister(){
+    this.router.navigate(['/login']);
   }
 
 }
