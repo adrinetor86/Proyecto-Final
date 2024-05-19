@@ -191,14 +191,16 @@ def profile(request, username):
     else:
         return JsonResponse({"error": "Bad Request"}, status=405)
 
-def change_picture(request):
+def change_picture(request, username):
     if request.method == 'POST':
         picture = request.POST.get("picture")
-        username = request.POST.get("username")
-        controller = ControllerUser(username=username ,picture=picture)
+        controller = ControllerUser(username=username, picture=picture)
 
         response = controller.change_picture()
 
-
+        if response.get("error", "") == "":
+            return JsonResponse(response, status=200)
+        else:
+            return JsonResponse({"error": response.get("error", "Unknokn error")}, status= response.get("code", 400))
     else:
         return JsonResponse({"error": "Bad Request"}, status=405)

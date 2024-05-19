@@ -56,7 +56,6 @@ class Games:
         else:
             return {"error": "game not found", "code": 403}
 
-#HACER IMAGANES
     def search_game(self, value: str, page: int):
         limit = page * 15
         offset = limit - 15
@@ -164,7 +163,7 @@ class Games:
     #SELECT * FROM comments where id_game = 1 and parent_comment = 3
     #ESTA CONSULTA SIRVE PARA LOS HIJOS DEL COMENTARIO
     def __get_comments(self, id) -> str:
-        sql = f"SELECT CONCAT('/comment/', {id}, '/', id_comment, '/') AS url, user, content_comment, comment_date FROM comments where id_game = {id} and parent_comment IS NULL LIMIT 10"
+        sql = f"SELECT id_comment AS next, user, content_comment, comment_date FROM comments where id_game = {id} and parent_comment IS NULL LIMIT 10"
 
         try:
             cursor = self.__connection.cursor(dictionary=True)
@@ -174,6 +173,12 @@ class Games:
         except mysql.connector.Error as error:
             print(f'Error get plataforms: {error.msg}')
             return {'error': 'get comments'}
+
+        for comment in data:
+            if int(self.__total_comments(id, comment["next"])) > 0:
+                comment["next"] = f'/comment/{id}/{comment["next"]}/'
+            else:
+                comment["next"] = None
 
         return data
 
@@ -186,8 +191,8 @@ class Games:
         if total == -1:
             return {'error': 'Cannot get child comments'}
         else:
-            if offset >= int(total):
-                return {"next": None, "comments": []}
+            if (offset+10) >= int(total):
+                next = None
             else:
                 next = f"/comment/{id_game}/{id_comment}/{offset+10}/"
 
@@ -215,71 +220,3 @@ class Games:
             return -1
 
         return data[0]['count(*)']
-
-    def __get_comments_vega(self, id):
-        # Crear un cursor para ejecutar consultas
-        cursor = self.__connection.cursor()
-
-        # Consulta SQL para relacionar comentarios con sus comentarios padres
-        consulta = (f"SELECT c1.id_comment AS Comentario_ID, c1.user AS Comentario_Usuario, "
-                    f"c1.parent_comment AS Comentario_Padre_ID, c2.user AS Comentario_Padre_Usuario, c1.id_game AS Juego FROM "
-                    f"comments c1 LEFT JOIN comments c2 ON c1.parent_comment = c2.id_comment")
-
-        # Ejecutar la consulta
-        cursor.execute(consulta)
-
-        # Obtener los resultados de la consulta
-        resultados = cursor.fetchall()
-
-        # Crear un diccionario para almacenar los comentarios
-        comentarios = {}
-
-        # Iterar sobre los resultados y construir el diccionario de comentarios
-        for resultado in resultados:
-            comentario_id = resultado[0]
-            comentario_usuario = resultado[1]
-            comentario_padre_id = resultado[2]
-            comentario_padre_usuario = resultado[3]
-            juego = resultado[4]
-            print (comentario_padre_id)
-
-            # Crear un diccionario para almacenar la información del comentario
-            comentario_json = {
-                "Comentario_ID": comentario_id,
-                "Comentario_Usuario": comentario_usuario,
-                "Comentario_Padre_ID": comentario_padre_id,
-                "Comentario_Padre_Usuario": comentario_padre_usuario,
-                "Juego": juego,
-                "Comentarios_Hijos": []  # Lista para almacenar comentarios hijos
-            }
-
-            # Si el comentario tiene un padre, agregarlo a la lista de comentarios hijos del padre
-            if comentario_padre_id:
-                # Verificar si ya existe una lista de comentarios hijos para el comentario padre
-                if comentario_padre_id not in comentarios:
-                    comentarios[comentario_padre_id] = {
-                        "Comentario_ID": comentario_padre_id,
-                        "Comentario_Usuario": comentario_padre_usuario,
-                        "Comentarios_Hijos": []  # Inicializar lista de comentarios hijos
-                    }
-                # Agregar el comentario a la lista de comentarios hijos del padre
-                comentarios[comentario_padre_id]["Comentarios_Hijos"].append(comentario_json)
-            else:
-                print("por aqui pasa el comentario: " + str(comentario_id))
-                # Si no tiene padre, agregarlo directamente al diccionario de comentarios
-                comentarios[comentario_id] = comentario_json
-
-        # Convertir el diccionario de comentarios en una lista para la salida JSON
-        #comentarios_list = list(comentarios.values())
-
-        # Convertir la lista de comentarios en formato JSON a una cadena JSON
-        #resultados_json_str = json.dumps(comentarios_list, indent=4)
-
-        # Mostrar la cadena JSON resultante
-        #print(resultados_json_str)
-
-        return comentarios
-
-        # Cerrar el cursor y la conexión
-        #cursor.close()
-        #conexion.close()

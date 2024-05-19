@@ -32,6 +32,6 @@ urlpatterns = [
     path('change_password/', change_password, name='change_password'),
     path('comment/<id_game>/<id_comment>/', child_comments, name='child_comments'),
     path('comment/<id_game>/<id_comment>/<offset>/', child_comments, name='child_comments_offset'),
-    path('profile/<username>', profile, name='profile'),
-    path('change_picture_profile/', change_picture, name='change_picture'),
+    path('profile/<username>/', profile, name='profile'),
+    path('change_picture_profile/<username>/', change_picture, name='change_picture'),
 ]

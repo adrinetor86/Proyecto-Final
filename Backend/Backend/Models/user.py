@@ -152,7 +152,7 @@ class User:
             cursor.close()
             self.__connection.commit()
 
-            return {"success": "profile picture changed successfully", "code": 200}
+            return {"success": "profile picture changed successfully", "new_picture": picture}
         except mysql.connector.Error:
             return {"error": "Unknown error, try again", "code": 400}
 
