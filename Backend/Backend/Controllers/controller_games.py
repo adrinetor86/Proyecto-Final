@@ -26,7 +26,7 @@ class ControllerGames:
     def child_comments(self, id_game, id_comment, offset):
         if id_game and id_comment:
             self.__games_model = Games()
-            return {"comments": self.__games_model.get_child_comments(id_game, id_comment, offset)}
+            return self.__games_model.get_child_comments(id_game, id_comment, offset)
         else:
             return {"comments": "no params"}
 

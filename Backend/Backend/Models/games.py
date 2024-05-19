@@ -88,7 +88,7 @@ class Games:
 
     def __get_next(self, page, total_page, value):
         if page != total_page:
-            next = f'api/v1/games/?page={page+1}'
+            next = f'/api/v1/games/?page={page+1}'
 
             if value != "":
                 next = next + '&value=' + value
@@ -99,7 +99,7 @@ class Games:
 
     def __get_prev(self, page, value):
         if page != 1:
-            prev = f'search/?page={page-1}'
+            prev = f'/api/v1/games/?page={page-1}'
 
             if value != "":
                 prev = prev + '&value=' + value
@@ -134,13 +134,13 @@ class Games:
             cursor.execute(sql)
             data = cursor.fetchall()
             for data_genders in data:
-                genders += data_genders[0] + ','
+                genders += data_genders[0] + ', '
             cursor.close()
         except mysql.connector.Error as error:
             print(f'Error get genders: {error.msg}')
             return ""
 
-        return genders.strip(",")
+        return genders.strip(", ")
 
     def __get_plataforms(self, id) -> str:
         sql = (f"SELECT name_plataform FROM {self.__tables["type_plataforms"]} " 
@@ -153,18 +153,18 @@ class Games:
             cursor.execute(sql)
             data = cursor.fetchall()
             for data_genders in data:
-                plataforms += data_genders[0] + ','
+                plataforms += data_genders[0] + ', '
             cursor.close()
         except mysql.connector.Error as error:
             print(f'Error get plataforms: {error.msg}')
             return ""
 
-        return plataforms.strip(",")
+        return plataforms.strip(", ")
 
     #SELECT * FROM comments where id_game = 1 and parent_comment = 3
     #ESTA CONSULTA SIRVE PARA LOS HIJOS DEL COMENTARIO
     def __get_comments(self, id) -> str:
-        sql = f"SELECT id_comment, user, content_comment, comment_date FROM comments where id_game =  {id} and parent_comment IS NULL LIMIT 10"
+        sql = f"SELECT CONCAT('/comment/', {id}, '/', id_comment, '/') AS url, user, content_comment, comment_date FROM comments where id_game = {id} and parent_comment IS NULL LIMIT 10"
 
         try:
             cursor = self.__connection.cursor(dictionary=True)
@@ -181,6 +181,16 @@ class Games:
         sql = (f"SELECT id_comment, user, content_comment, comment_date FROM comments "
                f"where id_game = {id_game} and parent_comment = {id_comment} LIMIT 10 OFFSET {offset}")
 
+        total = self.__total_comments(id_game, id_comment)
+
+        if total == -1:
+            return {'error': 'Cannot get child comments'}
+        else:
+            if offset >= int(total):
+                return {"next": None, "comments": []}
+            else:
+                next = f"/comment/{id_game}/{id_comment}/{offset+10}/"
+
         try:
             cursor = self.__connection.cursor(dictionary=True)
             cursor.execute(sql)
@@ -188,9 +198,23 @@ class Games:
             cursor.close()
         except mysql.connector.Error as error:
             print(f'Error get child comments: {error.msg}')
-            return {'error': 'get child comments'}
+            return {'error': 'Cannot get child comments'}
 
-        return data
+        return {"next": next, "comments": data}
+
+    def __total_comments(self, id_game, id_comment):
+        sql = (f"SELECT count(*) FROM comments where id_game = {id_game} and parent_comment = {id_comment}")
+
+        try:
+            cursor = self.__connection.cursor(dictionary=True)
+            cursor.execute(sql)
+            data = cursor.fetchall()
+            cursor.close()
+        except mysql.connector.Error as error:
+            print(f'Error get child comments: {error.msg}')
+            return -1
+
+        return data[0]['count(*)']
 
     def __get_comments_vega(self, id):
         # Crear un cursor para ejecutar consultas

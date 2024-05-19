@@ -109,6 +109,12 @@ def register(request):
 #FRONT NO DEBERA INDICAR "MOSTRAR MAS COMENTARIOS", YA QUE NO QUEDAN MAS.
 @csrf_exempt
 def child_comments(request, id_game, id_comment, offset=0):
+
+    try:
+        offset = int(offset)
+    except ValueError:
+        offset = 0
+
     controller = ControllerGames()
     data = controller.child_comments(id_game, id_comment, offset)
 

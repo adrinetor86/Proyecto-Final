@@ -22,14 +22,14 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('login/', login, name='login'),
     path('api/v1/games/', search, name='search'),
-    path('api/v1/games/<page>/', games, name='games'),
+    path('api/v1/games/<page>/', games, name='games'), #posiblemente ya no sirva
     path('api/v1/game/', error_url, name='error'),
     path('api/v1/game/<id>/', game, name='game'),
-    path('search/', search, name='search'),
+    path('search/', search, name='search'), #posiblemente ya no sirva
     path('register/', register, name='register'),
     path('confirm_user/', confirm_exist_user, name='confirm_exist_user'),
     path('confirm_code/', confirm_code, name='confirm_code'),
     path('change_password/', change_password, name='change_password'),
     path('comment/<id_game>/<id_comment>/', child_comments, name='child_comments'),
-    path('comment/<id_game>/<id_comment>/<offset>/', child_comments, name='child_comments_offset'), #cargar mas comentarios
+    path('comment/<id_game>/<id_comment>/<offset>/', child_comments, name='child_comments_offset',), #cargar mas comentarios
 ]
