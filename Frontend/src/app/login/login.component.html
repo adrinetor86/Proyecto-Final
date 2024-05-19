@@ -2,7 +2,7 @@
   <form #form="ngForm">
     <div class="formulario">
       <div>
-        <label>Usuario</label><br>
+        <label>Email</label><br>
         <!--          <fieldset class="input-formulario"><legend>Usuario</legend></fieldset>-->
         <input class="input-formulario" type="email" ngModel name="email" required minlength="5">
         <br><br>
@@ -13,9 +13,10 @@
 
       <div class="prueba">
         <p *ngIf="errorValidate" class="p-error">{{errorMessage}}</p>
-        <button class="login-button" type="submit"
-                [disabled]="!form.valid" (click)="loginUser()">Login</button>
-
+        <div style="display: flex">
+            <button class="cancel" type="button" (click)="cancelLogin()">Cancelar</button>
+            <button class="login-button" type="submit" [disabled]="!form.valid" (click)="loginUser()">Login</button>
+        </div>
         <div class="div-enlaces-formulario">
           <a routerLink="/newAccount">Crear una cuenta</a>
           <a routerLink="/forgottenPassword">Has olvidado la contraseña?</a>

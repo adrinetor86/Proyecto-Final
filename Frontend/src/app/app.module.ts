@@ -29,6 +29,8 @@ import { FooterComponent } from './footer/footer.component';
 import { BuscadorComponent } from './main-page/buscador/buscador.component';
 import { PaginadoComponent } from './main-page/paginado/paginado.component';
 import {NgxPaginationModule} from 'ngx-pagination';
+import {CatchCodeVerificationComponent} from "./catch-code-verification/catch-code-verification.component";
+import {ChangeOldPasswordComponent} from "./change-old-password/change-old-password.component";
 
 @NgModule({
   declarations: [
@@ -42,7 +44,9 @@ import {NgxPaginationModule} from 'ngx-pagination';
     ForgottenPasswordComponent,
     FooterComponent,
     BuscadorComponent,
-    PaginadoComponent
+    PaginadoComponent,
+    CatchCodeVerificationComponent,
+    ChangeOldPasswordComponent
   ],
   imports: [
     BrowserModule,
