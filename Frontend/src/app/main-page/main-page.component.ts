@@ -17,11 +17,7 @@ export class MainPageComponent implements OnInit,OnDestroy,AfterViewInit {
   private suscripcion: Subscription;
 
 
-
-
   constructor(private juegosservice:JuegosService) { }
-
-
 
   ngOnInit() {
 
