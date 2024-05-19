@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import {HttpClient, HttpParams} from "@angular/common/http";
-import { Observable } from "rxjs";
+import {BehaviorSubject, Observable} from "rxjs";
 
 
 @Injectable({
@@ -8,7 +8,8 @@ import { Observable } from "rxjs";
 })
 export class ValidService {
 
-  constructor(private httpClient: HttpClient) { }
+  logeado:BehaviorSubject<boolean> = new BehaviorSubject<boolean>(this.usuarioLogeado());
+  constructor(private httpClient: HttpClient) {}
 
   registerNewUser(email: string, username: string, password: string): Observable<Object> {
     //para tener los datos "planos" (clave-valor) se necesita este formato
@@ -28,6 +29,26 @@ export class ValidService {
 
     return this.httpClient.post("http://127.0.0.1:8000/login/", body.toString(), { headers });
   }
+
+  get isLogged(): Observable<boolean> {
+    return this.logeado.asObservable();
+  }
+
+  usuarioLogeado(): boolean {
+    return !!localStorage.getItem('accessToken');
+  }
+
+  borrarToken(): void {
+    localStorage.removeItem('accessToken');
+  }
+  almacenarToken(accessToken: string): void {
+  localStorage.setItem('accessToken', accessToken);
+  }
+
+  getAccessToken(): string {
+    return localStorage.getItem('accessToken');
+  }
+
 
 
 }

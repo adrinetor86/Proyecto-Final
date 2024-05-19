@@ -16,6 +16,7 @@ export class LoginComponent {
   errorMessage = '';
   errorValidate = false;
 
+
   loginUser(){
     const email= this.formAccount.value.email;
     const passwordValue = this.formAccount.value.password;
@@ -27,6 +28,8 @@ export class LoginComponent {
         return of(null);
       })
     ).subscribe(response=>{
+      console.log("respuesta");
+      console.log(response);
       if (response!==null){
         this.route.navigate(['/']);
       }
