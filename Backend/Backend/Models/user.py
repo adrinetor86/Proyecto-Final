@@ -106,7 +106,8 @@ class User:
             return False
 
     def change_password(self, email, password):
-        sql = f"UPDATE {self.__tables["users"]} SET password = '{password}' WHERE email = '{email}'"
+        hashed_password = self.__ph.hash(config.SALT + password)
+        sql = f"UPDATE {self.__tables["users"]} SET password = '{hashed_password}' WHERE email = '{email}'"
 
         try:
             cursor = self.__connection.cursor()
