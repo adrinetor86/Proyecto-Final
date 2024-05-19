@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 15-05-2024 a las 19:21:09
+-- Tiempo de generación: 19-05-2024 a las 18:40:30
 -- Versión del servidor: 10.4.28-MariaDB
 -- Versión de PHP: 8.2.4
 
@@ -85,9 +85,23 @@ CREATE TABLE `games` (
 --
 
 INSERT INTO `games` (`id`, `title`, `synopsis`, `developer`, `link_download`, `link_trailer`, `release_date`, `front_page`) VALUES
-(1, 'Genshin Impact', 'Genshin Impact tiene lugar en el mundo de fantasÃƒÂ­a de Teyvat, hogar de siete naciones, cada una de las cuales estÃƒÂ¡ ligada a un elemento diferente y gobernada por un dios (arconte) diferente. La historia sigue a The Traveller, un aventurero interestelar que, al comienzo del juego, se separa de su hermano gemelo despuÃƒÂ©s de que los dos aterrizan en Teyvat. A partir de entonces, el Viajero viaja a travÃƒÂ©s de las naciones de Teyvat en busca del hermano perdido, acompaÃƒÂ±ado por su guÃƒÂ­a, Paimon . En el camino, los dos se hacen amigos de innumerables personas, se involucran en los asuntos de sus naciones y comienzan a desentraÃƒÂ±ar los misterios de la tierra.', 'miHoYo', 'https://genshin.hoyoverse.com/es/company/about', 'https://www.youtube.com/watch?v=TAlKhARUcoY&ab_channel=GenshinImpact', '2020-09-28', NULL),
-(2, 'The Forest', 'The Forest es un videojuego de terror y supervivencia desarrollado y publicado por Endnight Games. El juego se desarrolla en una remota penÃƒÂ­nsula densamente boscosa, donde el personaje del jugador Eric LeBlanc debe luchar contra monstruos canÃƒÂ­bales, mientras busca a su hijo Timmy despuÃƒÂ©s de un accidente aÃƒÂ©reo.', 'Endnight Games Ltd', 'https://store.steampowered.com/agecheck/app/242760/?l=spanish', 'https://www.youtube.com/watch?v=7mwn5U2PNvk&ab_channel=GameSpot', '2014-05-30', NULL),
-(3, 'Subnautica', 'Desciende a las profundidades de un mundo submarino alienÃƒÂ­gena lleno de belleza y peligros. Crea equipamiento, pilota submarinos, terraforma el terreno, y burla los peligros para explorar exhuberantes arrecifes de coral, volcanes, sistemas de cuevas y mÃƒÂ¡s - Todo mientras intentas sobrevivir.', 'Unknown Worlds Entertainment', 'https://store.steampowered.com/app/264710/Subnautica/?l=spanish', 'https://www.youtube.com/watch?v=_7BzngvURrk&ab_channel=Subnautica', '2018-01-23', NULL);
+(1, 'Genshin Impact', 'Genshin Impact tiene lugar en el mundo de fantas├âãÆ├é┬¡a de Teyvat, hogar de siete naciones, cada una de las cuales est├âãÆ├é┬í ligada a un elemento diferente y gobernada por un dios (arconte) diferente. La historia sigue a The Traveller, un aventurero interestelar que, al comienzo del juego, se separa de su hermano gemelo despu├âãÆ├é┬®s de que los dos aterrizan en Teyvat. A partir de entonces, el Viajero viaja a trav├âãÆ├é┬®s de las naciones de Teyvat en busca del hermano perdido, acompa├âãÆ├é┬▒ado por su gu├âãÆ├é┬¡a, Paimon . En el camino, los dos se hacen amigos de innumerables personas, se involucran en los asuntos de sus naciones y comienzan a desentra├âãÆ├é┬▒ar los misterios de la tierra.', 'miHoYo', 'https://genshin.hoyoverse.com/es/company/about', 'https://www.youtube.com/watch?v=TAlKhARUcoY&ab_channel=GenshinImpact', '2020-09-28', NULL),
+(2, 'The Forest', 'The Forest es un videojuego de terror y supervivencia desarrollado y publicado por Endnight Games. El juego se desarrolla en una remota pen├âãÆ├é┬¡nsula densamente boscosa, donde el personaje del jugador Eric LeBlanc debe luchar contra monstruos can├âãÆ├é┬¡bales, mientras busca a su hijo Timmy despu├âãÆ├é┬®s de un accidente a├âãÆ├é┬®reo.', 'Endnight Games Ltd', 'https://store.steampowered.com/agecheck/app/242760/?l=spanish', 'https://www.youtube.com/watch?v=7mwn5U2PNvk&ab_channel=GameSpot', '2014-05-30', NULL),
+(3, 'Subnautica', 'Desciende a las profundidades de un mundo submarino alien├âãÆ├é┬¡gena lleno de belleza y peligros. Crea equipamiento, pilota submarinos, terraforma el terreno, y burla los peligros para explorar exhuberantes arrecifes de coral, volcanes, sistemas de cuevas y m├âãÆ├é┬ís - Todo mientras intentas sobrevivir.', 'Unknown Worlds Entertainment', 'https://store.steampowered.com/app/264710/Subnautica/?l=spanish', 'https://www.youtube.com/watch?v=_7BzngvURrk&ab_channel=Subnautica', '2018-01-23', NULL),
+(4, 'The Witcher 4: Wild Hunt', 'Geralt de Rivia se embarca en una nueva aventura en un vasto mundo lleno de monstruos, magia y decisiones morales difíciles.', 'CD Projekt Red', 'https://www.gog.com/game/the_witcher_4', 'https://www.youtube.com/watch?v=IjwZYHojxlk', '2023-11-15', NULL),
+(5, 'Cyberpunk 2078', 'Explora Night City, una metrópolis obsesionada con el poder, la moda y las modificaciones corporales. Sumérgete en una historia llena de intriga, traición y acción.', 'CD Projekt Red', 'https://www.gog.com/game/cyberpunk_2078', 'https://www.youtube.com/watch?v=-Iy30Usiuxg', '2022-12-10', NULL),
+(6, 'Red Dead Redemption 3', 'Únete a Arthur Morgan en su última aventura en el salvaje oeste, donde tendrá que enfrentarse a la ley, los forajidos y su propio pasado turbio.', 'Rockstar Games', 'https://www.rockstargames.com/reddeadredemption3', 'https://www.youtube.com/watch?v=eaW0tYpxyp0', '2024-08-20', NULL),
+(7, 'Final Fantasy XVI', 'Sumérgete en un mundo de fantasía épica donde la magia y la tecnología se entrelazan. Acompaña a un grupo de héroes en su lucha contra las fuerzas oscuras que amenazan con destruir el mundo.', 'Square Enix', 'https://finalfantasy.square-enix-games.com/es-es/home', 'https://www.youtube.com/watch?v=YFNqpMv8V5A', '2023-09-05', NULL),
+(8, 'Elden Ring', 'Explora un mundo abierto vasto y lleno de peligros en esta nueva aventura de acción y rol. Descubre antiguos secretos y desafía a los poderosos señores de la noche.', 'FromSoftware', 'https://www.eldenring.com/', 'https://www.youtube.com/watch?v=E3WiVxVbgB0', '2024-02-25', NULL),
+(9, 'Horizon Forbidden West', 'Acompaña a Aloy en su viaje hacia el oeste en busca de respuestas sobre el origen de las máquinas y el destino de la humanidad. Descubre nuevos paisajes y enfréntate a nuevas amenazas en este juego de aventuras y exploración.', 'Guerrilla Games', 'https://www.playstation.com/en-us/games/horizon-forbidden-west/', 'https://www.youtube.com/watch?v=Lq594XmpPBg', '2022-12-08', NULL),
+(10, 'Assassin\'s Creed: Ragnarok', 'Únete a un grupo de vikingos en su búsqueda de riquezas y gloria en los reinos nórdicos. Explora vastos paisajes, lucha en batallas épicas y descubre los misterios de la mitología nórdica.', 'Ubisoft', 'https://www.ubisoft.com/en-us/game/assassins-creed-ragnarok', 'https://www.youtube.com/watch?v=9yVgXwRpJDY', '2023-06-15', NULL),
+(11, 'The Last of Us Part III', 'Continúa la historia de Ellie y Joel en un mundo post-apocalíptico lleno de peligros y desafíos. Enfréntate a nuevas amenazas y toma decisiones difíciles en esta emocionante secuela.', 'Naughty Dog', 'https://www.playstation.com/en-us/games/the-last-of-us-part-iii/', 'https://www.youtube.com/watch?v=Gb3anZ0sEXw', '2024-04-30', NULL),
+(12, 'Halo Infinite', 'Únete al Jefe Maestro en su lucha contra los alienígenas Covenant en este emocionante juego de disparos en primera persona. Descubre nuevos mundos, combate en intensas batallas y desvela los secretos de los Anillos de Halo.', '343 Industries', 'https://www.halowaypoint.com/', 'https://www.youtube.com/watch?v=HZtc5-syeAk', '2023-11-15', NULL),
+(13, 'God of War: Ragnarok', 'Acompaña a Kratos y a su hijo Atreus en una nueva aventura por los reinos nórdicos. Enfréntate a dioses y monstruos mientras buscas la forma de detener el Ragnarok y salvar al mundo de la destrucción.', 'Santa Monica Studio', 'https://www.playstation.com/en-us/games/god-of-war-ragnarok/', 'https://www.youtube.com/watch?v=L5i2jEMe8OM', '2024-09-10', NULL),
+(14, 'Death Stranding 2', 'Sumérgete en un mundo post-apocalíptico donde la conexión entre las personas es más importante que nunca. Explora paisajes desolados, construye puentes entre comunidades y descubre los secretos del Death Stranding.', 'Kojima Productions', 'https://www.kojimaproductions.jp/', 'https://www.youtube.com/watch?v=KhsrYK3ZLds', '2023-05-20', NULL),
+(15, 'Starfield', 'Embárcate en un viaje épico a través del espacio en busca de nuevos mundos y civilizaciones en este juego de rol y exploración. Descubre los secretos del universo mientras te enfrentas a peligros desconocidos en las fronteras finales.', 'Bethesda Game Studios', 'https://bethesda.net/en/game/starfield', 'https://www.youtube.com/watch?v=17tkz4SKA8k', '2023-10-25', NULL),
+(16, 'Bayonetta 4', 'Únete a la bruja Bayonetta en otra aventura llena de acción y extravagancia. Combate contra hordas de ángeles y demonios mientras desatas poderosos ataques y hechizos.', 'PlatinumGames', 'https://www.platinumgames.com/games/bayonetta-4', 'https://www.youtube.com/watch?v=n2sG7PQcR8U', '2024-07-12', NULL),
+(17, 'Uncharted: Legacy of Thieves Collection', 'Revive las emocionantes aventuras de Nathan Drake en esta colección remasterizada de los clásicos de Uncharted: The Lost Legacy y Uncharted 4: A Thief\'s End. Descubre tesoros ocultos, resuelve enigmas y enfrenta peligros mortales en estos dos emocionantes capítulos de la saga Uncharted.', 'Naughty Dog', 'https://www.playstation.com/en-us/games/uncharted-legacy-of-thieves-collection/', 'https://www.youtube.com/watch?v=ioGAb_FbDWg', '2022-10-05', NULL);
 
 -- --------------------------------------------------------
 
@@ -389,7 +403,7 @@ ALTER TABLE `comments`
 -- AUTO_INCREMENT de la tabla `games`
 --
 ALTER TABLE `games`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=18;
 
 --
 -- AUTO_INCREMENT de la tabla `games_maps`
@@ -470,7 +484,6 @@ DELIMITER $$
 --
 -- Eventos
 --
-SET GLOBAL event_scheduler = ON;
 DROP EVENT IF EXISTS `delete_registers`$$
 CREATE DEFINER=`root`@`localhost` EVENT `delete_registers` ON SCHEDULE EVERY 1 MINUTE STARTS '2024-05-15 17:59:15' ON COMPLETION NOT PRESERVE ENABLE DO DELETE FROM codes_confirm WHERE TIMESTAMPDIFF(MINUTE, date_creation, NOW()) > 4$$
 
