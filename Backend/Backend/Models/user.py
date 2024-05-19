@@ -138,14 +138,13 @@ class User:
                 with open(os.path.normpath(os.path.join(os.path.dirname(os.path.abspath(__file__)), '..', 'Images', 'Profile', 'default.txt')), 'r') as file:
                     picture_profile = file.read()
                     dict_return[0]["profile_picture"] = picture_profile
-            else:
-                with open(os.path.normpath(os.path.join(os.path.dirname(os.path.abspath(__file__)), '..', 'Images', 'Profile', (username + '.txt'))), 'r') as file:
-                    picture_profile = file.read()
-                    dict_return[0]["profile_picture"] = picture_profile
 
             return {"profile": dict_return[0]}
         except mysql.connector.Error:
             return {"error": "Cannot get profile", "code": 400}
+
+    def change_picture(self, picture, username):
+        sql = f"UPDATE users SET profile_picture = '{picture}' WHERE username = '{username}'"
 
     def __create_code(self, email):
         code = random.randint(10000, 99999)

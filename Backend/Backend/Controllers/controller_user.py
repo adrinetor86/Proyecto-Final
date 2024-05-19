@@ -5,11 +5,12 @@ import Backend.Libs.validate_data as validator
 
 class ControllerUser:
 
-    def __init__(self, email = "", username = "", password = "", rol = 3):
+    def __init__(self, email="", username="", password="", rol=3, picture=""):
             self.__email = email.lower()
             self.__username = username
             self.__password = password
             self.__rol = rol
+            self.__picture = picture
             self.__user_model = User()
 
     def register(self):
@@ -42,3 +43,6 @@ class ControllerUser:
 
     def get_profile(self):
         return self.__user_model.get_profile(self.__username)
+
+    def change_picture(self):
+        return self.__user_model.change_picture(self.__picture, self.__username)

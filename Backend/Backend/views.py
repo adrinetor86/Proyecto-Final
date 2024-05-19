@@ -109,16 +109,18 @@ def register(request):
 #FRONT NO DEBERA INDICAR "MOSTRAR MAS COMENTARIOS", YA QUE NO QUEDAN MAS.
 @csrf_exempt
 def child_comments(request, id_game, id_comment, offset=0):
+    if request.method == 'GET':
+        try:
+            offset = int(offset)
+        except ValueError:
+            offset = 0
 
-    try:
-        offset = int(offset)
-    except ValueError:
-        offset = 0
+        controller = ControllerGames()
+        data = controller.child_comments(id_game, id_comment, offset)
 
-    controller = ControllerGames()
-    data = controller.child_comments(id_game, id_comment, offset)
-
-    return JsonResponse(data)
+        return JsonResponse(data)
+    else:
+        return JsonResponse({"error": "Bad Request"}, status=405)
 
 @csrf_exempt
 def error_url(request):
@@ -177,11 +179,24 @@ def change_password(request):
         return JsonResponse({"error": "Bad Request"}, status=405)
 
 def profile(request, username):
-    controller = ControllerUser(username=username)
+    if request.method == 'GET':
+        controller = ControllerUser(username=username)
 
-    response = controller.get_profile()
+        response = controller.get_profile()
 
-    if response.get("error", "") == "":
-        return JsonResponse(response, status=200)
+        if response.get("error", "") == "":
+            return JsonResponse(response, status=200)
+        else:
+            return JsonResponse({"error": response.get("error", "Unknokn error")}, status=200)
     else:
-        return JsonResponse({"error": response.get("error", "Unknokn error")}, status=200)
+        return JsonResponse({"error": "Bad Request"}, status=405)
+
+def change_picture(request):
+    if request.method == 'POST':
+        picture = request.POST.get("picture")
+        username = request.POST.get("username")
+        controller = ControllerUser(username=username ,picture=picture)
+
+        response = controller.change_picture()
+    else:
+        return JsonResponse({"error": "Bad Request"}, status=405)
