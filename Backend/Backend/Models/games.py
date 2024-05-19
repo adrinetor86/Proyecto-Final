@@ -61,27 +61,31 @@ class Games:
         offset = limit - 15
         sql = f"SELECT id, title, front_page FROM {self.__tables["games"]} WHERE title LIKE '%{value}%' LIMIT {limit} OFFSET {offset}"
 
-        total_page = self.__total_pages(value)
-
-        if total_page == -1:
-            return {"error": "Unknown error", "code": 400}
-
-        prev = self.__get_prev(page, value)
-        next = self.__get_next(page, total_page, value)
-
         try:
             cursor = self.__connection.cursor(dictionary=True)
             cursor.execute(sql)
             dict_return = cursor.fetchall()
             cursor.close()
 
-            return {"prev": prev,
-                    "next": next,
-                    "current_page": page,
-                    "total_page": total_page,
-                    "min_result": offset+1,
-                    "max_result": offset + len(dict_return),
-                    "results": dict_return}
+            total_page = self.__total_pages(value)
+
+            if total_page == -1:
+                return {"error": "Unknown error", "code": 400}
+
+            if len(dict_return) != 0:
+                prev = self.__get_prev(page, value)
+                next = self.__get_next(page, total_page, value)
+
+                return {"prev": prev,
+                        "next": next,
+                        "current_page": page,
+                        "total_page": total_page,
+                        "min_result": offset+1,
+                        "max_result": offset + len(dict_return),
+                        "results": dict_return}
+            else:
+                return {"error": "Currently this page not found", "code":403}
+
         except mysql.connector.Error:
             return {"error": "unknown error, check values given", "code": 400}
 
