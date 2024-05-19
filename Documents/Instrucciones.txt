@@ -25,30 +25,32 @@ AQUI HAY QUE SUBIR LA DOCUMENTACION DEL PROYECTO
 ANOTACION: Todo empezara por 127.0.0.1:8000/
 ANOTACION: Las paginas iran de 15 juegos en 15 juegos (1 pagina = 15 primeros juegos, 2 pagina = del 15 al 30 juego)
 
-api/v1/games/?page=<pagina>&value=<busqueda> -> si no se configura page y value busca por todos desde la pagina 1.
+api/v1/games/?page=<pagina>&value=<busqueda> -> Es GET. si no se configura page y value busca por todos desde la pagina 1.
 
-api/v1/game/<id>/ -> Saca toda la informacion de un juego especifico, en sus comentarios el valor "next" dentro de cada comentario es el enlace para cargar sus comentarios
+api/v1/game/<id>/ -> Es GET. Saca toda la informacion de un juego especifico, en sus comentarios el valor "next" dentro de cada comentario es el enlace para cargar sus comentarios
 		     hijo, si este valor es NULL significa que no tiene comentarios hijo.
 
-login/ -> url para confirmar usuario y contraseña
+login/ -> Es POST. url para confirmar usuario y contraseña
 
-register/ -> Envia datos para loguear usuario
+register/ -> Es POST. Envia datos para loguear usuario
 
-confirm_user/ -> Necesita por POST email como "email" y confirma si existe el email para cambiar contraseña
+confirm_user/ -> Es POST. Necesita por POST email como "email" y confirma si existe el email para cambiar contraseña
 
-confirm_code/ -> Necesita por POST el email como "email" y el codigo enviado al usuario por correo como "code" y verifica si existe
+confirm_code/ -> Es POST. Necesita por POST el email como "email" y el codigo enviado al usuario por correo como "code" y verifica si existe
 
-change_password/ -> Necesita por POST token enviado en url anterior, el email como "email" y la nueva contraseña como "new_password"
+change_password/ -> Es POST. Necesita por POST token enviado en url anterior, el email como "email" y la nueva contraseña como "new_password"
 		    y el token debe ser pasado por cabeceras en el apartado "Authorization".
 
-comment/<id_game>/<id_comment>/<offset> -> Saca los siguientes comentarios hasta 10 que son hijos del id_comment, si hay mas comentarios que los cargados
+comment/<id_game>/<id_comment>/<offset> -> Es GET. Saca los siguientes comentarios hasta 10 que son hijos del id_comment, si hay mas comentarios que los cargados
 				   next sera distinto de NULL y dara la ruta de los siguientes, pero si no hay mas comentarios de los dados se dara
 				   en next un NULL, Y si offset no esta su valor inicial sera 0, pero si se configura empezara apartir del dado (lo normal
 				   es no tocarlo y solo coger el valor de next que ya lo tiene para que vaya de 10 en 10)
 
-profile/<username> -> Dara los datos del perfil del usuario.
+your_profile/<username> -> Es POST. Dara los datos del perfil de tu usuario, pero necesitara pasar el JWT por cabeceras como "Authorization" y el username.
 
-change_picture_profile/<username>/ -> manda una imagen como base64 y la cambia en la base de datos, devolvera la nueva foto de perfil.
+view_profile/<username>/ -> Es POST. Dara los datos accesibles por otros usuarios al usuario y solo necesitara el username
+
+change_picture_profile/<username>/ -> Es GET. manda una imagen como base64 y la cambia en la base de datos, devolvera la nueva foto de perfil.
 
 *************************** OBTENER BASE DE DATOS ***************************************************
 cd .\Backend\
