@@ -34,6 +34,7 @@ confirm_user/ -> Necesita por POST email como "email" y confirma si existe el em
 confirm_code/ -> Necesita por POST el email como "email" y el codigo enviado al usuario por correo como "code" y verifica si existe
 change_password/ -> Necesita por POST token enviado en url anterior, el email como "email" y la nueva contraseña como "new_password"
 		    y el token debe ser pasado por cabeceras en el apartado "Authorization".
+search?value=<value> -> Se accede mediante get y segun el value que pase el formulario aporta una lista de titulos
 
 *************************** OBTENER BASE DE DATOS ***************************************************
 cd .\Backend\

@@ -3,7 +3,7 @@
 /*  box-shadow: 3px 3px 5px rgba(0, 0, 0, 0.1);*/
 /*}*/
 
-nav ul{
+nav ul:not(.lista-panel){
   width: 100%;
   list-style: none;
   display: flex;
@@ -15,7 +15,7 @@ nav ul{
 nav li{
   height: 50px;
 }
-nav a{
+nav a {
   height: 100%;
   padding: 0 30px;
   text-decoration: none;
@@ -55,6 +55,33 @@ nav li:first-child{
 /*  }*/
 /*}*/
 
+
+
+.login-dropdown {
+  display: none;
+  position: absolute;
+  right: 0;
+  background-color: #f9f9f9;
+  min-width: 160px;
+  box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+  z-index: 1;
+  align-items: center;
+}
+
+.login-dropdown a {
+  color: black;
+  padding: 12px 16px;
+  text-decoration: none;
+  display: block;
+}
+
+.login-dropdown a:hover {background-color: #f1f1f1}
+
+.show {
+  display: block;
+  margin-bottom: 20px;
+}
+
 .hideOnMobile {
   display: none;
 }
@@ -91,3 +118,47 @@ img{
   width: 400px;
   height: 100px
 }
+
+
+.login-container.active .contenedor-panel {
+  display: block;
+}
+
+.login-container .contenedor-panel {
+  cursor: auto;
+  display: none;
+  padding: 110px 40px 60px;
+  position: absolute;
+  right: -40px;
+  top: -45px;
+  z-index: 10;
+}
+
+.login-container .contenedor-panel .panel {
+  align-items: center;
+  backdrop-filter: blur(60px) saturate(100%);
+  -webkit-backdrop-filter: blur(60px) saturate(100%);
+  border-radius: 10px;
+  box-shadow: 0 0 0 2000px hsla(0, 0%, 6%, .6);
+  display: flex;
+  flex-direction: column;
+  overflow: auto;
+}
+
+
+.login-container .padding ul li a {
+  align-items: center;
+  border-radius: 100px;
+  color: #fff;
+  cursor: pointer;
+  display: flex;
+  font-size: 15px;
+  padding: 8px 15px;
+  position: relative;
+  white-space: nowrap;
+}
+
+
+
+
+

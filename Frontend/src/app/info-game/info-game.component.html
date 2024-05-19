@@ -83,13 +83,13 @@
 <!--}@else{-->
 <!--<h2>El título no existe</h2>-->
 <!--}-->
-
+<!--@if(respuestaError == false){-->
 <div class="container-info-juego">
+
   <div class="container">
 
     <div class="Foto">
       <img class="imagen-portada" [src]="juego.url" alt="No se encontro la imagen">
-<!--      <img *ngif(juego.url !=undefined) src="{{juego.url}}">-->
     </div>
     <div class="Informacion">
         <p><b>Juego: </b>{{juegoPrueba.title}}</p><br>
@@ -99,17 +99,52 @@
         <p><b>Link Trailer: </b>Link Trailer</p><br>
         <p><b>Link-Descarga: </b>Link Descarga</p><br>
     </div>
-    <div class="Mapas">
-      CARUSEL MAPAS
-    </div>
-    <div class="Sinopsis">
-      <b>Sinopsis: </b>
-<!--      PONERLO FUERA DE LA CAJA (SINOPSIS)-->
-          {{juegoPrueba.synopsis}}
-    </div>
-    <div class="Comentarios">COMENTARIOS</div>
+  </div>
+  <div class="contenedor-otros-datos">
+      <div class="Mapas">
+
+<!--        <div class="card">-->
+<!--          <p-carousel-->
+<!--            [value]="mapas"-->
+<!--            [numVisible]="3"-->
+<!--            [numScroll]="3"-->
+<!--            [circular]="true"-->
+<!--&lt;!&ndash;            [responsiveOptions]="responsiveOptions"&ndash;&gt;-->
+<!--            autoplayInterval="3000"-->
+<!--          >-->
+<!--            <ng-template let-product pTemplate="item">-->
+<!--              <div class="border-1 surface-border border-round m-2 p-3">-->
+<!--                <div class="mb-3">-->
+<!--                  <div class="relative mx-auto">-->
+<!--                    <img-->
+<!--                      src="https://primefaces.org/cdn/primeng/images/demo/product/{{ product.image }}"-->
+<!--                      [alt]="product.name"-->
+<!--                      class="w-full border-round"-->
+<!--                    />-->
+<!--                  </div>-->
+<!--                </div>-->
+<!--              </div>-->
+<!--            </ng-template>-->
+<!--          </p-carousel>-->
+<!--        </div>-->
 
 
+
+      </div>
+
+      <div class="Sinopsis">
+        <b>Sinopsis: </b>
+        <!--      PONERLO FUERA DE LA CAJA (SINOPSIS)-->
+        {{juegoPrueba.synopsis}}
+      </div>
+      <div class="Comentarios">
+
+        <input type="text" placeholder="Añadir Comentario">
+        <button type="submit">Enviar</button>
+      </div>
 
   </div>
 </div>
+<!--}@else{-->
+<!--<h2>El título no existe</h2>-->
+<!--}-->

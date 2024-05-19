@@ -10,7 +10,7 @@ import {AvatarModule} from "primeng/avatar";
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { FormsModule } from '@angular/forms';
-import { HttpClientModule } from '@angular/common/http';
+import {HTTP_INTERCEPTORS, HttpClientModule} from '@angular/common/http';
 import { InputTextModule } from 'primeng/inputtext';
 import { InputTextareaModule } from 'primeng/inputtextarea';
 import { InputNumberModule } from 'primeng/inputnumber';
@@ -29,8 +29,14 @@ import { FooterComponent } from './footer/footer.component';
 import { BuscadorComponent } from './main-page/buscador/buscador.component';
 import { PaginadoComponent } from './main-page/paginado/paginado.component';
 import {NgxPaginationModule} from 'ngx-pagination';
+
 import {CatchCodeVerificationComponent} from "./catch-code-verification/catch-code-verification.component";
 import {ChangeOldPasswordComponent} from "./change-old-password/change-old-password.component";
+import {LoginInterceptor} from "./interceptores/login.interceptor";
+import {CarouselModule} from "primeng/carousel";
+import {AuthInterceptor} from "./interceptores/auth.interceptor";
+import {PaginatorModule} from "primeng/paginator";
+
 
 @NgModule({
   declarations: [
@@ -45,6 +51,7 @@ import {ChangeOldPasswordComponent} from "./change-old-password/change-old-passw
     FooterComponent,
     BuscadorComponent,
     PaginadoComponent,
+    
     CatchCodeVerificationComponent,
     ChangeOldPasswordComponent
   ],
@@ -70,9 +77,22 @@ import {ChangeOldPasswordComponent} from "./change-old-password/change-old-passw
     DropdownModule,
     ButtonModule,
     SplitButtonModule,
-    NgxPaginationModule
+    NgxPaginationModule,
+    CarouselModule,
+    PaginatorModule
   ],
-  providers: [],
+  providers: [
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: AuthInterceptor,
+      multi: true
+    },
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: LoginInterceptor,
+      multi: true
+      }
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

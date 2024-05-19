@@ -13,13 +13,14 @@ class ControllerGames:
             self.__release_date = release_date
             self.__games_model = None
 
-
     def get_games(self, page):
         self.__games_model = Games()
+
         return self.__games_model.select_games(page)
 
     def get_game(self, id):
         self.__games_model = Games()
+
         return self.__games_model.select_game(id)
 
     def child_comments(self, id_game, id_comment, offset):
@@ -35,6 +36,10 @@ class ControllerGames:
 
         print("intentas insertar un juego")
 
+    def search(self):
+        self.__games_model = Games()
+
+        return self.__games_model.search_game(self.__title)
 
     def __validate_fields(self):
 
