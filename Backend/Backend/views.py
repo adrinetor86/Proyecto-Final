@@ -100,6 +100,7 @@ def child_comments(request, id_game, id_comment, offset=0):
 
     return JsonResponse(data)
 
+@csrf_exempt
 def error_url(request):
     return JsonResponse({"error": "Page not found, check url"}, status=404)
 

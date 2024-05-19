@@ -55,8 +55,9 @@ class Games:
         else:
             return {"error": "game not found", "code": 403}
 
+#HACER IMAGANES
     def search_game(self, value: str):
-        sql = f"SELECT title FROM {self.__tables["games"]} WHERE title LIKE '{value}%'"
+        sql = f"SELECT title, front_page FROM {self.__tables["games"]} WHERE title LIKE '%{value}%'"
 
         try:
             cursor = self.__connection.cursor(dictionary=True)
@@ -64,7 +65,7 @@ class Games:
             dict_return = cursor.fetchall()
             cursor.close()
 
-            return {"games": dict_return}
+            return {"results": dict_return}
         except mysql.connector.Error:
             return {"error": "unknown error, check values given"}
 

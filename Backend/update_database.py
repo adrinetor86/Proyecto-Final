@@ -7,7 +7,7 @@ def ejecutar_archivo_sql(archivo_sql, conexion_config):
         cursor = conexion.cursor()
 
         # Lectura del archivo SQL y división de consultas
-        with open(archivo_sql, 'r') as archivo:
+        with open(archivo_sql, 'r', encoding = 'cp850') as archivo:
             consultas = archivo.read().split(';')
 
         for consulta in consultas:
