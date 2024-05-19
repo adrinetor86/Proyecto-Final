@@ -146,6 +146,16 @@ class User:
     def change_picture(self, picture, username):
         sql = f"UPDATE users SET profile_picture = '{picture}' WHERE username = '{username}'"
 
+        try:
+            cursor = self.__connection.cursor()
+            cursor.execute(sql)
+            cursor.close()
+            self.__connection.commit()
+
+            return {"success": "profile picture changed successfully", "code": 200}
+        except mysql.connector.Error:
+            return {"error": "Unknown error, try again", "code": 400}
+
     def __create_code(self, email):
         code = random.randint(10000, 99999)
 

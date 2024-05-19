@@ -187,7 +187,7 @@ def profile(request, username):
         if response.get("error", "") == "":
             return JsonResponse(response, status=200)
         else:
-            return JsonResponse({"error": response.get("error", "Unknokn error")}, status=200)
+            return JsonResponse({"error": response.get("error", "Unknokn error")}, status=response.get("code", 400))
     else:
         return JsonResponse({"error": "Bad Request"}, status=405)
 
@@ -198,5 +198,7 @@ def change_picture(request):
         controller = ControllerUser(username=username ,picture=picture)
 
         response = controller.change_picture()
+
+
     else:
         return JsonResponse({"error": "Bad Request"}, status=405)
