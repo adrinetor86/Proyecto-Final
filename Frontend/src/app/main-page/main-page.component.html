@@ -48,52 +48,52 @@
 <!--</div>-->
 
 
-<div class="main-content">
-  <app-buscador></app-buscador>
-  <div class="contenedor-juegos">
-      <div class="juegos">
-        <div class="juego" *ngFor="let game of games" [routerLink]="['/infoGame/' + game.id]">
-          <a>
-            <picture>
-              <img class="imagen-portada" [src]="game.url" alt="No se encontro la imagen">
-            </picture>
-          </a>
-          <div class="informacion" [routerLink]="['/infoGame/' + game.id]">
-            <div class="text">
-              <div class="contenedor-titulo" >
-                <span class="titulo" >{{game.title}}</span>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-  </div>
-  <app-paginado></app-paginado>
-</div>
-
-
-
 <!--<div class="main-content">-->
 <!--  <app-buscador></app-buscador>-->
 <!--  <div class="contenedor-juegos">-->
-<!--    <div class="juegos">-->
-<!--      <div class="juego" *ngFor="let game of juegosFiltrados" [routerLink]="['/infoGame/' + game.id]">-->
-<!--        <a>-->
-<!--          <picture>-->
-<!--&lt;!&ndash;            <img class="imagen-portada" [src]="game.url" alt="No se encontro la imagen">&ndash;&gt;-->
-<!--            <img class="imagen-portada" src="assets/fort.jpg" alt="No se encontro la imagen">-->
-<!--          </picture>-->
-<!--        </a>-->
-<!--        <div class="informacion" [routerLink]="['/infoGame/' + game.id]">-->
-<!--          <div class="text">-->
-<!--            <div class="contenedor-titulo" >-->
-<!--              <span class="titulo" >{{game.title}}</span>-->
+<!--      <div class="juegos">-->
+<!--        <div class="juego" *ngFor="let game of games" [routerLink]="['/infoGame/' + game.id]">-->
+<!--          <a>-->
+<!--            <picture>-->
+<!--              <img class="imagen-portada" [src]="game.url" alt="No se encontro la imagen">-->
+<!--            </picture>-->
+<!--          </a>-->
+<!--          <div class="informacion" [routerLink]="['/infoGame/' + game.id]">-->
+<!--            <div class="text">-->
+<!--              <div class="contenedor-titulo" >-->
+<!--                <span class="titulo" >{{game.title}}</span>-->
+<!--              </div>-->
 <!--            </div>-->
 <!--          </div>-->
 <!--        </div>-->
 <!--      </div>-->
-<!--    </div>-->
 <!--  </div>-->
-<!--<app-paginado></app-paginado>-->
+<!--  <app-paginado></app-paginado>-->
 <!--</div>-->
+
+
+
+<div class="main-content">
+  <app-buscador></app-buscador>
+  <div class="contenedor-juegos">
+    <div class="juegos">
+      <div class="juego" *ngFor="let game of juegosFiltrados" [routerLink]="['/infoGame/' + game.id]">
+        <a>
+          <picture>
+<!--            <img class="imagen-portada" [src]="game.url" alt="No se encontro la imagen">-->
+            <img class="imagen-portada" src="assets/fort.jpg" alt="No se encontro la imagen">
+          </picture>
+        </a>
+        <div class="informacion" [routerLink]="['/infoGame/' + game.id]">
+          <div class="text">
+            <div class="contenedor-titulo" >
+              <span class="titulo" >{{game.title}}</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+<app-paginado></app-paginado>
+</div>
 

@@ -21,20 +21,15 @@ export class MainPageComponent implements OnInit,OnDestroy,AfterViewInit {
 
   ngOnInit() {
 
-
     this.suscripcion = this.juegosservice.getJuegosApi().subscribe(juegos => {
-      this.gamesPrueba = juegos['games'];
+      this.gamesPrueba = juegos['results'];
       console.log(this.gamesPrueba);
       this.juegosFiltrados = [...this.gamesPrueba];
      this.games = this.juegosservice.getJuegos();
     });
-    // this.suscripcion = this.buscador.resultadosBusqueda.subscribe((termino: any)  => {
-    //   this.juegosFiltrados = this.gamesPrueba.filter(game => game.title.includes(termino));
-
-    // });
 
 
-    // console.log(this.gamesPrueba);
+
   }
 
   ngAfterViewInit(){

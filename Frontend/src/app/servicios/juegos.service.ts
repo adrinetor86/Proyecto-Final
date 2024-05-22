@@ -32,7 +32,7 @@ export class JuegosService {
 
   getJuegosApi():Observable<juegoMain[]> {
 
-    return this.http.get<juegoMain[]>("http://127.0.0.1:8000/api/v1/games/");
+    return this.http.get<juegoMain[]>("http://127.0.0.1:8000/api/v1/games/?page=1");
       // this.suscripcion=
       // this.http.get("http://127.0.0.1:8000/api/v1/games/").subscribe(JuegosRecibidos => {
       //
