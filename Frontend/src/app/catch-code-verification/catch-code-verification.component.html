@@ -26,8 +26,8 @@
 <!--              </div>-->
 <!--            </ng-template>-->
 <!--          </p-inputOtp>-->
-          <div class="flex justify-content-center ms-5">
-            <p-inputOtp [(ngModel)]="value">
+          <div class="flex justify-content-center ms-4">
+            <p-inputOtp [(ngModel)]="value" length="5">
               <ng-template pTemplate="input" let-token let-events="events">
                 <input
                   pInputText
