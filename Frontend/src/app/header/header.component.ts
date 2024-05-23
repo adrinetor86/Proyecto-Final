@@ -72,7 +72,7 @@ export class HeaderComponent implements OnInit,OnDestroy {
     // this.windowWidth = event.target.innerWidth;
     // this.windowHeight = event.target.innerHeight;
 
-    if (event.target.innerWidth >= 710) {
+    if (event.target.innerWidth <= 710) {
       this.menuOpen = false;
     }
   }

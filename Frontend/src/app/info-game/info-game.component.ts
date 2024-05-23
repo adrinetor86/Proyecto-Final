@@ -33,8 +33,26 @@ export class InfoGameComponent implements OnInit,OnDestroy{
   seeMoreButton = "Ver más";
   seeLess = "Ver menos";
   searchDot: number;
+  selectedFile: File | null = null;
 
   constructor(private route: ActivatedRoute,private juegoservice:JuegosService, private http: HttpClient ) { }
+
+
+  onSubmit() {
+    if (this.selectedFile) {
+      const reader = new FileReader();
+      reader.onload = () => {
+        const base64Image = reader.result as string;
+        // Aquí tienes tu imagen en base64
+        console.log(base64Image);
+      };
+      reader.readAsDataURL(this.selectedFile);
+    }
+  }
+
+  onFileChange(event: any) {
+    this.selectedFile = event.target.files[0];
+  }
 
   ngOnInit(): void {
     this.respuestaError= false;
@@ -64,6 +82,8 @@ export class InfoGameComponent implements OnInit,OnDestroy{
         });
      });
   }
+
+
   lookFullSynopsis(){
     return this.seeMore = !this.seeMore;
   }

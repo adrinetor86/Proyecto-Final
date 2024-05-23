@@ -77,9 +77,11 @@
   <app-buscador></app-buscador>
   <div class="contenedor-juegos">
     <div class="juegos">
-      <div class="juego" *ngFor="let game of juegosFiltrados" [routerLink]="['/infoGame/' + game.id]">
+      <div class="juego" *ngFor="let game of (gamesPrueba | paginate: { id: 'gamesListPagination', itemsPerPage: 15, currentPage: currentPage, totalItems: totalGames })">
+
+
         <a>
-          <picture>
+          <picture [routerLink]="['/infoGame/' + game.id]">
 <!--            <img class="imagen-portada" [src]="game.url" alt="No se encontro la imagen">-->
             <img class="imagen-portada" src="assets/fort.jpg" alt="No se encontro la imagen">
           </picture>
@@ -94,6 +96,19 @@
       </div>
     </div>
   </div>
-<app-paginado></app-paginado>
+<!--<app-paginado></app-paginado>-->
+
+<!--  @if (previousPageUrl || nextPageUrl) {-->
+  <div class="pagination">
+      <pagination-controls
+        (pageChange)="currentPage = $event; changePage(currentPage)"
+        id="gamesListPagination"
+        maxSize="5"
+        directionLinks="true"
+        previousLabel="Anterior"
+        nextLabel="Siguiente"
+      ></pagination-controls>
+  </div>
+<!--  }-->
 </div>
 

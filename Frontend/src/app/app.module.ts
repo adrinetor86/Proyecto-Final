@@ -36,6 +36,7 @@ import {CarouselModule} from "primeng/carousel";
 import {AuthInterceptor} from "./interceptores/auth.interceptor";
 import {PaginatorModule} from "primeng/paginator";
 import {PerfilComponent } from './perfil/perfil.component';
+import {InputOtpModule} from "primeng/inputotp";
 
 
 @NgModule({
@@ -55,32 +56,33 @@ import {PerfilComponent } from './perfil/perfil.component';
     ChangeOldPasswordComponent,
     PerfilComponent
   ],
-  imports: [
-    BrowserModule,
-    AppRoutingModule,
-    ToolbarModule,
-    AvatarModule,
-    BrowserAnimationsModule,
-    BrowserModule,
-    BrowserAnimationsModule,
-    FormsModule,
-    TableModule,
-    HttpClientModule,
-    InputTextModule,
-    DialogModule,
-    ToolbarModule,
-    ConfirmDialogModule,
-    RatingModule,
-    InputNumberModule,
-    InputTextareaModule,
-    RadioButtonModule,
-    DropdownModule,
-    ButtonModule,
-    SplitButtonModule,
-    NgxPaginationModule,
-    CarouselModule,
-    PaginatorModule
-  ],
+    imports: [
+        BrowserModule,
+        AppRoutingModule,
+        ToolbarModule,
+        AvatarModule,
+        BrowserAnimationsModule,
+        BrowserModule,
+        BrowserAnimationsModule,
+        FormsModule,
+        TableModule,
+        HttpClientModule,
+        InputTextModule,
+        DialogModule,
+        ToolbarModule,
+        ConfirmDialogModule,
+        RatingModule,
+        InputNumberModule,
+        InputTextareaModule,
+        RadioButtonModule,
+        DropdownModule,
+        ButtonModule,
+        SplitButtonModule,
+        NgxPaginationModule,
+        CarouselModule,
+        PaginatorModule,
+        InputOtpModule
+    ],
   providers: [
     {
       provide: HTTP_INTERCEPTORS,

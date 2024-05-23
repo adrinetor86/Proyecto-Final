@@ -103,7 +103,16 @@
   <div class="contenedor-otros-datos">
       <div class="Mapas">
 
-<!--        <div class="card">-->
+        <div class="container">
+          <h1>Subir Imagen</h1>
+          <form (ngSubmit)="onSubmit()" #imageForm="ngForm">
+            <input type="file" (change)="onFileChange($event)" required>
+            <button type="submit" [disabled]="!imageForm.form.valid">Enviar</button>
+          </form>
+        </div>
+
+
+        <!--        <div class="card">-->
 <!--          <p-carousel-->
 <!--            [value]="mapas"-->
 <!--            [numVisible]="3"-->
@@ -127,8 +136,6 @@
 <!--            </ng-template>-->
 <!--          </p-carousel>-->
 <!--        </div>-->
-
-
 
       </div>
 

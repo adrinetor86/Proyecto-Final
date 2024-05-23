@@ -14,6 +14,7 @@ export class CatchCodeVerificationComponent {
   @ViewChild('formCodeVerify', { static: false }) formAccount: NgForm;
   errorValidate = false;
   errorMessage = '';
+  value: any;
   constructor(private serviceValidate: ValidService, private router: Router, private emailAccountForggoten: RecoveryEmailService) {}
   verifyCode(){
     const code = this.formAccount.value.code;

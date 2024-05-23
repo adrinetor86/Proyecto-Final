@@ -85,7 +85,7 @@ nav li:first-child{
 .hideOnMobile {
   display: none;
 }
-@media (min-width:711px) {
+@media (min-width:920px) {
   .hideOnMobile {
     display: block;
   }
@@ -95,7 +95,7 @@ nav li:first-child{
   display: none;
 }
 
-@media (max-width: 710px) {
+@media (max-width: 920px) {
   .menu-button {
     background-color: rgba(255, 255, 255, 0.55);
     display: block;
@@ -108,11 +108,11 @@ nav li:first-child{
 }
 
 .logo{
-  background-image: url("/assets/logo.png");
+  background-image: url("/assets/Antobsgames.png");
   background-repeat: no-repeat;
   background-position: center;
-  background-size: 100px ;
-  width: 10%;
+  background-size: 500px ;
+  min-width: 200px;
 }
 img{
   width: 400px;
