@@ -4,28 +4,25 @@ from Backend.Models.games import Games
 
 class ControllerGames:
 
-    def __init__(self, title = "", synopsis = "", developer = "", link_download = "", link_trailer = "", release_date = ""):
+    def __init__(self, id=0, title="", synopsis="", developer="", link_download="", link_trailer="", release_date="", front_page=""):
+            self.__id = id
             self.__title = title
             self.__synopsis = synopsis
             self.__developer = developer
             self.__link_download = link_download
             self.__link_trailer = link_trailer
             self.__release_date = release_date
-            self.__games_model = None
+            self.__front_page = front_page
+            self.__games_model = Games()
 
     def get_games(self, page):
-        self.__games_model = Games()
-
         return self.__games_model.select_games(page)
 
     def get_game(self, id):
-        self.__games_model = Games()
-
         return self.__games_model.select_game(id)
 
     def child_comments(self, id_game, id_comment, offset):
         if id_game and id_comment:
-            self.__games_model = Games()
             return self.__games_model.get_child_comments(id_game, id_comment, offset)
         else:
             return {"comments": "no params"}
@@ -37,9 +34,13 @@ class ControllerGames:
         print("intentas insertar un juego")
 
     def search(self, page):
-        self.__games_model = Games()
-
         return self.__games_model.search_game(self.__title, page)
+
+    def update_front_page(self):
+        if self.__front_page != "":
+            return self.__games_model.update_front_page(self.__id, self.__front_page)
+        else:
+            return {"error": "Front page is void", "code": 409}
 
     def __validate_fields(self):
 

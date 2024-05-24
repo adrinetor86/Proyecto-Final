@@ -75,9 +75,8 @@ def login(request):
         response = controller.login()
 
         if response.get("error", "") == "":
-            tokken = create_token(email, response.get("username", ""))
-            response["token"] = tokken[0]
-            response["token_refresh"] = tokken[1]
+            token = create_token(email, response.get("username", ""), response.get("rol_user", 3))
+            response["token"] = token
 
             return JsonResponse(response, status=200)
         else:
@@ -208,8 +207,8 @@ def view_profile(request, username):
         return JsonResponse({"error": "Bad Request"}, status=405)
 
 def change_picture(request, username):
-    if request.method == 'GET':
-        picture = request.GET.get("picture")
+    if request.method == 'POST':
+        picture = request.POST.get("picture")
         controller = ControllerUser(username=username, picture=picture)
 
         response = controller.change_picture()
@@ -218,5 +217,25 @@ def change_picture(request, username):
             return JsonResponse(response, status=200)
         else:
             return JsonResponse({"error": response.get("error", "Unknokn error")}, status= response.get("code", 400))
+    else:
+        return JsonResponse({"error": "Bad Request"}, status=405)
+
+def new_game(request):
+    if request.method == 'POST':
+        controller = ControllerGames()
+        print('hasta aqui de momento')
+        return JsonResponse({"status": "estamos en ello jefe"}, status=200)
+    else:
+        return JsonResponse({"error": "Bad Request"}, status=405)
+
+def portada(request):
+    if request.method == 'POST':
+        controller = ControllerGames(title=request.POST.get("id", 0), front_page=request.POST.get("front_page", ""))
+        response = controller.update_front_page()
+
+        if response.get("error", "") == "":
+            return JsonResponse(response, status=200)
+        else:
+            return JsonResponse({"error": response.get("error", "Unknokn error")}, status=response.get("code", 400))
     else:
         return JsonResponse({"error": "Bad Request"}, status=405)

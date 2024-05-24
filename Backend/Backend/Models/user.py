@@ -25,7 +25,7 @@ class User:
     def insert_user(self, email, username, password, role=3):
         hashed_password = self.__ph.hash(config.SALT + password)
 
-        sql = f"INSERT INTO {self.__tables["users"]} VALUES ('{email}', '{username}', '{hashed_password}', CURDATE(), {role})"
+        sql = f"INSERT INTO {self.__tables["users"]} (email, username, password, date_creation, rol_user) VALUES ('{email}', '{username}', '{hashed_password}', CURDATE(), {role})"
 
         if not self.__exist_username(username):
             if not self.__exist_email(email):
@@ -34,9 +34,9 @@ class User:
                     cursor.execute(sql)
                     cursor.close()
                     self.__connection.commit()
-
                     return {"success": "Account created successfully"}
                 except mysql.connector.Error as error:
+                    print('Error: ' + error.msg)
                     return {"error": "Unknown error, try again", "code": 400}
             else:
                 return {"error": "Email already exists", "code": 409}
@@ -53,20 +53,21 @@ class User:
                     password_hashed = dict_access.get("password", "")
                     username = dict_access.get("username", "")
                     self.__ph.verify(password_hashed, (config.SALT + password))
-                    return {"username": username}
+                    return {"username": username,
+                            "rol_user": dict_access.get("rol_user", 3),
+                            "name_rol": dict_access.get("name_rol", "usuario")}
                 else:
                     return {"error": "Unknown error, try again", "code": 400}
             else:
                 return {"error": "Email not found", "code": 403}
         except argon2.exceptions.VerifyMismatchError:
             return {"error": "Incorrect password or email", "code": 403}
-        except Exception as e:
+        except Exception:
             return {"error": "Unknown error, try again", "code": 400}
+
 
     def confirm_exist_user(self, email):
         sql = f"SELECT email FROM {self.__tables["users"]} WHERE email = '{email}'"
-
-        print("el email que llega es:" + email)
 
         try:
             cursor = self.__connection.cursor(dictionary=True)
@@ -204,49 +205,58 @@ class User:
         mensaje['To'] = email
         mensaje['Subject'] = 'Account confirmation code'
 
+        with open(os.path.normpath(os.path.join(os.path.dirname(os.path.abspath(__file__)), '..', 'Images', 'Email', 'background_code.txt')),'r') as file:
+            background_image = file.read()
+
+        with open(os.path.normpath(os.path.join(os.path.dirname(os.path.abspath(__file__)), '..', 'Images', 'Email', 'marco.txt')),'r') as file:
+            marco = file.read()
+
         # Cuerpo del correo
-        cuerpo = ("<head>"
-            "    <title>Confirmación de Código de Verificación</title>"
-            "    <style>"
-            "        *{"
-            "            margin: 0;"
-            "        }"
-            "       body{"
-            "            height: 100vh;"
-            "            display: flex;"
-            "            flex-flow: column;"
-            "            justify-content: center;"
-            "            align-items: center;"
-            "            background-image: url('http://127.0.0.1:8000/Backend/Images/fondo4.jpg');"
-            "            background-size: cover;"
-            "            background-repeat: no-repeat;"
-            "            background-position: bottom;"
-            "        }"
-            "        p{"
-            "            font-weight: bold;"
-            "        }"
-            "        p{"
-            "            text-align: center;"
-            "        }"
-            "        #code{"
-            "            margin: 2% 0 2% 0;"
-            "            font-size: xx-large;"
-            "            align-items: center;"
-            "            color: rgb(211, 175, 81);"
-            "        }"
-            "    </style>"
-            "</head>"
-            "<body>"
-            "<table>"
-            f"    <tr><p>Estimado {email},</p></tr>"
-            "    <tr><p>Para completar el proceso de verificación de tu cuenta, requerimos que ingreses el código de verificación proporcionado a continuación:</p></tr>"
-            f"    <tr><p id='code'>{code}</p></tr>"
-            "    <tr><p>Por favor, asegúrate de introducir este código en la plataforma correspondiente para validar tu cuenta de manera efectiva.</p></tr>"
-            "    <tr><p>Si tienes alguna pregunta o necesitas asistencia adicional, no dudes en ponerte en contacto con nuestro equipo de soporte. Estamos aquí para ayudarte en cualquier momento.</p></tr>"
-            "    <tr><p><strong>@Antobs Company</strong></p></tr>"
-            f"    <tr><p>{sender_email}</p></tr>"
-            "</table>"
-            "</body>")
+        cuerpo = f"""
+        <head>
+            <title>Confirmación de Código de Verificación</title>
+        </head>
+        <body style="margin: 0; display: flex; min-height: 50vh; flex-flow: column; justify-content: center; align-items: center; background-image: url('{background_image}'); background-size: 100%; background-repeat: no-repeat; background-position: bottom;">
+            <table>
+                <tr>
+                    <td>
+                        <p style="font-weight: bold; text-align: center;">Estimado {email},</p>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <p style="font-weight: bold; text-align: center;">Para completar el proceso de verificación de tu cuenta, requerimos que ingreses el código de verificación proporcionado a continuación:</p>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <p id='code' style="margin: 2% 0; font-size: xx-large; color: rgb(211, 175, 81); text-align: center; background-image: url('{marco}'); background-size: 300px;">{code}</p>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <p style="font-weight: bold; text-align: center;">Por favor, asegúrate de introducir este código en la plataforma correspondiente para validar tu cuenta de manera efectiva.</p>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <p style="font-weight: bold; text-align: center;">Si tienes alguna pregunta o necesitas asistencia adicional, no dudes en ponerte en contacto con nuestro equipo de soporte. Estamos aquí para ayudarte en cualquier momento.</p>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <p style="font-weight: bold; text-align: center;"><strong>@Antobs Company</strong></p>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <p style="font-weight: bold; text-align: center;">{sender_email}</p>
+                    </td>
+                </tr>
+            </table>
+        </body>
+        """
+
         mensaje.attach(MIMEText(cuerpo, 'html'))
 
         # Iniciar sesión en el servidor SMTP y enviar el correo
@@ -266,7 +276,7 @@ class User:
         return True
 
     def __get_data_user(self, email):
-        sql = f"SELECT password, username FROM {self.__tables["users"]} WHERE email = '{email}'"
+        sql = f"SELECT password, username, rol_user FROM {self.__tables["users"]} WHERE email = '{email}'"
 
         try:
             cursor = self.__connection.cursor(dictionary=True)
@@ -276,7 +286,23 @@ class User:
         except mysql.connector.Error as error:
             return [{'error': 'Cannot check data'}]
 
+        dict_return[0]["name_rol"] = self.__get_name_rol_user(dict_return[0]["rol_user"])
+
         return dict_return
+
+    def __get_name_rol_user(self, id_rol):
+        sql = f"SELECT type_rol FROM {self.__tables["rol"]} WHERE id_rol = {id_rol}"
+
+        try:
+            cursor = self.__connection.cursor(dictionary=True)
+            cursor.execute(sql)
+            dict_return = cursor.fetchone()
+            cursor.close()
+            return dict_return["type_rol"]
+        except mysql.connector.Error as error:
+            print('aqui me quedo socio')
+            return 'Usuario'
+
 
     def __exist_username(self, username):
         sql = f"SELECT * FROM {self.__tables["users"]} WHERE username = '{username}'"

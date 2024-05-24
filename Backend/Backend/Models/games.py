@@ -59,7 +59,7 @@ class Games:
     def search_game(self, value: str, page: int):
         limit = page * 15
         offset = limit - 15
-        sql = f"SELECT id, title, front_page FROM {self.__tables["games"]} WHERE title LIKE '%{value}%' LIMIT {limit} OFFSET {offset}"
+        sql = f"SELECT id, title, front_page FROM {self.__tables["games"]} WHERE title LIKE '%{value}%' LIMIT 15 OFFSET {offset}"
 
         try:
             cursor = self.__connection.cursor(dictionary=True)
@@ -84,10 +84,23 @@ class Games:
                         "max_result": offset + len(dict_return),
                         "results": dict_return}
             else:
-                return {"error": "Currently this page not found", "code":403}
+                return {"error": "Currently this page not found", "code": 403}
 
         except mysql.connector.Error:
             return {"error": "unknown error, check values given", "code": 400}
+
+    def update_front_page(self, id, front_page):
+        sql = f"UPDATE {self.__tables["games"]} SET front_page = '{front_page}' WHERE id = {id}"
+
+        try:
+            cursor = self.__connection.cursor()
+            cursor.execute(sql)
+            cursor.close()
+            self.__connection.commit()
+
+            return {"success": "front_page change successfully"}
+        except mysql.connector.Error:
+            return {"error": "Unknown error, try again", "code": 400}
 
     def __get_next(self, page, total_page, value):
         if page != total_page:

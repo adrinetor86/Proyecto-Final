@@ -1,4 +1,6 @@
 import os, mysql.connector
+import re
+
 import Backend.conf as conf
 
 def ejecutar_archivo_sql(archivo_sql, conexion_config):
@@ -7,8 +9,8 @@ def ejecutar_archivo_sql(archivo_sql, conexion_config):
         cursor = conexion.cursor()
 
         # Lectura del archivo SQL y división de consultas
-        with open(archivo_sql, 'r', encoding = 'cp850') as archivo:
-            consultas = archivo.read().split(';')
+        with open(archivo_sql, 'r', encoding = 'utf-8') as archivo:
+            consultas = re.split(r';\s*\n', archivo.read())
 
         for consulta in consultas:
             if consulta.strip():  # Ignorar líneas en blanco
@@ -18,6 +20,7 @@ def ejecutar_archivo_sql(archivo_sql, conexion_config):
         print("Archivo SQL ejecutado correctamente")
 
     except Exception as e:
+        print('Ha fallado en: ' + consulta)
         print("Error al ejecutar el archivo SQL:", e)
 
     finally:
