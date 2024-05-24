@@ -1,0 +1,9 @@
+
+
+<h1>Subir Imagen</h1>
+<form (ngSubmit)="onSubmit()" #imageForm="ngForm">
+
+  <input type="number" required placeholder="idJuego" ngModel name="juegoId">
+  <input type="file" (change)="onFileChange($event)" required>
+  <button type="submit" [disabled]="!imageForm.form.valid">Enviar</button>
+</form>

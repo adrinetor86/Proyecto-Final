@@ -13,7 +13,6 @@ export class MainPageComponent implements OnInit,OnDestroy {
   @ViewChild(BuscadorComponent) buscador: BuscadorComponent;
   games:Juego[]=[]
   gamesPrueba:juegoMain[]=[]
-  juegosFiltrados:juegoMain[]=[]
   currentPage: number = 1;
   totalGames: number = 37;
 

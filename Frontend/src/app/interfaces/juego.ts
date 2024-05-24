@@ -7,7 +7,7 @@ export interface Juego {
 export interface juegoMain{
   id:number;
   title:string;
-  release_date:string;
+  front_page:string;
 }
 export interface JuegoPrueba {
   id:0;

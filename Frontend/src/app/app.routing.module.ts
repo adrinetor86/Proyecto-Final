@@ -10,6 +10,7 @@ import {ForgottenPasswordComponent} from "./login/forgotten-password/forgotten-p
 import {CatchCodeVerificationComponent} from "./catch-code-verification/catch-code-verification.component";
 import {ChangeOldPasswordComponent} from "./change-old-password/change-old-password.component";
 import {PerfilComponent} from "./perfil/perfil.component";
+import {SubirFotosComponent} from "./subir-fotos/subir-fotos.component";
 
 
 const appRoutes: Routes = [
@@ -22,6 +23,7 @@ const appRoutes: Routes = [
   { path: 'changePassword', component: ChangeOldPasswordComponent},
   { path: 'not-found', component: NotFoundComponent },
   { path: 'perfil', component: PerfilComponent },
+  { path: 'testeo', component: SubirFotosComponent },
   { path: '**', redirectTo: '/not-found', pathMatch: 'full'}
 ]
 @NgModule({

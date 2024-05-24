@@ -4,7 +4,7 @@
   <ul [class.menuOpen]="menuOpen">
 
     <li class="logo"> <a routerLink="/"></a></li>
-    <li *ngIf="usuarioLogado" class="hideOnMobile" [class.hideOnMobile]="!menuOpen" ><a href="#">Blog</a></li>
+    <li *ngIf="usuarioLogado" class="hideOnMobile" [class.hideOnMobile]="!menuOpen" ><a [routerLink]="['/testeo']">Blog</a></li>
     <li *ngIf="usuarioLogado" class="hideOnMobile" [class.hideOnMobile]="!menuOpen" ><a [routerLink]="['/perfil']" >Perfil</a></li>
     <li class="hideOnMobile" [class.hideOnMobile]="!menuOpen" ><a routerLink="/" >About</a></li>
     <li *ngIf="usuarioLogado" (click)="desconectar()" class="hideOnMobile" [class.hideOnMobile]="!menuOpen" ><a href="#">DESCONECTAR</a></li>

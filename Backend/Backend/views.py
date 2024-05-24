@@ -228,9 +228,12 @@ def new_game(request):
     else:
         return JsonResponse({"error": "Bad Request"}, status=405)
 
+@csrf_exempt
 def portada(request):
+
     if request.method == 'POST':
-        controller = ControllerGames(title=request.POST.get("id", 0), front_page=request.POST.get("front_page", ""))
+
+        controller = ControllerGames(id=request.POST.get("id", 0), front_page=request.POST.get("front_page", ""))
         response = controller.update_front_page()
 
         if response.get("error", "") == "":

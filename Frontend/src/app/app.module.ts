@@ -37,6 +37,7 @@ import {AuthInterceptor} from "./interceptores/auth.interceptor";
 import {PaginatorModule} from "primeng/paginator";
 import {PerfilComponent } from './perfil/perfil.component';
 import {InputOtpModule} from "primeng/inputotp";
+import { SubirFotosComponent } from './subir-fotos/subir-fotos.component';
 
 
 @NgModule({
@@ -54,7 +55,8 @@ import {InputOtpModule} from "primeng/inputotp";
     PaginadoComponent,
     CatchCodeVerificationComponent,
     ChangeOldPasswordComponent,
-    PerfilComponent
+    PerfilComponent,
+    SubirFotosComponent
   ],
     imports: [
         BrowserModule,

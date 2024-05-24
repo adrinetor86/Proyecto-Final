@@ -82,8 +82,8 @@
 
         <a>
           <picture [routerLink]="['/infoGame/' + game.id]">
-<!--            <img class="imagen-portada" [src]="game.url" alt="No se encontro la imagen">-->
-            <img class="imagen-portada" src="assets/fort.jpg" alt="No se encontro la imagen">
+            <img class="imagen-portada" [src]="game.front_page" alt="No se encontro la imagen">
+<!--            <img class="imagen-portada" src="assets/fort.jpg" alt="No se encontro la imagen">-->
           </picture>
         </a>
         <div class="informacion" [routerLink]="['/infoGame/' + game.id]">
@@ -96,7 +96,6 @@
       </div>
     </div>
   </div>
-<!--<app-paginado></app-paginado>-->
 
 <!--  @if (previousPageUrl || nextPageUrl) {-->
   <div class="pagination">
