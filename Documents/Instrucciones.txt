@@ -57,3 +57,5 @@ insertar_guarro/ -> Es POST. Pasa por POST el id y la imagen y la sustituye en l
 *************************** OBTENER BASE DE DATOS ***************************************************
 cd .\Backend\
 python .\update_database.py
+************************** MODULOS NUEVOS AÑADIDOS ANGULAR **********************************
+Para crear el modal he tenido que utilizar ng add @angular/material

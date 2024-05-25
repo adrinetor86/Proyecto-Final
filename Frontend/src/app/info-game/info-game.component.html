@@ -141,11 +141,11 @@
         {{juegoPrueba.synopsis}}
       </div>
       <div class="Comentarios">
-
-        <input type="text" placeholder="Añadir Comentario">
-        <button type="submit">Enviar</button>
+        <form #formComments="ngForm">
+        <input type="text" placeholder="Añadir Comentario" ngModel name="commentValue">
+        <button type="submit" (click)="aniadirComentario()">Enviar</button>
+        </form>
       </div>
-
   </div>
 </div>
 <!--}@else{-->

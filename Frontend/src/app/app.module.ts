@@ -36,8 +36,10 @@ import {CarouselModule} from "primeng/carousel";
 import {AuthInterceptor} from "./interceptores/auth.interceptor";
 import {PaginatorModule} from "primeng/paginator";
 import {PerfilComponent } from './perfil/perfil.component';
-import {InputOtpModule} from "primeng/inputotp";
 import { SubirFotosComponent } from './subir-fotos/subir-fotos.component';
+import {ModalCommentComponent} from "./modal-comment/modal-comment.component";
+import {MatButton} from "@angular/material/button";
+import {MatDialogModule} from "@angular/material/dialog";
 
 
 @NgModule({
@@ -56,35 +58,39 @@ import { SubirFotosComponent } from './subir-fotos/subir-fotos.component';
     CatchCodeVerificationComponent,
     ChangeOldPasswordComponent,
     PerfilComponent,
-    SubirFotosComponent
+    SubirFotosComponent,
+    ModalCommentComponent
   ],
-    imports: [
-        BrowserModule,
-        AppRoutingModule,
-        ToolbarModule,
-        AvatarModule,
-        BrowserAnimationsModule,
-        BrowserModule,
-        BrowserAnimationsModule,
-        FormsModule,
-        TableModule,
-        HttpClientModule,
-        InputTextModule,
-        DialogModule,
-        ToolbarModule,
-        ConfirmDialogModule,
-        RatingModule,
-        InputNumberModule,
-        InputTextareaModule,
-        RadioButtonModule,
-        DropdownModule,
-        ButtonModule,
-        SplitButtonModule,
-        NgxPaginationModule,
-        CarouselModule,
-        PaginatorModule,
-        InputOtpModule
-    ],
+  imports: [
+    BrowserModule,
+    AppRoutingModule,
+    ToolbarModule,
+    AvatarModule,
+    BrowserAnimationsModule,
+    BrowserModule,
+    BrowserAnimationsModule,
+    FormsModule,
+    TableModule,
+    HttpClientModule,
+    InputTextModule,
+    DialogModule,
+    ToolbarModule,
+    ConfirmDialogModule,
+    RatingModule,
+    InputNumberModule,
+    InputTextareaModule,
+    RadioButtonModule,
+    DropdownModule,
+    ButtonModule,
+    SplitButtonModule,
+    NgxPaginationModule,
+    CarouselModule,
+    PaginatorModule,
+    MatButton,
+    BrowserModule,
+    BrowserAnimationsModule,
+    MatDialogModule,
+  ],
   providers: [
     {
       provide: HTTP_INTERCEPTORS,
