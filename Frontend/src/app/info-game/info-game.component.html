@@ -142,9 +142,30 @@
       </div>
       <div class="Comentarios">
         <form #formComments="ngForm">
-        <input type="text" placeholder="Añadir Comentario" ngModel name="commentValue">
-        <button type="submit" (click)="aniadirComentario()">Enviar</button>
+        <input type="text" placeholder="Añadir Comentario" ngModel required name="commentValue" (focus)="mostrarBotonesFormPadre=true">
+        <div style="display: flex" *ngIf="mostrarBotonesFormPadre">
+          <button type="button" (click)="cancelarComentario()">Cancelar</button>
+          <button type="submit" (click)="aniadirComentario()">Comentar</button>
+        </div>
         </form>
+        <div class="contentComment" *ngIf="gameComment">
+          {{ gameComment.user }}
+          <p>
+          {{ gameComment.content_comment}}
+            <a href="#" (click)="mostrarFormComentarioHijo(); $event.preventDefault()">Responder</a>
+          <div *ngIf="mostrarFormHijo">
+            <form #formCommentsChild="ngForm">
+              <input type="text" placeholder="Añadir Comentario" [(ngModel)]="userCommentFather" name="commentValueChild">
+              <div style="display: flex">
+                <button type="button" (click)="cancelarComentario()">Cancelar</button>
+                <button type="submit" (click)="aniadirComentarioHijo()">Comentar</button>
+              </div>
+            </form>
+          </div>
+        </div>
+        <div *ngIf="!gameComment">
+          No hay comentarios para este juego actualmente
+        </div>
       </div>
   </div>
 </div>
