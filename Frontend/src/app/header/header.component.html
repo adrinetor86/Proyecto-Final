@@ -7,7 +7,7 @@
     <li *ngIf="usuarioLogado" class="hideOnMobile" [class.hideOnMobile]="!menuOpen" ><a [routerLink]="['/testeo']">Blog</a></li>
     <li *ngIf="usuarioLogado" class="hideOnMobile" [class.hideOnMobile]="!menuOpen" ><a [routerLink]="['/perfil']" >Perfil</a></li>
     <li class="hideOnMobile" [class.hideOnMobile]="!menuOpen" ><a routerLink="/" >About</a></li>
-    <li *ngIf="usuarioLogado" (click)="desconectar()" class="hideOnMobile" [class.hideOnMobile]="!menuOpen" ><a href="#">DESCONECTAR</a></li>
+    <li *ngIf="usuarioLogado" (click)="desconectar()" class="hideOnMobile" [class.hideOnMobile]="!menuOpen" ><a href="#">Cerrar Sesion</a></li>
     <li class="hideOnMobile" [class.hideOnMobile]="!menuOpen">
 
       @if(!menuOpen){
@@ -20,7 +20,7 @@
         <div class="contenedor-panel">
           <div class="panel">
             <ul class="lista-panel" style="height: auto;overflow: initial;">
-              <li>
+              <li *ngIf="!usuarioLogado">
                 <a [routerLink]="['/login']">Iniciar Sesion</a>
               </li>
               <hr>
@@ -29,10 +29,10 @@
               </li>
               <hr>
               <li>
-                <a *ngIf="usuarioLogado" (click)="desconectar() "class="logout">Desconectarse</a>
+                <a *ngIf="usuarioLogado" (click)="desconectar()" class="logout">Desconectarse</a>
               </li>
                <li>
-                <a  *ngIf="usuarioLogado" [routerLink]="['/perfil']">perfil</a>
+                <a  *ngIf="usuarioLogado" [routerLink]="['/perfil']"> Ver Perfil</a>
               </li>
             </ul>
           </div>

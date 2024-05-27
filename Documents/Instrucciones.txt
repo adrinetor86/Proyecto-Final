@@ -50,8 +50,12 @@ your_profile/<username> -> Es POST. Dara los datos del perfil de tu usuario, per
 
 view_profile/<username>/ -> Es POST. Dara los datos accesibles por otros usuarios al usuario y solo necesitara el username
 
-change_picture_profile/<username>/ -> Es GET. manda una imagen como base64 y la cambia en la base de datos, devolvera la nueva foto de perfil.
+change_picture_profile/<username>/ -> Es POST. manda una imagen como base64 y la cambia en la base de datos, devolvera la nueva foto de perfil.
+
+insertar_guarro/ -> Es POST. Pasa por POST el id y la imagen y la sustituye en la base de datos.
 
 *************************** OBTENER BASE DE DATOS ***************************************************
 cd .\Backend\
 python .\update_database.py
+************************** MODULOS NUEVOS AÑADIDOS ANGULAR **********************************
+Para crear el modal he tenido que utilizar ng add @angular/material

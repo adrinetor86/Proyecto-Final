@@ -23,13 +23,11 @@ export class LoginComponent {
     this.validateService.testDataLogin(email, passwordValue).pipe(
       catchError((error) => {
         this.errorValidate = true;
-        this.errorMessage = 'Credenciales incorrectas';
+        this.errorMessage = '⚠️Credenciales incorrectas';
         console.log(error);
         return of(null);
       })
     ).subscribe(response=>{
-      console.log("respuesta");
-      console.log(response);
       if (response!==null){
         this.route.navigate(['/']);
       }

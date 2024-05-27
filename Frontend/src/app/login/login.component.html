@@ -14,7 +14,7 @@
       <div class="prueba">
         <p *ngIf="errorValidate" class="p-error">{{errorMessage}}</p>
         <div style="display: flex">
-            <button class="cancel" type="button" (click)="cancelLogin()">Cancelar</button>
+            <button class="cancel" type="button" (click)="cancelLogin()">Atrás</button>
             <button class="login-button" type="submit" [disabled]="!form.valid" (click)="loginUser()">Login</button>
         </div>
         <div class="div-enlaces-formulario">

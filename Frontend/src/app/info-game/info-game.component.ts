@@ -1,9 +1,13 @@
-import {Component, OnDestroy, OnInit} from '@angular/core';
-import {ActivatedRoute} from "@angular/router";
+import {Component, OnDestroy, OnInit, ViewChild} from '@angular/core';
+import {ActivatedRoute, Router} from "@angular/router";
 import {JuegosService} from "../servicios/juegos.service";
-import {isEmpty, Subscription} from "rxjs";
+import {Subscription} from "rxjs";
 import {Juego, JuegoPrueba} from "../interfaces/juego";
 import {HttpClient} from "@angular/common/http";
+import {ValidService} from "../servicios/validate.service";
+import {NgForm} from "@angular/forms";
+import {MatDialog} from "@angular/material/dialog";
+import {ModalCommentComponent} from "../modal-comment/modal-comment.component";
 
 
 @Component({
@@ -12,6 +16,8 @@ import {HttpClient} from "@angular/common/http";
   styleUrl: './info-game.component.css'
 })
 export class InfoGameComponent implements OnInit,OnDestroy{
+  @ViewChild('formComments', { static: false }) formCommentsValue: NgForm;
+  @ViewChild('formCommentsChild', { static: false }) formCommentsChildValue: NgForm;
   //para sacar todos los datos del juego habria que crear un servicio que se conectará con la base de datos
   juego:Juego={title:'',url:'',id:0}
 
@@ -26,16 +32,21 @@ export class InfoGameComponent implements OnInit,OnDestroy{
     genders:'',
     plataforms:'',
     }
+  gameComment: any;
   respuestaError: boolean;
   subcripcion:Subscription;
   suscripcionPrueba: Subscription;
+  suscriptionComment: Subscription;
   seeMore = false;
   seeMoreButton = "Ver más";
   seeLess = "Ver menos";
   searchDot: number;
+  mostrarFormHijo = false;
+  mostrarBotonesFormPadre = false;
+  userCommentFather: any;
 
-
-  constructor(private route: ActivatedRoute,private juegoservice:JuegosService, private http: HttpClient ) { }
+  constructor(private route: ActivatedRoute, private juegoservice:JuegosService, private routerNavigate: Router,
+              private http: HttpClient, private isLoginUser: ValidService,public dialog: MatDialog) { }
 
 
   // onSubmit() {
@@ -81,8 +92,44 @@ export class InfoGameComponent implements OnInit,OnDestroy{
 
         });
      });
+    this.suscriptionComment = this.route.params.subscribe(params=>{
+      const gameId = params['id'];
+      // const commentId = params['id_comment'];
+      this.http.get(`http://127.0.0.1:8000/comment/${gameId}/3`).subscribe((CommentValue:any)=>{
+        this.gameComment = CommentValue.comments[0];
+        this.userCommentFather = this.gameComment.user;
+        console.log(this.gameComment);
+      })
+    });
   }
 
+  aniadirComentario(){
+    if (this.isLoginUser.usuarioLogeado()){
+      let commentValue = this.formCommentsValue.value.commentValue;
+      console.log(commentValue);
+    }
+    else {
+       this.dialog.open(ModalCommentComponent);
+    }
+  }
+  cancelarComentario(){
+    this.mostrarFormHijo = false;
+    this.mostrarBotonesFormPadre = false;
+    const gameId=this.juego.id
+    this.routerNavigate.navigate([`/infoGame/${gameId}`])
+  }
+  mostrarFormComentarioHijo(){
+    this.mostrarFormHijo = true;
+  }
+  aniadirComentarioHijo(){
+    if (this.isLoginUser.usuarioLogeado()){
+      let commentValue = this.formCommentsChildValue.value.commentValueChild;
+      console.log(commentValue);
+    }
+    else {
+      this.dialog.open(ModalCommentComponent);
+    }
+  }
 
   lookFullSynopsis(){
     return this.seeMore = !this.seeMore;
