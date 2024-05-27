@@ -67,10 +67,12 @@ class Games:
             dict_return = cursor.fetchall()
             cursor.close()
 
-            total_page = self.__total_pages(value)
+            total_games = self.__total_games(value)
 
-            if total_page == -1:
+            if total_games == -1:
                 return {"error": "Unknown error", "code": 400}
+            else:
+                total_page = math.ceil(total_games/15)
 
             if len(dict_return) != 0:
                 prev = self.__get_prev(page, value)
@@ -82,6 +84,7 @@ class Games:
                         "total_page": total_page,
                         "min_result": offset+1,
                         "max_result": offset + len(dict_return),
+                        "count_results": total_games,
                         "results": dict_return}
             else:
                 return {"error": "Currently this page not found", "code": 403}
@@ -124,7 +127,7 @@ class Games:
 
         return prev
 
-    def __total_pages(self, value: str) -> int:
+    def __total_games(self, value: str) -> int:
         sql = f"SELECT count(*) FROM {self.__tables["games"]} WHERE title LIKE '%{value}%'"
 
         try:
@@ -133,9 +136,9 @@ class Games:
             dict_return = cursor.fetchall()
             cursor.close()
 
-            total_pages = math.ceil(dict_return[0]["count(*)"] / 15)
+            total_games = dict_return[0]["count(*)"]
 
-            return total_pages
+            return total_games
         except mysql.connector.Error:
             return -1
 
