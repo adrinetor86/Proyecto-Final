@@ -74,7 +74,13 @@
 
 
 <div class="main-content">
-  <app-buscador></app-buscador>
+<!--  <app-buscador></app-buscador>-->
+  <div class="contenedor-buscador">
+
+    <input type="search"  placeholder="Buscar..." (input)="onSearchTermChange($event.target.value)" name="buscador">
+
+  </div>
+
   <div class="contenedor-juegos">
     <div class="juegos">
       <div class="juego" *ngFor="let game of (gamesPrueba | paginate: { id: 'gamesListPagination', itemsPerPage: 15, currentPage: currentPage, totalItems: totalGames })">

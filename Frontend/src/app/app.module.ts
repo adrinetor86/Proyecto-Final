@@ -40,6 +40,8 @@ import { SubirFotosComponent } from './subir-fotos/subir-fotos.component';
 import {ModalCommentComponent} from "./modal-comment/modal-comment.component";
 import {MatButton} from "@angular/material/button";
 import {MatDialogModule} from "@angular/material/dialog";
+import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
+import {InputOtpModule} from "primeng/inputotp";
 
 
 @NgModule({
@@ -90,6 +92,7 @@ import {MatDialogModule} from "@angular/material/dialog";
     BrowserModule,
     BrowserAnimationsModule,
     MatDialogModule,
+    InputOtpModule,
   ],
   providers: [
     {
@@ -101,7 +104,8 @@ import {MatDialogModule} from "@angular/material/dialog";
       provide: HTTP_INTERCEPTORS,
       useClass: LoginInterceptor,
       multi: true
-      }
+      },
+    provideAnimationsAsync()
   ],
   bootstrap: [AppComponent]
 })

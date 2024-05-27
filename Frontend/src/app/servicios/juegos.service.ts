@@ -30,10 +30,10 @@ export class JuegosService {
 
   constructor(private http: HttpClient) { }
 
-  getJuegosApi(pagina:number):Observable<juegoMain[]> {
+  getJuegosApi(pagina:number,cadenaBusqueda:string):Observable<juegoMain[]> {
 
     console.log("hace llamada manito a la pagina: "+pagina)
-    return this.http.get<juegoMain[]>("http://127.0.0.1:8000/api/v1/games/?page="+pagina);
+    return this.http.get<juegoMain[]>("http://127.0.0.1:8000/api/v1/games/?page="+pagina+"&value="+cadenaBusqueda);
       // this.suscripcion=
       // this.http.get("http://127.0.0.1:8000/api/v1/games/").subscribe(JuegosRecibidos => {
       //

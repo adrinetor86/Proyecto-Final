@@ -8,7 +8,8 @@ import {ValidService} from "../servicios/validate.service";
 import {NgForm} from "@angular/forms";
 import {MatDialog} from "@angular/material/dialog";
 import {ModalCommentComponent} from "../modal-comment/modal-comment.component";
-
+import {Mapas} from "../interfaces/mapas";
+import {MapasService} from "../servicios/mapaJuegos.service";
 
 @Component({
   selector: 'app-info-game',
@@ -19,6 +20,12 @@ export class InfoGameComponent implements OnInit,OnDestroy{
   @ViewChild('formComments', { static: false }) formCommentsValue: NgForm;
   @ViewChild('formCommentsChild', { static: false }) formCommentsChildValue: NgForm;
   //para sacar todos los datos del juego habria que crear un servicio que se conectará con la base de datos
+  mapas: Mapas[] | undefined;
+
+  responsiveOptions: any[] | undefined;
+
+
+
   juego:Juego={title:'',url:'',id:0}
 
   juegoPrueba:JuegoPrueba={
@@ -28,10 +35,12 @@ export class InfoGameComponent implements OnInit,OnDestroy{
     developer:'',
     link_download:'',
     link_trailer:'',
-    releaseDate:'',
+    release_date:'',
     genders:'',
     plataforms:'',
+    front_page:'',
     }
+
   gameComment: any;
   respuestaError: boolean;
   subcripcion:Subscription;
@@ -44,28 +53,36 @@ export class InfoGameComponent implements OnInit,OnDestroy{
   mostrarFormHijo = false;
   mostrarBotonesFormPadre = false;
   userCommentFather: any;
-
+  arrPlataformas: string[] = ['PC','Play Station','Xbox','Nintendo','Android','iOS'];
   constructor(private route: ActivatedRoute, private juegoservice:JuegosService, private routerNavigate: Router,
-              private http: HttpClient, private isLoginUser: ValidService,public dialog: MatDialog) { }
+              private http: HttpClient, private isLoginUser: ValidService,public dialog: MatDialog,
+              private mapaService: MapasService) { }
 
-
-  // onSubmit() {
-  //   if (this.selectedFile) {
-  //     const reader = new FileReader();
-  //     reader.onload = () => {
-  //       const base64Image = reader.result as string;
-  //       // Aquí tienes tu imagen en base64
-  //       console.log(base64Image);
-  //     };
-  //     reader.readAsDataURL(this.selectedFile);
-  //   }
-  // }
-  //
-  // onFileChange(event: any) {
-  //   this.selectedFile = event.target.files[0];
-  // }
 
   ngOnInit(): void {
+
+    this.mapaService.getMapassSmall().then((mapas) => {
+      this.mapas = mapas;
+    });
+    this.responsiveOptions = [
+      {
+        breakpoint: '1199px',
+        numVisible: 4,
+        numScroll: 3
+      },
+      {
+        breakpoint: '800px',
+        numVisible: 1,
+        numScroll: 1
+      },
+      {
+        breakpoint: '767px',
+        numVisible: 1,
+        numScroll: 2
+      }
+    ];
+
+
     this.respuestaError= false;
     this.subcripcion=
      this.route.params.subscribe(params => {
@@ -79,8 +96,10 @@ export class InfoGameComponent implements OnInit,OnDestroy{
           console.log(JuegoRecibido)
 
           if(!JuegoRecibido['error']){
+
             this.juegoPrueba = JuegoRecibido as JuegoPrueba;
             this.searchDot = this.juegoPrueba.synopsis.indexOf('.')
+            this.arrPlataformas = this.juegoPrueba.plataforms.split(', ');
           }else{
             this.juegoPrueba = JuegoRecibido['error']['error'];
             console.log("ERRORRRR")
@@ -141,5 +160,6 @@ export class InfoGameComponent implements OnInit,OnDestroy{
   ngOnDestroy(){
     this.subcripcion.unsubscribe();
     this.suscripcionPrueba.unsubscribe();
+
   }
 }

@@ -16,7 +16,8 @@ export interface JuegoPrueba {
   developer:string;
   link_download:string;
   link_trailer:string;
-  releaseDate:string;
+  release_date:string;
   genders:string;
   plataforms:string;
+  front_page:string;
 }

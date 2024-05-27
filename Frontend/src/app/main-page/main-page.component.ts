@@ -14,8 +14,8 @@ export class MainPageComponent implements OnInit,OnDestroy {
   games:Juego[]=[]
   gamesPrueba:juegoMain[]=[]
   currentPage: number = 1;
-  totalGames: number = 37;
-
+  totalGames: number;
+  cadenaBusqueda: string = '';
   private suscripcion: Subscription;
 
   private getGamesSubject: Subject<void> = new Subject<void>();
@@ -23,19 +23,18 @@ export class MainPageComponent implements OnInit,OnDestroy {
 
   ngOnInit() {
 
-
     this.getGamesSubject
       .subscribe({
         next: () => {
-          this.suscripcion = this.juegosservice.getJuegosApi(this.currentPage).subscribe(juegos => {
+          this.suscripcion = this.juegosservice.getJuegosApi(this.currentPage,this.cadenaBusqueda).subscribe(juegos => {
             this.gamesPrueba = juegos['results'];
             this.currentPage = juegos['current_page'];
-            // this.totalGames = juegos['totalGames'];
+
+           this.totalGames = juegos['count_results'];
             console.log(this.gamesPrueba);
             // this.juegosFiltrados = [...this.gamesPrueba];
             this.games = this.juegosservice.getJuegos();
           });
-
         },
 
       });
@@ -44,13 +43,12 @@ export class MainPageComponent implements OnInit,OnDestroy {
 
   }
 
-  // ngAfterViewInit(){
-  //   if (this.buscador) {
-  //     this.suscripcion = this.buscador.resultadosBusqueda.subscribe((termino: any)  => {
-  //       this.juegosFiltrados = this.gamesPrueba.filter(game => game.title.includes(termino));
-  //     });
-  //   }
-  // }
+  onSearchTermChange(newTerm: string) {
+    this.cadenaBusqueda = newTerm;
+    this.getGamesSubject.next();
+
+  }
+
 
   ngOnDestroy() {
       this.suscripcion.unsubscribe();
@@ -60,7 +58,7 @@ export class MainPageComponent implements OnInit,OnDestroy {
 
   changePage(page: number) {
       this.currentPage = page;
-     this.getGamesSubject.next();
+      this.getGamesSubject.next();
   }
 
 

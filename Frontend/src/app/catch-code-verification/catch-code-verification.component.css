@@ -1,82 +1,122 @@
-.div-padre-formulario {
+/*.div-padre-formulario {*/
+/*  height: 100vh;*/
+/*  display: flex;*/
+/*  justify-content: center;*/
+/*  align-items: center;*/
+/*  background: linear-gradient(135deg, #667eea 0%, #764ba2 120%);*/
+/*}*/
+
+/*!* Estilos del formulario *!*/
+/*.formulario {*/
+/*  background: rgba(255, 255, 255, 0.9);*/
+/*  padding: 40px 80px;*/
+/*  display: flex;*/
+/*  flex-direction: column;*/
+/*  gap: 20px;*/
+/*  border-radius: 20px;*/
+/*  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);*/
+/*  backdrop-filter: blur(10px);*/
+/*  align-items: center;*/
+/*}*/
+
+/*!* Título del formulario *!*/
+/*.form-title {*/
+/*  font-size: 24px;*/
+/*  color: #444;*/
+/*  margin-bottom: 20px;*/
+/*  text-align: center;*/
+/*}*/
+
+/*!* Estilos de etiquetas *!*/
+/*.formulario label {*/
+/*  color: #333;*/
+/*  font-size: 16px;*/
+/*  align-self: flex-start;*/
+/*}*/
+
+/*!* Estilos de entradas y botones *!*/
+/*.formulario input, .formulario button {*/
+/*  width: 100%;*/
+/*  border: none;*/
+/*  outline: none;*/
+/*  padding: 12px;*/
+/*  border-radius: 10px;*/
+/*  box-sizing: border-box;*/
+/*  margin: 5px;*/
+/*}*/
+
+/*!* Estilos de entrada de texto *!*/
+/*.formulario input {*/
+/*  background-color: rgba(240, 240, 240, 0.8);*/
+/*  color: #333;*/
+/*  border: 2px solid black; !* Borde negro *!*/
+/*}*/
+
+/*!* Estilos del botón de enviar *!*/
+/*.formulario button[type="submit"] {*/
+/*  background-color: #5a67d8;*/
+/*  color: white;*/
+/*  cursor: pointer;*/
+/*  transition: background-color 0.3s ease;*/
+/*}*/
+
+/*.formulario button[type="submit"]:hover {*/
+/*  background-color: #4c51bf;*/
+/*}*/
+
+/*!* Estilos del botón de cancelar *!*/
+/*.cancel {*/
+/*  background-color: #e53e3e;*/
+/*  color: white;*/
+/*  cursor: pointer;*/
+/*  transition: background-color 0.3s ease;*/
+/*}*/
+
+/*.cancel:hover {*/
+/*  background-color: #c53030;*/
+/*}*/
+
+/*!* Estilos del mensaje de error *!*/
+/*.p-error {*/
+/*  display: block;*/
+/*  background-color: #f8d7da;*/
+/*  color: #721c24;*/
+/*  padding: 10px 15px;*/
+/*  border-radius: 5px;*/
+/*  border: 1px solid #f5c6cb;*/
+/*  font-size: 14px;*/
+/*  width: 100%;*/
+/*  text-align: center;*/
+/*  margin-top: -10px;*/
+/*}*/
+
+
+
+.div-padre-formulario{
   height: 100vh;
   display: flex;
   justify-content: center;
   align-items: center;
-  background: linear-gradient(135deg, #667eea 0%, #764ba2 120%);
-}
 
-/* Estilos del formulario */
-.formulario {
-  background: rgba(255, 255, 255, 0.9);
-  padding: 40px 80px;
-  display: flex;
-  flex-direction: column;
-  gap: 20px;
-  border-radius: 20px;
-  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
-  backdrop-filter: blur(10px);
-  align-items: center;
 }
-
-/* Título del formulario */
-.form-title {
-  font-size: 24px;
-  color: #444;
-  margin-bottom: 20px;
-  text-align: center;
-}
-
-/* Estilos de etiquetas */
-.formulario label {
-  color: #333;
-  font-size: 16px;
-  align-self: flex-start;
-}
-
-/* Estilos de entradas y botones */
-.formulario input, .formulario button {
-  width: 100%;
-  border: none;
-  outline: none;
-  padding: 12px;
-  border-radius: 10px;
-  box-sizing: border-box;
-  margin: 5px;
-}
-
-/* Estilos de entrada de texto */
-.formulario input {
-  background-color: rgba(240, 240, 240, 0.8);
-  color: #333;
-  border: 2px solid black; /* Borde negro */
-}
-
-/* Estilos del botón de enviar */
-.formulario button[type="submit"] {
-  background-color: #5a67d8;
-  color: white;
-  cursor: pointer;
-  transition: background-color 0.3s ease;
-}
-
-.formulario button[type="submit"]:hover {
-  background-color: #4c51bf;
-}
-
-/* Estilos del botón de cancelar */
 .cancel {
-  background-color: #e53e3e;
+  background-color: #f44336; /* Rojo */
+  border: none;
   color: white;
+  padding: 15px 28px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 18px;
+  margin: 4px 2px;
   cursor: pointer;
-  transition: background-color 0.3s ease;
+  border-radius: 12px;
 }
 
 .cancel:hover {
-  background-color: #c53030;
+  background-color: #da190b;
+  color: white;
 }
-
-/* Estilos del mensaje de error */
 .p-error {
   display: block;
   background-color: #f8d7da;
@@ -84,8 +124,171 @@
   padding: 10px 15px;
   border-radius: 5px;
   border: 1px solid #f5c6cb;
+  margin-bottom: 10px;
+  box-sizing: border-box;
   font-size: 14px;
-  width: 100%;
+  width: 18.5vh;
+}
+
+.p-error::before {
+  content: "⚠️";
+  margin-right: 10px;
+}
+
+.p-error a {
+  color: #721c24;
+  font-weight: bold;
+}
+
+.p-error a:hover {
+  text-decoration: underline;
+}
+.formulario{
+  background-color: #ececec;
+  padding-left:100px;
+  padding-right:100px;
+  padding-top:40px;
+  padding-bottom:180px;
+  display: grid;
+
+  gap: 50px;
+  align-items: center;
+  justify-content: center;
+
+}
+
+
+label{
+  font-weight: bold;
+  font-size: 20px;
+}
+.input-formulario{
+  background-color: #393939;
+  border: 3px solid #f3dcb2;
+  border-radius: 3px;
+  padding-top:7px;
+  padding-bottom:7px;
+  color:white;
+  width: 18.5vh;
+  backdrop-filter: blur(53px);
+}
+
+.password-recovery-button{
+  background-color: #f5deb3;
+  border-radius: 12px;
+  font-size: 20px;
   text-align: center;
-  margin-top: -10px;
+  text-decoration: none;
+  display: inline-block;
+  padding: 15px 15px;
+  margin: 4px 2px;
+  cursor: pointer;
+}
+
+
+.login-button:hover{
+  cursor: pointer;
+}
+
+
+.div-enlaces-formulario{
+  display:  flex;
+  flex-direction: column;
+  padding-top: 5px;
+}
+.div-enlaces-formulario a{
+
+  color:white;
+  font-size:10px;
+  white-space: nowrap; /* Evita que los enlaces se envuelvan en el mismo espacio */
+  margin-bottom: 5px;
+}
+
+.prueba{
+  display: grid;
+  gap:8px;
+  color:white;
+  font-size:14px;
+}
+
+
+
+/*.custom-otp-input {*/
+/*  width: 48px;*/
+/*  height: 48px;*/
+/*  font-size: 24px;*/
+/*  appearance: none;*/
+/*  text-align: center;*/
+/*  transition: all 0.2s;*/
+/*  border-radius: 0;*/
+/*  border: 1px solid var(--surface-400);*/
+/*  background: transparent;*/
+/*  outline-offset: -2px;*/
+/*  outline-color: transparent;*/
+/*  border-right: 0 none;*/
+/*  transition: outline-color 0.3s;*/
+/*  color: var(--text-color);*/
+/*}*/
+
+/*.custom-otp-input:focus {*/
+/*  outline: 2px solid var(--primary-color);*/
+/*}*/
+
+/*.custom-otp-input:first-child,*/
+/*.custom-otp-input:nth-child(5) {*/
+/*  border-top-left-radius: 12px;*/
+/*  border-bottom-left-radius: 12px;*/
+/*}*/
+
+/*.custom-otp-input:nth-child(3),*/
+/*.custom-otp-input:last-child {*/
+/*  border-top-right-radius: 12px;*/
+/*  border-bottom-right-radius: 12px;*/
+/*  border-right-width: 1px;*/
+/*  border-right-style: solid;*/
+/*  border-color: var(--surface-400);*/
+/*}*/
+
+.div-botones{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 25px;
+  margin-top:10%;
+}
+.confirmar-btn{
+  padding:7px;
+  background-color: #1b77ea;
+  border-radius: 12px;
+  border: none;
+  color: white;
+  font-weight: bold;
+}
+
+.cancelar-btn{
+  color:#1b77ea;
+  font-weight: bold;
+  border:none;
+  margin-right:40px;
+}
+
+
+
+.custom-otp-input {
+  width: 45px;
+  font-size: 36px;
+  border: 0 none;
+  appearance: none;
+  text-align: center;
+  transition: all 0.2s;
+  background: transparent;
+  border-bottom: 2px solid var(--surface-500);
+  border-radius: 0px;
+  margin: 0 0.2rem;
+}
+
+.custom-otp-input:focus {
+  outline: 0 none;
+  box-shadow: none;
+  border-bottom-color: var(--primary-color);
 }

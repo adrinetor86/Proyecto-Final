@@ -1,137 +1,57 @@
-<!--<p *ngIf="juego;else noencontrado">Estás en el juego {{ juego.title }}!!!!!!!!!!!!</p>-->
-<!--<ng-template #noencontrado>-->
-<!--  <h2>El título no existe</h2></ng-template>-->
-
-
-<!--@if(JuegoPrueba.id !=null){-->
-
-<!--<div class="container-info-juego">-->
-
-<!--<div class="juego">-->
-
-
-<!--<div class="contenedor-foto">-->
-
-<!--<img src="{{juego.url}}">-->
-
-<!--</div>-->
-
-<!--<div class="datos-juego" >-->
-
-<!--<p><b>Juego: </b>{{JuegoPrueba.title}}</p>-->
-<!--<p><b>Plataformas: </b>(JuegoPrueba)</p>-->
-<!--<p><b>Desarrollador: </b>(Desarrollador)</p>-->
-<!--<p><b>Sinopsis: </b>(La Sinopsis)</p>-->
-
-
-
-<!--</div>-->
-
-
-<!--</div>-->
-
-
-<!--</div>-->
-
-
-<!--}@else{-->
-<!--<h2>El título no existe</h2>-->
-<!--}-->
-
-
 
 <!--@if(respuestaError == false){-->
+<!--<div class="container-info-juego" [style.background-image]="'url(' + juegoPrueba.front_page + ')'">-->
+<div class="salir"><i class="bi bi-arrow-left-square-fill" routerLink='/'></i></div>
+<div class="container-info-juego" >
 
-<!--<div class="container-info-juego">-->
-
-<!--<div class="juego">-->
-
-
-<!--<div class="contenedor-foto">-->
-
-
-<!--  <img *ngif(juego.url !=undefined) src="{{juego.url}}">-->
-
-<!--</div>-->
-
-<!--<div class="datos-juego" >-->
-
-<!--<p><b>Juego: </b>{{juegoPrueba.title}}</p>-->
-<!--<p><b>Plataformas: </b>{{juegoPrueba.plataforms}}</p>-->
-<!--<p><b>Desarrollador: </b>{{juegoPrueba.developer}}</p>-->
-
-<!--&lt;!&ndash;  <div>&ndash;&gt;-->
-<!--&lt;!&ndash;    <p>&ndash;&gt;-->
-<!--&lt;!&ndash;      {{seeMore ? juegoPrueba.synopsis:(juegoPrueba.synopsis | slice:0:searchDot+1)}}&ndash;&gt;-->
-<!--&lt;!&ndash;    </p>&ndash;&gt;-->
-<!--&lt;!&ndash;    <button (click)="lookFullSynopsis()">{{seeMore ? seeLess : seeMoreButton}}</button>&ndash;&gt;-->
-<!--&lt;!&ndash;  </div>&ndash;&gt;-->
-
-<!--</div>-->
-
-<!--  <div class="sinopsis">-->
-<!--      <b>Sinopsis: </b>-->
-<!--      {{juegoPrueba.synopsis}}-->
-<!--  </div>-->
-
-<!--</div>-->
-
-
-<!--</div>-->
-
-
-<!--}@else{-->
-<!--<h2>El título no existe</h2>-->
-<!--}-->
-<!--@if(respuestaError == false){-->
-<div class="container-info-juego">
 
   <div class="container">
 
     <div class="Foto">
-      <img class="imagen-portada" [src]="juego.url" alt="No se encontro la imagen">
+      <img class="imagen-portada" [src]="juegoPrueba.front_page" alt="No se encontro la imagen">
     </div>
     <div class="Informacion">
         <p><b>Juego: </b>{{juegoPrueba.title}}</p><br>
-        <p><b>Plataformas: </b>{{juegoPrueba.plataforms}}</p><br>
+
+        <b>Plataformas:</b>
+      &nbsp;
+      <i class="bi bi-playstation"  *ngIf="arrPlataformas.includes('Play Station')" title="PlayStation">&nbsp;</i>
+      <i class="bi bi-nintendo-switch"  *ngIf="arrPlataformas.includes('Nintendo')" title="Nintendo">&nbsp;</i>
+      <i class="bi bi-xbox"  *ngIf="arrPlataformas.includes('XBOX')" title="XBOX">&nbsp;</i>
+      <i class="bi bi-steam" *ngIf="arrPlataformas.includes('PC')" title="STEAM" >&nbsp;</i>
         <p><b>Desarrollador: </b>{{juegoPrueba.developer}}</p><br>
-        <p><b>Fecha Salida: </b>Fecha Salida</p><br>
-        <p><b>Link Trailer: </b>Link Trailer</p><br>
-        <p><b>Link-Descarga: </b>Link Descarga</p><br>
+        <p><b>Fecha Salida: </b>{{juegoPrueba.release_date}}</p><br>
+        <p><b>Link Trailer: </b>{{juegoPrueba.link_trailer}}</p><br>
+        <p><b>Link-Descarga: </b>{{juegoPrueba.link_download}}</p><br>
     </div>
   </div>
   <div class="contenedor-otros-datos">
-      <div class="Mapas">
+      <div class="Mapas" >
 
-        <div class="container">
+        <div class="card">
+          <p-carousel
+            [value]="mapas"
+            [numVisible]="3"
+            [numScroll]="2"
+            [circular]="true"
+            [responsiveOptions]="responsiveOptions"
+            autoplayInterval="3000"
+            style="background-color:red; padding-bottom: 0px"
 
+          >
+            <ng-template let-mapa pTemplate="item" >
+              <div class="border-1 ms-1"  >
+                <div class="mb-1">
+                  <div class="relative">
+                    <img
+                      src="{{ mapa.image }}"
+                    />
+                  </div>
+                </div>
+              </div>
+            </ng-template>
+          </p-carousel>
         </div>
-
-
-        <!--        <div class="card">-->
-<!--          <p-carousel-->
-<!--            [value]="mapas"-->
-<!--            [numVisible]="3"-->
-<!--            [numScroll]="3"-->
-<!--            [circular]="true"-->
-<!--&lt;!&ndash;            [responsiveOptions]="responsiveOptions"&ndash;&gt;-->
-<!--            autoplayInterval="3000"-->
-<!--          >-->
-<!--            <ng-template let-product pTemplate="item">-->
-<!--              <div class="border-1 surface-border border-round m-2 p-3">-->
-<!--                <div class="mb-3">-->
-<!--                  <div class="relative mx-auto">-->
-<!--                    <img-->
-<!--                      src="https://primefaces.org/cdn/primeng/images/demo/product/{{ product.image }}"-->
-<!--                      [alt]="product.name"-->
-<!--                      class="w-full border-round"-->
-<!--                    />-->
-<!--                  </div>-->
-<!--                </div>-->
-<!--              </div>-->
-<!--            </ng-template>-->
-<!--          </p-carousel>-->
-<!--        </div>-->
 
       </div>
 
