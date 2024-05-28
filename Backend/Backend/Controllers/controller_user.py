@@ -33,11 +33,11 @@ class ControllerUser:
             return {"error": "Void fields", "code": 409}
 
     def confirm_code(self, code):
-        return self.__user_model.confirm_code(self.__email, code)
+        return self.__user_model.confirm_code(self.__email.lower(), code)
 
     def change_password(self):
         if validator.validate_password(self.__password):
-            return self.__user_model.change_password(self.__email, self.__password)
+            return self.__user_model.change_password(self.__email.lower(), self.__password)
         else:
             return {"error": "Void or incorrect fields", "code": 409}
 
@@ -49,3 +49,6 @@ class ControllerUser:
 
     def change_picture(self):
         return self.__user_model.change_picture(self.__picture, self.__username)
+
+    def resend_email(self):
+        return self.__user_model.resend_email(self.__email.lower())

@@ -105,6 +105,32 @@ class Games:
         except mysql.connector.Error:
             return {"error": "Unknown error, try again", "code": 400}
 
+    def insert_comment(self, username, id_game, content_comment, parent_comment):
+        sql = f"INSERT INTO comments (user, id_game, content_comment, parent_comment) values ('{username}', {id_game}, '{content_comment}', {parent_comment})"
+
+        try:
+            cursor = self.__connection.cursor()
+            cursor.execute(sql)
+            cursor.close()
+            self.__connection.commit()
+
+            return {"success": "comment inserted successfully"}
+        except mysql.connector.Error:
+            return {"error": "Unknown error, try again", "code": 400}
+
+    def insert_maps(self, id_game, maps):
+        try:
+            cursor = self.__connection.cursor()
+            for map in maps:
+                sql = f"INSERT INTO {self.__tables["own_maps"]} (id_game, url_map) values ({id_game}, '{map}')"
+                cursor.execute(sql)
+                cursor.close()
+                self.__connection.commit()
+
+            return {"success": "maps inserted successfully"}
+        except mysql.connector.Error:
+            return {"error": "Unknown error, try again", "code": 400}
+
     def __get_next(self, page, total_page, value):
         if page != total_page:
             next = f'/api/v1/games/?page={page+1}'

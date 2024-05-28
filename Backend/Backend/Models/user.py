@@ -105,6 +105,36 @@ class User:
         else:
             return False
 
+    def resend_email(self, email):
+        code = self.__recover_code(email)
+
+        if code != 0:
+            self.__send_email(email, code)
+        else:
+            new_code = self.__create_code(email)
+            if code != 0:
+                self.__send_email(email, new_code)
+            else:
+                return False
+
+        return True
+
+    def __recover_code(self, email):
+        sql = f"SELECT code FROM {self.__tables["codes"]} WHERE email = '{email}'"
+
+        try:
+            cursor = self.__connection.cursor(dictionary=True)
+            cursor.execute(sql)
+            code = cursor.fetchone()
+            cursor.close()
+
+            if code.get("code", "") != "":
+                return code.get("code")
+            else:
+                return 0
+        except mysql.connector.Error:
+            return 0
+
     def change_password(self, email, password):
         hashed_password = self.__ph.hash(config.SALT + password)
         sql = f"UPDATE {self.__tables["users"]} SET password = '{hashed_password}' WHERE email = '{email}'"
@@ -188,7 +218,12 @@ class User:
 
             return code
         except mysql.connector.Error:
-            return 0
+            code = self.__recover_code(email)
+
+            if code != 0:
+                return code
+            else:
+                return 0
 
     def __send_email(self, email, code):
         # Configuración del servidor SMTP de Gmail

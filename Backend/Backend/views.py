@@ -1,3 +1,5 @@
+from urllib import request
+
 from django.http import JsonResponse, HttpResponse
 from Backend.Controllers.controller_games import ControllerGames
 from Backend.Controllers.controller_user import ControllerUser
@@ -42,6 +44,7 @@ def game(request, id):
     else:
         return JsonResponse({"error": "Bad Request"}, status=405)
 
+@csrf_exempt
 def search(request):
     if request.method == 'GET':
         value = request.GET.get("value", "")
@@ -108,6 +111,7 @@ def register(request):
 #FRONT NO DEBERA INDICAR "MOSTRAR MAS COMENTARIOS", YA QUE NO QUEDAN MAS.
 @csrf_exempt
 def child_comments(request, id_game, id_comment, offset=0):
+    #FALTA VERIFICAR TOKKEN
     if request.method == 'GET':
         try:
             offset = int(offset)
@@ -177,6 +181,7 @@ def change_password(request):
     else:
         return JsonResponse({"error": "Bad Request"}, status=405)
 
+@csrf_exempt
 def your_profile(request, username):
     if request.method == 'POST':
         authorization_token = request.headers.get("Authorization", "")
@@ -194,6 +199,7 @@ def your_profile(request, username):
     else:
         return JsonResponse({"error": "Bad Request"}, status=405)
 
+@csrf_exempt
 def view_profile(request, username):
     if request.method == 'POST':
         controller = ControllerUser(username=username)
@@ -206,6 +212,7 @@ def view_profile(request, username):
     else:
         return JsonResponse({"error": "Bad Request"}, status=405)
 
+@csrf_exempt
 def change_picture(request, username):
     if request.method == 'POST':
         picture = request.POST.get("picture")
@@ -220,10 +227,10 @@ def change_picture(request, username):
     else:
         return JsonResponse({"error": "Bad Request"}, status=405)
 
+@csrf_exempt
 def new_game(request):
     if request.method == 'POST':
         controller = ControllerGames()
-        print('hasta aqui de momento')
         return JsonResponse({"status": "estamos en ello jefe"}, status=200)
     else:
         return JsonResponse({"error": "Bad Request"}, status=405)
@@ -232,7 +239,6 @@ def new_game(request):
 def portada(request):
 
     if request.method == 'POST':
-
         controller = ControllerGames(id=request.POST.get("id", 0), front_page=request.POST.get("front_page", ""))
         response = controller.update_front_page()
 
@@ -242,3 +248,51 @@ def portada(request):
             return JsonResponse({"error": response.get("error", "Unknokn error")}, status=response.get("code", 400))
     else:
         return JsonResponse({"error": "Bad Request"}, status=405)
+
+@csrf_exempt
+def resend_email(request):
+    if request.method == 'POST':
+        controller = ControllerUser(email=request.POST.get("email", ""))
+        response = controller.resend_email()
+
+        if response:
+            return JsonResponse({"success": "Send code successfully"}, status=200)
+        else:
+            return JsonResponse({"error": "Cannot send code"}, status=400)
+    else:
+        return JsonResponse({"error": "Bad Request"}, status=405)
+
+def insert_comment(request, id_game, father_comment=None):
+    if request.method == 'POST':
+        username = request.POST.get("username", "")
+        content_comment = request.POST.get("content_comment", "")
+
+        if username == "" or content_comment == "":
+            return JsonResponse({"error": "A username is required"}, status=409)
+
+        controller = ControllerGames(id=id_game)
+        response = controller.insert_comment(username, content_comment, father_comment)
+
+        if response.get("error", "") == "":
+            return JsonResponse({"success": response.get("success")}, status=200)
+        else:
+            return JsonResponse({"error": response.get("error", "")}, status=response.get("code", 400))
+    else:
+        return JsonResponse({"error": "Bad Request"}, status=405)
+
+def insert_map(request, id_game):
+    if request.method == 'POST':
+        maps = request.POST.getlist("maps[]", [])
+        if len(maps) == 0:
+            return JsonResponse({"error": "Map is empty"}, status=400)
+
+        controller = ControllerGames(id=id_game)
+        response = controller.insert_map(maps)
+
+        if response.get("error", "") == "":
+            return JsonResponse({"success": response.get("success")}, status=200)
+        else:
+            return JsonResponse({"error": response.get("error", "")}, status=response.get("code", 400))
+    else:
+        return JsonResponse({"error": "Bad Request"}, status=405)
+

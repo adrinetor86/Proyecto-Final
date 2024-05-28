@@ -42,6 +42,13 @@ class ControllerGames:
         else:
             return {"error": "Front page is void", "code": 409}
 
+    def insert_comment(self, username, content_comment, father_comment):
+        content_comment = re.sub(f"@{username}", f"<a href='/view_profile/{username}/'>@{username}</a>", content_comment)
+        return self.__games_model.insert_comment(username, self.__id, content_comment, father_comment)
+
+    def insert_map(self, maps):
+        return self.__games_model.insert_maps(self.__id, maps)
+
     def __validate_fields(self):
 
         if len(self.__title) > 200 or len(self.__title) == 0:
