@@ -6,11 +6,11 @@ class ControllerGames:
 
     def __init__(self, id=0, title="", synopsis="", developer="", link_download="", link_trailer="", release_date="", front_page=""):
             self.__id = id
-            self.__title = title
-            self.__synopsis = synopsis
-            self.__developer = developer
-            self.__link_download = link_download
-            self.__link_trailer = link_trailer
+            self.__title = title.strip()
+            self.__synopsis = synopsis.strip()
+            self.__developer = developer.strip()
+            self.__link_download = link_download.strip()
+            self.__link_trailer = link_trailer.strip()
             self.__release_date = release_date
             self.__front_page = front_page
             self.__games_model = Games()
@@ -48,6 +48,12 @@ class ControllerGames:
 
     def insert_map(self, maps):
         return self.__games_model.insert_maps(self.__id, maps)
+
+    def get_maps(self):
+        return self.__games_model.get_maps(self.__id)
+
+    def get_filters(self):
+        return self.__games_model.get_filters()
 
     def __validate_fields(self):
 
