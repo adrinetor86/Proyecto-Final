@@ -124,11 +124,13 @@ class Games:
             for map in maps:
                 sql = f"INSERT INTO {self.__tables["own_maps"]} (id_game, url_map) values ({id_game}, '{map}')"
                 cursor.execute(sql)
-                cursor.close()
-                self.__connection.commit()
+            cursor.close()
+            self.__connection.commit()
 
             return {"success": "maps inserted successfully"}
-        except mysql.connector.Error:
+        except mysql.connector.Error as error:
+            self.__connection.rollback()
+            print(error)
             return {"error": "Unknown error, try again", "code": 400}
 
     def __get_next(self, page, total_page, value):

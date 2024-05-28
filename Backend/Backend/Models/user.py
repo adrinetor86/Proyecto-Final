@@ -157,7 +157,7 @@ class User:
                f" WHEN rol_user = 2 THEN 'Editor'"
                f" ELSE 'User'"
                f" END AS rol"
-               f", profile_picture"
+               #f", profile_picture"
                f" FROM users WHERE username = '{username}'")
 
         try:
@@ -166,13 +166,16 @@ class User:
             dict_return = cursor.fetchall()
             cursor.close()
 
-            if dict_return[0]["profile_picture"] == None:
-                with open(os.path.normpath(os.path.join(os.path.dirname(os.path.abspath(__file__)), '..', 'Images', 'Profile', 'default.txt')), 'r') as file:
-                    picture_profile = file.read()
-                    dict_return[0]["profile_picture"] = picture_profile
+           # if dict_return[0]["profile_picture"] == None:
+           #     with open(os.path.normpath(os.path.join(os.path.dirname(os.path.abspath(__file__)), '..', 'Images', 'Profile', 'default.txt')), 'r') as file:
+           #         picture_profile = file.read()
+           #         dict_return[0]["profile_picture"] = picture_profile
+
+            print(dict_return)
 
             return {"profile": dict_return[0]}
-        except mysql.connector.Error:
+        except mysql.connector.Error as error:
+            print(error)
             return {"error": "Cannot get profile", "code": 400}
 
     def get_other_profile(self, username):

@@ -184,7 +184,7 @@ def change_password(request):
 @csrf_exempt
 def your_profile(request, username):
     if request.method == 'POST':
-        authorization_token = request.headers.get("Authorization", "")
+        authorization_token = request.headers.get("Authorization", "").strip()
 
         if confirm_user(authorization_token, username):
             controller = ControllerUser(username=username)
@@ -280,6 +280,8 @@ def insert_comment(request, id_game, father_comment=None):
     else:
         return JsonResponse({"error": "Bad Request"}, status=405)
 
+
+@csrf_exempt
 def insert_map(request, id_game):
     if request.method == 'POST':
         maps = request.POST.getlist("maps[]", [])
@@ -295,4 +297,3 @@ def insert_map(request, id_game):
             return JsonResponse({"error": response.get("error", "")}, status=response.get("code", 400))
     else:
         return JsonResponse({"error": "Bad Request"}, status=405)
-

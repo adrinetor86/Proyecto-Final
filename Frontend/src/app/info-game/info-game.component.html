@@ -22,10 +22,16 @@
         <p><b>Desarrollador: </b>{{juegoPrueba.developer}}</p><br>
         <p><b>Fecha Salida: </b>{{juegoPrueba.release_date}}</p><br>
         <p><b>Link Trailer: </b>{{juegoPrueba.link_trailer}}</p><br>
-        <p><b>Link-Descarga: </b>{{juegoPrueba.link_download}}</p><br>
+        <p><b>Link-Descarga: </b><a href="{{juegoPrueba.link_download}}">{{juegoPrueba.link_download}}</a></p><br>
     </div>
   </div>
   <div class="contenedor-otros-datos">
+    <div class="Trailer">
+
+      <iframe width="560" height="315" src=" https://www.youtube.com/embed/TAlKhARUcoY?si=T3kmlvTEpoNYyft8" allowfullscreen></iframe>
+
+    </div>
+
       <div class="Mapas" >
 
         <div class="card">
@@ -37,7 +43,6 @@
             [responsiveOptions]="responsiveOptions"
             autoplayInterval="3000"
             style="background-color:red; padding-bottom: 0px"
-
           >
             <ng-template let-mapa pTemplate="item" >
               <div class="border-1 ms-1"  >
