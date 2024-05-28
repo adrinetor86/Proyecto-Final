@@ -53,11 +53,12 @@ class User:
                     password_hashed = dict_access.get("password", "")
                     username = dict_access.get("username", "")
                     self.__ph.verify(password_hashed, (config.SALT + password))
+                    print('llega aqui')
                     return {"username": username,
                             "rol_user": dict_access.get("rol_user", 3),
                             "name_rol": dict_access.get("name_rol", "usuario")}
                 else:
-                    return {"error": "Unknown error, try again", "code": 400}
+                    return {"error": "User not found", "code": 400}
             else:
                 return {"error": "Email not found", "code": 403}
         except argon2.exceptions.VerifyMismatchError:

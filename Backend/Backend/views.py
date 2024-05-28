@@ -3,7 +3,7 @@ from urllib import request
 from django.http import JsonResponse, HttpResponse
 from Backend.Controllers.controller_games import ControllerGames
 from Backend.Controllers.controller_user import ControllerUser
-from Backend.Libs.jsonWebTokken import create_token, decode_token, confirm_user
+from Backend.Libs.jsonWebTokken import create_token, decode_token, confirm_user, confirm_email
 from django.views.decorators.csrf import csrf_exempt
 
 @csrf_exempt
@@ -165,8 +165,8 @@ def change_password(request):
     if request.method == 'POST':
         if request.POST.get("email", "") != "":
             authorization_token = request.headers.get("Authorization", "")
-            response_token = decode_token(authorization_token)
-            if response_token.get("success", "") != "":
+            email = request.POST.get("email", "")
+            if confirm_email(authorization_token, email):
                 controller = ControllerUser(email=request.POST.get("email", ""), password=request.POST.get("new_password", ""))
                 response = controller.change_password()
 
@@ -175,7 +175,7 @@ def change_password(request):
                 else:
                     return JsonResponse({"error": response.get("error", "")}, status=response.get("code", ""))
             else:
-                return JsonResponse({"error": response_token.get("error", "Unknown error")}, status=response_token.get("code", 400))
+                return JsonResponse({"error": "Invalid token"}, status=400)
         else:
             return JsonResponse({"error": "email is void"}, status=409)
     else:
