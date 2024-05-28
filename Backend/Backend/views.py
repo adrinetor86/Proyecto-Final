@@ -4,7 +4,9 @@ from django.http import JsonResponse, HttpResponse
 from Backend.Controllers.controller_games import ControllerGames
 from Backend.Controllers.controller_user import ControllerUser
 from Backend.Libs.jsonWebTokken import create_token, decode_token, confirm_user
+from django.http import JsonResponse
 from django.views.decorators.csrf import csrf_exempt
+import json
 
 @csrf_exempt
 def games(request, page='1'):
@@ -184,7 +186,7 @@ def change_password(request):
 @csrf_exempt
 def your_profile(request, username):
     if request.method == 'POST':
-        authorization_token = request.headers.get("Authorization", "")
+        authorization_token = request.headers.get("Authorization", "").strip()
 
         if confirm_user(authorization_token, username):
             controller = ControllerUser(username=username)
@@ -280,9 +282,17 @@ def insert_comment(request, id_game, father_comment=None):
     else:
         return JsonResponse({"error": "Bad Request"}, status=405)
 
+
+@csrf_exempt
 def insert_map(request, id_game):
     if request.method == 'POST':
-        maps = request.POST.getlist("maps[]", [])
+        try:
+            body = json.loads(request.body)
+            maps = body.get("maps", [])
+            print(f"Maps received: {maps}")
+        except json.JSONDecodeError:
+            return JsonResponse({"error": "Invalid JSON"}, status=400)
+
         if len(maps) == 0:
             return JsonResponse({"error": "Map is empty"}, status=400)
 
@@ -295,4 +305,3 @@ def insert_map(request, id_game):
             return JsonResponse({"error": response.get("error", "")}, status=response.get("code", 400))
     else:
         return JsonResponse({"error": "Bad Request"}, status=405)
-

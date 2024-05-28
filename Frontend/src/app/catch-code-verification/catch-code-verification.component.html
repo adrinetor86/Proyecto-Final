@@ -1,34 +1,37 @@
+
 <div class="div-padre-formulario">
   <form #formCodeVerify="ngForm">
     <div class="formulario">
       <div>
         <label>Introduzca el codigo de verificacion</label><br>
-        <!--        <input class="input-formulario" type="text" ngModel required name="code" pattern="[0-9]{5}">-->
+                <input class="input-formulario" type="text" ngModel required name="code" pattern="[0-9]{5}">
 
 
-        <div class="flex flex-column align-items-center ">
-          <div class="font-bold text-xl mb-2">Le hemos enviado un codigo a su correo</div>
-          <p class="text-color-secondary block mb-5">Revise su bandeja de entrada.</p>
-          <!--          <p-inputOtp [(ngModel)]="value" [integerOnly]=true [length]="6" style="gap: 0  ">-->
-          <!--            <ng-template pTemplate="input" let-token let-events="events" let-index="index" >-->
-          <!--              <input-->
-          <!--                pInputText-->
-          <!--                type="text"-->
-          <!--                [maxLength]="1"-->
-          <!--                (input)="events.input($event)"-->
-          <!--                (keydown)="events.keydown($event)"-->
-          <!--                [attr.value]="token"-->
-          <!--                class="custom-otp-input"-->
-          <!--                ngModel required name="code"-->
-          <!--              />-->
-          <!--              <div *ngIf="index === 3" class="px-3">-->
-          <!--                <i class="pi pi-minus"></i>-->
-          <!--              </div>-->
-          <!--            </ng-template>-->
-          <!--          </p-inputOtp>-->
-          <div class="flex justify-content-center ms-5">
-            <p-inputOtp [(ngModel)]="value" length="5" >
+<!--        <div class="flex flex-column align-items-center ">-->
+<!--          <div class="font-bold text-xl mb-2">Le hemos enviado un codigo a su correo</div>-->
+<!--          <p class="text-color-secondary block mb-5">Revise su bandeja de entrada.</p>-->
+
+<!--          <div class="flex justify-content-center ms-5">-->
+<!--            <p-inputOtp [(ngModel)]="value" [ngModelOptions]="{standalone: true}" length="5" >-->
 <!--              <ng-template pTemplate="input" let-token let-events="events" >-->
+<!--&lt;!&ndash;                <input&ndash;&gt;-->
+<!--&lt;!&ndash;                  pInputText&ndash;&gt;-->
+<!--&lt;!&ndash;                  class="custom-otp-input"&ndash;&gt;-->
+<!--&lt;!&ndash;                  (input)="events.input($event)"&ndash;&gt;-->
+<!--&lt;!&ndash;                  (keydown)="events.keydown($event)"&ndash;&gt;-->
+<!--&lt;!&ndash;                  type="text"&ndash;&gt;-->
+<!--&lt;!&ndash;                  [attr.value]="token"&ndash;&gt;-->
+<!--&lt;!&ndash;                  [maxLength]="1"&ndash;&gt;-->
+<!--&lt;!&ndash;                  ngModel required name="code"&ndash;&gt;-->
+<!--&lt;!&ndash;                />&ndash;&gt;-->
+
+<!--                <input class="input-formulario" type="text" ngModel required name="code" pattern="[0-9]{5}">-->
+<!--              </ng-template>-->
+<!--            </p-inputOtp>-->
+
+
+<!--            <p-inputOtp [(ngModel)]="value" length="5">-->
+<!--              <ng-template pTemplate="input" let-token let-events="events">-->
 <!--                <input-->
 <!--                  pInputText-->
 <!--                  class="custom-otp-input"-->
@@ -39,23 +42,34 @@
 <!--                  [maxLength]="1" />-->
 <!--              </ng-template>-->
 <!--            </p-inputOtp>-->
+
+
 <!--          </div>-->
 
 
-<!--          <div class="div-botones">-->
-<!--            <button class="cancelar-btn" type="button" (click)="cancelSendCode()">Cancelar/Renviar</button>-->
-<!--            <button class="confirmar-btn" type="submit" [disabled]="!formCodeVerify.valid" (click)="verifyCode()">Confirmar</button>-->
-<!--          </div>-->
+          <div class="div-botones">
+            <button class="cancelar-btn" type="button" (click)="cancelSendCode()">Cancelar/Renviar</button>
+            <button class="confirmar-btn" type="submit" [disabled]="!formCodeVerify.valid" (click)="verifyCode()">Confirmar</button>
+
+          </div>
+
 <!--        </div>-->
-
 <!--      </div>-->
+<!--    </div>-->
+
+
+<!--<div>-->
 <!--      <p class="p-error" *ngIf="errorMessage"> {{ errorMessage }}</p>-->
-<!--      &lt;!&ndash;      <div class="prueba" style="display: flex ">&ndash;&gt;-->
-<!--      &lt;!&ndash;        <button class="cancel" type="button" (click)="cancelSendCode()">Cancelar</button>&ndash;&gt;-->
-<!--      &lt;!&ndash;        <button class="password-recovery-button" type="submit" [disabled]="!formCodeVerify.valid" (click)="verifyCode()">Continue</button>&ndash;&gt;-->
-<!--      &lt;!&ndash;      </div>&ndash;&gt;-->
+<!--            <div class="prueba" style="display: flex ">-->
+<!--              <button class="cancel" type="button" (click)="cancelSendCode()">Cancelar</button>-->
+<!--              <button class="password-recovery-button" type="submit" [disabled]="!formCodeVerify.valid" (click)="verifyCode()">Continue</button>-->
+<!--            </div>-->
 
 <!--    </div>-->
+
+
+
+
 
 <!--  </form>-->
 
@@ -79,19 +93,42 @@
 <!--    </div>-->
 
 <!--  </form>-->
-
-
-<!--  <div class="drops">-->
-<!--    <div class="drop-drop-1"></div>-->
-<!--    <div class="drop-drop-2"></div>-->
-<!--    <div class="drop-drop-3"></div>-->
-<!--    <div class="drop-drop-4"></div>-->
-<!--    <div class="drop-drop-5"></div>-->
-<!--  </div>-->
+<!--<div class="div-padre-formulario">-->
+<!--  <form #formCodeVerify="ngForm">-->
+<!--    <div class="formulario">-->
+<!--      <div>-->
+<!--        <label>Introduzca el código de verificación</label><br>-->
+<!--        <div class="flex flex-column align-items-center">-->
+<!--          <div class="font-bold text-xl mb-2">Le hemos enviado un código a su correo</div>-->
+<!--          <p class="text-color-secondary block mb-5">Revise su bandeja de entrada.</p>-->
+<!--          <div class="flex justify-content-center ms-5">-->
+<!--            <p-inputOtp [(ngModel)]="value" name="code" required length="5" [ngModelOptions]="{standalone: true}">-->
+<!--              <ng-template pTemplate="input" let-token let-events="events">-->
+<!--                <input-->
+<!--                  pInputText-->
+<!--                  class="custom-otp-input"-->
+<!--                  type="text"-->
+<!--                  [attr.value]="token"-->
+<!--                  [maxLength]="1"-->
+<!--                  ngModel required name="code"-->
+<!--                />-->
+<!--              </ng-template>-->
+<!--            </p-inputOtp>-->
+<!--          </div>-->
+<!--          <div class="div-botones">-->
+<!--            <button class="cancelar-btn" type="button" (click)="cancelSendCode()">Cancelar/Renviar</button>-->
+<!--            <button class="confirmar-btn" type="submit" [disabled]="!formCodeVerify.valid" (click)="verifyCode()">Confirmar</button>-->
+<!--          </div>-->
+<!--        </div>-->
+<!--      </div>-->
+<!--    </div>-->
+<!--    <div>-->
+<!--      <p class="p-error" *ngIf="errorMessage">{{ errorMessage }}</p>-->
+<!--      <div class="prueba" style="display: flex;">-->
+<!--        <button class="cancel" type="button" (click)="cancelSendCode()">Cancelar</button>-->
+<!--        <button class="password-recovery-button" type="submit" [disabled]="!formCodeVerify.valid" (click)="verifyCode()">Continue</button>-->
+<!--      </div>-->
+<!--    </div>-->
+<!--  </form>-->
 <!--</div>-->
-
-
-
-
-
 
