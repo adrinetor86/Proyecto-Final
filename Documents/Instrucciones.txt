@@ -54,6 +54,23 @@ change_picture_profile/<username>/ -> Es POST. manda una imagen como base64 y la
 
 insertar_guarro/ -> Es POST. Pasa por POST el id y la imagen y la sustituye en la base de datos.
 
+insert_comment/<id_game>/ -> Es POST. recoge por POST username como "username" y el contenido del comentario como "content_comment", ademas
+			     requiere de un token para insertar el comentario. Esta Url requerira en ella solo del id_game. Sirve para insertar
+			     comentarios padre
+
+insert_comment/<id_game>/<father_comment>/ -> Es POST. recoge por POST username como "username" y el contenido del comentario como 
+					      "content_comment", ademas requiere de un token para insertar el comentario. Esta Url requerira 
+					       en ella del id_game y de su comentario padre. Sirve para insertar comentarios hijo.
+
+resend_email/ -> Es POST. Recoge por POST el email como "email" y tras ello reenvia el codigo al usuario, en caso de haberle caducado le genera 
+		 uno nuevo que le es enviado.
+
+insert_maps/<id_game>/ -> Es POST. Recoge por post un array de mapas como "maps" enviados en formato JSON por medio de un body y requiere de 
+			  id_game por url.
+
+get_maps/<id_game>/ -> Es GET. Solo requiere de id_game por url y envia un array de mapas en base64.
+
+get_filters/ -> Es GET. no requiere de ningun valor y reenvia todos los generos y plataformas existentes en la base de datos en 2 arrays
 *************************** OBTENER BASE DE DATOS ***************************************************
 cd .\Backend\
 python .\update_database.py

@@ -1,12 +1,11 @@
+import json
 from urllib import request
 
 from django.http import JsonResponse, HttpResponse
 from Backend.Controllers.controller_games import ControllerGames
 from Backend.Controllers.controller_user import ControllerUser
-from Backend.Libs.jsonWebTokken import create_token, decode_token, confirm_user
-from django.http import JsonResponse
+from Backend.Libs.jsonWebTokken import create_token, decode_token, confirm_user, confirm_email
 from django.views.decorators.csrf import csrf_exempt
-import json
 
 @csrf_exempt
 def games(request, page='1'):
@@ -167,8 +166,8 @@ def change_password(request):
     if request.method == 'POST':
         if request.POST.get("email", "") != "":
             authorization_token = request.headers.get("Authorization", "")
-            response_token = decode_token(authorization_token)
-            if response_token.get("success", "") != "":
+            email = request.POST.get("email", "")
+            if confirm_email(authorization_token, email):
                 controller = ControllerUser(email=request.POST.get("email", ""), password=request.POST.get("new_password", ""))
                 response = controller.change_password()
 
@@ -177,7 +176,7 @@ def change_password(request):
                 else:
                     return JsonResponse({"error": response.get("error", "")}, status=response.get("code", ""))
             else:
-                return JsonResponse({"error": response_token.get("error", "Unknown error")}, status=response_token.get("code", 400))
+                return JsonResponse({"error": "Invalid token"}, status=400)
         else:
             return JsonResponse({"error": "email is void"}, status=409)
     else:
@@ -239,7 +238,6 @@ def new_game(request):
 
 @csrf_exempt
 def portada(request):
-
     if request.method == 'POST':
         controller = ControllerGames(id=request.POST.get("id", 0), front_page=request.POST.get("front_page", ""))
         response = controller.update_front_page()
@@ -264,21 +262,26 @@ def resend_email(request):
     else:
         return JsonResponse({"error": "Bad Request"}, status=405)
 
+@csrf_exempt
 def insert_comment(request, id_game, father_comment=None):
     if request.method == 'POST':
         username = request.POST.get("username", "")
-        content_comment = request.POST.get("content_comment", "")
+        authorization_token = request.headers.get("Authorization", "").strip()
 
-        if username == "" or content_comment == "":
-            return JsonResponse({"error": "A username is required"}, status=409)
+        if confirm_user(authorization_token, username):
+            content_comment = request.POST.get("content_comment", "")
+            if username == "" or content_comment == "":
+                return JsonResponse({"error": "A username is required"}, status=409)
 
-        controller = ControllerGames(id=id_game)
-        response = controller.insert_comment(username, content_comment, father_comment)
+            controller = ControllerGames(id=id_game)
+            response = controller.insert_comment(username, content_comment, father_comment)
 
-        if response.get("error", "") == "":
-            return JsonResponse({"success": response.get("success")}, status=200)
+            if response.get("error", "") == "":
+                return JsonResponse({"success": response.get("success")}, status=200)
+            else:
+                return JsonResponse({"error": response.get("error", "")}, status=response.get("code", 400))
         else:
-            return JsonResponse({"error": response.get("error", "")}, status=response.get("code", 400))
+            return JsonResponse({"error": "Access denied, invalid token"}, status=401)
     else:
         return JsonResponse({"error": "Bad Request"}, status=405)
 
@@ -286,12 +289,9 @@ def insert_comment(request, id_game, father_comment=None):
 @csrf_exempt
 def insert_map(request, id_game):
     if request.method == 'POST':
-        try:
-            body = json.loads(request.body)
-            maps = body.get("maps", [])
-            print(f"Maps received: {maps}")
-        except json.JSONDecodeError:
-            return JsonResponse({"error": "Invalid JSON"}, status=400)
+        #maps = request.POST.getlist("maps", [])
+        data = json.loads(request.body)
+        maps = data.get('maps', [])
 
         if len(maps) == 0:
             return JsonResponse({"error": "Map is empty"}, status=400)
@@ -303,5 +303,28 @@ def insert_map(request, id_game):
             return JsonResponse({"success": response.get("success")}, status=200)
         else:
             return JsonResponse({"error": response.get("error", "")}, status=response.get("code", 400))
+    else:
+        return JsonResponse({"error": "Bad Request"}, status=405)
+
+@csrf_exempt
+def get_filters(request):
+    if request.method == 'GET':
+        controller = ControllerGames()
+        response = controller.get_filters()
+
+        if response.get("error", "") == "":
+            return JsonResponse(response, status=200)
+        else:
+            return JsonResponse({"error": response.get("error", "")}, status=400)
+    else:
+        return JsonResponse({"error": "Bad Request"}, status=405)
+
+@csrf_exempt
+def get_maps(request, id_game):
+    if request.method == 'GET':
+        controller = ControllerGames(id=id_game)
+        response = controller.get_maps()
+
+        return JsonResponse({"maps": response.get("maps", [])}, status=response.get("code", 400))
     else:
         return JsonResponse({"error": "Bad Request"}, status=405)

@@ -253,7 +253,71 @@ class Games:
             print(f'Error get child comments: {error.msg}')
             return {'error': 'Cannot get child comments'}
 
-        return {"next": next, "comments": data}
+        return {"next": next, "insert": f"/insert_comment/{id_game}/{id_comment}/", "comments": data}
+
+    def get_maps(self, id_game):
+        sql = f"SELECT url_map FROM {self.__tables['own_maps']} WHERE id_game = {id_game}"
+        maps = []
+
+        try:
+            cursor = self.__connection.cursor(dictionary=True)
+            cursor.execute(sql)
+            dict_return = cursor.fetchall()
+            cursor.close()
+        except mysql.connector.Error as error:
+            return {}
+
+        for map in dict_return:
+            maps.append(map.get('url_map'))
+
+        return {'maps': maps, 'code': 200}
+
+    def get_filters(self):
+        genders = self.__get_filter_genders()
+        platforms = self.__get_filter_plataforms()
+
+        if len(genders) != 0 or len(platforms) != 0:
+            return {'genders': genders, 'platforms': platforms}
+        else:
+            return {'error': 'Cannot get filters'}
+
+    def __get_filter_genders(self):
+        sql = f"SELECT name_gender FROM {self.__tables['type_genders']}"
+        genders = []
+
+        try:
+            cursor = self.__connection.cursor()
+            cursor.execute(sql)
+            data = cursor.fetchall()
+            cursor.close()
+        except mysql.connector.Error as error:
+            print(f'Error get plataforms: {error.msg}')
+            return []
+
+        for gender in data:
+            genders.append(gender[0])
+
+        return genders
+
+    def __get_filter_plataforms(self):
+        sql = f"SELECT name_plataform FROM {self.__tables['type_plataforms']}"
+        plataforms = []
+
+        try:
+            cursor = self.__connection.cursor()
+            cursor.execute(sql)
+            data = cursor.fetchall()
+            cursor.close()
+        except mysql.connector.Error as error:
+            print(f'Error get plataforms: {error.msg}')
+            return []
+
+        for plataform in data:
+            plataforms.append(plataform[0])
+
+        return plataforms
+
+        return genders
 
     def __total_comments(self, id_game, id_comment):
         sql = (f"SELECT count(*) FROM comments where id_game = {id_game} and parent_comment = {id_comment}")
