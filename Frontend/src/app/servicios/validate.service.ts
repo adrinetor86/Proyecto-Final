@@ -12,7 +12,6 @@ export class ValidService {
   constructor(private httpClient: HttpClient) {}
 
   registerNewUser(email: string, username: string, password: string): Observable<Object> {
-    //para tener los datos "planos" (clave-valor) se necesita este formato
     const headers = { 'Content-Type': 'application/x-www-form-urlencoded' };
     const body = new HttpParams()
       .set('email', email)
