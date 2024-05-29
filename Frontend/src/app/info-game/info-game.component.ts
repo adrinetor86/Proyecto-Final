@@ -62,27 +62,6 @@ export class InfoGameComponent implements OnInit,OnDestroy{
   ngOnInit(): void {
 
     this.renderer.setStyle(this.document.body, 'background', '#161a3a');
-    // this.renderer.setStyle(this.document.body, 'z-index', '-1');
-    // this.mapaService.getMapassSmall().then((mapas) => {
-    //   this.mapas = mapas;
-    // });
-    // this.responsiveOptions = [
-    //   {
-    //     breakpoint: '1199px',
-    //     numVisible: 4,
-    //     numScroll: 3
-    //   },
-    //   {
-    //     breakpoint: '800px',
-    //     numVisible: 1,
-    //     numScroll: 1
-    //   },
-    //   {
-    //     breakpoint: '767px',
-    //     numVisible: 1,
-    //     numScroll: 2
-    //   }
-    // ];
 
 
     this.respuestaError= false;

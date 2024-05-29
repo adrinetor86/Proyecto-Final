@@ -12,6 +12,7 @@ import {ChangeOldPasswordComponent} from "./change-old-password/change-old-passw
 import {PerfilComponent} from "./perfil/perfil.component";
 import {SubirFotosComponent} from "./subir-fotos/subir-fotos.component";
 import {AniadirjuegosComponent} from "./aniadirjuegos/aniadirjuegos.component";
+import {QuienesomosComponent} from "./footer/quienesomos/quienesomos.component";
 
 
 const appRoutes: Routes = [
@@ -26,6 +27,7 @@ const appRoutes: Routes = [
   { path: 'perfil', component: PerfilComponent },
   { path: 'testeo', component: SubirFotosComponent },
   { path: 'aniadirJuegos', component: AniadirjuegosComponent },
+  { path: 'sobreNosotros', component: QuienesomosComponent },
   { path: '**', redirectTo: '/not-found', pathMatch: 'full'}
 ]
 @NgModule({

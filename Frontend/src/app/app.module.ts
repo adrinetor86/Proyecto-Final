@@ -43,6 +43,7 @@ import {MatDialogModule} from "@angular/material/dialog";
 import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
 import {InputOtpModule} from "primeng/inputotp";
 import { AniadirjuegosComponent } from './aniadirjuegos/aniadirjuegos.component';
+import { QuienesomosComponent } from './footer/quienesomos/quienesomos.component';
 
 
 @NgModule({
@@ -63,7 +64,8 @@ import { AniadirjuegosComponent } from './aniadirjuegos/aniadirjuegos.component'
     PerfilComponent,
     SubirFotosComponent,
     ModalCommentComponent,
-    AniadirjuegosComponent
+    AniadirjuegosComponent,
+    QuienesomosComponent
   ],
   imports: [
     BrowserModule,
