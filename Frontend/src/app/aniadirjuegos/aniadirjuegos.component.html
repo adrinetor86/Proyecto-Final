@@ -1,1 +1,104 @@
-<p>aniadirjuegos works!</p>
+<main>
+  <form method="get">
+    <div class="form-container">
+      <!-- Primer bloque -->
+      <fieldset class="block1">
+        <legend>Informacion Principal</legend>
+        <label for="titulo">Título:</label>
+        <input type="text" id="titulo" name="titulo" class="form-control"><br>
+
+        <label for="url1">Enlace trailer:</label>
+        <input type="url" id="url1" name="url1" class="form-control"><br>
+
+        <label for="url2">Enlace descarga:</label>
+        <input type="url" id="url2" name="url2" class="form-control"><br>
+
+        <label for="fecha">Fecha:</label>
+        <input type="date" id="fecha" name="fecha" class="form-control">
+      </fieldset>
+
+      <!-- Segundo bloque -->
+      <fieldset class="block2">
+        <legend>Sinopsis</legend>
+        <label for="sinopsis">Sinopsis:</label>
+        <textarea id="sinopsis" name="sinopsis" rows="10" class="form-control"></textarea>
+        <label>Generos:</label>
+        <div class="genders">
+          <label>
+            <input type="checkbox" name="genero" value="accion">
+            Acción
+          </label>
+          <label>
+            <input type="checkbox" name="genero" value="aventura">
+            Aventura
+          </label>
+          <label>
+            <input type="checkbox" name="genero" value="rol">
+            Rol
+          </label>
+          <label>
+            <input type="checkbox" name="genero" value="estrategia">
+            Estrategia
+          </label>
+          <label>
+            <input type="checkbox" name="genero" value="deportes">
+            Deportes
+          </label>
+          <label>
+            <input type="checkbox" name="genero" value="carreras">
+            Carreras
+          </label>
+          <label>
+            <input type="checkbox" name="genero" value="puzzle">
+            Puzzle
+          </label>
+          <label>
+            <input type="checkbox" name="genero" value="otros">
+            Otros
+          </label>
+        </div>
+        <label>Generos:</label>
+        <div class="plataform">
+          <label>
+            <input type="checkbox" name="plataform" value="Steam">
+            Steam
+          </label>
+          <label>
+            <input type="checkbox" name="plataform" value="Nintendo">
+            Nintendo
+          </label>
+          <label>
+            <input type="checkbox" name="plataform" value="Play Station">
+            Play Station
+          </label>
+          <label>
+            <input type="checkbox" name="plataform" value="XBOX">
+            XBOX
+          </label>
+          <label>
+            <input type="checkbox" name="plataform" value="Switch">
+            Switch
+          </label>
+        </div>
+      </fieldset>
+
+      <!-- Tercer bloque -->
+      <fieldset class="block3">
+        <legend>Imagen</legend>
+        <label for="imagen">Subir Imagen:</label>
+        <input type="file" id="imagen" name="imagen" accept="image/*" class="form-control">
+      </fieldset>
+
+      <fieldset class="block4">
+        <legend>Mapas</legend>
+        <label for="Maps">Subir Mapas:</label>
+        <input type="file" id="Maps" name="Maps" accept="image/*" class="form-control">
+        <button type="button" class="add"></button>
+      </fieldset>
+    </div>
+    <div class="content_button">
+      <button type="reset">Vaciar Campos</button>
+      <button type="submit">Enviar</button>
+    </div>
+  </form>
+</main>
