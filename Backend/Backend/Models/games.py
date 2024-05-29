@@ -106,7 +106,13 @@ class Games:
             return {"error": "Unknown error, try again", "code": 400}
 
     def insert_comment(self, username, id_game, content_comment, parent_comment):
-        sql = f"INSERT INTO comments (user, id_game, content_comment, parent_comment) values ('{username}', {id_game}, '{content_comment}', {parent_comment})"
+
+        sql = f"INSERT INTO comments (user, id_game, content_comment, parent_comment) values ('{username}', {id_game}, '{content_comment}'"
+
+        if not parent_comment:
+            sql += f", {parent_comment})"
+        else:
+            sql += ")"
 
         try:
             cursor = self.__connection.cursor()

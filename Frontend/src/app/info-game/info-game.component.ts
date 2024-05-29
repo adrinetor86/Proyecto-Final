@@ -1,7 +1,7 @@
 import {Component, OnDestroy, OnInit,Renderer2,Inject, ViewChild} from '@angular/core';
 import {ActivatedRoute, Router} from "@angular/router";
 import {JuegosService} from "../servicios/juegos.service";
-import {Subscription} from "rxjs";
+import {catchError, of, Subscription} from "rxjs";
 import {Juego, JuegoPrueba} from "../interfaces/juego";
 import {HttpClient} from "@angular/common/http";
 import {ValidService} from "../servicios/validate.service";
@@ -11,6 +11,7 @@ import {ModalCommentComponent} from "../modal-comment/modal-comment.component";
 import {Mapas} from "../interfaces/mapas";
 import {MapasService} from "../servicios/mapaJuegos.service";
 import { DOCUMENT } from '@angular/common';
+import {CommentService} from "../servicios/comment.service";
 @Component({
   selector: 'app-info-game',
   templateUrl: './info-game.component.html',
@@ -40,6 +41,7 @@ export class InfoGameComponent implements OnInit,OnDestroy{
     }
 
   gameComment: any;
+  gameCommentChild = {}
   respuestaError: boolean;
   subcripcion:Subscription;
   suscripcionPrueba: Subscription;
@@ -51,12 +53,16 @@ export class InfoGameComponent implements OnInit,OnDestroy{
   searchDot: number;
   mostrarFormHijo = false;
   mostrarBotonesFormPadre = false;
+  mostrarBotonesResponderComment = true;
+  indiceComentario;
+  errorMessage: string = '';
   userCommentFather: any;
   arrPlataformas: string[] = ['PC','Play Station','Xbox','Nintendo','Android','iOS'];
+  errorValidate = false;
   constructor(private route: ActivatedRoute, private juegoservice:JuegosService, private routerNavigate: Router,
               private http: HttpClient, private isLoginUser: ValidService,public dialog: MatDialog,
               private mapaService: MapasService,private renderer: Renderer2,
-              @Inject(DOCUMENT) private document: Document) { }
+              @Inject(DOCUMENT) private document: Document, private commentService:CommentService) { }
   // TOCAR AQUI PARA PONER LA IMAGEN
 
   ngOnInit(): void {
@@ -128,38 +134,77 @@ export class InfoGameComponent implements OnInit,OnDestroy{
     //   this.mapas = mapas;
     // });
 
-
-
     this.suscriptionComment = this.route.params.subscribe(params=>{
       const gameId = params['id'];
-      // const commentId = params['id_comment'];
-      this.http.get(`http://127.0.0.1:8000/comment/${gameId}/3`).subscribe((CommentValue:any)=>{
-        this.gameComment = CommentValue.comments[0];
-        this.userCommentFather = this.gameComment.user;
+      this.http.get(`http://127.0.0.1:8000/api/v1/game/${gameId}/`).subscribe((response:any)=>{
+        this.gameComment = response.comments;
+        this.userCommentFather = response.comments.user;
+        console.log(this.userCommentFather);
+        this.verificarCampoNext();
         console.log(this.gameComment);
       })
     });
-
+  }
+  verificarCampoNext() {
+    this.gameComment.forEach((comment: { next: any; }, index: string | number) => {
+      if (comment.next) {
+        this.gameComment[index].nextFieldValue = comment.next;
+        console.log(this.gameComment[index].nextFieldValue);
+      }
+    });
   }
 
-  aniadirComentario(){
-    if (this.isLoginUser.usuarioLogeado()){
+  aniadirComentario() {
+    if (this.isLoginUser.usuarioLogeado()) {
       let commentValue = this.formCommentsValue.value.commentValue;
       console.log(commentValue);
-    }
-    else {
-       this.dialog.open(ModalCommentComponent);
+      console.log(this.juego.id)
+      this.commentService.insertCommentFather(commentValue, this.juego.id).pipe(
+        catchError((error) => {
+          this.errorValidate = true;
+          this.errorMessage = '⚠️Error al insertar el comentario';
+          console.log(error);
+          return of(null);
+        })
+      ).subscribe(response => {
+        if (response != null) {
+          console.log("Todo ha salido bien mi querido compañero")
+        }
+      })
+    } else {
+      this.dialog.open(ModalCommentComponent);
     }
   }
+  mostrarComentarioHijo(indice: number) {
+    const fieldNextUrlValue = this.gameComment[indice].nextFieldValue;
+    if (fieldNextUrlValue) {
+      this.http.get(`http://127.0.0.1:8000${fieldNextUrlValue}`).subscribe((response: any) => {
+        this.gameCommentChild[indice] = response.comments;
+      });
+    }
+  }
+
+  //   niadirComentario(){
+  //   if (this.isLoginUser.usuarioLogeado()){
+  //     let commentValue = this.formCommentsValue.value.commentValue;
+  //     console.log(commentValue);
+  //   }
+  //   else {
+  //      this.dialog.open(ModalCommentComponent);
+  //   }
+  // }
   cancelarComentario(){
-    this.mostrarFormHijo = false;
+    this.indiceComentario = null;
+    this.mostrarBotonesResponderComment = true;
     this.mostrarBotonesFormPadre = false;
-    const gameId=this.juego.id
-    this.routerNavigate.navigate([`/infoGame/${gameId}`])
   }
-  mostrarFormComentarioHijo(){
-    this.mostrarFormHijo = true;
+
+  mostrarFormComentarioHijo(indice:number){
+    this.mostrarBotonesResponderComment = false;
+    this.indiceComentario=indice;
+    this.userCommentFather = '@'+this.gameComment[indice].user;
   }
+
   aniadirComentarioHijo(){
     if (this.isLoginUser.usuarioLogeado()){
       let commentValue = this.formCommentsChildValue.value.commentValueChild;

@@ -213,33 +213,46 @@
       <div class="contenedor-comentarios">
         <div class="cabecera-comentarios"><h4>Comentarios</h4></div>
         <div class="cuerpo-comentarios">
-
-            <form #formComments="ngForm">
-              <input type="text" placeholder="Añadir Comentario" ngModel required name="commentValue" (focus)="mostrarBotonesFormPadre=true">
-              <div style="display: flex" *ngIf="mostrarBotonesFormPadre">
-                <button type="button" (click)="cancelarComentario()">Cancelar</button>
-                <button type="submit" (click)="aniadirComentario()">Comentar</button>
+          <form #formComments="ngForm">
+            <input type="text" class="showInput" placeholder="Añadir Comentario" ngModel required name="commentValue" (focus)="mostrarBotonesFormPadre=true">
+            <div style="display: flex" *ngIf="mostrarBotonesFormPadre">
+              <button type="button" class="btn" (click)="cancelarComentario()">Cancelar</button>
+              <button type="submit" class="btn" (click)="aniadirComentario()">Comentar</button>
+            </div>
+          </form>
+          <div class="contentComment" *ngIf="gameComment">
+            <div *ngFor="let comment of gameComment; let i = index">
+              {{ comment.user}}
+              <br>
+              {{ comment.content_comment}} <br>
+              <div *ngIf="mostrarBotonesResponderComment">
+                <div>
+                  <a href="#" *ngIf="comment.next" class="btn" (click)="mostrarComentarioHijo(i); $event.preventDefault()">Ver más comentarios</a>
+                  <a href="#"  class="btn" (click)="mostrarFormComentarioHijo(i); $event.preventDefault()">Responder</a>
+                </div>
               </div>
-            </form>
-            <div class="contentComment" *ngIf="gameComment">
-              {{ gameComment.user }}
-              <p>
-                {{ gameComment.content_comment}}
-                <a href="#" (click)="mostrarFormComentarioHijo(); $event.preventDefault()">Responder</a>
-              <div *ngIf="mostrarFormHijo">
+              <div *ngIf="indiceComentario === i">
                 <form #formCommentsChild="ngForm">
-                  <input type="text" placeholder="Añadir Comentario" [(ngModel)]="userCommentFather" name="commentValueChild">
+                  <input type="text" class="showInput" placeholder="Añadir Comentario" [(ngModel)]="userCommentFather" name="commentValueChild">
                   <div style="display: flex">
-                    <button type="button" (click)="cancelarComentario()">Cancelar</button>
-                    <button type="submit" (click)="aniadirComentarioHijo()">Comentar</button>
+                    <button type="button" class="btn" (click)="cancelarComentario()">Cancelar</button>
+                    <button type="submit" class="btn" (click)="aniadirComentarioHijo()">Comentar</button>
                   </div>
                 </form>
+              </div>
+              <div class="childComments">
+                <div *ngFor="let childComment of gameCommentChild[i]">
+                  {{ childComment.user }}
+                  <br>
+                  {{ childComment.content_comment }}
+                  <br><br>
+                </div>
               </div>
             </div>
             <div *ngIf="!gameComment">
               No hay comentarios para este juego actualmente
             </div>
-
+          </div>
         </div>
       </div>
     </div>

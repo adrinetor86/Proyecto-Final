@@ -189,6 +189,15 @@
   right: 0;
   top: 0;
 }
+.childComments{
+  padding-left: 12px;
+}
+.btn {
+  background: #161a3a;
+}
+.showInput {
+  background-color: black;
+}
 
 .imagen-cabecera picture img{
   height: 100%;
