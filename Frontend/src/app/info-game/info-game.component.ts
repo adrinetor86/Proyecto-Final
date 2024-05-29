@@ -1,4 +1,4 @@
-import {Component, OnDestroy, OnInit, ViewChild} from '@angular/core';
+import {Component, OnDestroy, OnInit,Renderer2,Inject, ViewChild} from '@angular/core';
 import {ActivatedRoute, Router} from "@angular/router";
 import {JuegosService} from "../servicios/juegos.service";
 import {Subscription} from "rxjs";
@@ -10,7 +10,7 @@ import {MatDialog} from "@angular/material/dialog";
 import {ModalCommentComponent} from "../modal-comment/modal-comment.component";
 import {Mapas} from "../interfaces/mapas";
 import {MapasService} from "../servicios/mapaJuegos.service";
-
+import { DOCUMENT } from '@angular/common';
 @Component({
   selector: 'app-info-game',
   templateUrl: './info-game.component.html',
@@ -56,11 +56,13 @@ export class InfoGameComponent implements OnInit,OnDestroy{
   arrPlataformas: string[] = ['PC','Play Station','Xbox','Nintendo','Android','iOS'];
   constructor(private route: ActivatedRoute, private juegoservice:JuegosService, private routerNavigate: Router,
               private http: HttpClient, private isLoginUser: ValidService,public dialog: MatDialog,
-              private mapaService: MapasService) { }
-
+              private mapaService: MapasService,private renderer: Renderer2,
+              @Inject(DOCUMENT) private document: Document) { }
+  // TOCAR AQUI PARA PONER LA IMAGEN
 
   ngOnInit(): void {
-
+    this.renderer.setStyle(this.document.body, 'background', 'red');
+    this.renderer.setStyle(this.document.body, 'z-index', '-2');
     this.mapaService.getMapassSmall().then((mapas) => {
       this.mapas = mapas;
     });
