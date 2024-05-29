@@ -1,7 +1,8 @@
 import {Component, ViewChild} from '@angular/core';
-import {Observable} from "rxjs";
+import {Observable, Subscription} from "rxjs";
 import {HttpClient, HttpParams} from "@angular/common/http";
 import {NgForm} from "@angular/forms";
+import {ActivatedRoute} from "@angular/router";
 
 @Component({
   selector: 'app-subir-fotos',
@@ -15,9 +16,9 @@ export class SubirFotosComponent {
   fileInputs = Array(5).fill(null);
   selectedFiles: File[] = []; // Array para almacenar los archivos seleccionados
   base64Images: string[] = []; // Array para almacenar las imágenes en base64
+  subcripcion: Subscription;
 
-
-  constructor(private http: HttpClient) {
+  constructor(private http: HttpClient, private route: ActivatedRoute) {
   }
   // onSubmit() {
   //   const id= this.formAccount.value.juegoId;
@@ -44,6 +45,8 @@ export class SubirFotosComponent {
     this.base64Images = []; // Reiniciar el array de imágenes en base64
     let filesProcessed = 0;
 
+
+
     this.selectedFiles.forEach((file, index) => {
       const reader = new FileReader();
       reader.onload = () => {
@@ -52,11 +55,12 @@ export class SubirFotosComponent {
 
         // Cuando todos los archivos hayan sido procesados, enviarlos al servidor
         if (filesProcessed === this.selectedFiles.length) {
-          this.pasarFotos(29, this.base64Images);
+          this.pasarFotos(28, this.base64Images);
         }
       };
       reader.readAsDataURL(file);
     });
+
   }
 
 
@@ -76,7 +80,7 @@ export class SubirFotosComponent {
       maps: Maps
     };
     console.log(body);
-    this.http.post("http://127.0.0.1:8000/insert_maps/29/", JSON.stringify(body), { headers })
+    this.http.post("http://127.0.0.1:8000/insert_maps/26/", JSON.stringify(body), { headers })
       .subscribe(response => console.log(response));
   }
 

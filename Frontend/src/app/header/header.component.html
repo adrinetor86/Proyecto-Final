@@ -4,18 +4,25 @@
   <ul [class.menuOpen]="menuOpen">
 
     <li class="logo"> <a routerLink="/"></a></li>
+<!--    <li class="hideOnMobile" [class.hideOnMobile]="!menuOpen"><a class="enlace-nombre-usuario">Hola de nuevo {{datosUsuario.username}}</a></li>-->
     <li *ngIf="usuarioLogado" class="hideOnMobile" [class.hideOnMobile]="!menuOpen" ><a [routerLink]="['/testeo']">Blog</a></li>
     <li *ngIf="usuarioLogado" class="hideOnMobile" [class.hideOnMobile]="!menuOpen" ><a [routerLink]="['/perfil']" >Perfil</a></li>
-    <li class="hideOnMobile" [class.hideOnMobile]="!menuOpen" ><a routerLink="/" >About</a></li>
+    <li class="hideOnMobile" [class.hideOnMobile]="!menuOpen" ><a routerLink="/aniadirJuegos" >Juegos</a></li>
     <li *ngIf="usuarioLogado" (click)="desconectar()" class="hideOnMobile" [class.hideOnMobile]="!menuOpen" ><a href="#">Cerrar Sesion</a></li>
     <li class="hideOnMobile" [class.hideOnMobile]="!menuOpen">
-
+<!--      <p-avatar image="{{datosUsuario.profile_picture}}"  icon="pi pi-user" styleClass="mr-2" size="large"  [style]="{ 'background-color': '#9c27b0', color: '#ffffff' }" shape="circle"></p-avatar>-->
       @if(!menuOpen){
 
       <div #loginContainer  class='login-container' [ngClass]="{'active': loginOpen}">
         <a (click)="toggleLogin()"  class="icono">
-          <p-avatar icon="pi pi-user" styleClass="mr-2" size="large"  [style]="{ 'background-color': '#9c27b0', color: '#ffffff' }" shape="circle"></p-avatar>
+
+          <p-avatar  *ngIf="usuarioLogado" icon="pi pi-user" styleClass="mr-2" size="large"  [style]="{ 'background-color': '#9c27b0', color: '#ffffff' }" shape="circle"><img class="foto-icono" src={{datosUsuario.profile_picture}}></p-avatar>
+          <p-avatar  *ngIf="!usuarioLogado" icon="pi pi-user" styleClass="mr-2" size="large"  [style]="{ 'background-color': '#9c27b0', color: '#ffffff' }" shape="circle"></p-avatar>
+
+<!--          <p-avatar  icon="pi pi-user" styleClass="mr-2" size="large"  [style]="{ 'background-color': '#9c27b0', color: '#ffffff' }" shape="circle"></p-avatar>-->
           </a>
+
+<!--        <span class="nombre-usuario" *ngIf="usuarioLogado">{{datosUsuario.username}}</span>-->
 
         <div class="contenedor-panel">
           <div class="panel">

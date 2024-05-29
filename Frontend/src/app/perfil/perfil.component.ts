@@ -1,6 +1,7 @@
-import {Component, OnDestroy, OnInit} from '@angular/core';
+import {Component, OnDestroy, OnInit, ViewChild} from '@angular/core';
 import {Observable, Subscription} from "rxjs";
 import {HttpClient, HttpParams} from "@angular/common/http";
+import {NgForm} from "@angular/forms";
 
 @Component({
   selector: 'app-perfil',
@@ -8,23 +9,58 @@ import {HttpClient, HttpParams} from "@angular/common/http";
   styleUrl: './perfil.component.css'
 })
 export class PerfilComponent implements OnInit, OnDestroy{
-
+  @ViewChild('imageForm', { static: false }) formAccount: NgForm;
   suscripcion: Subscription;
-
-
+  username: string;
+  datosUsuario: any;
+  selectedFile: File | null = null;
+  base64Image: string = '';
   constructor(private http: HttpClient) { }
   ngOnInit(): void {
-    this.suscripcion= this.obtenerDatosUsuario(" usuario56").subscribe({
+    this.suscripcion= this.obtenerDatosUsuario("adrinetor86").subscribe({
       next: (value) => {
         console.log(value);
+        this.datosUsuario = value['profile'];
+
       }
     });
 
+
   }
+
+  onSubmit() {
+    // const id= this.formAccount.value.juegoId;
+    // console.log("el id mi loko");
+    // console.log(id);
+    if (this.selectedFile) {
+      const reader = new FileReader();
+      reader.onload = () => {
+         this.base64Image = reader.result as string;
+        // Aquí tienes tu imagen en base64
+        console.log(this.base64Image);
+
+        this.pasarFoto(this.datosUsuario.username, this.base64Image);
+      };
+      reader.readAsDataURL(this.selectedFile);
+    }
+  }
+
+  pasarFoto(username,imagen: string) {
+    const headers = { 'Content-Type': 'application/x-www-form-urlencoded' };
+    const body = new HttpParams()
+      .set('change_picture', imagen);
+    console.log(body.toString());
+    this.http.post("http://127.0.0.1:8000/change_picture_profile/"+username+"/", body.toString(), { headers })
+      .subscribe((response) => console.log(response));
+  }
+  onFileChange(event: any) {
+    this.selectedFile = event.target.files[0];
+  }
+
   obtenerDatosUsuario(username: string): Observable<Object> {
     const headers = { 'Content-Type': 'application/x-www-form-urlencoded' };
     const body = new HttpParams()
-      .set('username', username)
+      .set('username',username)
 
     return this.http.post("http://127.0.0.1:8000/your_profile/"+username+"/", body.toString(),{ headers });
   }

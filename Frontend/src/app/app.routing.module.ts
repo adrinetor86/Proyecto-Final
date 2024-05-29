@@ -11,6 +11,7 @@ import {CatchCodeVerificationComponent} from "./catch-code-verification/catch-co
 import {ChangeOldPasswordComponent} from "./change-old-password/change-old-password.component";
 import {PerfilComponent} from "./perfil/perfil.component";
 import {SubirFotosComponent} from "./subir-fotos/subir-fotos.component";
+import {AniadirjuegosComponent} from "./aniadirjuegos/aniadirjuegos.component";
 
 
 const appRoutes: Routes = [
@@ -24,6 +25,7 @@ const appRoutes: Routes = [
   { path: 'not-found', component: NotFoundComponent },
   { path: 'perfil', component: PerfilComponent },
   { path: 'testeo', component: SubirFotosComponent },
+  { path: 'aniadirJuegos', component: AniadirjuegosComponent },
   { path: '**', redirectTo: '/not-found', pathMatch: 'full'}
 ]
 @NgModule({

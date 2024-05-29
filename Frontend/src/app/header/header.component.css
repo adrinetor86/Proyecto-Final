@@ -15,6 +15,29 @@ nav ul:not(.lista-panel){
 nav li{
   height: 50px;
 }
+
+/*.enlace-nombre-usuario{*/
+/*  margin-right: 150px;*/
+/*}*/
+
+@media screen and (max-width: 1150px) {
+  .enlace-nombre-usuario{
+    display:none;
+    color:red;
+  }
+  ul li:nth-child(2){
+    color:white;
+    display:none;
+  }
+}
+@media screen and (min-width: 1150px) {
+  .nombre-usuario{
+    display:none;
+
+  }
+}
+
+
 nav a {
   height: 100%;
   padding: 0 30px;
@@ -28,7 +51,11 @@ nav a {
   transition: all .5s;
   border-radius: 3rem;
 }
-nav a:hover:not(.icono):not(li.logo a) {
+
+.nombre-usuario{
+  color: #02caaa;
+}
+nav a:hover:not(.icono):not(li.logo a):not(ul li:nth-child(2) a) {
   background-color: #f0f0f0;
 }
 
@@ -41,6 +68,10 @@ nav li:first-child{
 }
 .sidebar a{
   width: 100%;
+}
+
+ul{
+  margin:0;
 }
 
 /*@media(max-width: 800px){*/

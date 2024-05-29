@@ -42,6 +42,7 @@ import {MatButton} from "@angular/material/button";
 import {MatDialogModule} from "@angular/material/dialog";
 import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
 import {InputOtpModule} from "primeng/inputotp";
+import { AniadirjuegosComponent } from './aniadirjuegos/aniadirjuegos.component';
 
 
 @NgModule({
@@ -61,7 +62,8 @@ import {InputOtpModule} from "primeng/inputotp";
     ChangeOldPasswordComponent,
     PerfilComponent,
     SubirFotosComponent,
-    ModalCommentComponent
+    ModalCommentComponent,
+    AniadirjuegosComponent
   ],
   imports: [
     BrowserModule,

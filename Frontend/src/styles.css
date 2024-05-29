@@ -1,5 +1,18 @@
 @import 'bootstrap-icons';
 /* You can add global styles to this file, and also import other style files */
+:root{
+  --background-image: radial-gradient(circle at 9% 92%, rgba(255,255,255,0.03) 0%, rgba(255,255,255,0.03) 3%,transparent 100%, transparent 100%),
+  radial-gradient(circle at 84% 0%, rgba(255,255,255,0.01) 0%, rgba(255,255,255,0.01) 7%, transparent 7%, transparent 100%),
+  radial-gradient(circle at 76% 71%, rgba(255,255,255,0.02) 0%, rgba(255,255,255,0.02) 7%,transparent 7%, transparent 100%),
+  radial-gradient(circle at 88% 74%, rgba(255,255,255,0.01) 0%, rgba(255,255,255,0.01) 7%, transparent 7%, transparent 100%),
+  radial-gradient(circle at 16% 56%, rgba(255,255,255,0.02) 0%, rgba(255,255,255,0.02) 7%,transparent 7%, transparent 100%),
+  radial-gradient(circle at 23% 73%, rgba(255,255,255,0.03) 0%, rgba(255,255,255,0.03) 5%,transparent 5%, transparent 100%),
+  radial-gradient( rgba(255,255,255,0.01) 0%, rgba(255,255,255,0.01) 5%,transparent 5%, transparent 100%),
+  radial-gradient(circle at 56% 58%, rgba(255,255,255,0.03) 0%, rgba(255,255,255,0.03) 5%, transparent 5%, transparent 100%),
+  radial-gradient(circle at 64% 68%, rgba(255,255,255,0.03) 0%, rgba(255,255,255,0.03) 5%,transparent 5%, transparent 100%),
+  linear-gradient(90deg, rgb(54, 51, 154),rgb(148, 25, 101));
+}
+
 * {
   margin: 0;
   padding: 0;
@@ -8,20 +21,21 @@
 body{
 
   height: 100vh;
-  background-image: radial-gradient(circle at 9% 92%,
-  rgba(255,255,255,0.03) 0%, rgba(255,255,255,0.03) 3%,transparent 100%, transparent 100%),
-  radial-gradient(circle at 84% 0%, rgba(255,255,255,0.01) 0%, rgba(255,255,255,0.01) 7%,
-    transparent 7%, transparent 100%),radial-gradient(circle at 76% 71%,
-    rgba(255,255,255,0.02) 0%, rgba(255,255,255,0.02) 7%,transparent 7%, transparent 100%),
-  radial-gradient(circle at 88% 74%, rgba(255,255,255,0.01) 0%, rgba(255,255,255,0.01) 7%,
-    transparent 7%, transparent 100%),radial-gradient(circle at 16% 56%,
-    rgba(255,255,255,0.02) 0%, rgba(255,255,255,0.02) 7%,transparent 7%, transparent 100%),
-  radial-gradient(circle at 23% 73%, rgba(255,255,255,0.03) 0%, rgba(255,255,255,0.03) 5%,transparent 5%, transparent 100%),
-  radial-gradient( rgba(255,255,255,0.01) 0%, rgba(255,255,255,0.01) 5%,transparent 5%,
-    transparent 100%),radial-gradient(circle at 56% 58%, rgba(255,255,255,0.03) 0%, rgba(255,255,255,0.03) 5%,
-    transparent 5%, transparent 100%),radial-gradient(circle at 64% 68%, rgba(255,255,255,0.03) 0%,
-    rgba(255,255,255,0.03) 5%,transparent 5%, transparent 100%),
-  linear-gradient(90deg, rgb(54, 51, 154),rgb(148, 25, 101));
+  background-image: var(--background-image);
+  /*background-image: radial-gradient(circle at 9% 92%,*/
+  /*rgba(255,255,255,0.03) 0%, rgba(255,255,255,0.03) 3%,transparent 100%, transparent 100%),*/
+  /*radial-gradient(circle at 84% 0%, rgba(255,255,255,0.01) 0%, rgba(255,255,255,0.01) 7%,*/
+  /*  transparent 7%, transparent 100%),radial-gradient(circle at 76% 71%,*/
+  /*  rgba(255,255,255,0.02) 0%, rgba(255,255,255,0.02) 7%,transparent 7%, transparent 100%),*/
+  /*radial-gradient(circle at 88% 74%, rgba(255,255,255,0.01) 0%, rgba(255,255,255,0.01) 7%,*/
+  /*  transparent 7%, transparent 100%),radial-gradient(circle at 16% 56%,*/
+  /*  rgba(255,255,255,0.02) 0%, rgba(255,255,255,0.02) 7%,transparent 7%, transparent 100%),*/
+  /*radial-gradient(circle at 23% 73%, rgba(255,255,255,0.03) 0%, rgba(255,255,255,0.03) 5%,transparent 5%, transparent 100%),*/
+  /*radial-gradient( rgba(255,255,255,0.01) 0%, rgba(255,255,255,0.01) 5%,transparent 5%,*/
+  /*  transparent 100%),radial-gradient(circle at 56% 58%, rgba(255,255,255,0.03) 0%, rgba(255,255,255,0.03) 5%,*/
+  /*  transparent 5%, transparent 100%),radial-gradient(circle at 64% 68%, rgba(255,255,255,0.03) 0%,*/
+  /*  rgba(255,255,255,0.03) 5%,transparent 5%, transparent 100%),*/
+  /*linear-gradient(90deg, rgb(54, 51, 154),rgb(148, 25, 101));*/
   /*background: linear-gradient(135deg, #667eea 0%, #764ba2 120%);*/
   background-size:cover;
   /*background-repeat: no-repeat;*/

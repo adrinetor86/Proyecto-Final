@@ -23,9 +23,7 @@ export class InfoGameComponent implements OnInit,OnDestroy{
   mapas: Mapas[] | undefined;
 
   responsiveOptions: any[] | undefined;
-
-
-
+  mapasJuegos: Mapas[] | undefined;
   juego:Juego={title:'',url:'',id:0}
 
   juegoPrueba:JuegoPrueba={
@@ -46,6 +44,7 @@ export class InfoGameComponent implements OnInit,OnDestroy{
   subcripcion:Subscription;
   suscripcionPrueba: Subscription;
   suscriptionComment: Subscription;
+  suscriptionMapas: Subscription;
   seeMore = false;
   seeMoreButton = "Ver más";
   seeLess = "Ver menos";
@@ -61,28 +60,29 @@ export class InfoGameComponent implements OnInit,OnDestroy{
   // TOCAR AQUI PARA PONER LA IMAGEN
 
   ngOnInit(): void {
-    this.renderer.setStyle(this.document.body, 'background', 'red');
-    this.renderer.setStyle(this.document.body, 'z-index', '-2');
-    this.mapaService.getMapassSmall().then((mapas) => {
-      this.mapas = mapas;
-    });
-    this.responsiveOptions = [
-      {
-        breakpoint: '1199px',
-        numVisible: 4,
-        numScroll: 3
-      },
-      {
-        breakpoint: '800px',
-        numVisible: 1,
-        numScroll: 1
-      },
-      {
-        breakpoint: '767px',
-        numVisible: 1,
-        numScroll: 2
-      }
-    ];
+
+    this.renderer.setStyle(this.document.body, 'background', '#161a3a');
+    // this.renderer.setStyle(this.document.body, 'z-index', '-1');
+    // this.mapaService.getMapassSmall().then((mapas) => {
+    //   this.mapas = mapas;
+    // });
+    // this.responsiveOptions = [
+    //   {
+    //     breakpoint: '1199px',
+    //     numVisible: 4,
+    //     numScroll: 3
+    //   },
+    //   {
+    //     breakpoint: '800px',
+    //     numVisible: 1,
+    //     numScroll: 1
+    //   },
+    //   {
+    //     breakpoint: '767px',
+    //     numVisible: 1,
+    //     numScroll: 2
+    //   }
+    // ];
 
 
     this.respuestaError= false;
@@ -94,25 +94,63 @@ export class InfoGameComponent implements OnInit,OnDestroy{
 
     this.suscripcionPrueba=
       this.route.params.subscribe(params => {
-        this.http.get('http://127.0.0.1:8000/api/v1/game/'+parseInt(params['id'])+'/').subscribe(JuegoRecibido => {
+        this.http.get('http://127.0.0.1:8000/api/v1/game/' + parseInt(params['id']) + '/').subscribe(JuegoRecibido => {
           console.log(JuegoRecibido)
 
-          if(!JuegoRecibido['error']){
+          if (!JuegoRecibido['error']) {
 
             this.juegoPrueba = JuegoRecibido as JuegoPrueba;
             this.searchDot = this.juegoPrueba.synopsis.indexOf('.')
             this.arrPlataformas = this.juegoPrueba.plataforms.split(', ');
-          }else{
+          } else {
             this.juegoPrueba = JuegoRecibido['error']['error'];
             console.log("ERRORRRR")
             console.log(this.juegoPrueba);
           }
-      },error => {
-        this.respuestaError= true;
-        console.log(error['error']['error']);
+        }, error => {
+          this.respuestaError = true;
+          console.log(error['error']['error']);
 
         });
-     });
+
+        this.http.get('http://127.0.0.1:8000/get_maps/' + parseInt(params['id']) + '/').subscribe(MapasRecibidos => {
+
+          this.mapasJuegos = MapasRecibidos as Mapas[];
+          console.log(this.mapasJuegos)
+          console.log("MAPAS")
+          console.log(this.mapasJuegos)
+
+
+          this.mapaService.getMapassSmall(this.mapasJuegos).then((mapas) => {
+            this.mapasJuegos = mapas;
+          });
+          this.responsiveOptions = [
+            {
+              breakpoint: '1199px',
+              numVisible: 4,
+              numScroll: 3
+            },
+            {
+              breakpoint: '800px',
+              numVisible: 1,
+              numScroll: 1
+            },
+            {
+              breakpoint: '767px',
+              numVisible: 1,
+              numScroll: 2
+            }
+          ];
+        });
+      });
+
+
+    // this.mapaService.getMapassSmall().then((mapas) => {
+    //   this.mapas = mapas;
+    // });
+
+
+
     this.suscriptionComment = this.route.params.subscribe(params=>{
       const gameId = params['id'];
       // const commentId = params['id_comment'];
@@ -122,6 +160,7 @@ export class InfoGameComponent implements OnInit,OnDestroy{
         console.log(this.gameComment);
       })
     });
+
   }
 
   aniadirComentario(){
@@ -162,6 +201,6 @@ export class InfoGameComponent implements OnInit,OnDestroy{
   ngOnDestroy(){
     this.subcripcion.unsubscribe();
     this.suscripcionPrueba.unsubscribe();
-
+    this.renderer.setStyle(this.document.body, 'background', 'var(--background-image)');
   }
 }

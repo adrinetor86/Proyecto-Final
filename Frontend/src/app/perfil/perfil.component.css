@@ -115,7 +115,7 @@
   width:33%;
 }
 
-input{
+input:not[type="file"]{
   background-color: #625d5d;
   border:none;
   padding:10px;
