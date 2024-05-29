@@ -166,6 +166,8 @@ class User:
             dict_return = cursor.fetchall()
             cursor.close()
 
+            print(dict_return)
+
             if dict_return[0]["profile_picture"] == None:
                 with open(os.path.normpath(os.path.join(os.path.dirname(os.path.abspath(__file__)), '..', 'Images', 'Profile', 'default.txt')), 'r') as file:
                     picture_profile = file.read()

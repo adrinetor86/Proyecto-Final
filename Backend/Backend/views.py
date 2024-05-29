@@ -194,7 +194,7 @@ def your_profile(request, username):
             if response.get("error", "") == "":
                 return JsonResponse(response, status=200)
             else:
-                return JsonResponse({"error": response.get("error", "Unknokn error")}, status=response.get("code", 400))
+                return JsonResponse({"error": response.get("error", "Unknown error")}, status=response.get("code", 400))
         else:
             return JsonResponse({"error": "Invalid access token"}, status=401)
     else:
@@ -209,7 +209,7 @@ def view_profile(request, username):
         if response.get("error", "") == "":
             return JsonResponse(response, status=200)
         else:
-            return JsonResponse({"error": response.get("error", "Unknokn error")}, status=response.get("code", 400))
+            return JsonResponse({"error": response.get("error", "Unknown error")}, status=response.get("code", 400))
     else:
         return JsonResponse({"error": "Bad Request"}, status=405)
 
@@ -224,7 +224,7 @@ def change_picture(request, username):
         if response.get("error", "") == "":
             return JsonResponse(response, status=200)
         else:
-            return JsonResponse({"error": response.get("error", "Unknokn error")}, status= response.get("code", 400))
+            return JsonResponse({"error": response.get("error", "Unknown error")}, status= response.get("code", 400))
     else:
         return JsonResponse({"error": "Bad Request"}, status=405)
 
@@ -245,7 +245,7 @@ def portada(request):
         if response.get("error", "") == "":
             return JsonResponse(response, status=200)
         else:
-            return JsonResponse({"error": response.get("error", "Unknokn error")}, status=response.get("code", 400))
+            return JsonResponse({"error": response.get("error", "Unknown error")}, status=response.get("code", 400))
     else:
         return JsonResponse({"error": "Bad Request"}, status=405)
 
