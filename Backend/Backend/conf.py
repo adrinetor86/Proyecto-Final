@@ -9,3 +9,5 @@ DATABASE = {
 SALT = 'JaCKeT-'
 
 SECRET_KEY = 'cHepA_AntObs'
+
+KEY_IDENTIFIED_USER = 'mAldiT0SeaELJacKEt'

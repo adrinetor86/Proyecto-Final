@@ -1,4 +1,7 @@
+import html
 import math
+import re
+
 import mysql
 import mysql.connector as bd
 import Backend.conf as config
@@ -255,11 +258,29 @@ class Games:
             cursor.execute(sql)
             data = cursor.fetchall()
             cursor.close()
+
+            for comment in data:
+                html.unescape(comment["content_comment"])
         except mysql.connector.Error as error:
             print(f'Error get child comments: {error.msg}')
             return {'error': 'Cannot get child comments'}
 
         return {"next": next, "insert": f"/insert_comment/{id_game}/{id_comment}/", "comments": data}
+
+    def __get_username_parentcomment(self, id_comment):
+        sql = f"SELECT parent_comment FROM comments WHERE id_comment = {id_comment}"
+
+        try:
+            cursor = self.__connection.cursor(dictionary=True)
+            cursor.execute(sql)
+            dict_return = cursor.fetchone()
+            cursor.close()
+        except mysql.connector.Error as error:
+            return ''
+
+        print(dict_return["parent_comment"])
+
+        return dict_return["parent_comment"]
 
     def get_maps(self, id_game):
         sql = f"SELECT url_map FROM {self.__tables['own_maps']} WHERE id_game = {id_game}"
