@@ -1,27 +1,32 @@
 <main>
+  <h1>Formulario Juego</h1>
   <form method="get">
     <div class="form-container">
       <!-- Primer bloque -->
       <fieldset class="block1">
         <legend>Informacion Principal</legend>
         <label for="titulo">Título:</label>
-        <input type="text" id="titulo" name="titulo" class="form-control"><br>
+        <input type="text" id="titulo" name="titulo" class="form-control" placeholder="ejem: Genshin Impact...">
+        <br>
 
         <label for="url1">Enlace trailer:</label>
-        <input type="url" id="url1" name="url1" class="form-control"><br>
+        <input type="url" id="url1" name="url1" class="form-control" placeholder="ejem: https://www.youtube.com/watch?v=HLUY1nICQRY&ab_channel=IGN">
+        <br>
 
         <label for="url2">Enlace descarga:</label>
-        <input type="url" id="url2" name="url2" class="form-control"><br>
+        <input type="url" id="url2" name="url2" class="form-control" placeholder="ejem: https://www.youtube.com/watch?v=HLUY1nICQRY&ab_channel=IGN">
+        <br>
 
         <label for="fecha">Fecha:</label>
-        <input type="date" id="fecha" name="fecha" class="form-control">
+        <input type="date" id="fecha" name="fecha" class="form-control"><br>
+        <p class="aviso">* Todos los campos son obligatorios.</p>
       </fieldset>
 
       <!-- Segundo bloque -->
       <fieldset class="block2">
-        <legend>Sinopsis</legend>
+        <legend>Especificaciones</legend>
         <label for="sinopsis">Sinopsis:</label>
-        <textarea id="sinopsis" name="sinopsis" rows="10" class="form-control"></textarea>
+        <textarea id="sinopsis" name="sinopsis" rows="10" class="form-control" placeholder="ejem: Genshin Impact es un JRPG gratuito de mundo abierto en el que podremos explorar un mundo vasto lleno de..."></textarea>
         <label>Generos:</label>
         <div class="genders">
           <label>
@@ -80,6 +85,7 @@
             Switch
           </label>
         </div>
+        <p class="aviso2">* Todos los campos son obligatorios.</p>
       </fieldset>
 
       <!-- Tercer bloque -->
@@ -87,6 +93,7 @@
         <legend>Imagen</legend>
         <label for="imagen">Subir Imagen:</label>
         <input type="file" id="imagen" name="imagen" accept="image/*" class="form-control">
+        <p class="aviso2">* Imagen de Portada obligatoria.</p>
       </fieldset>
 
       <fieldset class="block4">
@@ -94,6 +101,7 @@
         <label for="Maps">Subir Mapas:</label>
         <input type="file" id="Maps" name="Maps" accept="image/*" class="form-control">
         <button type="button" class="add"></button>
+        <p class="aviso2">* Debe contener al menos 1 mapa.</p>
       </fieldset>
     </div>
     <div class="content_button">

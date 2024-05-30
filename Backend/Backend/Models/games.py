@@ -109,10 +109,10 @@ class Games:
 
         sql = f"INSERT INTO comments (user, id_game, content_comment, parent_comment) values ('{username}', {id_game}, '{content_comment}'"
 
-        if not parent_comment:
+        if parent_comment != None:
             sql += f", {parent_comment})"
         else:
-            sql += ")"
+            sql += ", NULL)"
 
         try:
             cursor = self.__connection.cursor()
