@@ -45,7 +45,6 @@ import {InputOtpModule} from "primeng/inputotp";
 import { AniadirjuegosComponent } from './aniadirjuegos/aniadirjuegos.component';
 import { QuienesomosComponent } from './footer/quienesomos/quienesomos.component';
 
-
 @NgModule({
   declarations: [
     AppComponent,
@@ -97,6 +96,7 @@ import { QuienesomosComponent } from './footer/quienesomos/quienesomos.component
     BrowserAnimationsModule,
     MatDialogModule,
     InputOtpModule,
+
   ],
   providers: [
     {
@@ -113,4 +113,4 @@ import { QuienesomosComponent } from './footer/quienesomos/quienesomos.component
   ],
   bootstrap: [AppComponent]
 })
-export class AppModule { }
+export class AppModule {}

@@ -1,16 +1,22 @@
 import { Injectable } from '@angular/core';
 import {HttpClient, HttpParams} from "@angular/common/http";
 import {BehaviorSubject, Observable} from "rxjs";
-
-
+import {JwtHelperService} from "@auth0/angular-jwt";
+import jwt_decode, {jwtDecode} from 'jwt-decode';
+// import { TokenService } from './token.service';
 @Injectable({
   providedIn: 'root'
 })
+
+
+
 export class ValidService {
+  // private jwtHelper: JwtHelperService = new JwtHelperService();
+
 
   logeado:BehaviorSubject<boolean> = new BehaviorSubject<boolean>(this.usuarioLogeado());
   constructor(private httpClient: HttpClient) {}
-
+  decodedToken: any;
   registerNewUser(email: string, username: string, password: string): Observable<Object> {
     const headers = { 'Content-Type': 'application/x-www-form-urlencoded' };
     const body = new HttpParams()
@@ -60,6 +66,7 @@ export class ValidService {
 
   usuarioLogeado(): boolean {
     return !!localStorage.getItem('accessToken');
+
   }
 
   borrarToken(): void {
@@ -73,6 +80,58 @@ export class ValidService {
     return localStorage.getItem('accessToken');
   }
 
+  // getUserName(): string {
+  //   const accessToken: string = this.getAccessToken();
+  //
+  //   if (!accessToken) {
+  //     return '';
+  //   }
+  //
+  //   const decodedToken = this.jwtHelper.decodeToken(accessToken);
+  //
+  //   return decodedToken.user_name;
+  // }
+  // getUserRole(): string {
+  //   const accessToken: string = this.getAccessToken();
+  //
+  //   if (!accessToken) {
+  //     return '';
+  //   }
+  //
+  //   const decodedToken = this.jwtHelper.decodeToken(accessToken);
+  //
+  //   if (!decodedToken) {
+  //     console.error('Invalid access token');
+  //     return '';
+  //   }
+  //
+  //   return decodedToken.role;
+  // }
+  decodeToken(token: string): any {
+    try {
+      return jwtDecode(token);
+    } catch (Error) {
+      console.error("Error decoding token", Error);
+      return null;
+    }
+  }
 
+  getUserName(): string {
+    const accessToken: string = this.getAccessToken();
+    if (!accessToken) {
+      return '';
+    }
+    const decodedToken = this.decodeToken(accessToken);
+    return decodedToken ? decodedToken.username : '';
+  }
+
+  getUserRole(): string {
+    const accessToken: string = this.getAccessToken();
+    if (!accessToken) {
+      return '';
+    }
+    const decodedToken = this.decodeToken(accessToken);
+    return decodedToken ? decodedToken.rol : '';
+  }
 
 }

@@ -11,14 +11,25 @@
     <li *ngIf="usuarioLogado" (click)="desconectar()" class="hideOnMobile" [class.hideOnMobile]="!menuOpen" ><a href="#">Cerrar Sesion</a></li>
     <li class="hideOnMobile" [class.hideOnMobile]="!menuOpen">
 <!--      <p-avatar image="{{datosUsuario.profile_picture}}"  icon="pi pi-user" styleClass="mr-2" size="large"  [style]="{ 'background-color': '#9c27b0', color: '#ffffff' }" shape="circle"></p-avatar>-->
+
+
       @if(!menuOpen){
 
       <div #loginContainer  class='login-container' [ngClass]="{'active': loginOpen}">
-        <a (click)="toggleLogin()"  class="icono">
+        <a  class="icono">
 
-          <p-avatar  *ngIf="usuarioLogado" icon="pi pi-user" styleClass="mr-2" size="large"  [style]="{ 'background-color': '#9c27b0', color: '#ffffff' }" shape="circle"><img class="foto-icono" src={{datosUsuario.profile_picture}}></p-avatar>
-          <p-avatar  *ngIf="!usuarioLogado" icon="pi pi-user" styleClass="mr-2" size="large"  [style]="{ 'background-color': '#9c27b0', color: '#ffffff' }" shape="circle"></p-avatar>
+         <div class="dropdown">
 
+            <p-avatar class="dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false" *ngIf="usuarioLogado" icon="pi pi-user" styleClass="mr-2" size="large"  [style]="{ 'background-color': '#9c27b0', color: '#ffffff' }" shape="circle"><img class="foto-icono" src={{datosUsuario.profile_picture}}></p-avatar>
+            <p-avatar class="dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false" *ngIf="!usuarioLogado" icon="pi pi-user" styleClass="mr-2" size="large"  [style]="{ 'background-color': '#9c27b0', color: '#ffffff' }" shape="circle"></p-avatar>
+
+            <ul class="dropdown-menu" style="">
+              <li *ngIf="!usuarioLogado"><a class="dropdown-item" routerLink="/login">Iniciar Sesion</a></li>
+              <li *ngIf="!usuarioLogado"><a class="dropdown-item" routerLink="/newAccount">Crear Cuenta</a></li>
+              <li *ngIf="usuarioLogado"><a class="dropdown-item" (click)="desconectar()" href="#">Desconectarse</a></li>
+              <li *ngIf="usuarioLogado"><a class="dropdown-item" routerLink="/perfil">Ver Perfil</a></li>
+            </ul>
+          </div>
 <!--          <p-avatar  icon="pi pi-user" styleClass="mr-2" size="large"  [style]="{ 'background-color': '#9c27b0', color: '#ffffff' }" shape="circle"></p-avatar>-->
           </a>
 
@@ -57,6 +68,17 @@
     <li class="menu-button"><a  (click)="toggleMenu()" ><svg xmlns="http://www.w3.org/2000/svg" height="26" viewBox="0 96 960 960" width="26"><path d="M120 816v-60h720v60H120Zm0-210v-60h720v60H120Zm0-210v-60h720v60H120Z"/></svg></a></li>
   </ul>
 
+<!--  <div class="dropdown">-->
+
+<!--    <p-avatar class="dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false" *ngIf="usuarioLogado" icon="pi pi-user" styleClass="mr-2" size="large"  [style]="{ 'background-color': '#9c27b0', color: '#ffffff' }" shape="circle"><img class="foto-icono" src={{datosUsuario.profile_picture}}></p-avatar>-->
+<!--    <p-avatar class="dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false" *ngIf="!usuarioLogado" icon="pi pi-user" styleClass="mr-2" size="large"  [style]="{ 'background-color': '#9c27b0', color: '#ffffff' }" shape="circle"></p-avatar>-->
+
+<!--    <ul class="dropdown-menu" style="">-->
+<!--      <li><a class="dropdown-item" href="#">Mierda</a></li>-->
+<!--      <li><a class="dropdown-item" href="#">Mas Mierda</a></li>-->
+<!--      <li><a class="dropdown-item" href="#">Ultra Mierda</a></li>-->
+<!--    </ul>-->
+<!--  </div>-->
 <!--  <div class="login-dropdown" [class.show]="loginOpen">-->
 <!--    <a [routerLink]="['/login']">Iniciar sesión</a>-->
 <!--    <a [routerLink]="['/register']">Registrarse</a>-->

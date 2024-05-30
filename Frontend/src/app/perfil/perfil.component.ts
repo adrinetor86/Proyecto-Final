@@ -2,6 +2,7 @@ import {Component, OnDestroy, OnInit, ViewChild} from '@angular/core';
 import {Observable, Subscription} from "rxjs";
 import {HttpClient, HttpParams} from "@angular/common/http";
 import {NgForm} from "@angular/forms";
+import {ValidService} from "../servicios/validate.service";
 
 @Component({
   selector: 'app-perfil',
@@ -15,19 +16,27 @@ export class PerfilComponent implements OnInit, OnDestroy{
   datosUsuario: any;
   selectedFile: File | null = null;
   base64Image: string = '';
-  constructor(private http: HttpClient) { }
+  datosToken: any;
+  constructor(private http: HttpClient,private validateservice:ValidService) { }
   ngOnInit(): void {
-    this.suscripcion= this.obtenerDatosUsuario("adrinetor86").subscribe({
+     this.datosToken= this.getData();
+     console.log("OHHH DIOS MIOS")
+     console.log(this.datosToken.name)
+    this.suscripcion= this.obtenerDatosUsuario(this.datosToken.name).subscribe({
       next: (value) => {
         console.log(value);
         this.datosUsuario = value['profile'];
 
       }
     });
-
-
   }
-
+  getData() {
+    const name= this.validateservice.getUserName();
+    const rol = this.validateservice.getUserRole();
+    console.log("holaaaa");
+    console.log(name,rol);
+    return {name,rol};
+  }
   onSubmit() {
     // const id= this.formAccount.value.juegoId;
     // console.log("el id mi loko");

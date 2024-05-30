@@ -28,9 +28,7 @@ export class LoginComponent {
         return of(null);
       })
     ).subscribe(response=>{
-      if (response!==null){
-        localStorage.setItem('tokenUser', response['token']);
-        localStorage.setItem('username', response['username'])
+      if (response!==null) {
         this.route.navigate(['/']);
       }
     })
