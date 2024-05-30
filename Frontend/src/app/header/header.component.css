@@ -74,7 +74,9 @@ nav a:not(.dropdown-item){
   backdrop-filter: blur(60px);
 }
 .dropdown-menu li a{
-  color:white;
+  color: #eeecec;
+
+
 }
 
 nav a:hover:not(.icono) :not(.dropdown-item):not(li.logo a):not(ul li:nth-child(2) a) {
