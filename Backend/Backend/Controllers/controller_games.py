@@ -1,6 +1,9 @@
 import datetime
+import html
 import re
 from Backend.Models.games import Games
+from Backend.conf import KEY_IDENTIFIED_USER
+from bs4 import BeautifulSoup
 
 class ControllerGames:
 
@@ -43,7 +46,14 @@ class ControllerGames:
             return {"error": "Front page is void", "code": 409}
 
     def insert_comment(self, username, content_comment, father_comment):
-        content_comment = re.sub(f"@{username}", f"<a href='/view_profile/{username}/'>@{username}</a>", content_comment)
+        #content_comment = re.sub(f"@{username}", f"{KEY_IDENTIFIED_USER}{username}", content_comment)
+        if father_comment is not None:
+            content_comment = re.sub(f"@{username}", f"<a href=\"/view_profile/{username}/\">@{username}<a>", content_comment)
+            content_comment.encode('utf-8')
+        else:
+            content_comment = BeautifulSoup(content_comment, "html.parser")
+            content_comment = content_comment.get_text()
+
         return self.__games_model.insert_comment(username, self.__id, content_comment, father_comment)
 
     def insert_map(self, maps):
