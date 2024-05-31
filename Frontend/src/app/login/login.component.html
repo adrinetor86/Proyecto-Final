@@ -1,35 +1,86 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="login.component.css">
-</head>
-<body>
-<div class="div-padre-formulario">
-  <form #form="ngForm">
-    <div class="formulario">
-      <div>
-        <label>Email</label><br>
-        <input class="input-formulario" type="email" ngModel name="email" required minlength="5">
-        <br><br>
-        <label>Contraseña</label><br>
-        <input class="input-formulario" type="password" ngModel name="password" required>
-      </div>
-      <div class="prueba">
-        <p *ngIf="errorValidate" class="p-error">{{errorMessage}}</p>
-        <div style="display: flex; gap: 10px;">
-          <button class="cancel" type="button" (click)="cancelLogin()">Atrás</button>
-          <button class="login-button" type="submit" [disabled]="!form.valid" (click)="loginUser()">Login</button>
+<!--<!DOCTYPE html>-->
+<!--<html lang="en">-->
+<!--<head>-->
+<!--  <meta charset="UTF-8">-->
+<!--  <meta name="viewport" content="width=device-width, initial-scale=1.0">-->
+<!--  <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">-->
+<!--  <link rel="stylesheet" href="login.component.css">-->
+<!--</head>-->
+<!--<body>-->
+
+
+
+<!--<div class="div-padre-formulario">-->
+<!--  &lt;!&ndash;  <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">&ndash;&gt;-->
+<!--  <form #form="ngForm">-->
+<!--    <div class="formulario">-->
+<!--      <div>-->
+<!--        <label>Email</label><br>-->
+<!--        <input class="input-formulario" type="email" ngModel name="email" required minlength="5">-->
+<!--        <br><br>-->
+<!--        <label>Contraseña</label><br>-->
+<!--        <input class="input-formulario" type="password" ngModel name="password" required>-->
+<!--      </div>-->
+<!--      <div class="prueba">-->
+<!--        <p *ngIf="errorValidate" class="p-error">{{errorMessage}}</p>-->
+<!--        <div style="display: flex; gap: 10px;">-->
+<!--          <button class="cancel" type="button" (click)="cancelLogin()">Atrás</button>-->
+<!--          <button class="login-button" type="submit" [disabled]="!form.valid" (click)="loginUser()">Login</button>-->
+<!--        </div>-->
+<!--        <div class="div-enlaces-formulario">-->
+<!--          <a routerLink="/newAccount">Crear una cuenta</a>-->
+<!--          <a routerLink="/forgottenPassword">Has olvidado la contraseña?</a>-->
+<!--        </div>-->
+<!--      </div>-->
+<!--    </div>-->
+<!--    <div class="imagen-login">-->
+
+
+<!--    </div>-->
+<!--  </form>-->
+<!--</div>-->
+
+<!--</body>-->
+<!--</html>-->
+
+
+
+
+<div class="main-content">
+
+  <div class="contenedor-formulario">
+
+      <div class="formulario">
+
+      <label for="email">Correo</label>
+      <input id="email" class="input-email" type="email" placeholder="Correo Electronico">
+
+      <label>Contraseña</label>
+      <input type="password" placeholder="Contraseña">
+
+
+        <div class="contenedor-botones">
+
+          <button class="cancelar">Cancelar</button>
+          <button class="confirmar">Confirmar</button>
+
         </div>
-        <div class="div-enlaces-formulario">
-          <a routerLink="/newAccount">Crear una cuenta</a>
-          <a routerLink="/forgottenPassword">Has olvidado la contraseña?</a>
+
+        <div class="contenedor-enlaces">
+          <a href="#">Crear una cuenta</a>
+          <a href="#">Has olvidado la contraseña?</a>
         </div>
+
       </div>
-    </div>
-  </form>
+
+  </div>
+
+  <div class="contenedor-imagen">
+
+
+
+  </div>
+
+
+
 </div>
-</body>
-</html>

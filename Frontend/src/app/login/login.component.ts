@@ -29,6 +29,8 @@ export class LoginComponent {
       })
     ).subscribe(response=>{
       if (response!==null) {
+
+          localStorage.setItem('username', response['username'])
         this.route.navigate(['/']);
       }
     })

@@ -2,7 +2,7 @@ import {Component, ViewChild} from '@angular/core';
 import {NgForm} from "@angular/forms";
 import {Observable} from "rxjs";
 import {HttpClient, HttpParams} from "@angular/common/http";
-
+import {ValidService} from "../servicios/validate.service";
 @Component({
   selector: 'app-aniadirjuegos',
   templateUrl: './aniadirjuegos.component.html',
@@ -19,11 +19,11 @@ export class AniadirjuegosComponent {
     synopsis: '',
     genres: [] as string[],
     platforms: [] as string[],
-    front_page: null as File | null,
-    maps: [] as File[]
+    front_page: null as string  | null,
+    maps: [] as string []
   };
 
-  constructor(private httpClient: HttpClient) {}
+  constructor(private httpClient: HttpClient,private validateService:ValidService) {}
   formularioJuego(){
     const title= this.formulario.value.title;
     const link_trailer = this.formulario.value.link_trailer;
@@ -51,10 +51,12 @@ export class AniadirjuegosComponent {
       .set('link_download',link_download)
       .set('release_date', release_date)
       .set('developer', developer)
-      .set('genders', genders)
-      .set('plataforms', plataforms)
+      .set('synopsis', synopsis)
+      .set('genders', JSON.stringify(genders))
+      .set('plataforms', JSON.stringify(plataforms))
       .set('front_page', front_page)
-      .set('maps', maps)
+      .set('maps', JSON.stringify(maps))
+      .set('username',this.validateService.getUserName());
 
       console.log(body.toString());
     return this.httpClient.post("http://127.0.0.1:8000/new_game/", body.toString(), { headers });
@@ -106,17 +108,25 @@ export class AniadirjuegosComponent {
 
   onImageChange(event: any) {
     if (event.target.files && event.target.files.length > 0) {
-      this.game.front_page = event.target.files[0];
+      const file = event.target.files[0];
+      this.convertToBase64(file).then((base64: string) => {
+        this.game.front_page = base64;
+      });
     }
   }
 
   onMapChange(event: any) {
     if (event.target.files && event.target.files.length > 0) {
       for (let i = 0; i < event.target.files.length; i++) {
-        this.game.maps.push(event.target.files[i]);
+        const file = event.target.files[i];
+        this.convertToBase64(file).then((base64: string) => {
+          this.game.maps.push(base64);
+        });
       }
     }
   }
+
+
 
   addMap() {
     const mapInput = document.createElement('input');
@@ -127,6 +137,14 @@ export class AniadirjuegosComponent {
     document.querySelector('.block4')?.appendChild(mapInput);
   }
 
+  private convertToBase64(file: File): Promise<string> {
+    return new Promise<string>((resolve, reject) => {
+      const reader = new FileReader();
+      reader.readAsDataURL(file);
+      reader.onload = () => resolve(reader.result as string);
+      reader.onerror = error => reject(error);
+    });
+  }
 
 
 }
