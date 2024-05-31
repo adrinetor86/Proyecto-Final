@@ -47,6 +47,7 @@ export class InfoGameComponent implements OnInit,OnDestroy{
   suscripcionPrueba: Subscription;
   suscriptionComment: Subscription;
   suscriptionMapas: Subscription;
+  idCommentFather = 0;
   seeMore = false;
   seeMoreButton = "Ver más";
   seeLess = "Ver menos";
@@ -138,15 +139,14 @@ export class InfoGameComponent implements OnInit,OnDestroy{
       const gameId = params['id'];
       this.http.get(`http://127.0.0.1:8000/api/v1/game/${gameId}/`).subscribe((response:any)=>{
         this.gameComment = response.comments;
-        this.userCommentFather = response.comments.user;
-        console.log(this.userCommentFather);
         this.verificarCampoNext();
-        console.log(this.gameComment);
+        console.log(this.gameComment)
       })
     });
   }
   verificarCampoNext() {
     this.gameComment.forEach((comment: { next: any; }, index: string | number) => {
+
       if (comment.next) {
         this.gameComment[index].nextFieldValue = comment.next;
         console.log(this.gameComment[index].nextFieldValue);
@@ -168,7 +168,7 @@ export class InfoGameComponent implements OnInit,OnDestroy{
         })
       ).subscribe(response => {
         if (response != null) {
-          console.log("Todo ha salido bien mi querido compañero")
+          console.log("TOdo ha salido bien")
         }
       })
     } else {
@@ -183,16 +183,6 @@ export class InfoGameComponent implements OnInit,OnDestroy{
       });
     }
   }
-
-  //   niadirComentario(){
-  //   if (this.isLoginUser.usuarioLogeado()){
-  //     let commentValue = this.formCommentsValue.value.commentValue;
-  //     console.log(commentValue);
-  //   }
-  //   else {
-  //      this.dialog.open(ModalCommentComponent);
-  //   }
-  // }
   cancelarComentario(){
     this.indiceComentario = null;
     this.mostrarBotonesResponderComment = true;
@@ -202,13 +192,26 @@ export class InfoGameComponent implements OnInit,OnDestroy{
   mostrarFormComentarioHijo(indice:number){
     this.mostrarBotonesResponderComment = false;
     this.indiceComentario=indice;
+    const idComentarioPadre = this.gameComment[indice].nextFieldValue.match(/\/comment\/\d+\/(\d+)\//);
+    this.idCommentFather = idComentarioPadre[1];
     this.userCommentFather = '@'+this.gameComment[indice].user;
   }
 
   aniadirComentarioHijo(){
     if (this.isLoginUser.usuarioLogeado()){
       let commentValue = this.formCommentsChildValue.value.commentValueChild;
-      console.log(commentValue);
+      this.commentService.insertCommentChild(commentValue, this.juego.id,this.idCommentFather).pipe(
+        catchError((error) => {
+          this.errorValidate = true;
+          this.errorMessage = '⚠️Error al insertar el comentario';
+          console.log(error);
+          return of(null);
+        })
+      ).subscribe(response => {
+        if (response != null) {
+          window.location.reload();
+        }
+      })
     }
     else {
       this.dialog.open(ModalCommentComponent);
