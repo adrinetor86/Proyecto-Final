@@ -7,13 +7,22 @@ import {Observable} from "rxjs";
 export class CommentService {
   constructor(private httpClient: HttpClient) { }
 
-  insertCommentFather( commentValue:string, intGame:number): Observable<Object> {
+  insertCommentFather( commentValue:string, idGame:number): Observable<Object> {
     const token = localStorage.getItem("tokenUser")
     const username = localStorage.getItem("username")
     const headers = { 'Content-Type': 'application/x-www-form-urlencoded', 'Authorization': token };
     const body = new HttpParams()
       .set('username', username)
       .set('content_comment', commentValue);
-    return this.httpClient.post(`http://127.0.0.1:8000/insert_comment/${intGame}/`, body.toString(), { headers });
+    return this.httpClient.post(`http://127.0.0.1:8000/insert_comment/${idGame}/`, body.toString(), { headers });
+  }
+  insertCommentChild(commentValue:string, idGame:number, idCommentFather:number ): Observable<Object> {
+    const token = localStorage.getItem("tokenUser")
+    const username = localStorage.getItem("username")
+    const headers = { 'Content-Type': 'application/x-www-form-urlencoded', 'Authorization': token };
+    const body = new HttpParams()
+      .set('username', username)
+      .set('content_comment', commentValue);
+    return this.httpClient.post(`http://127.0.0.1:8000/insert_comment/${idGame}/${idCommentFather}/`, body.toString(), { headers });
   }
 }
