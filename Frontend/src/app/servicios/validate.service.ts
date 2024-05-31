@@ -74,10 +74,19 @@ export class ValidService {
   }
   almacenarToken(accessToken: string): void {
   localStorage.setItem('accessToken', accessToken);
+
+  }
+
+  almacenarTokenUser(username: string): void {
+    localStorage.setItem('username', username);
   }
 
   getAccessToken(): string {
     return localStorage.getItem('accessToken');
+  }
+
+  getUserToken(): string {
+    return localStorage.getItem('username');
   }
 
   // getUserName(): string {

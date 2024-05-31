@@ -156,6 +156,7 @@ export class InfoGameComponent implements OnInit,OnDestroy{
 
   aniadirComentario() {
     if (this.isLoginUser.usuarioLogeado()) {
+      console.log("entraa")
       let commentValue = this.formCommentsValue.value.commentValue;
       console.log(commentValue);
       console.log(this.juego.id)
@@ -163,7 +164,7 @@ export class InfoGameComponent implements OnInit,OnDestroy{
         catchError((error) => {
           this.errorValidate = true;
           this.errorMessage = '⚠️Error al insertar el comentario';
-          console.log(error);
+           console.log(error);
           return of(null);
         })
       ).subscribe(response => {

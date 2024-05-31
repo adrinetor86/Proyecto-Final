@@ -27,7 +27,7 @@ def create_token(email, username, rol=3):
 def decode_token(encoded_jwt):
     try:
         payload = jwt.decode(encoded_jwt, config.SECRET_KEY, algorithms=['HS256'])
-        print("Token verificado con éxito, payload:", payload)
+        #print("Token verificado con éxito, payload:", payload)
         return {"success": "Valid token"}
     except jwt.ExpiredSignatureError: #401
         print("El token ha expirado.")

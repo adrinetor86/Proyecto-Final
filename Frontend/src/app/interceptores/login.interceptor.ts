@@ -19,9 +19,8 @@ export class LoginInterceptor implements HttpInterceptor {
           if (event instanceof HttpResponse && req.url.endsWith('/login/')) {
             console.log("entrando en el if")
            const accessToken = event.body.token;
-
+            // console.log(event.body)
             this.validateService.almacenarToken(accessToken);
-
             this.validateService.logeado.next(true);
           }
           console.log("entrando en el else")

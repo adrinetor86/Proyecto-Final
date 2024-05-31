@@ -112,7 +112,7 @@ class Games:
     def insert_comment(self, username, id_game, content_comment, parent_comment):
 
         sql = f"INSERT INTO comments (user, id_game, content_comment, parent_comment) values ('{username}', {id_game}, '{content_comment}'"
-
+        print("holalalasld")
         if parent_comment != None:
             sql += f", {parent_comment})"
         else:
@@ -140,7 +140,7 @@ class Games:
             return {"success": "maps inserted successfully"}
         except mysql.connector.Error as error:
             self.__connection.rollback()
-            print(error)
+            #print(error)
             return {"error": "Unknown error, try again", "code": 400}
 
     def __get_next(self, page, total_page, value):
@@ -392,7 +392,7 @@ class Games:
         with open(os.path.normpath(os.path.join(os.path.dirname(os.path.abspath(__file__)), '..', 'Images', 'Profile', 'default.txt')),'r') as file:
             picture_profile = file.read()
 
-        print(dict_return)
+        #print(dict_return)
 
         for value in dict_return:
             if value["profile_picture"] == None:

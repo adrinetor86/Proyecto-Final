@@ -1,87 +1,97 @@
 <main>
   <h1>Formulario Juego</h1>
-  <form method="get">
+  <form #form="ngForm">
     <div class="form-container">
       <!-- Primer bloque -->
       <fieldset class="block1">
         <legend>Datos</legend>
         <label for="titulo">Título:</label>
-        <input type="text" id="titulo" name="titulo" class="form-control" placeholder="ejem: Genshin Impact...">
+        <input type="text" id="titulo" ngModel name="title" class="form-control" placeholder="ejem: Genshin Impact...">
         <br>
 
         <label for="url1">Enlace trailer:</label>
-        <input type="url" id="url1" name="url1" class="form-control" placeholder="ejem: https://www.youtube.com/watch?v=HLUY1nICQRY&ab_channel=IGN">
+        <input type="url" id="url1" ngModel name="link_trailer" class="form-control" placeholder="ejem: https://www.youtube.com/watch?v=HLUY1nICQRY&ab_channel=IGN">
         <br>
 
         <label for="url2">Enlace descarga:</label>
-        <input type="url" id="url2" name="url2" class="form-control" placeholder="ejem: https://www.youtube.com/watch?v=HLUY1nICQRY&ab_channel=IGN">
+        <input type="url" id="url2" ngModel name="link_download" class="form-control" placeholder="ejem: https://www.youtube.com/watch?v=HLUY1nICQRY&ab_channel=IGN">
         <br>
 
         <label for="fecha">Fecha:</label>
-        <input type="date" id="fecha" name="fecha" class="form-control"><br>
+        <input type="date" id="fecha" ngModel name="release_date" class="form-control"><br>
+        <br>
+
+        <label for="fecha">Developer:</label>
+        <input type="text" id="Develooper" ngModel name="developer" class="form-control"><br>
+
+
+
         <p class="aviso">* Todos los campos son obligatorios.</p>
+
+
       </fieldset>
 
       <!-- Segundo bloque -->
       <fieldset class="block2">
         <legend>Especificaciones</legend>
         <label for="sinopsis">Sinopsis:</label>
-        <textarea id="sinopsis" name="sinopsis" rows="10" class="form-control" placeholder="ejem: Genshin Impact es un JRPG gratuito de mundo abierto en el que podremos explorar un mundo vasto lleno de..."></textarea>
-        <label>Generos:</label>
+        <textarea id="sinopsis" ngModel name="synopsis" rows="10" class="form-control" placeholder="ejem: Genshin Impact es un JRPG gratuito de mundo abierto en el que podremos explorar un mundo vasto lleno de..."></textarea>
+        <label>Géneros:</label>
         <div class="genders">
           <label>
-            <input type="checkbox" name="genero" value="accion">
+            <input type="checkbox" name="genders" value="accion" (change)="updateGenres('accion', $event)">
             Acción
           </label>
           <label>
-            <input type="checkbox" name="genero" value="aventura">
+            <input type="checkbox" name="genders" value="aventura" (change)="updateGenres('aventura', $event)">
             Aventura
           </label>
           <label>
-            <input type="checkbox" name="genero" value="rol">
+            <input type="checkbox" name="genders" value="rol" (change)="updateGenres('rol', $event)">
             Rol
           </label>
           <label>
-            <input type="checkbox" name="genero" value="estrategia">
+            <input type="checkbox" name="genders" value="estrategia" (change)="updateGenres('estrategia', $event)">
             Estrategia
           </label>
           <label>
-            <input type="checkbox" name="genero" value="deportes">
+            <input type="checkbox" name="genders" value="deportes" (change)="updateGenres('deportes', $event)">
             Deportes
           </label>
           <label>
-            <input type="checkbox" name="genero" value="carreras">
+            <input type="checkbox" name="genders" value="carreras" (change)="updateGenres('carreras', $event)">
             Carreras
           </label>
           <label>
-            <input type="checkbox" name="genero" value="puzzle">
+            <input type="checkbox" name="genders" value="puzzle" (change)="updateGenres('puzzle', $event)">
             Puzzle
           </label>
           <label>
-            <input type="checkbox" name="genero" value="otros">
+            <input type="checkbox" name="genders" value="otros" (change)="updateGenres('otros', $event)">
             Otros
           </label>
         </div>
-        <label>Generos:</label>
+
+        <label>Plataformas:</label>
         <div class="plataform">
           <label>
-            <input type="checkbox" name="plataform" value="Steam">
+            <input type="checkbox" name="plataforms" value="Steam" (change)="updatePlatforms('Steam', $event)">
             Steam
           </label>
           <label>
-            <input type="checkbox" name="plataform" value="Nintendo">
+            <input type="checkbox" name="plataforms" value="Nintendo" (change)="updatePlatforms('Nintendo', $event)">
             Nintendo
           </label>
           <label>
-            <input type="checkbox" name="plataform" value="Play Station">
+            <input type="checkbox" name="plataforms" value="Play Station" (change)="updatePlatforms('Play Station', $event)">
             Play Station
           </label>
           <label>
-            <input type="checkbox" name="plataform" value="XBOX">
+            <input type="checkbox" name="plataforms" value="XBOX" (change)="updatePlatforms('XBOX', $event)">
             XBOX
           </label>
           <label>
-            <input type="checkbox" name="plataform" value="Switch">
+            <input type="checkbox" name="plataforms" value="Switch" (change)="updatePlatforms('Switch', $event)">
             Switch
           </label>
         </div>
@@ -92,21 +102,21 @@
       <fieldset class="block3">
         <legend>Imagen</legend>
         <label for="imagen">Subir Imagen:</label>
-        <input type="file" id="imagen" name="imagen" accept="image/*" class="form-control">
+        <input type="file" id="imagen" ngModel name="front_page" (change)="onImageChange($event)" accept="image/*" class="form-control">
         <p class="aviso2">* Imagen de Portada obligatoria.</p>
       </fieldset>
 
       <fieldset class="block4">
         <legend>Mapas</legend>
         <label for="Maps">Subir Mapas:</label>
-        <input type="file" id="Maps" name="Maps" accept="image/*" class="form-control">
-        <button type="button" class="add"></button>
+        <input type="file" id="Maps" name="maps" (change)="onMapChange($event)" accept="image/*" class="form-control">
+        <button type="button" class="add" (click)="addMap()"></button>
         <p class="aviso2">* Debe contener al menos 1 mapa.</p>
       </fieldset>
     </div>
     <div class="content_button">
-      <button type="reset">Vaciar Campos</button>
-      <button type="submit">Enviar</button>
+      <button type="reset" (click)="resetForm()" >Vaciar Campos</button>
+      <button type="submit" (click)="formularioJuego()">Enviar</button>
     </div>
   </form>
 </main>
