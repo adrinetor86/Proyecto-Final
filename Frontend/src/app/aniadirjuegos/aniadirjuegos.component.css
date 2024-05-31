@@ -3,12 +3,12 @@
 @import url('https://fonts.cdnfonts.com/css/serious');
 @import url('https://fonts.cdnfonts.com/css/big-pixel-demo');
 
-main{
+main {
   min-height: 100vh;
   background-color: #172569;
   display: flex;
   justify-content: center;
-  flex-flow: column;
+  flex-direction: column;
   align-items: center;
 }
 
@@ -19,14 +19,13 @@ main{
   width: 100%;
   max-width: 1200px;
   margin: 0 auto;
-  background-image: url("https://art.pixilart.com/sr2003c37029a1b.gif");
+  background-image: url("https://europe1.discourse-cdn.com/unity/original/3X/d/0/d08e6157b84da9042b479de4dadba0329f7903b7.gif");
   background-size: cover;
   background-position: bottom;
   box-sizing: border-box;
 }
 
 fieldset {
-  /*border: 2px solid #ccc;*/
   padding: 10px;
   margin: 0;
   display: flex;
@@ -58,6 +57,7 @@ legend {
   display: flex;
   flex-direction: column;
 }
+
 .block3 {
   border-top: #172569 5px solid;
   grid-column: 1 / 3;
@@ -69,7 +69,6 @@ legend {
   border-top: #172569 10px solid;
   grid-column: 1 / 3;
   grid-row: 3 / 4;
-  /*background-color: #fff3e0;*/ /* Fondo para el tercer bloque */
 }
 
 .form-control {
@@ -89,12 +88,12 @@ legend {
   flex: 1;
 }
 
-form{
+form {
   min-height: 100vh;
   margin-top: 1.5%;
 }
 
-button{
+button {
   width: 80%;
   box-sizing: border-box;
   padding: 10px;
@@ -103,7 +102,7 @@ button{
   font-size: large;
 }
 
-.content_button{
+.content_button {
   display: grid;
   grid-template-columns: 50% 50%;
   max-width: 1200px;
@@ -111,38 +110,37 @@ button{
   place-items: center;
 }
 
-button[type="reset"]{
+button[type="reset"] {
   background-color: lightcoral;
 }
 
-button[type="submit"]{
+button[type="submit"] {
   background-color: lightgreen;
 }
 
-button[type="reset"]:hover{
+button[type="reset"]:hover {
   background-color: red;
 }
 
-button[type="submit"]:hover{
+button[type="submit"]:hover {
   background-color: green;
   filter: brightness(110%);
 }
 
-legend{
+legend {
   width: fit-content;
-  /*font-family: 'Tetris', sans-serif;*/
   font-family: 'serious3b', sans-serif;
 }
 
-label{
+label {
   font-family: 'Big Pixel Shadowed Demo', sans-serif;
   color: white;
 }
 
-.genders, .plataform{
-  display:flex;
+.genders, .plataform {
+  display: flex;
   justify-content: center;
-  flex-flow: row;
+  flex-direction: row;
   flex-wrap: wrap;
   margin-top: 10px;
   border: 1px #ccc solid;
@@ -150,14 +148,14 @@ label{
   background-color: #ccc;
 }
 
-.genders label, .plataform label{
+.genders label, .plataform label {
   margin: 0 15px;
   color: black;
 }
 
-.add{
+.add {
   display: flex;
-  justify-content: center; /* Centra el contenido horizontalmente */
+  justify-content: center;
   align-items: center;
   position: absolute;
   top: 10px;
@@ -176,28 +174,30 @@ input:focus, textarea:focus{
   box-shadow: 0 0 20px #ffcc00;
 }
 
-input, textarea{
+input, textarea {
   font-size: large;
+  box-sizing: border-box;
+  width: 80%;
 }
 
-h1{
+h1 {
   text-align: center;
   width: fit-content;
   background-image: url("https://www.minecrafttexturepacks.com/wp-content/uploads/2012/07/moderncraft.png");
   background-size: 60px;
   background-repeat: repeat-x;
   color: white;
-  padding: 5px 10px 5px 10px;
+  padding: 5px 10px;
   font-family: 'serious3b', sans-serif;
   margin-top: 15px;
   margin-bottom: 0;
 }
 
-p{
-  color:white;
+p {
+  color: white;
 }
 
-.aviso{
+.aviso {
   position: absolute;
   bottom: 10px;
   left: 10px;
@@ -205,8 +205,42 @@ p{
   text-decoration: underline;
 }
 
-.aviso2{
+.aviso2 {
   margin-top: 10px;
   font-weight: bold;
   text-decoration: underline;
+}
+
+/* Media query para pantallas móviles */
+@media (max-width: 768px) {
+  .form-container {
+    grid-template-columns: 1fr;
+    grid-template-rows: auto;
+  }
+
+  .block1, .block2, .block3, .block4 {
+    grid-column: 1 / -1;
+    grid-row: auto;
+    border: none;
+  }
+
+  input::placeholder {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: block;
+  }
+
+  .content_button {
+    grid-template-columns: 1fr;
+  }
+
+  button {
+    width: 100%;
+    margin-bottom: 10px;
+  }
+
+  input, textarea {
+    width: 100%;
+  }
 }

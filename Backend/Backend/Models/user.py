@@ -313,6 +313,19 @@ class User:
 
         return True
 
+    def get_a_user(self, username):
+        sql = f"SELECT email, rol_user FROM {self.__tables["users"]} WHERE username LIKE '{username}'"
+
+        try:
+            cursor = self.__connection.cursor(dictionary=True)
+            cursor.execute(sql)
+            dict_return = cursor.fetchone()
+            cursor.close()
+        except mysql.connector.Error as error:
+            return None
+
+        return dict_return
+
     def __get_data_user(self, email):
         sql = f"SELECT password, username, rol_user FROM {self.__tables["users"]} WHERE email LIKE '{email}'"
 

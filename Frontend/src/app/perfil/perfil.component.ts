@@ -57,7 +57,7 @@ export class PerfilComponent implements OnInit, OnDestroy{
   pasarFoto(username,imagen: string) {
     const headers = { 'Content-Type': 'application/x-www-form-urlencoded' };
     const body = new HttpParams()
-      .set('change_picture', imagen);
+      .set('new_picture', imagen);
     console.log(body.toString());
     this.http.post("http://127.0.0.1:8000/change_picture_profile/"+username+"/", body.toString(), { headers })
       .subscribe((response) => console.log(response));

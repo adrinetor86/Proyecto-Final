@@ -4,7 +4,7 @@ from urllib import request
 from django.http import JsonResponse, HttpResponse
 from Backend.Controllers.controller_games import ControllerGames
 from Backend.Controllers.controller_user import ControllerUser
-from Backend.Libs.jsonWebTokken import create_token, decode_token, confirm_user, confirm_email
+from Backend.Libs.jsonWebTokken import create_token, decode_token, confirm_user, confirm_email, confirm_user_rol
 from django.views.decorators.csrf import csrf_exempt
 
 @csrf_exempt
@@ -216,23 +216,64 @@ def view_profile(request, username):
 @csrf_exempt
 def change_picture(request, username):
     if request.method == 'POST':
-        picture = request.POST.get("picture")
+        authorization_token = request.headers.get("Authorization", "").strip()
+
+        if not confirm_user(authorization_token, username):
+            return JsonResponse({"error": "Invalid access token"}, status=401)
+
+        #data = json.loads(request.body)
+        #picture = data.get('picture', None)
+
+        picture = request.POST.get("new_picture", None)
+
         controller = ControllerUser(username=username, picture=picture)
 
         response = controller.change_picture()
 
         if response.get("error", "") == "":
-            return JsonResponse(response, status=200)
+            return JsonResponse({"success": response}, status=200)
         else:
-            return JsonResponse({"error": response.get("error", "Unknown error")}, status= response.get("code", 400))
+            return JsonResponse({"error": response.get("error", "Unknown error")}, status=response.get("code", 400))
     else:
         return JsonResponse({"error": "Bad Request"}, status=405)
 
 @csrf_exempt
 def new_game(request):
     if request.method == 'POST':
-        controller = ControllerGames()
-        return JsonResponse({"status": "estamos en ello jefe"}, status=200)
+        controller2 = ControllerUser(username=request.POST.get("username"))
+        data_user = controller2.get_a_user()
+
+        if data_user is None:
+            return JsonResponse({"error": "No authorizated"}, status=400)
+
+        authorization_token = request.headers.get("Authorization", "").strip()
+
+        if confirm_user_rol(authorization_token, data_user):
+            return JsonResponse({"error": "Access denied"}, status=400)
+
+        data = json.loads(request.body)
+        maps = data.get('maps', []) #no se si la mandar por body
+        plataforms = data.get('plataforms', []) #no se si la mandar por body
+        genders = data.get('genders', []) #no se si la mandar por body
+
+        controller = ControllerGames(
+            title=request.POST.get("title"),
+            synopsis=request.POST.get("synopsis"),
+            developer=request.POST.get("developer"),
+            link_download=request.POST.get("link_download"),
+            link_trailer=request.POST.get("link_trailer"),
+            release_date=request.POST.get("release_date"),
+            front_page=request.POST.get("front_page"),
+            plataforms=request.POST.get("plataforms", plataforms),
+            genders=request.POST.get("genders", genders),
+            maps=maps,
+        )
+        response = controller.new_game()
+
+        if response.get("error", "") == "":
+            return JsonResponse({"success": response}, status=200)
+        else:
+            return JsonResponse({"error": response.get("error", "Unknown error")}, status=response.get("code", 400))
     else:
         return JsonResponse({"error": "Bad Request"}, status=405)
 

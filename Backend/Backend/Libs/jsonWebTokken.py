@@ -57,3 +57,14 @@ def confirm_email(encoded_jwt, email):
     except jwt.InvalidTokenError:
         print("Token inválido.")
         return False
+
+def confirm_user_rol(encoded_jwt, data_user):
+    try:
+        payload = jwt.decode(encoded_jwt, config.SECRET_KEY, algorithms=['HS256'])
+        return payload['email'] == data_user["email"] and payload['rol'] == data_user["rol_user"] and data_user["rol_user"] == 1
+    except jwt.ExpiredSignatureError: #401
+        print("El token ha expirado.")
+        return False
+    except jwt.InvalidTokenError:
+        print("Token inválido.")
+        return False

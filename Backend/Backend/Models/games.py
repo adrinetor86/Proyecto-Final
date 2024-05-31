@@ -1,5 +1,6 @@
 import html
 import math
+import os
 import re
 
 import mysql
@@ -53,7 +54,7 @@ class Games:
             dict_return = dict_return[0]
             dict_return["genders"] = self.__get_genders(id)
             dict_return["plataforms"] = self.__get_plataforms(id)
-            dict_return["comments"] = self.__get_comments(id)
+            dict_return["comments"] = self.__charge_default_picture(self.__get_comments(id))
 
             return dict_return
         else:
@@ -220,7 +221,21 @@ class Games:
     #SELECT * FROM comments where id_game = 1 and parent_comment = 3
     #ESTA CONSULTA SIRVE PARA LOS HIJOS DEL COMENTARIO
     def __get_comments(self, id) -> str:
-        sql = f"SELECT id_comment AS next, user, content_comment, comment_date FROM comments where id_game = {id} and parent_comment IS NULL LIMIT 10"
+        sql = ("SELECT "
+                "c.id_comment AS next, "
+                "c.user, "
+                "u.profile_picture,"
+                "c.content_comment, "
+                "c.comment_date "
+                "FROM "
+                    "comments c "
+                "JOIN "
+                    "users u ON c.user = u.username "
+                "WHERE "
+                    f"c.id_game = {id} "
+                    "AND c.parent_comment IS NULL "
+                "LIMIT "
+                    "10;")
 
         try:
             cursor = self.__connection.cursor(dictionary=True)
@@ -240,8 +255,21 @@ class Games:
         return data
 
     def get_child_comments(self, id_game, id_comment, offset):
-        sql = (f"SELECT id_comment, user, content_comment, comment_date FROM comments "
-               f"where id_game = {id_game} and parent_comment = {id_comment} LIMIT 10 OFFSET {offset}")
+        sql = ("SELECT "
+                "c.id_comment, "
+                "c.user, "
+                "u.profile_picture,"
+                "c.content_comment, "
+                "c.comment_date "
+            "FROM "
+                "comments c "
+            "JOIN "
+                "users u ON c.user = u.username "
+            "WHERE "
+                f"c.id_game = {id_game} "
+                f"AND c.parent_comment = {id_comment} "
+            "LIMIT "
+                f"10 OFFSET {offset};")
 
         total = self.__total_comments(id_game, id_comment)
 
@@ -261,6 +289,8 @@ class Games:
 
             for comment in data:
                 html.unescape(comment["content_comment"])
+
+            data = self.__charge_default_picture(data)
         except mysql.connector.Error as error:
             print(f'Error get child comments: {error.msg}')
             return {'error': 'Cannot get child comments'}
@@ -309,7 +339,7 @@ class Games:
             return {'error': 'Cannot get filters'}
 
     def __get_filter_genders(self):
-        sql = f"SELECT name_gender FROM {self.__tables['type_genders']}"
+        sql = f"SELECT * FROM {self.__tables['type_genders']}"
         genders = []
 
         try:
@@ -322,12 +352,12 @@ class Games:
             return []
 
         for gender in data:
-            genders.append(gender[0])
+            genders.append(gender)
 
         return genders
 
     def __get_filter_plataforms(self):
-        sql = f"SELECT name_plataform FROM {self.__tables['type_plataforms']}"
+        sql = f"SELECT * FROM {self.__tables['type_plataforms']}"
         plataforms = []
 
         try:
@@ -340,11 +370,9 @@ class Games:
             return []
 
         for plataform in data:
-            plataforms.append(plataform[0])
+            plataforms.append(plataform)
 
         return plataforms
-
-        return genders
 
     def __total_comments(self, id_game, id_comment):
         sql = (f"SELECT count(*) FROM comments where id_game = {id_game} and parent_comment = {id_comment}")
@@ -359,3 +387,95 @@ class Games:
             return -1
 
         return data[0]['count(*)']
+
+    def __charge_default_picture(self, dict_return):
+        with open(os.path.normpath(os.path.join(os.path.dirname(os.path.abspath(__file__)), '..', 'Images', 'Profile', 'default.txt')),'r') as file:
+            picture_profile = file.read()
+
+        print(dict_return)
+
+        for value in dict_return:
+            if value["profile_picture"] == None:
+                value["profile_picture"] = picture_profile
+
+        return dict_return
+
+    def insert_game(self, title, synopsis, developer, link_download, link_trailer, release_date, front_page, plataforms, genders, maps):
+        sql = (f"INSERT INTO {self.__tables["games"]} "
+               "(title, synopsis, developer, link_download, link_trailer, release_date, front_page) "
+               "VALUES "
+               f"('{title}', '{synopsis}', '{developer}', '{link_download}', '{link_trailer}', {release_date}, '{front_page}')")
+
+        try:
+            cursor = self.__connection.cursor()
+            cursor.execute(sql)
+            #self.__connection.commit()
+
+            id = self.__find_id_game(title, cursor)
+
+            if id == -1:
+                return {"error": "Fatal error (id)", "code": 400}
+
+            if not self.__insert_plataforms(id, plataforms, cursor):
+                return {"error": "Fatal error (plataforms)", "code": 400}
+
+            if not self.__insert_genders(id, genders, cursor):
+                return {"error": "Fatal error (genders)", "code": 400}
+
+            if not self.__insert_maps(id, maps, cursor):
+                return {"error": "Fatal error (maps)", "code": 400}
+
+            self.__connection.commit()
+            cursor.close()
+
+            return {"success": "Insert game was success"}
+        except mysql.connector.Error:
+            return {"error": "Cannot insert game", "code": 400}
+
+
+    def __insert_plataforms(self, id_game, plataforms, cursor):
+
+        try:
+            for plataform in plataforms:
+                cursor.execute(f"INSERT INTO {self.__tables["own_plataforms"]} (id_plataform, id_game) VALUES ('{plataform}', {id_game})")
+
+            #self.__connection.commit()
+
+            return True
+        except mysql.connector.Error:
+            return False
+
+    def __insert_genders(self, id_game, genders, cursor):
+
+        try:
+            for gender in genders:
+                cursor.execute(f"INSERT INTO {self.__tables["own_genders"]} (id_gender, id_game) VALUES ('{gender}', {id_game})")
+
+            #self.__connection.commit()
+
+            return True
+        except mysql.connector.Error:
+            return False
+
+    def __insert_maps(self, id_game, maps, cursor):
+
+        try:
+            for map in maps:
+                cursor.execute(f"INSERT INTO {self.__tables["own_maps"]} (url_map, id_game) VALUES ('{map}', {id_game})")
+
+            #self.__connection.commit()
+
+            return True
+        except mysql.connector.Error:
+            return False
+
+    def __find_id_game(self, title, cursor):
+        sql = (f"SELECT id FROM {self.__tables["games"]} where title = '{title}'")
+
+        try:
+            cursor.execute(sql)
+            data = cursor.fetchone()
+
+            return data["id"]
+        except mysql.connector.Error as error:
+            return -1

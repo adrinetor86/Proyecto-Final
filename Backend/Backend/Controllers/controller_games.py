@@ -7,7 +7,8 @@ from bs4 import BeautifulSoup
 
 class ControllerGames:
 
-    def __init__(self, id=0, title="", synopsis="", developer="", link_download="", link_trailer="", release_date="", front_page=""):
+    def __init__(self, id=0, title="", synopsis="", developer="", link_download="", link_trailer="", release_date="", front_page="",
+                plataforms = [], genders = [], maps = []):
             self.__id = id
             self.__title = title.strip()
             self.__synopsis = synopsis.strip()
@@ -16,6 +17,9 @@ class ControllerGames:
             self.__link_trailer = link_trailer.strip()
             self.__release_date = release_date
             self.__front_page = front_page
+            self.__plataforms = plataforms
+            self.__genders = genders
+            self.__maps = maps
             self.__games_model = Games()
 
     def get_games(self, page):
@@ -46,13 +50,19 @@ class ControllerGames:
             return {"error": "Front page is void", "code": 409}
 
     def insert_comment(self, username, content_comment, father_comment):
-        #content_comment = re.sub(f"@{username}", f"{KEY_IDENTIFIED_USER}{username}", content_comment)
+        users_link = []
+
+        content_comment = BeautifulSoup(content_comment, "html.parser")
+        content_comment = content_comment.get_text()
+
         if father_comment is not None:
-            content_comment = re.sub(f"@{username}", f"<a href=\"/view_profile/{username}/\">@{username}<a>", content_comment)
-            content_comment.encode('utf-8')
-        else:
-            content_comment = BeautifulSoup(content_comment, "html.parser")
-            content_comment = content_comment.get_text()
+            users = re.findall(r"@\w+[-\w_]*(?=\s|$|,)", content_comment)
+
+            for i in range(0, len(users)):
+                users_link.append(f"<a href=\"/view_profile/{re.sub("@", "", users[i])}/\">{users[i]}<a>")
+
+            for j in range(0, len(users)):
+                content_comment = re.sub(users[j], users_link[j], content_comment)
 
         return self.__games_model.insert_comment(username, self.__id, content_comment, father_comment)
 
@@ -65,29 +75,48 @@ class ControllerGames:
     def get_filters(self):
         return self.__games_model.get_filters()
 
+    def new_game(self):
+        if self.__validate_fields():
+            return self.__games_model.insert_game(self.__title, self.__synopsis,
+                                                  self.__developer, self.__link_download,
+                                                  self.__link_trailer, self.__release_date,
+                                                  self.__front_page, self.__plataforms,
+                                                  self.__genders,self.__maps)
+        else:
+            return {"error": "Invalid fields", "code": 409}
+
     def __validate_fields(self):
 
         if len(self.__title) > 200 or len(self.__title) == 0:
             return False
 
-        if len(self.__synopsis) > 1000 or len(self.__synopsis) < 10:
+        if len(self.__synopsis) <= 0:
             return False
 
         if len(self.__developer) > 50 or len(self.__developer) == 0:
             return False
 
-        if len(self.__link_download) > 200 or len(self.__link_download) == 0:
+        if len(self.__link_download) > 500 or len(self.__link_download) == 0:
             return False
 
-        if len(self.__link_trailer) > 200 or len(self.__link_trailer) == 0:
+        if len(self.__link_trailer) > 500 or len(self.__link_trailer) == 0:
             return False
 
-        try:
-            self.__release_date = re.sub("/", "-", self.__release_date)
-            date = self.__release_date.split("-")
-            datetime.date(date[0], date[1], date[2])
-        except Exception as e:
-            print("Error: " + e)
+        if len(self.__genders) == 0:
             return False
+
+        if len(self.__plataforms) == 0:
+            return False
+
+        if len(self.__maps) < 1:
+            return False
+
+        #try:
+            #    self.__release_date = re.sub("/", "-", self.__release_date)
+            #    date = self.__release_date.split("-")
+        #    datetime.date(date[0], date[1], date[2])
+        #except Exception as e:
+        #   print("Error: " + e)
+        #   return False
 
         return True
