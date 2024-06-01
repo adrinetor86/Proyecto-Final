@@ -131,9 +131,12 @@
           </form>
           <div class="contentComment" *ngIf="gameComment">
             <div *ngFor="let comment of gameComment; let i = index">
-              {{ comment.user}}
-              <br>
-              {{ comment.content_comment}} <br>
+              <div class="comment">
+                <img class="photo_user" [src]="seePhotoUser" alt="Foto no disponible">
+                {{ comment.user}}
+                <br>
+                {{ comment.content_comment}}
+              </div>
               <div *ngIf="mostrarBotonesResponderComment">
                 <div>
                   <a href="#" *ngIf="comment.next" class="btn" (click)="mostrarComentarioHijo(i); $event.preventDefault()">Ver más comentarios</a>
@@ -149,17 +152,18 @@
                   </div>
                 </form>
               </div>
-              <div class="childComments">
+              <div class="childComments" *ngIf="mostrarComentarios">
                 <div *ngFor="let childComment of gameCommentChild[i]">
+                  <img class="photo_user" [src]="seePhotoUser" alt="Foto no disponible">
                   {{ childComment.user }}
                   <br>
-                  {{ childComment.content_comment }}
+                  <div [innerHTML]="childComment.content_comment" (click)="viewProfile()"></div>
                   <br><br>
                 </div>
               </div>
             </div>
-            <div *ngIf="!gameComment">
-              No hay comentarios para este juego actualmente
+            <div *ngIf="gameComment==false">
+              {{ noCommentsMessageGame }}
             </div>
           </div>
         </div>

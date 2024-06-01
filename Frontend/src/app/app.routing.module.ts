@@ -15,6 +15,7 @@ import {AniadirjuegosComponent} from "./aniadirjuegos/aniadirjuegos.component";
 import {QuienesomosComponent} from "./footer/quienesomos/quienesomos.component";
 import {NuestroequipoComponent} from "./footer/nuestroequipo/nuestroequipo.component";
 import {ContactaconosotrosComponent} from "./footer/contactaconosotros/contactaconosotros.component";
+import {ViewProfileComponent} from "./view-profile/view-profile.component";
 
 const appRoutes: Routes = [
   { path: '', component: MainPageComponent },
@@ -31,6 +32,7 @@ const appRoutes: Routes = [
   { path: 'sobreNosotros', component: QuienesomosComponent },
   { path: 'nuestroEquipo', component: NuestroequipoComponent },
   { path: 'contactaConNosotros', component: ContactaconosotrosComponent },
+  { path: 'view_profile/:id', component: ViewProfileComponent },
   { path: '**', redirectTo: '/not-found', pathMatch: 'full'}
 ]
 @NgModule({

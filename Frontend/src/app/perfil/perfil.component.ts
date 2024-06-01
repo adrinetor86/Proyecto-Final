@@ -54,7 +54,7 @@ export class PerfilComponent implements OnInit, OnDestroy{
     }
   }
 
-  pasarFoto(username,imagen: string) {
+  pasarFoto(username: string,imagen: string) {
     const headers = { 'Content-Type': 'application/x-www-form-urlencoded' };
     const body = new HttpParams()
       .set('new_picture', imagen);

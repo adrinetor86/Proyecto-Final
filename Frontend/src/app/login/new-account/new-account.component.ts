@@ -13,7 +13,8 @@ export class NewAccountComponent implements OnInit {
   @ViewChild('formNewAccount', { static: false }) formNewAccount: NgForm;
   constructor(private validService: ValidService, private router: Router){
   }
-  errorMessage = false;
+  errorMessage = '';
+  errorValidate = false;
 
 
   ngOnInit() {
@@ -29,9 +30,10 @@ export class NewAccountComponent implements OnInit {
     // En tu archivo component.ts
     this.validService.registerNewUser(email, username, password).pipe(
       catchError(() => {
-        this.errorMessage = true;
+        this.errorMessage = "Se ha producido un error al crear la cuenta";
+        this.errorValidate = true;
         setTimeout(() => {
-          this.errorMessage = false;
+          this.errorValidate = false;
         }, 5000);
         return of(null);
       })
