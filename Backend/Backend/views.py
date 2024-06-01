@@ -49,6 +49,8 @@ def game(request, id):
 def search(request):
     if request.method == 'GET':
         value = request.GET.get("value", "")
+        plataforms = request.GET.get("plataforms", [])
+        genders = request.GET.get("genders", [])
         page = request.GET.get("page", 1)
 
         try:
@@ -56,7 +58,7 @@ def search(request):
         except ValueError:
             page = 1
 
-        controller = ControllerGames(title=value)
+        controller = ControllerGames(title=value, plataforms=plataforms, genders=genders)
         response = controller.search(page)
 
         if response.get("error", "") == "":
@@ -243,13 +245,17 @@ def new_game(request):
         controller2 = ControllerUser(username=request.POST.get("username"))
         data_user = controller2.get_a_user()
 
+        print(request.POST.get("username"))
+
         if data_user is None:
             return JsonResponse({"error": "No authorizated"}, status=400)
 
         authorization_token = request.headers.get("Authorization", "").strip()
 
-        if confirm_user_rol(authorization_token, data_user):
+        if not confirm_user_rol(authorization_token, data_user):
             return JsonResponse({"error": "Access denied"}, status=400)
+
+        print(request.POST)
 
         data = json.loads(request.body)
         maps = data.get('maps', []) #no se si la mandar por body
@@ -263,6 +269,7 @@ def new_game(request):
             link_download=request.POST.get("link_download"),
             link_trailer=request.POST.get("link_trailer"),
             release_date=request.POST.get("release_date"),
+            background_image=request.POST.get("background_picture"),
             front_page=request.POST.get("front_page"),
             plataforms=request.POST.get("plataforms", plataforms),
             genders=request.POST.get("genders", genders),
@@ -310,7 +317,7 @@ def insert_comment(request, id_game, father_comment=None):
         authorization_token = request.headers.get("Authorization", "").strip()
 
         if confirm_user(authorization_token, username):
-            content_comment = request.POST.get("content_comment", "")
+            content_comment = request.POST.get("content_comment", "").strip()
             if username == "" or content_comment == "":
                 return JsonResponse({"error": "A username is required"}, status=409)
 

@@ -60,10 +60,26 @@ class Games:
         else:
             return {"error": "game not found", "code": 403}
 
-    def search_game(self, value: str, page: int):
+    def search_game(self, value: str, page: int, genders, plataforms):
+        """
+        -- Generado por CHATGPT --
+        SELECT id, title, front_page FROM games WHERE id IN
+        ( SELECT DISTINCT gp.id_game FROM games_plataforms gp WHERE gp.id_plataform IN (5,6))
+        AND id IN (SELECT DISTINCT gg.id_game FROM games_genders gg WHERE gg.id_gender IN (5,6))
+        AND title LIKE '%a%' ORDER BY games.release_date;
+        """
+
         limit = page * 15
         offset = limit - 15
-        sql = f"SELECT id, title, front_page FROM {self.__tables["games"]} WHERE title LIKE '%{value}%' LIMIT 15 OFFSET {offset}"
+        sql = f"SELECT id, title, front_page FROM {self.__tables["games"]} WHERE title LIKE '%{value}%' "
+
+        if len(genders) > 0:
+            sql += f"AND id IN (SELECT DISTINCT gg.id_game FROM games_genders gg WHERE gg.id_gender IN {genders} "
+
+        if len(plataforms) > 0:
+            sql += f"AND id IN (SELECT DISTINCT gp.id_game FROM games_plataforms gp WHERE gp.id_plataform IN {plataforms} )"
+
+        sql += f" LIMIT 15 OFFSET {offset} ORDER BY games.release_date"
 
         try:
             cursor = self.__connection.cursor(dictionary=True)
@@ -402,11 +418,13 @@ class Games:
 
         return dict_return
 
-    def insert_game(self, title, synopsis, developer, link_download, link_trailer, release_date, front_page, plataforms, genders, maps):
+    def insert_game(self, title, synopsis, developer, link_download, link_trailer, release_date, front_page, background_picture, plataforms, genders, maps):
         sql = (f"INSERT INTO {self.__tables["games"]} "
-               "(title, synopsis, developer, link_download, link_trailer, release_date, front_page) "
+               "(title, synopsis, developer, link_download, link_trailer, release_date, front_page,background_picture) "
                "VALUES "
-               f"('{title}', '{synopsis}', '{developer}', '{link_download}', '{link_trailer}', {release_date}, '{front_page}')")
+               f"('{title}', '{synopsis}', '{developer}', '{link_download}', '{link_trailer}', {release_date}, '{front_page}', {background_picture})")
+
+        print(sql)
 
         try:
             cursor = self.__connection.cursor()

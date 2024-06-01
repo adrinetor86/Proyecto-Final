@@ -7,8 +7,8 @@ from bs4 import BeautifulSoup
 
 class ControllerGames:
 
-    def __init__(self, id=0, title="", synopsis="", developer="", link_download="", link_trailer="", release_date="", front_page="",
-                plataforms = [], genders = [], maps = []):
+    def __init__(self, id=0, title="", synopsis="", developer="", link_download="", link_trailer="", release_date="", front_page=None,
+                background_picture=None,plataforms = [], genders = [], maps = []):
             self.__id = id
             self.__title = title.strip()
             self.__synopsis = synopsis.strip()
@@ -16,6 +16,7 @@ class ControllerGames:
             self.__link_download = link_download.strip()
             self.__link_trailer = link_trailer.strip()
             self.__release_date = release_date
+            self.__background_picture = background_picture
             self.__front_page = front_page
             self.__plataforms = plataforms
             self.__genders = genders
@@ -41,7 +42,9 @@ class ControllerGames:
         print("intentas insertar un juego")
 
     def search(self, page):
-        return self.__games_model.search_game(self.__title, page)
+        self.__genders = tuple(self.__genders)
+        self.__plataforms = tuple(self.__plataforms)
+        return self.__games_model.search_game(self.__title, page, self.__plataforms, self.__genders)
 
     def update_front_page(self):
         if self.__front_page != "":
@@ -80,8 +83,8 @@ class ControllerGames:
             return self.__games_model.insert_game(self.__title, self.__synopsis,
                                                   self.__developer, self.__link_download,
                                                   self.__link_trailer, self.__release_date,
-                                                  self.__front_page, self.__plataforms,
-                                                  self.__genders,self.__maps)
+                                                  self.__front_page, self.__background_picture,
+                                                  self.__plataforms, self.__genders, self.__maps)
         else:
             return {"error": "Invalid fields", "code": 409}
 

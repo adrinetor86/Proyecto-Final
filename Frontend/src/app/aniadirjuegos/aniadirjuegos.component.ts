@@ -146,7 +146,8 @@ export class AniadirjuegosComponent {
 
   addMap() {
     const mapsCreated = document.querySelectorAll('input[name="maps"]').length
-    if(mapsCreated < 7) {
+
+    if (mapsCreated < 7) {
       const mapInput = document.createElement('input');
       mapInput.type = 'file';
       mapInput.accept = 'image/*';
