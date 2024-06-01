@@ -9,7 +9,7 @@ def create_token(email, username, rol=3):
             'email': email,
             'username': username,
             'rol': rol,
-            'exp': datetime.datetime.now() + datetime.timedelta(seconds=1800)  # Tiempo de expiración del token
+            'exp': datetime.datetime.now() + datetime.timedelta(seconds=604800)  # Tiempo de expiración del tokenA
         }
 
         encoded_jwt = jwt.encode(data, config.SECRET_KEY, algorithm='HS256')

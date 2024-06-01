@@ -1,129 +1,4 @@
-/*.container-info-juego{*/
-/*  display: flex;*/
-/*  flex-direction: column;*/
-/*  height: 100vh;*/
-/*  justify-content: center;*/
-/*  align-items: center;*/
-/*  z-index: 2;*/
 
-/*  background-color:blue;*/
-/*  !*margin-left: 30px;*!*/
-/*  !*margin-right: 30px;*!*/
-
-/*}*/
-/*.foto-cabecera{*/
-
-/*  background-color: #1cd31c;*/
-/*  z-index: -1;*/
-/*  width:100%;*/
-/*  height: 20px;*/
-/*}*/
-/*.padre{*/
-/*  clip-path: polygon(0 29%, 100% 21%, 100% 100%, 0% 100%);*/
-/*  background-color: #f4faf4;*/
-/*  z-index: -2;*/
-/*}*/
-/*.container {*/
-/*  z-index: 2;*/
-/*  display: flex;*/
-/*  flex-direction: row;*/
-/*  gap:10px;*/
-/*  justify-content: center;*/
-/*}*/
-/*.contenedor-otros-datos{*/
-/*  display: flex;*/
-/*  flex-direction: column;*/
-/*  gap:20px;*/
-/*  justify-content: center;*/
-/*  align-items: center;*/
-/*  max-width: 1000px;*/
-/*  width:60%;*/
-/*}*/
-/*.Foto {*/
-/*  background-color:red;*/
-/*  width:33%;*/
-/*  height:33%;*/
-/*  z-index: 1;*/
-
-/* }*/
-/*.Mapas{*/
-/*  background-color: #08e5d0;*/
-/*  width:auto;*/
-/*  !*max-width:600px;*!*/
-/*  height:auto;*/
-/*  margin-bottom:10%;*/
-
-/*}*/
-/*.Trailer{*/
-/*  background-color: #27ef6b;*/
-/*  width:auto;*/
-/*  !*max-width:600px;*!*/
-/*  height:auto;*/
-/*  margin-bottom:10%;*/
-/*}*/
-/*img{*/
-/*  width:100%;*/
-/*  height:250%;*/
-/*}*/
-
-/*.Informacion {*/
-/*  background-color:orange*/
-/*}*/
-
-/*.Sinopsis {*/
-/*  background-color:hotpink*/
-/*}*/
-
-/*.Comentarios {*/
-/*  background-color: #f4faf4;*/
-/*  width:100%;*/
-/*  height:203px;*/
-/*}*/
-
-/*.Comentarios input{*/
-/*  width:60%;*/
-/*  height:20%;*/
-/*}*/
-/*.Comentarios button{*/
-/*  width:15%;*/
-/*  height:20%;*/
-/*}*/
-/*.contentComment{*/
-/*  color:black;*/
-/*}*/
-
-/*p{*/
-/*  margin:0;*/
-/*}*/
-/*.bi-playstation{*/
-/*  font-size:27px;*/
-/*  color: #006fcf;*/
-/*}*/
-/*.bi-nintendo-switch{*/
-/*  font-size:25px;*/
-/*  color:red;*/
-/*}*/
-/*  .bi-xbox{*/
-/*    font-size:25px;*/
-/*    color:green*/
-/*  }*/
-/*.bi-steam{*/
-/*  font-size:25px;*/
-/*}*/
-
-/*.bi-arrow-left-square-fill{*/
-/*  margin-left:8px;*/
-/*  font-size:25px;*/
-/*  color: #e3be6f;*/
-/*}*/
-/*li button{*/
-/*  margin:35px*/
-/*}*/
-/*.p-carousel-indicators{*/
-/*  display: flex;*/
-/*  justify-content: center;*/
-/*  gap:40px ;*/
-/*}*/
 
 
 .imagen-cabecera{
@@ -264,7 +139,7 @@ h4:not(.nombre-juego){
   backdrop-filter: blur(60px) saturate(100%);
   -webkit-backdrop-filter: blur(60px) saturate(100%);
   background-color: transparent;
-  background-image: linear-gradient(1turn, black 0, rgba(39, 39, 39, 0) 70%);
+  background-image: linear-gradient(1turn, #1e2249 0, rgba(39, 39, 39, 0) 70%);
   border-radius: 10px;
   display: flex;
   flex-direction: column;
@@ -590,4 +465,13 @@ p-carousel{
 .enlaces a{
   text-decoration: none;
 
+}
+.generos{
+  margin-bottom:20px;
+}
+.rounded-pill{
+  margin-left: 10px;
+  border-radius: 50px;
+  color: white;
+  background-color: #2c7ff3;
 }

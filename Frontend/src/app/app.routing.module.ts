@@ -13,7 +13,8 @@ import {PerfilComponent} from "./perfil/perfil.component";
 import {SubirFotosComponent} from "./subir-fotos/subir-fotos.component";
 import {AniadirjuegosComponent} from "./aniadirjuegos/aniadirjuegos.component";
 import {QuienesomosComponent} from "./footer/quienesomos/quienesomos.component";
-
+import {NuestroequipoComponent} from "./footer/nuestroequipo/nuestroequipo.component";
+import {ContactaconosotrosComponent} from "./footer/contactaconosotros/contactaconosotros.component";
 
 const appRoutes: Routes = [
   { path: '', component: MainPageComponent },
@@ -28,6 +29,8 @@ const appRoutes: Routes = [
   { path: 'testeo', component: SubirFotosComponent },
   { path: 'aniadirJuegos', component: AniadirjuegosComponent },
   { path: 'sobreNosotros', component: QuienesomosComponent },
+  { path: 'nuestroEquipo', component: NuestroequipoComponent },
+  { path: 'contactaConNosotros', component: ContactaconosotrosComponent },
   { path: '**', redirectTo: '/not-found', pathMatch: 'full'}
 ]
 @NgModule({

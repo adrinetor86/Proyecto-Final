@@ -1,83 +1,53 @@
-
-<!--<div class="main-content">-->
-<!--<app-buscador></app-buscador>-->
-<!--  <div class="game-container">-->
-<!--    <div class="game-gallery">-->
-
-<!--      <div *ngFor="let game of juegosFiltrados" class="game">-->
-
-<!--&lt;!&ndash;        <a>&ndash;&gt;-->
-<!--&lt;!&ndash;          <img [src]="game.url" [alt]="game.title">&ndash;&gt;-->
-<!--&lt;!&ndash;        </a>&ndash;&gt;-->
-
-<!--        <div class="title">-->
-<!--          <a [routerLink]="['/infoGame/' + game.id]">-->
-<!--            {{game.title}}-->
-<!--          </a>-->
-<!--        </div>-->
-
-<!--      </div>-->
-
-<!--    </div>-->
-<!--  </div>-->
-<!--</div>-->
-
-
-<!--<div class="main-content">-->
-<!--<app-buscador></app-buscador>-->
-<!--  <div class="game-container">-->
-<!--    <div class="game-gallery">-->
-
-<!--      <div *ngFor="let game of games" class="game">-->
-
-<!--                <a>-->
-<!--                  <img [src]="game.url" [alt]="game.title">-->
-<!--                </a>-->
-
-<!--        <div class="title">-->
-<!--          <a [routerLink]="['/infoGame/' + game.id]">-->
-<!--            {{game.title}}-->
-<!--          </a>-->
-<!--        </div>-->
-
-<!--      </div>-->
-
-<!--    </div>-->
-<!--  </div>-->
-<!--  <app-paginado></app-paginado>-->
-<!--</div>-->
-
-
-<!--<div class="main-content">-->
-<!--  <app-buscador></app-buscador>-->
-<!--  <div class="contenedor-juegos">-->
-<!--      <div class="juegos">-->
-<!--        <div class="juego" *ngFor="let game of games" [routerLink]="['/infoGame/' + game.id]">-->
-<!--          <a>-->
-<!--            <picture>-->
-<!--              <img class="imagen-portada" [src]="game.url" alt="No se encontro la imagen">-->
-<!--            </picture>-->
-<!--          </a>-->
-<!--          <div class="informacion" [routerLink]="['/infoGame/' + game.id]">-->
-<!--            <div class="text">-->
-<!--              <div class="contenedor-titulo" >-->
-<!--                <span class="titulo" >{{game.title}}</span>-->
-<!--              </div>-->
-<!--            </div>-->
-<!--          </div>-->
-<!--        </div>-->
-<!--      </div>-->
-<!--  </div>-->
-<!--  <app-paginado></app-paginado>-->
-<!--</div>-->
-
-
-
 <div class="main-content">
-<!--  <app-buscador></app-buscador>-->
+
   <div class="contenedor-buscador">
 
     <input type="search"  placeholder="Buscar..." (input)="onSearchTermChange($event.target.value)" name="buscador">
+
+    <div>
+      <p-sidebar [(visible)]="sidebarVisible">
+
+        <form>
+          <div class="main-filter-content">
+            <h4>Filtrar Juegos</h4>
+
+            <div class="filter-section">
+              <h5>Géneros</h5>
+              <div class="contenedor-generos">
+
+                  <div *ngFor="let genre of generosOpciones">
+                    <label>
+                      <input type="checkbox" [value]="genre[0]" (change)="onGenreChange(genre[0], $event)" >
+                      {{ genre[1] }}
+                    </label>
+                  </div>
+              </div>
+            </div>
+
+            <div class="filter-section">
+              <h5>Plataformas</h5>
+              <div class="contenedor-generos">
+              <div *ngFor="let platform of plataformasOpciones">
+                <label>
+                  <input type="checkbox" [value]="platform[0]" (change)="onPlatformChange(platform[0], $event)">
+                  {{ platform[1] }}
+                </label>
+              </div>
+            </div>
+            </div>
+
+          </div>
+        </form>
+
+      </p-sidebar>
+
+      <span class="span-filtro" (click)="sidebarVisible = true" title="Filtrar">
+          <i class="bi bi-funnel-fill"></i>
+      </span>
+
+    </div>
+
+
 
   </div>
 
@@ -103,7 +73,7 @@
     </div>
   </div>
 
-<!--  @if (previousPageUrl || nextPageUrl) {-->
+<!--  @if (prevPage || nextPage) {-->
   <div class="pagination">
       <pagination-controls
         (pageChange)="currentPage = $event; changePage(currentPage)"
@@ -112,6 +82,7 @@
         directionLinks="true"
         previousLabel="Anterior"
         nextLabel="Siguiente"
+
       ></pagination-controls>
   </div>
 <!--  }-->

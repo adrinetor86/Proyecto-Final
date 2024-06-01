@@ -1,4 +1,4 @@
-import {Component, ViewChild} from '@angular/core';
+import {Component, OnInit, ViewChild} from '@angular/core';
 import {NgForm} from "@angular/forms";
 import { ValidService } from "../../servicios/validate.service";
 import {Router} from "@angular/router";
@@ -9,12 +9,19 @@ import {catchError, of} from "rxjs";
   templateUrl: './new-account.component.html',
   styleUrl: './new-account.component.css'
 })
-export class NewAccountComponent {
+export class NewAccountComponent implements OnInit {
   @ViewChild('formNewAccount', { static: false }) formNewAccount: NgForm;
   constructor(private validService: ValidService, private router: Router){
   }
   errorMessage = false;
 
+
+  ngOnInit() {
+    if(this.validService.usuarioLogeado()){
+      this.router.navigate(['/']).then(r => {});
+    }
+    this.registerNewUser();
+  }
   registerNewUser(){
     const email = this.formNewAccount.value.emailNew;
     const username = this.formNewAccount.value.usernameNew;

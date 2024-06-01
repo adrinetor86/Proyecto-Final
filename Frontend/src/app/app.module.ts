@@ -44,6 +44,11 @@ import { provideAnimationsAsync } from '@angular/platform-browser/animations/asy
 import {InputOtpModule} from "primeng/inputotp";
 import { AniadirjuegosComponent } from './aniadirjuegos/aniadirjuegos.component';
 import { QuienesomosComponent } from './footer/quienesomos/quienesomos.component';
+import {TagModule} from "primeng/tag";
+import {ChipModule} from "primeng/chip";
+import { NuestroequipoComponent } from './footer/nuestroequipo/nuestroequipo.component';
+import { ContactaconosotrosComponent } from './footer/contactaconosotros/contactaconosotros.component';
+import {SidebarModule} from "primeng/sidebar";
 
 @NgModule({
   declarations: [
@@ -64,7 +69,9 @@ import { QuienesomosComponent } from './footer/quienesomos/quienesomos.component
     SubirFotosComponent,
     ModalCommentComponent,
     AniadirjuegosComponent,
-    QuienesomosComponent
+    QuienesomosComponent,
+    NuestroequipoComponent,
+    ContactaconosotrosComponent
   ],
   imports: [
     BrowserModule,
@@ -96,7 +103,9 @@ import { QuienesomosComponent } from './footer/quienesomos/quienesomos.component
     BrowserAnimationsModule,
     MatDialogModule,
     InputOtpModule,
-
+    TagModule,
+    ChipModule,
+    SidebarModule,
   ],
   providers: [
     {

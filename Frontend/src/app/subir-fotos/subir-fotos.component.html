@@ -1,18 +1,18 @@
 
 
 <!--<h1>Subir Imagen</h1>-->
-<!--<form (ngSubmit)="onSubmit()" #imageForm="ngForm">-->
+<form (ngSubmit)="onSubmit()" #imageForm="ngForm">
 
-<!--  <input type="number" required placeholder="idJuego" ngModel name="juegoId">-->
-<!--  <input type="file" (change)="onFileChange($event)" required>-->
-<!--  <button type="submit" [disabled]="!imageForm.form.valid">Enviar</button>-->
-<!--</form>-->
-
-
-<form #imageForm="ngForm" (ngSubmit)="onSubmit()">
-  <div *ngFor="let fileInput of fileInputs; let i = index">
-    <label for="file{{i}}">Archivo {{i + 1}}:</label>
-    <input type="file" id="file{{i}}" (change)="onFileChange($event, i)" accept="image/*" required>
-  </div>
-  <button type="submit" [disabled]="imageForm.invalid">Enviar</button>
+  <input type="number" required placeholder="idJuego" ngModel name="juegoId">
+  <input type="file" (change)="onFileChange($event)" required>
+  <button type="submit" [disabled]="!imageForm.form.valid">Enviar</button>
 </form>
+
+
+<!--<form #imageForm="ngForm" (ngSubmit)="onSubmit()">-->
+<!--  <div *ngFor="let fileInput of fileInputs; let i = index">-->
+<!--    <label for="file{{i}}">Archivo {{i + 1}}:</label>-->
+<!--    <input type="file" id="file{{i}}" (change)="onFileChange($event, i)" accept="image/*" required>-->
+<!--  </div>-->
+<!--  <button type="submit" [disabled]="imageForm.invalid">Enviar</button>-->
+<!--</form>-->

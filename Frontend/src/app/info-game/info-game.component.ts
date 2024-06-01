@@ -59,6 +59,12 @@ export class InfoGameComponent implements OnInit,OnDestroy{
   errorMessage: string = '';
   userCommentFather: any;
   arrPlataformas: string[] = ['PC','Play Station','Xbox','Nintendo','Android','iOS'];
+
+  arrGeneros: string[] = ['Fantastico', 'RPG', 'Animacion',
+                          'Supervivencia', 'Aventura', 'Accion',
+                          'Arcade', 'Deportes', 'Estrategia',
+                          'Simulacion', 'Juegos de mesa', 'Shooter',
+                          'Terror', 'Rol', 'Puzzle'];
   errorValidate = false;
   constructor(private route: ActivatedRoute, private juegoservice:JuegosService, private routerNavigate: Router,
               private http: HttpClient, private isLoginUser: ValidService,public dialog: MatDialog,
@@ -72,11 +78,8 @@ export class InfoGameComponent implements OnInit,OnDestroy{
 
 
     this.respuestaError= false;
-    this.subcripcion=
-     this.route.params.subscribe(params => {
-        this.juego = this.juegoservice.getJuegobyId(parseInt(params['id']))
 
-       })
+
 
     this.suscripcionPrueba=
       this.route.params.subscribe(params => {
@@ -88,8 +91,11 @@ export class InfoGameComponent implements OnInit,OnDestroy{
             this.juegoPrueba = JuegoRecibido as JuegoPrueba;
             this.searchDot = this.juegoPrueba.synopsis.indexOf('.')
             this.arrPlataformas = this.juegoPrueba.plataforms.split(', ');
+            this.arrGeneros = this.juegoPrueba.genders.split(', ');
+            console.log(this.arrGeneros)
           } else {
             this.juegoPrueba = JuegoRecibido['error']['error'];
+
             console.log("ERRORRRR")
             console.log(this.juegoPrueba);
           }
@@ -129,11 +135,6 @@ export class InfoGameComponent implements OnInit,OnDestroy{
           ];
         });
       });
-
-
-    // this.mapaService.getMapassSmall().then((mapas) => {
-    //   this.mapas = mapas;
-    // });
 
     this.suscriptionComment = this.route.params.subscribe(params=>{
       const gameId = params['id'];
@@ -227,7 +228,7 @@ export class InfoGameComponent implements OnInit,OnDestroy{
   };
 
   ngOnDestroy(){
-    this.subcripcion.unsubscribe();
+
     this.suscripcionPrueba.unsubscribe();
     this.renderer.setStyle(this.document.body, 'background', 'var(--background-image)');
   }

@@ -1,4 +1,4 @@
-import {Component, ViewChild} from '@angular/core';
+import {Component, OnInit, ViewChild} from '@angular/core';
 import {NgForm} from "@angular/forms";
 import {ValidService} from "../servicios/validate.service";
 import {Router} from "@angular/router";
@@ -10,11 +10,21 @@ import {catchError, of} from "rxjs";
   templateUrl: './login.component.html',
   styleUrl: './login.component.css'
 })
-export class LoginComponent {
+export class LoginComponent implements OnInit {
   @ViewChild('form', { static: false }) formAccount: NgForm;
   constructor(private validateService: ValidService, private route:Router) { }
   errorMessage = '';
   errorValidate = false;
+
+ngOnInit() {
+  if(this.validateService.usuarioLogeado()){
+    this.route.navigate(['/']).then(r => {});
+
+  }
+  this.loginUser();
+}
+
+
 
 
   loginUser(){
@@ -29,7 +39,7 @@ export class LoginComponent {
       })
     ).subscribe(response=>{
       if (response!==null) {
-
+          localStorage.setItem('tokenUser', response['token']);
           localStorage.setItem('username', response['username'])
         this.route.navigate(['/']);
       }

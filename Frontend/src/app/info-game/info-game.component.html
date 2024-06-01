@@ -1,104 +1,6 @@
 
 <!--@if(respuestaError == false){-->
-<!--<div class="container-info-juego" [style.background-image]="'url(' + juegoPrueba.front_page + ')'">-->
-<!--<div class="salir"><i class="bi bi-arrow-left-square-fill" routerLink='/'></i></div>-->
-<!--<div class="foto-cabecera"></div>-->
-<!--<div class="padre">-->
-<!--<div class="container-info-juego" >-->
 
-<!--  <div class="container" >-->
-
-<!--    <div class="Foto">-->
-<!--      <img class="imagen-portada" [src]="juegoPrueba.front_page" alt="No se encontro la imagen">-->
-<!--    </div>-->
-<!--    <div class="Informacion">-->
-<!--        <p><b>Juego: </b>{{juegoPrueba.title}}</p><br>-->
-
-<!--        <b>Plataformas:</b>-->
-<!--      &nbsp;-->
-<!--      <i class="bi bi-playstation"  *ngIf="arrPlataformas.includes('Play Station')" title="PlayStation">&nbsp;</i>-->
-<!--      <i class="bi bi-nintendo-switch"  *ngIf="arrPlataformas.includes('Nintendo')" title="Nintendo">&nbsp;</i>-->
-<!--      <i class="bi bi-xbox"  *ngIf="arrPlataformas.includes('XBOX')" title="XBOX">&nbsp;</i>-->
-<!--      <i class="bi bi-steam" *ngIf="arrPlataformas.includes('PC')" title="STEAM" >&nbsp;</i>-->
-<!--        <p><b>Desarrollador: </b>{{juegoPrueba.developer}}</p><br>-->
-<!--        <p><b>Fecha Salida: </b>{{juegoPrueba.release_date}}</p><br>-->
-<!--        <p><b>Link Trailer: </b>{{juegoPrueba.link_trailer}}</p><br>-->
-<!--        <p><b>Link-Descarga: </b><a href="{{juegoPrueba.link_download}}">{{juegoPrueba.link_download}}</a></p><br>-->
-<!--    </div>-->
-<!--  </div>-->
-<!--  <div class="contenedor-otros-datos">-->
-<!--&lt;!&ndash;    <div class="Trailer">&ndash;&gt;-->
-
-<!--&lt;!&ndash;      <iframe width="560" height="315" src=" https://www.youtube.com/embed/TAlKhARUcoY?si=T3kmlvTEpoNYyft8" allowfullscreen></iframe>&ndash;&gt;-->
-
-<!--&lt;!&ndash;    </div>&ndash;&gt;-->
-
-<!--      <div class="Mapas" >-->
-
-<!--        <div class="card">-->
-<!--          <p-carousel-->
-<!--            [value]="mapas"-->
-<!--            [numVisible]="3"-->
-<!--            [numScroll]="2"-->
-<!--            [circular]="true"-->
-<!--            [responsiveOptions]="responsiveOptions"-->
-<!--            autoplayInterval="3000"-->
-<!--            style="background-color:red; padding-bottom: 0px"-->
-<!--          >-->
-<!--            <ng-template let-mapa pTemplate="item" >-->
-<!--              <div class="border-1 ms-1"  >-->
-<!--                <div class="mb-1">-->
-<!--                  <div class="relative">-->
-<!--                    <img-->
-<!--                      src="{{ mapa.image }}"-->
-<!--                    />-->
-<!--                  </div>-->
-<!--                </div>-->
-<!--              </div>-->
-<!--            </ng-template>-->
-<!--          </p-carousel>-->
-<!--        </div>-->
-
-<!--      </div>-->
-
-<!--      <div class="Sinopsis">-->
-<!--        <b>Sinopsis: </b>-->
-<!--        &lt;!&ndash;      PONERLO FUERA DE LA CAJA (SINOPSIS)&ndash;&gt;-->
-<!--        {{juegoPrueba.synopsis}}-->
-<!--      </div>-->
-<!--      <div class="Comentarios">-->
-<!--        <form #formComments="ngForm">-->
-<!--        <input type="text" placeholder="Añadir Comentario" ngModel required name="commentValue" (focus)="mostrarBotonesFormPadre=true">-->
-<!--        <div style="display: flex" *ngIf="mostrarBotonesFormPadre">-->
-<!--          <button type="button" (click)="cancelarComentario()">Cancelar</button>-->
-<!--          <button type="submit" (click)="aniadirComentario()">Comentar</button>-->
-<!--        </div>-->
-<!--        </form>-->
-<!--        <div class="contentComment" *ngIf="gameComment">-->
-<!--          {{ gameComment.user }}-->
-<!--          <p>-->
-<!--          {{ gameComment.content_comment}}-->
-<!--            <a href="#" (click)="mostrarFormComentarioHijo(); $event.preventDefault()">Responder</a>-->
-<!--          <div *ngIf="mostrarFormHijo">-->
-<!--            <form #formCommentsChild="ngForm">-->
-<!--              <input type="text" placeholder="Añadir Comentario" [(ngModel)]="userCommentFather" name="commentValueChild">-->
-<!--              <div style="display: flex">-->
-<!--                <button type="button" (click)="cancelarComentario()">Cancelar</button>-->
-<!--                <button type="submit" (click)="aniadirComentarioHijo()">Comentar</button>-->
-<!--              </div>-->
-<!--            </form>-->
-<!--          </div>-->
-<!--        </div>-->
-<!--        <div *ngIf="!gameComment">-->
-<!--          No hay comentarios para este juego actualmente-->
-<!--        </div>-->
-<!--      </div>-->
-<!--  </div>-->
-<!--</div>-->
-<!--</div>-->
-<!--}@else{-->
-<!--<h2>El título no existe</h2>-->
-<!--}-->
 
 
 <div class="main-content">
@@ -109,6 +11,7 @@
       <picture>
 
         <img [src]="juegoPrueba.front_page" alt="No se encontro la imagen">
+<!--        <img src="https://webstatic.hoyoverse.com/upload/op-public/2023/07/05/c4602ccbf1b3a7fbaeec0da7eaf07e7a_4589175142699820420.jpeg" alt="No se encontro la imagen">-->
       </picture>
     </div>
 
@@ -135,8 +38,14 @@
                   <i class="bi bi-steam" *ngIf="arrPlataformas.includes('PC')" title="STEAM" ></i>
                   <i class="bi bi-android2" *ngIf="arrPlataformas.includes('Android')" title="ANDROID"></i>
                   <i class="bi bi-apple" *ngIf="arrPlataformas.includes('Iphone')" title="IOS"></i>
-
               </div>
+            <div class="generos">
+
+              <span *ngFor="let genero of arrGeneros">
+
+                <span class="badge rounded-pill">{{ genero }}</span>
+              </span>
+            </div>
 
             <div class="enlaces">
               <a href="{{juegoPrueba.link_download}}">Enlace Descarga</a>
@@ -258,3 +167,8 @@
     </div>
   </div>
 </div>
+
+<!--}@else{-->
+<!--<h2>El título no existe</h2>-->
+<!--}-->
+
