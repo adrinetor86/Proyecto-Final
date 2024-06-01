@@ -74,12 +74,14 @@ class Games:
         sql = f"SELECT id, title, front_page FROM {self.__tables["games"]} WHERE title LIKE '%{value}%' "
 
         if len(genders) > 0:
-            sql += f"AND id IN (SELECT DISTINCT gg.id_game FROM games_genders gg WHERE gg.id_gender IN {genders} "
+            sql += f"AND id IN (SELECT DISTINCT gg.id_game FROM games_genders gg WHERE gg.id_gender IN {genders}) "
 
         if len(plataforms) > 0:
-            sql += f"AND id IN (SELECT DISTINCT gp.id_game FROM games_plataforms gp WHERE gp.id_plataform IN {plataforms} )"
+            sql += f"AND id IN (SELECT DISTINCT gp.id_game FROM games_plataforms gp WHERE gp.id_plataform IN {plataforms}) "
 
-        sql += f" LIMIT 15 OFFSET {offset} ORDER BY games.release_date"
+        sql += f" ORDER BY games.release_date LIMIT 15 OFFSET {offset}"
+
+        print(sql)
 
         try:
             cursor = self.__connection.cursor(dictionary=True)
