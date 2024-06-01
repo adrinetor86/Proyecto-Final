@@ -9,6 +9,9 @@
         <input type="text" id="titulo" ngModel name="title" class="form-control" placeholder="ejem: Genshin Impact...">
         <br>
 
+        <label for="developer">Developer:</label>
+        <input type="text" id="developer" ngModel name="developer" class="form-control" placeholder="ejem: Hoyoverse..."><br>
+
         <label for="url1">Enlace trailer:</label>
         <input type="url" id="url1" ngModel name="link_trailer" class="form-control" placeholder="ejem: https://www.youtube.com/watch?v=HLUY1nICQRY&ab_channel=IGN">
         <br>
@@ -20,11 +23,6 @@
         <label for="fecha">Fecha:</label>
         <input type="date" id="fecha" ngModel name="release_date" class="form-control"><br>
         <br>
-
-        <label for="fecha">Developer:</label>
-        <input type="text" id="Develooper" ngModel name="developer" class="form-control"><br>
-
-
 
         <p class="aviso">* Todos los campos son obligatorios.</p>
 
@@ -100,19 +98,43 @@
 
       <!-- Tercer bloque -->
       <fieldset class="block3">
-        <legend>Imagen</legend>
-        <label for="imagen">Subir Imagen:</label>
-        <input type="file" id="imagen" ngModel name="front_page" (change)="onImageChange($event)" accept="image/*" class="form-control">
+        <legend>Portada</legend>
+        <section class="container_example_frontPage">
+          <article class="insert_image">
+            <label for="portada">Subir Imagen:</label>
+            <input type="file" id="portada" ngModel name="front_page" (change)="onImageChange($event)" accept="image/*" class="form-control">
+          </article>
+          <article class="view_image" *ngIf="image_preview">
+            <label>Ejemplo</label>
+            <img [src]="image_preview" alt="no disponible" id="front_page_example">
+          </article>
+        </section>
         <p class="aviso2">* Imagen de Portada obligatoria.</p>
       </fieldset>
 
+      <!-- Cuarto bloque -->
       <fieldset class="block4">
+        <legend>Fondo</legend>
+        <section class="container_example_backgroundPage">
+          <article>
+            <label for="fondo">Subir Imagen:</label>
+            <input type="file" id="fondo" ngModel name="front_page" (change)="onImageChange($event)" accept="image/*" class="form-control">
+          </article>
+          <article class="view_image" *ngIf="image_preview">
+            <label>Ejemplo</label>
+            <img [src]="image_preview" alt="no disponible" id="background_page_example">
+          </article>
+        </section>
+        <p class="aviso2">* Imagen de Fondo obligatoria.</p>
+      </fieldset>
+
+      <fieldset class="block5">
         <legend>Mapas</legend>
         <label for="Maps">Subir Mapas:</label>
-        <input type="file" id="Maps" name="maps" (change)="onMapChange($event)" accept="image/*" class="form-control">
+        <input type="file" id="maps" name="maps" (change)="onMapChange($event)" accept="image/*" class="form-control">
         <button type="button" class="add" (click)="addMap()"></button>
-        <p class="aviso2">* Debe contener al menos 1 mapa.</p>
       </fieldset>
+      <p class="aviso2">* Debe contener al menos 1 mapa.</p>
     </div>
     <div class="content_button">
       <button type="reset" (click)="resetForm()" >Vaciar Campos</button>

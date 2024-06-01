@@ -54,7 +54,7 @@ class Games:
             dict_return = dict_return[0]
             dict_return["genders"] = self.__get_genders(id)
             dict_return["plataforms"] = self.__get_plataforms(id)
-            dict_return["comments"] = self.__charge_default_picture(self.__get_comments(id))
+            dict_return["comments"] = self.__get_comments(id)
 
             return dict_return
         else:
@@ -222,7 +222,7 @@ class Games:
     #ESTA CONSULTA SIRVE PARA LOS HIJOS DEL COMENTARIO
     def __get_comments(self, id) -> str:
         sql = ("SELECT "
-                "c.id_comment AS next, "
+                "c.id_comment AS id_comment, "
                 "c.user, "
                 "u.profile_picture,"
                 "c.content_comment, "
@@ -247,10 +247,12 @@ class Games:
             return {'error': 'get comments'}
 
         for comment in data:
-            if int(self.__total_comments(id, comment["next"])) > 0:
-                comment["next"] = f'/comment/{id}/{comment["next"]}/'
+            if int(self.__total_comments(id, comment["id_comment"])) > 0:
+                comment["next"] = f'/comment/{id}/{comment["id_comment"]}/'
             else:
                 comment["next"] = None
+
+            comment["insert"] = f'/insert_comment/{id}/{comment["id_comment"]}/'
 
         return data
 
