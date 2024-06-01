@@ -30,6 +30,7 @@ fieldset {
   margin: 0;
   display: flex;
   flex-direction: column;
+  position: relative;
 }
 
 legend {
@@ -46,7 +47,6 @@ legend {
   grid-row: 1 / 2;
   border-bottom: #172569 5px solid;
   border-right: #172569 5px solid;
-  position: relative;
 }
 
 .block2 {
@@ -65,7 +65,6 @@ legend {
 }
 
 .block4 {
-  position: relative;
   border-top: #172569 10px solid;
   grid-column: 1 / 3;
   grid-row: 3 / 4;
@@ -173,6 +172,9 @@ label {
   background-image: url("https://upload.wikimedia.org/wikipedia/commons/6/69/Add_document_icon_%28the_Noun_Project_27896%29_blue.svg");
   background-size: contain;
   background-position: center;
+  background-repeat: no-repeat;
+  border: none;
+  cursor: pointer;
 }
 
 input:focus, textarea:focus{
@@ -224,7 +226,7 @@ p {
     grid-template-rows: auto;
   }
 
-  .block1, .block2, .block3, .block4 {
+  .block1, .block2, .block3, .block4, .block5 {
     grid-column: 1 / -1;
     grid-row: auto;
     border: none;
@@ -256,7 +258,6 @@ p {
 }
 
 .view_image{
-  width: 60%;
   display: flex;
   flex-flow: column;
   justify-content: center;
@@ -264,10 +265,13 @@ p {
   margin: 0 20px 20px 20px;
 }
 
+.front_page{
+  width: 60%;
+}
+
 .view_image img{
   margin-top: 20px;
 }
-
 
 .container_example_frontPage{
   display: flex;
@@ -276,7 +280,12 @@ p {
   align-items: center;
 }
 
-.background_page_example{
-  width: 70%;
-  height: 70%;
+#background_page_example{
+  width: 90%;
+  height: 40%;
+}
+
+#front_page_example{
+  width: 100%;
+  height: 100%;
 }

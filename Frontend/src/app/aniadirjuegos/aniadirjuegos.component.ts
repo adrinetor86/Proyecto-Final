@@ -24,6 +24,7 @@ export class AniadirjuegosComponent {
   };
 
   image_preview: string = null
+  image_preview_background: string = null
 
   constructor(private httpClient: HttpClient, private validateService: ValidService) {
   }
@@ -103,6 +104,7 @@ export class AniadirjuegosComponent {
       maps: []
     };
     this.image_preview = null
+    this.image_preview_background = null
   }
 
 
@@ -110,11 +112,21 @@ export class AniadirjuegosComponent {
     console.log(this.game);
   }
 
-  onImageChange(event: any) {
+  onImageChange_front(event: any) {
     if (event.target.files && event.target.files.length > 0) {
       const file = event.target.files[0];
       this.convertToBase64(file).then((base64: string) => {
         this.image_preview = base64;
+        this.game.front_page = base64;
+      });
+    }
+  }
+
+  onImageChange_background(event: any) {
+    if (event.target.files && event.target.files.length > 0) {
+      const file = event.target.files[0];
+      this.convertToBase64(file).then((base64: string) => {
+        this.image_preview_background = base64;
         this.game.front_page = base64;
       });
     }
@@ -133,14 +145,16 @@ export class AniadirjuegosComponent {
 
 
   addMap() {
-    const mapInput = document.createElement('input');
-    mapInput.type = 'file';
-    mapInput.accept = 'image/*';
-    mapInput.classList.add('form-control');
-    mapInput.id = 'maps'
-    mapInput.name = 'maps'
-    mapInput.addEventListener('change', (event: any) => this.onMapChange(event));
-    document.querySelector('.add')?.before(mapInput);
+    const mapsCreated = document.querySelectorAll('input[name="maps"]').length
+    if(mapsCreated < 7) {
+      const mapInput = document.createElement('input');
+      mapInput.type = 'file';
+      mapInput.accept = 'image/*';
+      mapInput.classList.add('form-control');
+      mapInput.name = 'maps'
+      mapInput.addEventListener('change', (event: any) => this.onMapChange(event));
+      document.querySelector('.add')?.before(mapInput);
+    }
   }
 
   private convertToBase64(file: File): Promise<string> {

@@ -25,8 +25,6 @@
         <br>
 
         <p class="aviso">* Todos los campos son obligatorios.</p>
-
-
       </fieldset>
 
       <!-- Segundo bloque -->
@@ -102,9 +100,9 @@
         <section class="container_example_frontPage">
           <article class="insert_image">
             <label for="portada">Subir Imagen:</label>
-            <input type="file" id="portada" ngModel name="front_page" (change)="onImageChange($event)" accept="image/*" class="form-control">
+            <input type="file" id="portada" ngModel name="front_page" (change)="onImageChange_front($event)" accept="image/*" class="form-control">
           </article>
-          <article class="view_image" *ngIf="image_preview">
+          <article class="view_image front_page" *ngIf="image_preview">
             <label>Ejemplo</label>
             <img [src]="image_preview" alt="no disponible" id="front_page_example">
           </article>
@@ -118,23 +116,24 @@
         <section class="container_example_backgroundPage">
           <article>
             <label for="fondo">Subir Imagen:</label>
-            <input type="file" id="fondo" ngModel name="front_page" (change)="onImageChange($event)" accept="image/*" class="form-control">
+            <input type="file" id="fondo" ngModel name="front_page" (change)="onImageChange_background($event)" accept="image/*" class="form-control">
           </article>
-          <article class="view_image" *ngIf="image_preview">
+          <article class="view_image background_page" *ngIf="image_preview_background">
             <label>Ejemplo</label>
-            <img [src]="image_preview" alt="no disponible" id="background_page_example">
+            <img [src]="image_preview_background" alt="no disponible" id="background_page_example">
           </article>
         </section>
         <p class="aviso2">* Imagen de Fondo obligatoria.</p>
       </fieldset>
 
+      <!-- Quinto bloque -->
       <fieldset class="block5">
         <legend>Mapas</legend>
-        <label for="Maps">Subir Mapas:</label>
-        <input type="file" id="maps" name="maps" (change)="onMapChange($event)" accept="image/*" class="form-control">
+        <label for="maps">Subir Mapas:</label>
+        <input type="file" name="maps" (change)="onMapChange($event)" accept="image/*" class="form-control">
         <button type="button" class="add" (click)="addMap()"></button>
       </fieldset>
-      <p class="aviso2">* Debe contener al menos 1 mapa.</p>
+      <p class="aviso2">* Debe contener al menos 1 mapa (máximo 7).</p>
     </div>
     <div class="content_button">
       <button type="reset" (click)="resetForm()" >Vaciar Campos</button>
@@ -142,3 +141,4 @@
     </div>
   </form>
 </main>
+
