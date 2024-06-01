@@ -47,6 +47,9 @@ export class InfoGameComponent implements OnInit,OnDestroy{
   suscripcionPrueba: Subscription;
   suscriptionComment: Subscription;
   suscriptionMapas: Subscription;
+  mostrarComentarios = false;
+  noCommentsMessageGame = "Actualmente no hay comentarios para este juego";
+  seePhotoUser;
   idCommentFather = 0;
   seeMore = false;
   seeMoreButton = "Ver más";
@@ -141,8 +144,15 @@ export class InfoGameComponent implements OnInit,OnDestroy{
       this.http.get(`http://127.0.0.1:8000/api/v1/game/${gameId}/`).subscribe((response:any)=>{
         this.gameComment = response.comments;
         this.verificarCampoNext();
+        this.fotoUsuario();
         console.log(this.gameComment)
       })
+    });
+  }
+  fotoUsuario(){
+    this.gameComment.forEach((comment: { profile_picture: any; }, index: string | number)=>{
+        this.seePhotoUser =this.gameComment[index].photoUser = comment.profile_picture;
+        return this.seePhotoUser;
     });
   }
   verificarCampoNext() {
@@ -160,8 +170,7 @@ export class InfoGameComponent implements OnInit,OnDestroy{
       console.log("entraa")
       let commentValue = this.formCommentsValue.value.commentValue;
       console.log(commentValue);
-      console.log(this.juego.id)
-      this.commentService.insertCommentFather(commentValue, this.juego.id).pipe(
+      this.commentService.insertCommentFather(commentValue, this.juegoPrueba.id).pipe(
         catchError((error) => {
           this.errorValidate = true;
           this.errorMessage = '⚠️Error al insertar el comentario';
@@ -170,7 +179,7 @@ export class InfoGameComponent implements OnInit,OnDestroy{
         })
       ).subscribe(response => {
         if (response != null) {
-          console.log("TOdo ha salido bien")
+          window.location.reload();
         }
       })
     } else {
@@ -178,6 +187,7 @@ export class InfoGameComponent implements OnInit,OnDestroy{
     }
   }
   mostrarComentarioHijo(indice: number) {
+    this.mostrarComentarios = !this.mostrarComentarios;
     const fieldNextUrlValue = this.gameComment[indice].nextFieldValue;
     if (fieldNextUrlValue) {
       this.http.get(`http://127.0.0.1:8000${fieldNextUrlValue}`).subscribe((response: any) => {
@@ -194,15 +204,18 @@ export class InfoGameComponent implements OnInit,OnDestroy{
   mostrarFormComentarioHijo(indice:number){
     this.mostrarBotonesResponderComment = false;
     this.indiceComentario=indice;
-    const idComentarioPadre = this.gameComment[indice].nextFieldValue.match(/\/comment\/\d+\/(\d+)\//);
-    this.idCommentFather = idComentarioPadre[1];
+    this.idCommentFather = this.gameComment[indice].id_comment;
+    // const idComentarioPadre = this.gameComment[indice].nextFieldValue.match(/\/comment\/\d+\/(\d+)\//);
+    // this.idCommentFather = idComentarioPadre[1];
+    // alert(this.idCommentFather);
+
     this.userCommentFather = '@'+this.gameComment[indice].user;
   }
 
   aniadirComentarioHijo(){
     if (this.isLoginUser.usuarioLogeado()){
       let commentValue = this.formCommentsChildValue.value.commentValueChild;
-      this.commentService.insertCommentChild(commentValue, this.juego.id,this.idCommentFather).pipe(
+      this.commentService.insertCommentChild(commentValue, this.juegoPrueba.id,this.idCommentFather).pipe(
         catchError((error) => {
           this.errorValidate = true;
           this.errorMessage = '⚠️Error al insertar el comentario';
@@ -218,6 +231,10 @@ export class InfoGameComponent implements OnInit,OnDestroy{
     else {
       this.dialog.open(ModalCommentComponent);
     }
+  }
+  viewProfile(usuario:string){
+    const usernameFather = usuario.substring(1, usuario.indexOf(' '));
+    this.routerNavigate.navigate(['/viewProfile/',usernameFather]);
   }
 
   lookFullSynopsis(){

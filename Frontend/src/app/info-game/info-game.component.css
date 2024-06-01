@@ -66,9 +66,7 @@
 }
 .childComments{
   padding-left: 12px;
-}
-.btn {
-  background: #161a3a;
+
 }
 .showInput {
   background-color: black;
@@ -474,4 +472,15 @@ p-carousel{
   border-radius: 50px;
   color: white;
   background-color: #2c7ff3;
+}
+.photo_user{
+    border-radius: 50%;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+    width: 50px;
+    height: 50px;
+    margin-right: 10px;
+}
+.comment{
+    display: flex;
+    align-items: center;
 }

@@ -39,7 +39,6 @@ ngOnInit() {
       })
     ).subscribe(response=>{
       if (response!==null) {
-          localStorage.setItem('tokenUser', response['token']);
           localStorage.setItem('username', response['username'])
         this.route.navigate(['/']);
       }
