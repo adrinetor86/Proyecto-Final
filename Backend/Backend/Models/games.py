@@ -54,7 +54,7 @@ class Games:
             dict_return = dict_return[0]
             dict_return["genders"] = self.__get_genders(id)
             dict_return["plataforms"] = self.__get_plataforms(id)
-            dict_return["comments"] = self.__get_comments(id)
+            dict_return["comments"] = self.__charge_default_picture(self.__get_comments(id))
 
             return dict_return
         else:
