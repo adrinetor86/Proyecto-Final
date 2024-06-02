@@ -115,7 +115,14 @@ class Games:
                         "count_results": total_games,
                         "results": dict_return}
             else:
-                return {"error": "Currently this page not found", "code": 403}
+                return {"prev": None,
+                        "next": None,
+                        "current_page": 1,
+                        "total_page": 1,
+                        "min_result": offset+1,
+                        "max_result": offset + len(dict_return),
+                        "count_results": 0,
+                        "results": dict_return}
 
         except mysql.connector.Error:
             return {"error": "unknown error, check values given", "code": 400}
@@ -136,7 +143,6 @@ class Games:
     def insert_comment(self, username, id_game, content_comment, parent_comment):
 
         sql = f"INSERT INTO comments (user, id_game, content_comment, parent_comment) values ('{username}', {id_game}, '{content_comment}'"
-        print("holalalasld")
         if parent_comment != None:
             sql += f", {parent_comment})"
         else:
@@ -164,7 +170,6 @@ class Games:
             return {"success": "maps inserted successfully"}
         except mysql.connector.Error as error:
             self.__connection.rollback()
-            #print(error)
             return {"error": "Unknown error, try again", "code": 400}
 
     def __get_next(self, page, total_page, value):
@@ -334,8 +339,6 @@ class Games:
         except mysql.connector.Error as error:
             return ''
 
-        print(dict_return["parent_comment"])
-
         return dict_return["parent_comment"]
 
     def get_maps(self, id_game):
@@ -418,8 +421,6 @@ class Games:
         with open(os.path.normpath(os.path.join(os.path.dirname(os.path.abspath(__file__)), '..', 'Images', 'Profile', 'default.txt')),'r') as file:
             picture_profile = file.read()
 
-        #print(dict_return)
-
         for value in dict_return:
             if value["profile_picture"] == None:
                 value["profile_picture"] = picture_profile
@@ -430,9 +431,7 @@ class Games:
         sql = (f"INSERT INTO {self.__tables["games"]} "
                "(title, synopsis, developer, link_download, link_trailer, release_date, front_page,background_picture) "
                "VALUES "
-               f"('{title}', '{synopsis}', '{developer}', '{link_download}', '{link_trailer}', {release_date}, '{front_page}', {background_picture})")
-
-        print(sql)
+               f"('{title}', '{synopsis}', '{developer}', '{link_download}', '{link_trailer}', '{release_date}', '{front_page}', '{background_picture}')")
 
         try:
             cursor = self.__connection.cursor()
@@ -457,7 +456,8 @@ class Games:
             cursor.close()
 
             return {"success": "Insert game was success"}
-        except mysql.connector.Error:
+        except mysql.connector.Error as e:
+            print(e.msg)
             return {"error": "Cannot insert game", "code": 400}
 
 
@@ -465,7 +465,7 @@ class Games:
 
         try:
             for plataform in plataforms:
-                cursor.execute(f"INSERT INTO {self.__tables["own_plataforms"]} (id_plataform, id_game) VALUES ('{plataform}', {id_game})")
+                cursor.execute(f"INSERT INTO {self.__tables["own_plataforms"]} (id_plataform, id_game) VALUES ({plataform}, {id_game})")
 
             #self.__connection.commit()
 
@@ -477,7 +477,7 @@ class Games:
 
         try:
             for gender in genders:
-                cursor.execute(f"INSERT INTO {self.__tables["own_genders"]} (id_gender, id_game) VALUES ('{gender}', {id_game})")
+                cursor.execute(f"INSERT INTO {self.__tables["own_genders"]} (id_gender, id_game) VALUES ({gender}, {id_game})")
 
             #self.__connection.commit()
 
@@ -504,6 +504,6 @@ class Games:
             cursor.execute(sql)
             data = cursor.fetchone()
 
-            return data["id"]
+            return data[0]
         except mysql.connector.Error as error:
             return -1
