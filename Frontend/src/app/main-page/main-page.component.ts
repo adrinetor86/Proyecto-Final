@@ -46,7 +46,8 @@ export class MainPageComponent implements OnInit,OnDestroy {
             console.log(this.gamesPrueba);
             console.log(this.nextPage);
             console.log(this.prevPage);
-
+            console.log("JUEGOSSSSS")
+            console.log(juegos);
           });
         },
 
