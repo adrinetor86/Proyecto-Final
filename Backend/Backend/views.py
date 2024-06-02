@@ -48,16 +48,11 @@ def game(request, id):
 @csrf_exempt
 def search(request):
     if request.method == 'GET':
-        print("ENTRAAAAAA")
 
-        value = request.GET.get("value", "a")
-        plataforms = request.GET.get("plataforms", [])
-        genders = request.GET.get("genders", [])
+        value = request.GET.get("value", "")
+        plataforms = request.GET.getlist("platforms[]", [])
+        genders = request.GET.getlist("genders[]", [])
         page = request.GET.get("page", 1)
-
-        print(value)
-        print(page)
-        print(genders)
 
         try:
             page = int(page)
@@ -248,10 +243,9 @@ def change_picture(request, username):
 @csrf_exempt
 def new_game(request):
     if request.method == 'POST':
-        controller2 = ControllerUser(username=request.POST.get("username"))
+        data = json.loads(request.body)
+        controller2 = ControllerUser(username=data.get("username"))
         data_user = controller2.get_a_user()
-
-        print(request.POST.get("username"))
 
         if data_user is None:
             return JsonResponse({"error": "No authorizated"}, status=400)
@@ -261,25 +255,18 @@ def new_game(request):
         if not confirm_user_rol(authorization_token, data_user):
             return JsonResponse({"error": "Access denied"}, status=400)
 
-        print(request.POST)
-
-        data = json.loads(request.body)
-        maps = data.get('maps', []) #no se si la mandar por body
-        plataforms = data.get('plataforms', []) #no se si la mandar por body
-        genders = data.get('genders', []) #no se si la mandar por body
-
         controller = ControllerGames(
-            title=request.POST.get("title"),
-            synopsis=request.POST.get("synopsis"),
-            developer=request.POST.get("developer"),
-            link_download=request.POST.get("link_download"),
-            link_trailer=request.POST.get("link_trailer"),
-            release_date=request.POST.get("release_date"),
-            background_image=request.POST.get("background_picture"),
-            front_page=request.POST.get("front_page"),
-            plataforms=request.POST.get("plataforms", plataforms),
-            genders=request.POST.get("genders", genders),
-            maps=maps,
+            title=data.get("title", ""),
+            synopsis=data.get("synopsis", ""),
+            developer=data.get("developer", ""),
+            link_download=data.get("link_download", ""),
+            link_trailer=data.get("link_trailer", ""),
+            release_date=data.get("release_date", ""),
+            background_picture=data.get("background_picture", ""),
+            front_page=data.get("front_page", ""),
+            plataforms=data.get("plataforms", []),
+            genders=data.get("genders", []),
+            maps=data.get('maps', []),
         )
         response = controller.new_game()
 
