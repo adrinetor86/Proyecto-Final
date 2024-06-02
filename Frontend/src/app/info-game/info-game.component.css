@@ -491,7 +491,140 @@ p-carousel{
     height: 50px;
     margin-right: 10px;
 }
-.comment{
-    display: flex;
-    align-items: center;
+/*.comment{*/
+/*    display: flex;*/
+/*    align-items: center;*/
+/*}*/
+/* Estilos generales para la sección de comentarios */
+.comments-section {
+  background-color: #1e1e30;
+  padding: 20px;
+  border-radius: 10px;
+  max-width: 600px;
+  margin: 0 auto;
+  color: #fff;
+  font-family: 'Arial', sans-serif;
+}
+
+.comments-section .cabecera-comentarios {
+  margin-bottom: 20px;
+}
+
+.comments-section h4 {
+  margin: 0;
+}
+
+.comments-section .cuerpo-comentarios {
+  border-top: 1px solid #444;
+  padding-top: 20px;
+}
+
+.comments-section form {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.comments-section input.showInput {
+  padding: 10px;
+  border-radius: 5px;
+  border: 1px solid #444;
+  background-color: #2a2a3b;
+  color: #fff;
+  width: 100%;
+}
+
+.comments-section button.btn {
+  background-color: #3d94bf;
+  color: #fff;
+  border: none;
+  border-radius: 5px;
+  padding: 10px 20px;
+  cursor: pointer;
+  margin-right: 10px;
+}
+.comments-section button.btnCancel {
+  background-color: #c11313;
+  color: #fff;
+  border: none;
+  border-radius: 5px;
+  padding: 10px 20px;
+  cursor: pointer;
+  margin-right: 10px;
+}
+
+
+.comments-section button.btn:hover {
+  background-color: #008ecc;
+}
+
+.comments-section .contentComment {
+  margin-top: 20px;
+}
+
+.comments-section .comment {
+  display: flex;
+  align-items: flex-start;
+  margin-bottom: 20px;
+  border-bottom: 1px solid #444;
+  padding-bottom: 10px;
+}
+
+.comments-section .comment:last-child {
+  border-bottom: none;
+}
+
+.comments-section .comment img.photo_user {
+  border-radius: 50%;
+  width: 50px;
+  height: 50px;
+  margin-right: 10px;
+}
+
+.comments-section .comment-content {
+  flex: 1;
+}
+
+.comments-section .comment-content .comment-user {
+  font-weight: bold;
+  margin-right: 10px;
+}
+
+.comments-section .comment-content .comment-date {
+  color: #bbb;
+}
+
+.comments-section .comment-content .comment-text {
+  margin: 5px 0;
+}
+
+.comments-section .comment-actions {
+  display: flex;
+  gap: 10px;
+}
+
+.comments-section .comment-actions a.btn {
+  color: #00aaff;
+  text-decoration: none;
+  cursor: pointer;
+  font-size: 0.9em;
+}
+
+.comments-section .comment-actions a.btn:hover {
+  text-decoration: underline;
+}
+
+/* Estilos para comentarios hijos */
+.comments-section .childComments {
+  margin-left: 60px;
+}
+
+.comments-section .childComments .comment {
+  border: none;
+  margin-bottom: 10px;
+}
+
+.comments-section .childComments .comment img.photo_user {
+  width: 40px;
+  height: 40px;
 }

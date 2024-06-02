@@ -120,8 +120,10 @@
         </div>
       </div>
 
-      <div class="contenedor-comentarios">
-        <div class="cabecera-comentarios"><h4>Comentarios</h4></div>
+      <div class="comments-section">
+        <div class="cabecera-comentarios">
+          <h4>Comentarios</h4>
+        </div>
         <div class="cuerpo-comentarios">
           <form #formComments="ngForm">
             <input type="text" class="showInput" placeholder="Añadir Comentario" ngModel required name="commentValue" (focus)="mostrarBotonesFormPadre=true">
@@ -131,44 +133,50 @@
             </div>
           </form>
           <div class="contentComment" *ngIf="gameComment">
-            <div *ngFor="let comment of gameComment; let i = index">
-              <div class="comment">
-                <img class="photo_user" [src]="comment.profile_picture" alt="Foto no disponible">
-                {{ comment.user}}
-                <br>
-                {{ comment.content_comment}}
-              </div>
-              <div *ngIf="mostrarBotonesResponderComment">
+            <div *ngFor="let comment of gameComment; let i = index" class="comment">
+              <img class="photo_user" [src]="comment.profile_picture" alt="Foto no disponible">
+              <div class="comment-content">
                 <div>
-                  <a href="#" *ngIf="comment.next" class="btn" (click)="mostrarComentarioHijo(i); $event.preventDefault()">Ver más comentarios</a>
-                  <a href="#"  class="btn" (click)="mostrarFormComentarioHijo(i); $event.preventDefault()">Responder</a>
+                  <span class="comment-user">{{ comment.user }}</span>
+                  <span class="comment-date">{{ comment.comment_date | slice: 2:10 }}</span>
                 </div>
-              </div>
-              <div *ngIf="indiceComentario === i">
-                <form #formCommentsChild="ngForm">
-                  <input type="text" class="showInput" placeholder="Añadir Comentario" [(ngModel)]="userCommentFather" name="commentValueChild">
-                  <div style="display: flex">
-                    <button type="button" class="btn" (click)="cancelarComentario()">Cancelar</button>
-                    <button type="submit" class="btn" (click)="aniadirComentarioHijo()">Comentar</button>
+                <div class="comment-text">{{ comment.content_comment }}</div>
+                <div class="comment-actions" *ngIf="mostrarBotonesResponderComment">
+                  <a href="#" class="btn" (click)="mostrarComentarioHijo(i); $event.preventDefault()">
+                    {{ mostrarComentarios[i] ? 'Ocultar comentarios' : 'Mostrar comentarios' }}
+                  </a>
+                  <a href="#" class="btn" (click)="mostrarFormComentarioHijo(i); $event.preventDefault()">Responder</a>
+                </div>
+                <div *ngIf="indiceComentario === i">
+                  <form #formCommentsChild="ngForm">
+                    <input type="text" class="showInput" placeholder="Añadir Comentario" [(ngModel)]="userCommentFather" name="commentValueChild">
+                    <div style="display: flex">
+                      <button type="button" class="btnCancel" (click)="cancelarComentario()">Cancelar</button>
+                      <button type="submit" class="btn" (click)="aniadirComentarioHijo()">Comentar</button>
+                    </div>
+                  </form>
+                </div>
+                <div class="childComments" *ngIf="mostrarComentarios[i]">
+                  <div *ngFor="let childComment of gameCommentChild[i]" class="comment">
+                    <img class="photo_user" [src]="childComment.profile_picture" alt="Foto no disponible">
+                    <div class="comment-content">
+                      <div>
+                        <span class="comment-user">{{ childComment.user }}</span>
+                        <span class="comment-date">{{ comment.comment_date | slice: 2:10 }}</span>
+                      </div>
+                      <div class="comment-text" [innerHTML]="childComment.content_comment" (click)="viewProfile(childComment.user)"></div>
+                    </div>
                   </div>
-                </form>
-              </div>
-              <div class="childComments">
-                <div *ngFor="let childComment of gameCommentChild[i]">
-                  <img class="photo_user" [src]="childComment.profile_picture" alt="Foto no disponible">
-                  {{ childComment.user }}
-                  <br>
-                  <div [innerHTML]="childComment.content_comment" (click)="viewProfile(childComment.user)"></div>
-                  <br><br>
                 </div>
               </div>
             </div>
-            <div *ngIf="gameComment==false">
+            <div *ngIf="!gameComment.length">
               {{ noCommentsMessageGame }}
             </div>
           </div>
         </div>
       </div>
+
     </div>
   </div>
 </div>

@@ -47,12 +47,13 @@ export class InfoGameComponent implements OnInit,OnDestroy{
   suscripcionPrueba: Subscription;
   suscriptionComment: Subscription;
   suscriptionMapas: Subscription;
-  photoUserChild;
-  mostrarComentarios = false;
+  mostrarComentarios: boolean[] = [];
   noCommentsMessageGame = "Actualmente no hay comentarios para este juego";
   idCommentFather = 0;
   seeMore = false;
   seeMoreButton = "Ver más";
+  seeMoreComments = "Ver más comentarios";
+  seeLessComments = "Ocultar comentarios";
   seeLess = "Ver menos";
   searchDot: number;
   mostrarFormHijo = false;
@@ -191,7 +192,8 @@ export class InfoGameComponent implements OnInit,OnDestroy{
     }
   }
   mostrarComentarioHijo(indice: number) {
-    // this.mostrarComentarios = !this.mostrarComentarios;
+    this.mostrarComentarios[indice] = !this.mostrarComentarios[indice];
+    console.log(this.mostrarComentarios);
     const fieldNextUrlValue = this.gameComment[indice].nextFieldValue;
     if (fieldNextUrlValue) {
       this.http.get(`http://127.0.0.1:8000${fieldNextUrlValue}`).subscribe((response: any) => {
@@ -240,8 +242,9 @@ export class InfoGameComponent implements OnInit,OnDestroy{
     }
   }
   viewProfile(usuario:string){
-    const usernameFather = usuario.substring(1, usuario.indexOf(' '));
-    this.routerNavigate.navigate(['/viewProfile/',usernameFather]);
+    localStorage.setItem("perfilUsuarioExterno", usuario);
+    alert(usuario);
+    this.routerNavigate.navigate(['/viewProfile/',usuario]);
   }
 
   lookFullSynopsis(){
