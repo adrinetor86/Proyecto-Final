@@ -50,6 +50,8 @@ import { NuestroequipoComponent } from './footer/nuestroequipo/nuestroequipo.com
 import { ContactaconosotrosComponent } from './footer/contactaconosotros/contactaconosotros.component';
 import {SidebarModule} from "primeng/sidebar";
 import {ViewProfileComponent} from "./view-profile/view-profile.component";
+import { LoaderComponent } from './loader/loader.component';
+import {MatProgressSpinner} from "@angular/material/progress-spinner";
 
 @NgModule({
   declarations: [
@@ -73,7 +75,8 @@ import {ViewProfileComponent} from "./view-profile/view-profile.component";
     QuienesomosComponent,
     NuestroequipoComponent,
     ContactaconosotrosComponent,
-    ViewProfileComponent
+    ViewProfileComponent,
+    LoaderComponent
   ],
   imports: [
     BrowserModule,
@@ -108,6 +111,7 @@ import {ViewProfileComponent} from "./view-profile/view-profile.component";
     TagModule,
     ChipModule,
     SidebarModule,
+    MatProgressSpinner,
   ],
   providers: [
     {

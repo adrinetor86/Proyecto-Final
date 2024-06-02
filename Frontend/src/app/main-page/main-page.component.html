@@ -42,12 +42,15 @@
 
       <span class="span-filtro" (click)="sidebarVisible = true" title="Filtrar">
           <i class="bi bi-funnel-fill"></i>
+
       </span>
     </div>
   </div>
 
   <div class="contenedor-juegos">
-    <div class="juegos">
+    <div *ngIf="!isLoading"  class="juegos">
+      @if(totalGames){
+
       <div class="juego" *ngFor="let game of (gamesPrueba | paginate: { id: 'gamesListPagination', itemsPerPage: 15, currentPage: currentPage, totalItems: totalGames })">
 
 
@@ -65,7 +68,17 @@
           </div>
         </div>
       </div>
+
+
+    }@else{
+      <mat-progress-spinner *ngIf="isLoading" mode="determinate"></mat-progress-spinner>
+    <div class="contenedor-sinJuegos">
+        <div class="div-sinJuegos">
+        <img src="/assets/mapache-pedro.gif">
+       <h2>!Oh vaya, no hay juegos con esas caracteristicas!</h2>
+        </div>
     </div>
+      }
   </div>
 
   @if (prevPage || nextPage) {

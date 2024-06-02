@@ -4,6 +4,7 @@ import {FiltrosService} from "../servicios/filtros.service";
 import {Juego, juegoMain} from "../interfaces/juego";
 import {Subject, Subscription} from 'rxjs';
 import {BuscadorComponent} from "./buscador/buscador.component";
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 @Component({
   selector: 'app-main-page',
   templateUrl: './main-page.component.html',
@@ -25,15 +26,17 @@ export class MainPageComponent implements OnInit,OnDestroy {
   generosOpciones=[]
   plataformasOpciones=[]
   sidebarVisible: boolean = false;
-
+  isLoading = true;
   private getGamesSubject: Subject<void> = new Subject<void>();
   selectedGenres: number[] = [];
   selectedPlatforms: number[] = [];
   constructor(private juegosservice:JuegosService,private filtrosService:FiltrosService) { }
 
   ngOnInit() {
-
+    // this.loadData();
+    this.isLoading = true;
     this.getGamesSubject
+
       .subscribe({
         next: () => {
           this.suscripcion = this.juegosservice.getJuegosApi(this.currentPage,this.cadenaBusqueda,this.selectedGenres,this.selectedPlatforms).subscribe(juegos => {
@@ -42,6 +45,7 @@ export class MainPageComponent implements OnInit,OnDestroy {
             this.nextPage = juegos['next'];
             this.prevPage = juegos['prev'];
             this.totalGames = juegos['count_results'];
+
             console.log("hace llamada manito")
             console.log(this.gamesPrueba);
             console.log(this.nextPage);
@@ -62,9 +66,16 @@ export class MainPageComponent implements OnInit,OnDestroy {
 
     });
 
-
+    this.isLoading = false;
     this.getGamesSubject.next();
 
+  }
+
+  loadData() {
+    this.isLoading = true;
+    // Código para cargar datos
+    // Cuando los datos estén cargados, establece isLoading en false
+    this.isLoading = false;
   }
 
 
