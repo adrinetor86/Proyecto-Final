@@ -34,63 +34,88 @@
         <textarea id="sinopsis" ngModel name="synopsis" rows="10" class="form-control" placeholder="ejem: Genshin Impact es un JRPG gratuito de mundo abierto en el que podremos explorar un mundo vasto lleno de..."></textarea>
         <label>Géneros:</label>
         <div class="genders">
-          <label>
-            <input type="checkbox" name="genders" value="accion" (change)="updateGenres('accion', $event)">
-            Acción
-          </label>
-          <label>
-            <input type="checkbox" name="genders" value="aventura" (change)="updateGenres('aventura', $event)">
-            Aventura
-          </label>
-          <label>
-            <input type="checkbox" name="genders" value="rol" (change)="updateGenres('rol', $event)">
-            Rol
-          </label>
-          <label>
-            <input type="checkbox" name="genders" value="estrategia" (change)="updateGenres('estrategia', $event)">
-            Estrategia
-          </label>
-          <label>
-            <input type="checkbox" name="genders" value="deportes" (change)="updateGenres('deportes', $event)">
-            Deportes
-          </label>
-          <label>
-            <input type="checkbox" name="genders" value="carreras" (change)="updateGenres('carreras', $event)">
-            Carreras
-          </label>
-          <label>
-            <input type="checkbox" name="genders" value="puzzle" (change)="updateGenres('puzzle', $event)">
-            Puzzle
-          </label>
-          <label>
-            <input type="checkbox" name="genders" value="otros" (change)="updateGenres('otros', $event)">
-            Otros
-          </label>
+
+          <div *ngFor="let genre of generosOpciones">
+            <label>
+              <input type="checkbox" name="generos" [value]="genre[0]" (change)="updateGenres(genre[0], $event)" >
+              {{ genre[1] }}
+            </label>
+          </div>
+
+<!--          <label>-->
+<!--            <input type="checkbox" name="genders" value="accion" (change)="updateGenres('accion', $event)">-->
+<!--            Acción-->
+<!--          </label>-->
+<!--          <label>-->
+<!--            <input type="checkbox" name="genders" value="aventura" (change)="updateGenres('aventura', $event)">-->
+<!--            Aventura-->
+<!--          </label>-->
+<!--          <label>-->
+<!--            <input type="checkbox" name="genders" value="rol" (change)="updateGenres('rol', $event)">-->
+<!--            Rol-->
+<!--          </label>-->
+<!--          <label>-->
+<!--            <input type="checkbox" name="genders" value="estrategia" (change)="updateGenres('estrategia', $event)">-->
+<!--            Estrategia-->
+<!--          </label>-->
+<!--          <label>-->
+<!--            <input type="checkbox" name="genders" value="deportes" (change)="updateGenres('deportes', $event)">-->
+<!--            Deportes-->
+<!--          </label>-->
+<!--          <label>-->
+<!--            <input type="checkbox" name="genders" value="carreras" (change)="updateGenres('carreras', $event)">-->
+<!--            Carreras-->
+<!--          </label>-->
+<!--          <label>-->
+<!--            <input type="checkbox" name="genders" value="puzzle" (change)="updateGenres('puzzle', $event)">-->
+<!--            Puzzle-->
+<!--          </label>-->
+<!--          <label>-->
+<!--            <input type="checkbox" name="genders" value="otros" (change)="updateGenres('otros', $event)">-->
+<!--            Otros-->
+<!--          </label>-->
         </div>
 
         <label>Plataformas:</label>
         <div class="plataform">
-          <label>
-            <input type="checkbox" name="plataforms" value="Steam" (change)="updatePlatforms('Steam', $event)">
-            Steam
-          </label>
-          <label>
-            <input type="checkbox" name="plataforms" value="Nintendo" (change)="updatePlatforms('Nintendo', $event)">
-            Nintendo
-          </label>
-          <label>
-            <input type="checkbox" name="plataforms" value="Play Station" (change)="updatePlatforms('Play Station', $event)">
-            Play Station
-          </label>
-          <label>
-            <input type="checkbox" name="plataforms" value="XBOX" (change)="updatePlatforms('XBOX', $event)">
-            XBOX
-          </label>
-          <label>
-            <input type="checkbox" name="plataforms" value="Switch" (change)="updatePlatforms('Switch', $event)">
-            Switch
-          </label>
+<!--          <label>-->
+<!--            <input type="checkbox" name="plataforms" value="Steam" (change)="updatePlatforms('Steam', $event)">-->
+<!--            Steam-->
+<!--          </label>-->
+<!--          <label>-->
+<!--            <input type="checkbox" name="plataforms" value="Nintendo" (change)="updatePlatforms('Nintendo', $event)">-->
+<!--            Nintendo-->
+<!--          </label>-->
+<!--          <label>-->
+<!--            <input type="checkbox" name="plataforms" value="Play Station" (change)="updatePlatforms('Play Station', $event)">-->
+<!--            Play Station-->
+<!--          </label>-->
+<!--          <label>-->
+<!--            <input type="checkbox" name="plataforms" value="XBOX" (change)="updatePlatforms('XBOX', $event)">-->
+<!--            XBOX-->
+<!--          </label>-->
+<!--          <label>-->
+<!--            <input type="checkbox" name="plataforms" value="Switch" (change)="updatePlatforms('Switch', $event)">-->
+<!--            Switch-->
+<!--          </label>-->
+          <div *ngFor="let platform of plataformasOpciones">
+            <label>
+              <input type="checkbox" [value]="platform[0]"  name="plataforms"  (change)="updatePlatforms(platform[0], $event)">
+              {{ platform[1] }}
+            </label>
+          </div>
+
         </div>
+
+
+
+<!--        <div *ngFor="let genre of generosOpciones">-->
+<!--          <label>-->
+<!--            <input type="checkbox" [value]="genre[0]" (change)="onGenreChange(genre[0], $event)" >-->
+<!--            {{ genre[1] }}-->
+<!--          </label>-->
+<!--        </div>-->
+
         <p class="aviso2">* Todos los campos son obligatorios.</p>
       </fieldset>
 

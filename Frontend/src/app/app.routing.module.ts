@@ -16,6 +16,7 @@ import {QuienesomosComponent} from "./footer/quienesomos/quienesomos.component";
 import {NuestroequipoComponent} from "./footer/nuestroequipo/nuestroequipo.component";
 import {ContactaconosotrosComponent} from "./footer/contactaconosotros/contactaconosotros.component";
 import {ViewProfileComponent} from "./view-profile/view-profile.component";
+import {adminGuard} from "./admin.guard";
 
 const appRoutes: Routes = [
   { path: '', component: MainPageComponent },
@@ -28,7 +29,7 @@ const appRoutes: Routes = [
   { path: 'not-found', component: NotFoundComponent },
   { path: 'perfil', component: PerfilComponent },
   { path: 'testeo', component: SubirFotosComponent },
-  { path: 'aniadirJuegos', component: AniadirjuegosComponent },
+  { path: 'aniadirJuegos',canActivate:[adminGuard] ,component: AniadirjuegosComponent },
   { path: 'sobreNosotros', component: QuienesomosComponent },
   { path: 'nuestroEquipo', component: NuestroequipoComponent },
   { path: 'contactaConNosotros', component: ContactaconosotrosComponent },

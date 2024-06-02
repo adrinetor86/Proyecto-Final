@@ -30,9 +30,6 @@ export class JuegosService {
       queryParams += `&platforms[]=${platform}`;
     }
 
-    console.log('LOS PARAMS')
-    console.log(queryParams);
-
     return this.http.get<juegoMain[]>(`http://127.0.0.1:8000/api/v1/games/${queryParams}`);
     // return this.http.post<juegoMain[]>("http://127.0.0.1:8000/api/v1/games/", body);
 

@@ -67,7 +67,6 @@ export class MainPageComponent implements OnInit,OnDestroy {
   }
 
 
-
   onGenreChange(genreId: number, event: any): void {
     if (event.target.checked) {
       this.selectedGenres.push(genreId);

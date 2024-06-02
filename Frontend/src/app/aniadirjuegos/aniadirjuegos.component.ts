@@ -1,14 +1,15 @@
-import {Component, ViewChild} from '@angular/core';
+import {Component, OnDestroy, OnInit, ViewChild} from '@angular/core';
 import {NgForm} from "@angular/forms";
-import {Observable} from "rxjs";
+import {Observable, Subscription} from "rxjs";
 import {HttpClient, HttpParams} from "@angular/common/http";
 import {ValidService} from "../servicios/validate.service";
+import {FiltrosService} from "../servicios/filtros.service";
 @Component({
   selector: 'app-aniadirjuegos',
   templateUrl: './aniadirjuegos.component.html',
   styleUrl: './aniadirjuegos.component.css'
 })
-export class AniadirjuegosComponent  {
+export class AniadirjuegosComponent implements OnInit, OnDestroy {
   @ViewChild('form', {static: false}) formulario: NgForm;
 
   game = {
@@ -29,8 +30,54 @@ export class AniadirjuegosComponent  {
   plataformas: string[] = [];
   generos: string[] = [];
   portada: string;
-  constructor(private httpClient: HttpClient, private validateService: ValidService) {
+  suscripcionFiltros: Subscription;
+  opcionesFiltro: string[] = [];
+  generosOpciones=[]
+  plataformasOpciones=[]
+
+  selectedGenres: number[] = [];
+  selectedPlatforms: number[] = [];
+  constructor(private httpClient: HttpClient, private validateService: ValidService,private filtrosService:FiltrosService) {
   }
+
+
+  ngOnInit() {
+    this.suscripcionFiltros=this.filtrosService.getFiltros().subscribe(filtros => {
+      this.opcionesFiltro = filtros;
+      this.generosOpciones=this.opcionesFiltro['genders']
+      this.plataformasOpciones=this.opcionesFiltro['platforms']
+
+      console.log(this.generosOpciones);
+      console.log(this.plataformasOpciones);
+
+    });
+
+  }
+  ngOnDestroy() {
+    this.suscripcionFiltros.unsubscribe();
+  }
+
+  onPlatformChange(platformId: number, event: any): void {
+    if (event.target.checked) {
+      this.selectedPlatforms.push(platformId);
+
+    } else {
+      this.selectedPlatforms = this.selectedPlatforms.filter(id => id !== platformId);
+    }
+
+  }
+  onGenreChange(genreId: number, event: any): void {
+    if (event.target.checked) {
+      this.selectedGenres.push(genreId);
+      console.log(this.selectedGenres);
+    } else {
+      this.selectedGenres = this.selectedGenres.filter(id => id !== genreId);
+      console.log(this.selectedGenres);
+    }
+
+
+  }
+
 
   formularioJuego() {
     const title = this.formulario.value.title;
