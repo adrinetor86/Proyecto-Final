@@ -20,48 +20,48 @@ export class SubirFotosComponent {
 
   constructor(private http: HttpClient, private route: ActivatedRoute) {
   }
-  onSubmit() {
-    const id= this.formAccount.value.juegoId;
-    console.log("el id mi loko");
-    console.log(id);
-    if (this.selectedFile) {
-      const reader = new FileReader();
-      reader.onload = () => {
-         this.base64Image = reader.result as string;
-        // Aquí tienes tu imagen en base64
-        console.log(this.base64Image);
-
-        this.pasarFoto(id, this.base64Image);
-      };
-      reader.readAsDataURL(this.selectedFile);
-    }
-  }
-
   // onSubmit() {
-  //   const id = this.formAccount.value.juegoId;
-  //   console.log("El ID es:", id);
-  //
-  //   // Convertir los archivos seleccionados a base64 y almacenarlos en el array base64Images
-  //   this.base64Images = []; // Reiniciar el array de imágenes en base64
-  //   let filesProcessed = 0;
-  //
-  //
-  //
-  //   this.selectedFiles.forEach((file, index) => {
+  //   const id= this.formAccount.value.juegoId;
+  //   console.log("el id mi loko");
+  //   console.log(id);
+  //   if (this.selectedFile) {
   //     const reader = new FileReader();
   //     reader.onload = () => {
-  //       this.base64Images[index] = reader.result as string;
-  //       filesProcessed++;
+  //        this.base64Image = reader.result as string;
+  //       // Aquí tienes tu imagen en base64
+  //       console.log(this.base64Image);
   //
-  //       // Cuando todos los archivos hayan sido procesados, enviarlos al servidor
-  //       if (filesProcessed === this.selectedFiles.length) {
-  //         this.pasarFotos(28, this.base64Images);
-  //       }
+  //       this.pasarFoto(id, this.base64Image);
   //     };
-  //     reader.readAsDataURL(file);
-  //   });
-  //
+  //     reader.readAsDataURL(this.selectedFile);
+  //   }
   // }
+
+  onSubmit() {
+    const id = this.formAccount.value.juegoId;
+    console.log("El ID es:", id);
+
+    // Convertir los archivos seleccionados a base64 y almacenarlos en el array base64Images
+    this.base64Images = []; // Reiniciar el array de imágenes en base64
+    let filesProcessed = 0;
+
+
+
+    this.selectedFiles.forEach((file, index) => {
+      const reader = new FileReader();
+      reader.onload = () => {
+        this.base64Images[index] = reader.result as string;
+        filesProcessed++;
+
+        // Cuando todos los archivos hayan sido procesados, enviarlos al servidor
+        if (filesProcessed === this.selectedFiles.length) {
+          this.pasarFotos(28, this.base64Images);
+        }
+      };
+      reader.readAsDataURL(file);
+    });
+
+  }
 
 
   pasarFoto(id: number, imagen: string) {
@@ -80,19 +80,19 @@ export class SubirFotosComponent {
       maps: Maps
     };
     console.log(body);
-    this.http.post("http://127.0.0.1:8000/insert_maps/26/", JSON.stringify(body), { headers })
+    this.http.post("http://127.0.0.1:8000/insert_maps/29/", JSON.stringify(body), { headers })
       .subscribe(response => console.log(response));
   }
 
 
-  onFileChange(event: any) {
-    this.selectedFile = event.target.files[0];
-  }
-
-  // onFileChange(event: any, index: number) {
-  //   const file = event.target.files[0];
-  //   if (file) {
-  //     this.selectedFiles[index] = file;
-  //   }
+  // onFileChange(event: any) {
+  //   this.selectedFile = event.target.files[0];
   // }
+
+  onFileChange(event: any, index: number) {
+    const file = event.target.files[0];
+    if (file) {
+      this.selectedFiles[index] = file;
+    }
+  }
 }

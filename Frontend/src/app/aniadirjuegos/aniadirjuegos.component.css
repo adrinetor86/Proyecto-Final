@@ -178,7 +178,7 @@ label {
 }
 
 input:focus, textarea:focus{
-  border-color: #ffcc00;
+  border-color: #7a7777;
   box-shadow: 0 0 20px #ffcc00;
 }
 

@@ -22,9 +22,11 @@ export class LoginInterceptor implements HttpInterceptor {
             // console.log(event.body)
             this.validateService.almacenarToken(accessToken);
             this.validateService.logeado.next(true);
+            this.validateService.setRole(accessToken);
           }
           console.log("entrando en el else")
           console.log(req.url)
+
         }),
         catchError((error) => {
           console.log("entrando en el catch")

@@ -12,7 +12,7 @@ import jwt_decode, {jwtDecode} from 'jwt-decode';
 export class ValidService {
   // private jwtHelper: JwtHelperService = new JwtHelperService();
 
-
+  userRoleSubject: BehaviorSubject<number> = new BehaviorSubject<number>(this.getUserRole());
   logeado:BehaviorSubject<boolean> = new BehaviorSubject<boolean>(this.usuarioLogeado());
   constructor(private httpClient: HttpClient) {}
   decodedToken: any;
@@ -68,6 +68,11 @@ export class ValidService {
 
   }
 
+  setRole(accessToken: string): void {
+    const decodedToken = this.decodeToken(accessToken);
+    this.userRoleSubject.next(decodedToken ? decodedToken.rol : 0);
+  }
+
   borrarToken(): void {
     localStorage.removeItem('accessToken');
   }
@@ -88,33 +93,10 @@ export class ValidService {
     return localStorage.getItem('username');
   }
 
-  // getUserName(): string {
-  //   const accessToken: string = this.getAccessToken();
-  //
-  //   if (!accessToken) {
-  //     return '';
-  //   }
-  //
-  //   const decodedToken = this.jwtHelper.decodeToken(accessToken);
-  //
-  //   return decodedToken.user_name;
-  // }
-  // getUserRole(): string {
-  //   const accessToken: string = this.getAccessToken();
-  //
-  //   if (!accessToken) {
-  //     return '';
-  //   }
-  //
-  //   const decodedToken = this.jwtHelper.decodeToken(accessToken);
-  //
-  //   if (!decodedToken) {
-  //     console.error('Invalid access token');
-  //     return '';
-  //   }
-  //
-  //   return decodedToken.role;
-  // }
+  borrarUsername(): void {
+    localStorage.removeItem('username');
+  }
+
   decodeToken(token: string): any {
     try {
       return jwtDecode(token);
@@ -133,13 +115,25 @@ export class ValidService {
     return decodedToken ? decodedToken.username : '';
   }
 
-  getUserRole(): string {
+  get userRole(): Observable<number> {
+    return this.userRoleSubject.asObservable();
+  }
+
+  getUserRole(): number {
     const accessToken: string = this.getAccessToken();
     if (!accessToken) {
-      return '';
+      return 0;
     }
+
     const decodedToken = this.decodeToken(accessToken);
-    return decodedToken ? decodedToken.rol : '';
+    console.log("EL DECODED");
+    console.log(decodedToken);
+    return decodedToken ? decodedToken.rol : 0;
+
+  }
+
+  deleteUserRole(): void {
+    this.userRoleSubject.next(0);
   }
 
 }

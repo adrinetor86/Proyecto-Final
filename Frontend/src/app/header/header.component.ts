@@ -21,6 +21,10 @@ export class HeaderComponent implements OnInit,OnDestroy {
   usuarioLogado = false;
   usuarioSub :Subscription;
   datosUsuario: any;
+  rolUsuario: any;
+  fotoUsuario: any;
+  userRoleSubscription: Subscription;
+  isAdmin = false;
   //Descomentar si se quiere ver el tamaño de la ventana
   // windowWidth: number = window.innerWidth;
   // windowHeight: number = window.innerHeight;
@@ -29,25 +33,39 @@ export class HeaderComponent implements OnInit,OnDestroy {
   //   se suscribe al observable isLogged para saber si el usuario esta logeado o no
     console.log("comprobando si esta logeado");
     console.log(this.validateService.isLogged);
+
     this.usuarioSub = this.validateService.isLogged.subscribe({
     next: (value) => {
       this.usuarioLogado = value;
 
-      this.suscripcion= this.obtenerDatosUsuario("adrinetor86").subscribe({
-        next: (value) => {
-          console.log(value);
-          this.datosUsuario = value['profile'];
 
+      this.suscripcion= this.obtenerDatosUsuario(this.validateService.getUserName()).subscribe({
+        next: (value) => {
+          this.datosUsuario = value['profile'];
+          console.log("LOS DATOS DEL USUARIO");
+          console.log(this.datosUsuario);
+          this.rolUsuario = this.datosUsuario['rol'];
+          console.log("EL ROLE");
+          console.log(this.rolUsuario);
+          this.fotoUsuario=this.datosUsuario['profile_picture'];
         }
       });
     }
 
   })
-
+    this.userRoleSubscription = this.validateService.userRole.subscribe((role: number) => {
+      console.log("VEGETTAAAAAAA");
+      console.log(role);
+      this.isAdmin = role === 1;
+    });
 
     console.log(this.usuarioSub)
     console.log("se ha suscrito");
   }
+
+
+
+
 
   obtenerDatosUsuario(username: string): Observable<Object> {
     const headers = { 'Content-Type': 'application/x-www-form-urlencoded' };
@@ -62,7 +80,8 @@ export class HeaderComponent implements OnInit,OnDestroy {
     console.log("se ha fue")
     this.usuarioSub.unsubscribe();
     this.suscripcion.unsubscribe();
-    this.suscripcion.unsubscribe();
+    // this.suscripcion.unsubscribe();
+    this.userRoleSubscription.unsubscribe();
   }
 
   @HostListener('document:click', ['$event'])
@@ -73,8 +92,10 @@ export class HeaderComponent implements OnInit,OnDestroy {
     }
   }
   desconectar(){
+    this.validateService.deleteUserRole();
     this.validateService.logeado.next(false);
     this.validateService.borrarToken();
+    this.validateService.borrarUsername();
     this.router.navigate(['/']);
   }
 
@@ -98,6 +119,9 @@ export class HeaderComponent implements OnInit,OnDestroy {
 
     if (event.target.innerWidth <= 710) {
       this.menuOpen = false;
+    }
+    else {
+      this.menuOpen = false; // Cierra el menú cuando la ventana se maximiza
     }
   }
 

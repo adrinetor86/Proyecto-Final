@@ -45,8 +45,7 @@ export class MainPageComponent implements OnInit,OnDestroy {
             console.log(this.gamesPrueba);
             console.log(this.nextPage);
             console.log(this.prevPage);
-            // this.juegosFiltrados = [...this.gamesPrueba];
-            // this.games = this.juegosservice.getJuegos();
+
           });
         },
 

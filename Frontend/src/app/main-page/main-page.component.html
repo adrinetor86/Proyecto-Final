@@ -3,7 +3,6 @@
   <div class="contenedor-buscador">
 
     <input type="search"  placeholder="Buscar..." (input)="onSearchTermChange($event.target.value)" name="buscador">
-
     <div>
       <p-sidebar [(visible)]="sidebarVisible">
 
@@ -44,11 +43,7 @@
       <span class="span-filtro" (click)="sidebarVisible = true" title="Filtrar">
           <i class="bi bi-funnel-fill"></i>
       </span>
-
     </div>
-
-
-
   </div>
 
   <div class="contenedor-juegos">
