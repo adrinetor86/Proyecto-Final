@@ -132,7 +132,7 @@
           <div class="contentComment" *ngIf="gameComment">
             <div *ngFor="let comment of gameComment; let i = index">
               <div class="comment">
-                <img class="photo_user" [src]="seePhotoUser" alt="Foto no disponible">
+                <img class="photo_user" [src]="comment.profile_picture" alt="Foto no disponible">
                 {{ comment.user}}
                 <br>
                 {{ comment.content_comment}}
@@ -152,12 +152,12 @@
                   </div>
                 </form>
               </div>
-              <div class="childComments" *ngIf="mostrarComentarios">
+              <div class="childComments">
                 <div *ngFor="let childComment of gameCommentChild[i]">
-                  <img class="photo_user" [src]="seePhotoUser" alt="Foto no disponible">
+                  <img class="photo_user" [src]="childComment.profile_picture" alt="Foto no disponible">
                   {{ childComment.user }}
                   <br>
-                  <div [innerHTML]="childComment.content_comment" (click)="viewProfile()"></div>
+                  <div [innerHTML]="childComment.content_comment" (click)="viewProfile(childComment.user)"></div>
                   <br><br>
                 </div>
               </div>
