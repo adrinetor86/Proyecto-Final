@@ -8,7 +8,7 @@ import {ValidService} from "../servicios/validate.service";
   templateUrl: './aniadirjuegos.component.html',
   styleUrl: './aniadirjuegos.component.css'
 })
-export class AniadirjuegosComponent {
+export class AniadirjuegosComponent  {
   @ViewChild('form', {static: false}) formulario: NgForm;
 
   game = {
@@ -25,7 +25,10 @@ export class AniadirjuegosComponent {
 
   image_preview: string = null
   image_preview_background: string = null
-
+  mapasPrueba: string[] | []
+  plataformas: string[] = [];
+  generos: string[] = [];
+  portada: string;
   constructor(private httpClient: HttpClient, private validateService: ValidService) {
   }
 
@@ -36,35 +39,56 @@ export class AniadirjuegosComponent {
     const release_date = this.formulario.value.release_date;
     const developer = this.formulario.value.developer;
     const synopsis = this.formulario.value.synopsis;
-    const genders = this.formulario.value.genders;
-    const plataforms = this.formulario.value.plataforms;
-    const front_page = this.formulario.value.front_page;
-    const maps = this.formulario.value.maps;
+    const genders = this.generos;
+    const background_picture = this.image_preview_background;
+    const plataforms = this.plataformas;
+    const front_page = this.portada;
+    const maps = this.mapasPrueba;
 
-    this.enviarJuego(title, link_trailer, link_download, release_date, developer, synopsis, genders, plataforms, front_page, maps).subscribe(response => {
+
+    this.enviarJuego(title, link_trailer, link_download, release_date, developer, synopsis, genders,background_picture, plataforms, front_page, maps).subscribe(response => {
       console.log(response);
     });
 
   }
 
-  enviarJuego(title: string, link_trailer: string, link_download: string, release_date, developer, synopsis, genders, plataforms, front_page, maps): Observable<Object> {
+  enviarJuego(title: string, link_trailer: string, link_download: string, release_date, developer, synopsis, genders,background_picture, plataforms, front_page, maps): Observable<Object> {
 
     const headers = {'Content-Type': 'application/x-www-form-urlencoded'};
-    const body = new HttpParams()
-      .set('title', title)
-      .set('link_trailer', link_trailer)
-      .set('link_download', link_download)
-      .set('release_date', release_date)
-      .set('developer', developer)
-      .set('synopsis', synopsis)
-      .set('genders', JSON.stringify(genders))
-      .set('plataforms', JSON.stringify(plataforms))
-      .set('front_page', front_page)
-      .set('maps', JSON.stringify(maps))
-      .set('username', this.validateService.getUserName());
+    // const body = new HttpParams()
+    const body ={
+      title: title,
+      link_trailer: link_trailer,
+      link_download: link_download,
+      release_date: release_date,
+      developer: developer,
+      synopsis: synopsis,
+      genders: genders,
+      background_picture: background_picture,
+      plataforms: plataforms,
+      front_page: front_page,
+      maps: maps,
+      username: this.validateService.getUserName()
+    }
+      // .set('title', title)
+      // .set('link_trailer', link_trailer)
+      // .set('link_download', link_download)
+      // .set('release_date', release_date)
+      // .set('developer', developer)
+      // .set('synopsis', synopsis)
+      // .set('genders', genders)
+      // .set('background_picture', background_picture)
+      // .set('plataforms', plataforms)
+      // .set('front_page', front_page)
+      // .set('maps', maps)
+      // .set('username', this.validateService.getUserName());
 
-    console.log(body.toString());
-    return this.httpClient.post("http://127.0.0.1:8000/new_game/", body.toString(), {headers});
+
+    console.log("EL BODY");
+    console.log(body);
+    // console.log("EL JSONNNN");
+    // console.log(maps.toString());
+    return this.httpClient.post("http://127.0.0.1:8000/new_game/",  body, {headers});
   }
 
 
@@ -77,6 +101,7 @@ export class AniadirjuegosComponent {
         this.game.genres.splice(index, 1);
       }
     }
+    this.generos=this.game.genres;
   }
 
   updatePlatforms(platform: string, event: any) {
@@ -88,6 +113,7 @@ export class AniadirjuegosComponent {
         this.game.platforms.splice(index, 1);
       }
     }
+    this.plataformas=this.game.platforms;
   }
 
 
@@ -118,6 +144,7 @@ export class AniadirjuegosComponent {
       this.convertToBase64(file).then((base64: string) => {
         this.image_preview = base64;
         this.game.front_page = base64;
+        this.portada=this.game.front_page;
       });
     }
   }
@@ -137,7 +164,13 @@ export class AniadirjuegosComponent {
       for (let i = 0; i < event.target.files.length; i++) {
         const file = event.target.files[i];
         this.convertToBase64(file).then((base64: string) => {
+          console.log("EL BASEEEEEE");
+          // console.log(base64);
           this.game.maps.push(base64);
+          this.mapasPrueba = this.game.maps;
+
+          console.log(this.mapasPrueba);
+          // this.game.maps.push(base64);
         });
       }
     }
@@ -158,14 +191,36 @@ export class AniadirjuegosComponent {
     }
   }
 
+  // private convertToBase64(file: File): Promise<string> {
+  //   return new Promise<string>((resolve, reject) => {
+  //     console.log("Converting to base64");
+  //     const reader = new FileReader();
+  //     reader.readAsDataURL(file);
+  //     console.log(reader.result as string)
+  //     reader.onload = () => resolve(reader.result as string);
+  //
+  //     reader.onerror = error => reject(error);
+  //   });
+  // }
   private convertToBase64(file: File): Promise<string> {
     return new Promise<string>((resolve, reject) => {
+      console.log("Converting to base64");
       const reader = new FileReader();
       reader.readAsDataURL(file);
-      reader.onload = () => resolve(reader.result as string);
-      reader.onerror = error => reject(error);
+
+      reader.onload = () => {
+        const result = reader.result as string;
+         // this.mapasPrueba.push(result);
+       // console.log('Base64 conversion result:', result);
+        resolve(result);
+        console.log('Base64 conversion result:', this.mapasPrueba);
+      };
+
+      reader.onerror = error => {
+        console.error('Error during base64 conversion:', error);
+        reject(error);
+      };
     });
   }
-
 
 }

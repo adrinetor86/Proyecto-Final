@@ -23,6 +23,7 @@ export class HeaderComponent implements OnInit,OnDestroy {
   datosUsuario: any;
   rolUsuario: any;
   fotoUsuario: any;
+  nombreUsuario: any;
   userRoleSubscription: Subscription;
   isAdmin = false;
   //Descomentar si se quiere ver el tamaño de la ventana
@@ -48,13 +49,14 @@ export class HeaderComponent implements OnInit,OnDestroy {
           console.log("EL ROLE");
           console.log(this.rolUsuario);
           this.fotoUsuario=this.datosUsuario['profile_picture'];
+          this.nombreUsuario=this.datosUsuario['username'];
         }
       });
     }
 
   })
     this.userRoleSubscription = this.validateService.userRole.subscribe((role: number) => {
-      console.log("VEGETTAAAAAAA");
+
       console.log(role);
       this.isAdmin = role === 1;
     });

@@ -130,7 +130,7 @@
       <fieldset class="block5">
         <legend>Mapas</legend>
         <label for="maps">Subir Mapas:</label>
-        <input type="file" name="maps" (change)="onMapChange($event)" accept="image/*" class="form-control">
+        <input type="file" id="maps" name="maps" (change)="onMapChange($event)" accept="image/*" class="form-control">
         <button type="button" class="add" (click)="addMap()"></button>
       </fieldset>
       <p class="aviso2">* Debe contener al menos 1 mapa (máximo 7).</p>

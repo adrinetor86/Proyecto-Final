@@ -177,10 +177,6 @@ label {
   cursor: pointer;
 }
 
-input:focus, textarea:focus{
-  border-color: #7a7777;
-  box-shadow: 0 0 20px #ffcc00;
-}
 
 input, textarea {
   font-size: large;
