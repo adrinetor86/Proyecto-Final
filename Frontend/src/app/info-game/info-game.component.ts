@@ -47,9 +47,9 @@ export class InfoGameComponent implements OnInit,OnDestroy{
   suscripcionPrueba: Subscription;
   suscriptionComment: Subscription;
   suscriptionMapas: Subscription;
+  photoUserChild;
   mostrarComentarios = false;
   noCommentsMessageGame = "Actualmente no hay comentarios para este juego";
-  seePhotoUser;
   idCommentFather = 0;
   seeMore = false;
   seeMoreButton = "Ver más";
@@ -150,9 +150,8 @@ export class InfoGameComponent implements OnInit,OnDestroy{
     });
   }
   fotoUsuario(){
-    this.gameComment.forEach((comment: { profile_picture: any; }, index: string | number)=>{
-        this.seePhotoUser =this.gameComment[index].photoUser = comment.profile_picture;
-        return this.seePhotoUser;
+    this.gameComment.forEach((comment: { profile_picture: any; }) => {
+      return comment.profile_picture;
     });
   }
   verificarCampoNext() {
@@ -187,11 +186,14 @@ export class InfoGameComponent implements OnInit,OnDestroy{
     }
   }
   mostrarComentarioHijo(indice: number) {
-    this.mostrarComentarios = !this.mostrarComentarios;
+    // this.mostrarComentarios = !this.mostrarComentarios;
     const fieldNextUrlValue = this.gameComment[indice].nextFieldValue;
     if (fieldNextUrlValue) {
       this.http.get(`http://127.0.0.1:8000${fieldNextUrlValue}`).subscribe((response: any) => {
         this.gameCommentChild[indice] = response.comments;
+        this.gameCommentChild[indice].forEach((childComment: { profile_picture: any }) => {
+          return childComment.profile_picture;
+        });
       });
     }
   }
