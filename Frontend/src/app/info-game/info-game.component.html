@@ -55,6 +55,7 @@
               <a href="{{juegoPrueba.link_trailer}}">Enlace Trailer</a>
             </div>
 
+            <button class="eliminar-juego" *ngIf="isAdmin"><i class="bi bi-trash-fill"></i>Borrar Juego</button>
 
           </div>
 
@@ -100,7 +101,6 @@
                         [circular]="true"
                         [responsiveOptions]="responsiveOptions"
                         autoplayInterval="7000"
-
                       >
                         <ng-template let-mapa pTemplate="item" >
                           <div class="border-1 ms-1"  >

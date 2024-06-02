@@ -460,6 +460,17 @@ p-carousel{
   background-color:transparent;
   color: #2685ee;
 }
+.eliminar-juego{
+  background-color:red;
+  padding:7px;
+  color:black;
+  border-radius: 15px;
+}
+.bi-trash-fill{
+  font-size:15px;
+  margin-right:10px;
+  color:black;
+}
 .enlaces a{
   text-decoration: none;
 

@@ -59,10 +59,11 @@ export class InfoGameComponent implements OnInit,OnDestroy{
   mostrarBotonesFormPadre = false;
   mostrarBotonesResponderComment = true;
   indiceComentario;
+  userRoleSubscription: Subscription;
   errorMessage: string = '';
   userCommentFather: any;
   arrPlataformas: string[] = ['PC','Play Station','Xbox','Nintendo','Android','iOS'];
-
+  isAdmin = false;
   arrGeneros: string[] = ['Fantastico', 'RPG', 'Animacion',
                           'Supervivencia', 'Aventura', 'Accion',
                           'Arcade', 'Deportes', 'Estrategia',
@@ -72,7 +73,7 @@ export class InfoGameComponent implements OnInit,OnDestroy{
   constructor(private route: ActivatedRoute, private juegoservice:JuegosService, private routerNavigate: Router,
               private http: HttpClient, private isLoginUser: ValidService,public dialog: MatDialog,
               private mapaService: MapasService,private renderer: Renderer2,
-              @Inject(DOCUMENT) private document: Document, private commentService:CommentService) { }
+              @Inject(DOCUMENT) private document: Document, private commentService:CommentService,private validateService:ValidService) { }
   // TOCAR AQUI PARA PONER LA IMAGEN
 
   ngOnInit(): void {
@@ -138,7 +139,11 @@ export class InfoGameComponent implements OnInit,OnDestroy{
           ];
         });
       });
+    this.userRoleSubscription = this.validateService.userRole.subscribe((role: number) => {
 
+      console.log(role);
+      this.isAdmin = role === 1;
+    });
     this.suscriptionComment = this.route.params.subscribe(params=>{
       const gameId = params['id'];
       this.http.get(`http://127.0.0.1:8000/api/v1/game/${gameId}/`).subscribe((response:any)=>{
