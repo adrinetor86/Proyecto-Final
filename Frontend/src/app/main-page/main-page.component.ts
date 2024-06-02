@@ -42,6 +42,7 @@ export class MainPageComponent implements OnInit,OnDestroy {
             this.nextPage = juegos['next'];
             this.prevPage = juegos['prev'];
             this.totalGames = juegos['count_results'];
+            console.log("hace llamada manito")
             console.log(this.gamesPrueba);
             console.log(this.nextPage);
             console.log(this.prevPage);
@@ -103,7 +104,10 @@ export class MainPageComponent implements OnInit,OnDestroy {
 
 
   changePage(page: number) {
+
       this.currentPage = page;
+      console.log("cambia de pagina")
+      console.log(this.currentPage)
       this.getGamesSubject.next();
   }
 

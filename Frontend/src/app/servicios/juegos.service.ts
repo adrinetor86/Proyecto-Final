@@ -19,13 +19,21 @@ export class JuegosService {
   getJuegosApi(pagina:number,cadenaBusqueda:string,selectedGenres:number[],selectedPlatforms:number[]):Observable<juegoMain[]> {
 
     console.log("hace llamada manito a la pagina: "+pagina)
-    const body={
-      page:pagina,
-      value:cadenaBusqueda,
-      plataforms:selectedPlatforms,
-      genders:selectedGenres
+
+    let queryParams = `?page=${pagina}&value=${cadenaBusqueda}`
+
+    for (let gender of selectedGenres) {
+      queryParams += `&genders[]=${gender}`;
     }
-    return this.http.get<juegoMain[]>("http://127.0.0.1:8000/api/v1/games/");
+
+    for (let platform of selectedPlatforms) {
+      queryParams += `&platforms[]=${platform}`;
+    }
+
+    console.log('LOS PARAMS')
+    console.log(queryParams);
+
+    return this.http.get<juegoMain[]>(`http://127.0.0.1:8000/api/v1/games/${queryParams}`);
     // return this.http.post<juegoMain[]>("http://127.0.0.1:8000/api/v1/games/", body);
 
   }
