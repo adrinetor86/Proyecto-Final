@@ -3,6 +3,7 @@ import {Observable, Subscription} from "rxjs";
 import {HttpClient, HttpParams} from "@angular/common/http";
 import {NgForm} from "@angular/forms";
 import {ValidService} from "../servicios/validate.service";
+import {Router} from "@angular/router";
 
 @Component({
   selector: 'app-perfil',
@@ -17,7 +18,7 @@ export class PerfilComponent implements OnInit, OnDestroy{
   selectedFile: File | null = null;
   base64Image: string = '';
   datosToken: any;
-  constructor(private http: HttpClient,private validateservice:ValidService) { }
+  constructor(private http: HttpClient,private validateservice:ValidService,private route:Router) { }
   ngOnInit(): void {
      this.datosToken= this.getData();
      console.log("OHHH DIOS MIOS")
@@ -29,6 +30,11 @@ export class PerfilComponent implements OnInit, OnDestroy{
 
       }
     });
+    if(!this.validateservice.usuarioLogeado()){
+      this.route.navigate(['/']).then(r => {});
+
+    }
+
   }
   getData() {
     const name= this.validateservice.getUserName();

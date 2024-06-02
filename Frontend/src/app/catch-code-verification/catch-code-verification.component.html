@@ -4,7 +4,7 @@
     <div class="formulario">
       <div>
         <label>Introduzca el codigo de verificacion</label><br>
-                <input class="input-formulario" type="text" ngModel required name="code" pattern="[0-9]{5}">
+                <input class="input-formulario" type="text" ngModel required name="code" pattern="[0-9]{5}" maxlength="5">
 
 
 <!--        <div class="flex flex-column align-items-center ">-->
@@ -45,7 +45,6 @@
 
 
 <!--          </div>-->
-
 
           <div class="div-botones">
             <button class="cancelar-btn" type="button" (click)="cancelSendCode()">Cancelar/Renviar</button>
@@ -131,4 +130,3 @@
 <!--    </div>-->
 <!--  </form>-->
 <!--</div>-->
-

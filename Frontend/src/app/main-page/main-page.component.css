@@ -200,6 +200,9 @@ form{
   width: 30px;
   height: 30px;
 }
+.contenedor-titulo-informativo{
+  color:white;
+}
 .contenedor-titulo{
   display: flex;
   justify-content:center;

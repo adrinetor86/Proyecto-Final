@@ -1,48 +1,97 @@
-<form (ngSubmit)="onSubmit()" #imageForm="ngForm">
-<div class="contenedor-perfil">
+<!--<form (ngSubmit)="onSubmit()" #imageForm="ngForm">-->
+<!--<div class="contenedor-perfil">-->
 
-  <div class="cuerpo" >
+<!--  <div class="cuerpo" >-->
 
-    <div class="cabecera-perfil">
-      <p>Editar Perfil</p>
-    </div>
-    <div class="contenedor-foto">
-<!--      <div class="cambiar-foto">-->
-<!--        <h6>Cambiar foto de perfil</h6>-->
-<!--        <input type="file" name="nueva_foto" accept="image/*" >-->
+<!--    <div class="cabecera-perfil">-->
+<!--      <p>Editar Perfil</p>-->
+<!--    </div>-->
+<!--    <div class="contenedor-foto">-->
+<!--&lt;!&ndash;      <div class="cambiar-foto">&ndash;&gt;-->
+<!--&lt;!&ndash;        <h6>Cambiar foto de perfil</h6>&ndash;&gt;-->
+<!--&lt;!&ndash;        <input type="file" name="nueva_foto" accept="image/*" >&ndash;&gt;-->
+<!--&lt;!&ndash;      </div>&ndash;&gt;-->
+<!--        <p>Foto de Perfil</p>-->
+<!--        <img  class="foto-perfil" src="{{datosUsuario.profile_picture}}">-->
+<!--        <input type="file" (change)="onFileChange($event)" required>-->
+<!--    </div>-->
+<!--    <div class="contenedor-nombre-usuario">-->
+<!--      <div class="titulo-nombre">-->
+<!--        <p>Nombre de Usuario</p>-->
 <!--      </div>-->
+
+<!--      <div class="input-nombre">-->
+<!--        <input type="text"  placeholder="{{datosUsuario.username}}" disabled>-->
+<!--      </div>-->
+<!--    </div>-->
+
+<!--    <div class="contenedor-correo">-->
+
+<!--        <div class="titulo-correo">-->
+<!--            <p>Correo Electronico</p>-->
+<!--        </div>-->
+
+<!--        <div class="input-correo">-->
+<!--            <input type="email" placeholder="{{datosUsuario.email}}" disabled>-->
+<!--        </div>-->
+<!--    </div>-->
+
+<!--    <div class="contenedor-botones">-->
+<!--      <button  class="boton-guardar" routerLink="/" >Cancelar</button>-->
+<!--&lt;!&ndash;     Hacer q solo se habilite si se realiza algun cambio &ndash;&gt;-->
+<!--&lt;!&ndash;      <button class="boton-guardar" >Aceptar</button>&ndash;&gt;-->
+<!--      <button class="boton-guardar" type="submit" [disabled]="imageForm.invalid">Aceptar</button>-->
+<!--    </div>-->
+<!--  </div>-->
+
+<!--</div>-->
+<!--</form>-->
+
+
+
+
+
+
+<form (ngSubmit)="onSubmit()" #imageForm="ngForm" class="form-container">
+  <div class="contenedor-perfil">
+
+    <div class="cuerpo">
+
+      <div class="cabecera-perfil">
+        <p>Editar Perfil</p>
+      </div>
+
+      <div class="contenedor-foto">
         <p>Foto de Perfil</p>
-        <img  class="foto-perfil" src="{{datosUsuario.profile_picture}}">
+        <img class="foto-perfil" src="{{datosUsuario.profile_picture}}">
         <input type="file" (change)="onFileChange($event)" required>
-    </div>
-    <div class="contenedor-nombre-usuario">
-      <div class="titulo-nombre">
-        <p>Nombre de Usuario</p>
       </div>
 
-      <div class="input-nombre">
-        <input type="text"  placeholder="{{datosUsuario.username}}" disabled>
+      <div class="contenedor-nombre-usuario">
+        <div class="titulo-nombre">
+          <p>Nombre de Usuario</p>
+        </div>
+        <div class="input-nombre">
+          <input type="text" placeholder="{{datosUsuario.username}}" disabled>
+        </div>
       </div>
-    </div>
 
-    <div class="contenedor-correo">
-
+      <div class="contenedor-correo">
         <div class="titulo-correo">
-            <p>Correo Electronico</p>
+          <p>Correo Electrónico</p>
         </div>
-
         <div class="input-correo">
-            <input type="email" placeholder="{{datosUsuario.email}}" disabled>
+          <input type="email" placeholder="{{datosUsuario.email}}" disabled>
         </div>
+      </div>
+
+      <div class="contenedor-botones">
+        <button class="boton-cancelar" routerLink="/">Cancelar</button>
+        <button class="boton-guardar" type="submit" [disabled]="imageForm.invalid">Aceptar</button>
+      </div>
+
     </div>
 
-    <div class="contenedor-botones">
-      <button  class="boton-guardar" routerLink="/" >Cancelar</button>
-<!--     Hacer q solo se habilite si se realiza algun cambio -->
-<!--      <button class="boton-guardar" >Aceptar</button>-->
-      <button class="boton-guardar" type="submit" [disabled]="imageForm.invalid">Aceptar</button>
-    </div>
   </div>
-
-</div>
 </form>
+

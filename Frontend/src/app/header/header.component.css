@@ -15,7 +15,13 @@ nav ul:not(.lista-panel):not(.dropdown ul) {
 nav li{
   height: 50px;
 }
+.foto-icono{
+  width: 50px;
+  height: 50px;
 
+  margin-left: 22px;
+
+}
 /*.enlace-nombre-usuario{*/
 /*  margin-right: 150px;*/
 /*}*/
