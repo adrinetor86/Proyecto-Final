@@ -74,10 +74,16 @@ class Games:
         sql = f"SELECT id, title, front_page FROM {self.__tables["games"]} WHERE title LIKE '%{value}%' "
 
         if len(genders) > 0:
-            sql += f"AND id IN (SELECT DISTINCT gg.id_game FROM games_genders gg WHERE gg.id_gender IN {genders}) "
+            if len(genders) == 1:
+                sql += f"AND id IN (SELECT DISTINCT gg.id_game FROM games_genders gg WHERE gg.id_gender = {genders[0]}) "
+            else:
+                sql += f"AND id IN (SELECT DISTINCT gg.id_game FROM games_genders gg WHERE gg.id_gender IN {genders}) "
 
         if len(plataforms) > 0:
-            sql += f"AND id IN (SELECT DISTINCT gp.id_game FROM games_plataforms gp WHERE gp.id_plataform IN {plataforms}) "
+            if len(plataforms) == 1:
+                sql += f"AND id IN (SELECT DISTINCT gp.id_game FROM games_plataforms gp WHERE gp.id_plataform = {plataforms[0]}) "
+            else:
+                sql += f"AND id IN (SELECT DISTINCT gp.id_game FROM games_plataforms gp WHERE gp.id_plataform IN {plataforms}) "
 
         sql += f" ORDER BY games.release_date LIMIT 15 OFFSET {offset}"
 

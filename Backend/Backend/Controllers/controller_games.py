@@ -44,7 +44,7 @@ class ControllerGames:
     def search(self, page):
         self.__genders = tuple(self.__genders)
         self.__plataforms = tuple(self.__plataforms)
-        return self.__games_model.search_game(self.__title, page, self.__plataforms, self.__genders)
+        return self.__games_model.search_game(self.__title, page, self.__genders, self.__plataforms)
 
     def update_front_page(self):
         if self.__front_page != "":

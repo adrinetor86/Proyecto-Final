@@ -16,10 +16,17 @@ export class JuegosService {
 
   constructor(private http: HttpClient) { }
 
-  getJuegosApi(pagina:number,cadenaBusqueda:string):Observable<juegoMain[]> {
+  getJuegosApi(pagina:number,cadenaBusqueda:string,selectedGenres:number[],selectedPlatforms:number[]):Observable<juegoMain[]> {
 
     console.log("hace llamada manito a la pagina: "+pagina)
-    return this.http.get<juegoMain[]>("http://127.0.0.1:8000/api/v1/games/?page="+pagina+"&value="+cadenaBusqueda);
+    const body={
+      page:pagina,
+      value:cadenaBusqueda,
+      plataforms:selectedPlatforms,
+      genders:selectedGenres
+    }
+    return this.http.post<juegoMain[]>("http://127.0.0.1:8000/api/v1/games/", JSON.stringify(body));
+    // return this.http.post<juegoMain[]>("http://127.0.0.1:8000/api/v1/games/", body);
 
   }
 

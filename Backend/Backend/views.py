@@ -48,10 +48,11 @@ def game(request, id):
 @csrf_exempt
 def search(request):
     if request.method == 'POST':
+        print("ENTRAAAAAA")
         body_unicode = request.body.decode('utf-8')
         body_data = json.loads(body_unicode)
 
-        value = body_data.get("value", "")
+        value = body_data.get("value", "a")
         plataforms = body_data.get("plataforms", [])
         genders = body_data.get("genders", [])
         page = body_data.get("page", 1)

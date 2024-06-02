@@ -27,6 +27,8 @@ export class MainPageComponent implements OnInit,OnDestroy {
   sidebarVisible: boolean = false;
 
   private getGamesSubject: Subject<void> = new Subject<void>();
+  selectedGenres: number[] = [];
+  selectedPlatforms: number[] = [];
   constructor(private juegosservice:JuegosService,private filtrosService:FiltrosService) { }
 
   ngOnInit() {
@@ -34,13 +36,15 @@ export class MainPageComponent implements OnInit,OnDestroy {
     this.getGamesSubject
       .subscribe({
         next: () => {
-          this.suscripcion = this.juegosservice.getJuegosApi(this.currentPage,this.cadenaBusqueda).subscribe(juegos => {
+          this.suscripcion = this.juegosservice.getJuegosApi(this.currentPage,this.cadenaBusqueda,this.selectedGenres,this.selectedPlatforms).subscribe(juegos => {
             this.gamesPrueba = juegos['results'];
             this.currentPage = juegos['current_page'];
             this.nextPage = juegos['next'];
             this.prevPage = juegos['prev'];
             this.totalGames = juegos['count_results'];
             console.log(this.gamesPrueba);
+            console.log(this.nextPage);
+            console.log(this.prevPage);
             // this.juegosFiltrados = [...this.gamesPrueba];
             // this.games = this.juegosservice.getJuegos();
           });
@@ -62,8 +66,7 @@ export class MainPageComponent implements OnInit,OnDestroy {
 
   }
 
-  selectedGenres: number[] = [];
-  selectedPlatforms: number[] = [];
+
 
   onGenreChange(genreId: number, event: any): void {
     if (event.target.checked) {
@@ -71,17 +74,19 @@ export class MainPageComponent implements OnInit,OnDestroy {
       console.log(this.selectedGenres);
     } else {
       this.selectedGenres = this.selectedGenres.filter(id => id !== genreId);
+      console.log(this.selectedGenres);
     }
+    this.getGamesSubject.next();
   }
 
   onPlatformChange(platformId: number, event: any): void {
-
     if (event.target.checked) {
       this.selectedPlatforms.push(platformId);
-        console.log(this.selectedPlatforms);
+
     } else {
       this.selectedPlatforms = this.selectedPlatforms.filter(id => id !== platformId);
     }
+    this.getGamesSubject.next();
   }
 
 
