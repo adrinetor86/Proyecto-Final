@@ -25,7 +25,7 @@ export class JuegosService {
       plataforms:selectedPlatforms,
       genders:selectedGenres
     }
-    return this.http.post<juegoMain[]>("http://127.0.0.1:8000/api/v1/games/", JSON.stringify(body));
+    return this.http.get<juegoMain[]>("http://127.0.0.1:8000/api/v1/games/");
     // return this.http.post<juegoMain[]>("http://127.0.0.1:8000/api/v1/games/", body);
 
   }
