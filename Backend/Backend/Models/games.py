@@ -72,17 +72,22 @@ class Games:
         limit = page * 15
         offset = limit - 15
         sql = f"SELECT id, title, front_page FROM {self.__tables["games"]} WHERE title LIKE '%{value}%' "
+        query = f"SELECT count(*) FROM {self.__tables["games"]} WHERE title LIKE '%{value}%' "
 
         if len(genders) > 0:
             if len(genders) == 1:
+                query += f"AND id IN (SELECT DISTINCT gg.id_game FROM games_genders gg WHERE gg.id_gender = {genders[0]}) "
                 sql += f"AND id IN (SELECT DISTINCT gg.id_game FROM games_genders gg WHERE gg.id_gender = {genders[0]}) "
             else:
+                query += f"AND id IN (SELECT DISTINCT gg.id_game FROM games_genders gg WHERE gg.id_gender IN {genders}) "
                 sql += f"AND id IN (SELECT DISTINCT gg.id_game FROM games_genders gg WHERE gg.id_gender IN {genders}) "
 
         if len(plataforms) > 0:
             if len(plataforms) == 1:
+                query += f"AND id IN (SELECT DISTINCT gp.id_game FROM games_plataforms gp WHERE gp.id_plataform = {plataforms[0]}) "
                 sql += f"AND id IN (SELECT DISTINCT gp.id_game FROM games_plataforms gp WHERE gp.id_plataform = {plataforms[0]}) "
             else:
+                query += f"AND id IN (SELECT DISTINCT gp.id_game FROM games_plataforms gp WHERE gp.id_plataform IN {plataforms}) "
                 sql += f"AND id IN (SELECT DISTINCT gp.id_game FROM games_plataforms gp WHERE gp.id_plataform IN {plataforms}) "
 
         sql += f" ORDER BY games.release_date LIMIT 15 OFFSET {offset}"
@@ -95,12 +100,15 @@ class Games:
             dict_return = cursor.fetchall()
             cursor.close()
 
-            total_games = self.__total_games(value)
+            total_games = self.__total_games(query)
 
             if total_games == -1:
                 return {"error": "Unknown error", "code": 400}
             else:
                 total_page = math.ceil(total_games/15)
+
+                print(dict_return)
+                print("longuitud es: " + str(len(dict_return)))
 
             if len(dict_return) != 0:
                 prev = self.__get_prev(page, value)
@@ -194,8 +202,8 @@ class Games:
 
         return prev
 
-    def __total_games(self, value: str) -> int:
-        sql = f"SELECT count(*) FROM {self.__tables["games"]} WHERE title LIKE '%{value}%'"
+    def __total_games(self, query: str) -> int:
+        sql = query
 
         try:
             cursor = self.__connection.cursor(dictionary=True)
