@@ -1,1 +1,40 @@
-<h1>AQUI DEBERIA IR EL PERFIL DEL USUARIO???????</h1>
+
+  <div class="contenedor-perfil">
+
+    <div class="cuerpo" >
+
+      <div class="cabecera-perfil">
+<!--        <p>Editar Perfil</p>-->
+      </div>
+      <div class="contenedor-foto">
+        <!--      <div class="cambiar-foto">-->
+        <!--        <h6>Cambiar foto de perfil</h6>-->
+        <!--        <input type="file" name="nueva_foto" accept="image/*" >-->
+        <!--      </div>-->
+        <p>Foto de Perfil</p>
+        <img class="photo_user" src="{{datosUsuario.profile_picture}}" alt="Imagen no disponible">
+      </div>
+      <div class="contenedor-nombre-usuario">
+        <div class="titulo-nombre">
+          <p>Nombre de Usuario</p>
+        </div>
+
+        <div class="input-nombre">
+          <input type="text"  placeholder="{{datosUsuario.username}}" disabled>
+        </div>
+      </div>
+
+      <div class="contenedor-correo">
+
+        <div class="titulo-correo">
+          <p>Correo Electronico</p>
+        </div>
+
+        <div class="input-correo">
+          <input type="email" placeholder="{{datosUsuario.email}}" disabled>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
