@@ -92,7 +92,7 @@ class Games:
 
         sql += f" ORDER BY games.release_date LIMIT 15 OFFSET {offset}"
 
-        print(sql)
+#         print(sql)
 
         try:
             cursor = self.__connection.cursor(dictionary=True)
@@ -107,7 +107,7 @@ class Games:
             else:
                 total_page = math.ceil(total_games/15)
 
-                print(dict_return)
+#                 print(dict_return)
                 print("longuitud es: " + str(len(dict_return)))
 
             if len(dict_return) != 0:
