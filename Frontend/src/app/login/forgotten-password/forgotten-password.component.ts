@@ -17,7 +17,6 @@ export class ForgottenPasswordComponent {
   constructor(private validateService: ValidService, private route:Router, private emailAccountForgotten: RecoveryEmailService) {}
   recoveryPassword(){
     this.emailAccountForgotten.email = this.formAccount.value.email;
-    console.log(this.emailAccountForgotten.email)
     this.validateService.sendCodeRecoveryPassword(this.emailAccountForgotten.email).pipe(
       catchError(() => {
         this.errorValidate = true;
