@@ -78,6 +78,16 @@ class ControllerGames:
     def get_filters(self):
         return self.__games_model.get_filters()
 
+    def edit_game(self):
+        if self.__validate_fields():
+            return self.__games_model.update_game(self.__id, self.__title, self.__synopsis,
+                                                  self.__developer, self.__link_download,
+                                                  self.__link_trailer, self.__release_date,
+                                                  self.__front_page, self.__background_picture,
+                                                  self.__plataforms, self.__genders, self.__maps)
+        else:
+            return {"error": "Invalid fields", "code": 409}
+
     def new_game(self):
         if self.__validate_fields():
             return self.__games_model.insert_game(self.__title, self.__synopsis,
@@ -89,6 +99,9 @@ class ControllerGames:
             return {"error": "Invalid fields", "code": 409}
 
     def __validate_fields(self):
+
+        if self.__id == 0:
+            return False
 
         if len(self.__title) > 200 or len(self.__title) == 0:
             return False

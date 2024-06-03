@@ -277,6 +277,45 @@ def new_game(request):
     else:
         return JsonResponse({"error": "Bad Request"}, status=405)
 
+
+@csrf_exempt
+def edit_game(request):
+    if request.method == 'POST':
+        data = json.loads(request.body)
+        controller2 = ControllerUser(username=data.get("username"))
+        data_user = controller2.get_a_user()
+
+        if data_user is None:
+            return JsonResponse({"error": "No authorizated"}, status=400)
+
+        authorization_token = request.headers.get("Authorization", "").strip()
+
+        if not confirm_user_rol(authorization_token, data_user):
+            return JsonResponse({"error": "Access denied"}, status=400)
+
+        controller = ControllerGames(
+            id=data.get("id", 0),
+            title=data.get("title", ""),
+            synopsis=data.get("synopsis", ""),
+            developer=data.get("developer", ""),
+            link_download=data.get("link_download", ""),
+            link_trailer=data.get("link_trailer", ""),
+            release_date=data.get("release_date", ""),
+            background_picture=data.get("background_picture", ""),
+            front_page=data.get("front_page", ""),
+            plataforms=data.get("plataforms", []),
+            genders=data.get("genders", []),
+            maps=data.get('maps', []),
+        )
+        response = controller.edit_game()
+
+        if response.get("error", "") == "":
+            return JsonResponse({"success": response}, status=200)
+        else:
+            return JsonResponse({"error": response.get("error", "Unknown error")}, status=response.get("code", 400))
+    else:
+        return JsonResponse({"error": "Bad Request"}, status=405)
+
 @csrf_exempt
 def portada(request):
     if request.method == 'POST':

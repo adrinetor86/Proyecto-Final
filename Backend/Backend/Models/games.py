@@ -92,8 +92,6 @@ class Games:
 
         sql += f" ORDER BY games.release_date LIMIT 15 OFFSET {offset}"
 
-        print(sql)
-
         try:
             cursor = self.__connection.cursor(dictionary=True)
             cursor.execute(sql)
@@ -106,9 +104,6 @@ class Games:
                 return {"error": "Unknown error", "code": 400}
             else:
                 total_page = math.ceil(total_games/15)
-
-                print(dict_return)
-                print("longuitud es: " + str(len(dict_return)))
 
             if len(dict_return) != 0:
                 prev = self.__get_prev(page, value)
@@ -470,8 +465,11 @@ class Games:
 
 
     def __insert_plataforms(self, id_game, plataforms, cursor):
+        sql = (f"DELETE FROM {self.__tables['own_plataforms']} "
+               f"WHERE id_game = {id_game}")
 
         try:
+            cursor.execute(sql)
             for plataform in plataforms:
                 cursor.execute(f"INSERT INTO {self.__tables["own_plataforms"]} (id_plataform, id_game) VALUES ({plataform}, {id_game})")
 
@@ -482,8 +480,11 @@ class Games:
             return False
 
     def __insert_genders(self, id_game, genders, cursor):
+        sql = (f"DELETE FROM {self.__tables['own_genders']} "
+               f"WHERE id_game = {id_game}")
 
         try:
+            cursor.execute(sql)
             for gender in genders:
                 cursor.execute(f"INSERT INTO {self.__tables["own_genders"]} (id_gender, id_game) VALUES ({gender}, {id_game})")
 
@@ -494,8 +495,11 @@ class Games:
             return False
 
     def __insert_maps(self, id_game, maps, cursor):
+        sql = (f"DELETE FROM {self.__tables['own_maps']} "
+               f"WHERE id_game = {id_game}")
 
         try:
+            cursor.execute(sql)
             for map in maps:
                 cursor.execute(f"INSERT INTO {self.__tables["own_maps"]} (url_map, id_game) VALUES ('{map}', {id_game})")
 
@@ -515,3 +519,34 @@ class Games:
             return data[0]
         except mysql.connector.Error as error:
             return -1
+
+    def update_game(self, id, title, synopsis, developer, link_download, link_trailer, release_date, front_page, background_picture, plataforms, genders, maps):
+        sql = (f"UPDATE {self.__tables['games']} "
+               f"SET title = '{title}', synopsis = '{synopsis}', developer = '{developer}', "
+               f"link_download = '{link_download}', link_trailer = '{link_trailer}', "
+               f"release_date = '{release_date}', front_page = '{front_page}', "
+               f"background_picture = '{background_picture}' "
+               f"WHERE id = {id}")
+
+        try:
+            cursor = self.__connection.cursor()
+            cursor.execute(sql)
+            #self.__connection.commit()
+
+            if not self.__insert_plataforms(id, plataforms, cursor):
+                return {"error": "Fatal error (plataforms)", "code": 400}
+
+            if not self.__insert_genders(id, genders, cursor):
+                return {"error": "Fatal error (genders)", "code": 400}
+
+            if not self.__insert_maps(id, maps, cursor):
+                return {"error": "Fatal error (maps)", "code": 400}
+
+            self.__connection.commit()
+            cursor.close()
+
+            return {"success": "Insert game was success"}
+        except mysql.connector.Error as e:
+            print(e.msg)
+            return {"error": "Cannot insert game", "code": 400}
+
