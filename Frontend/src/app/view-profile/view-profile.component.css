@@ -5,3 +5,192 @@
   height: 50px;
   margin-right: 10px;
 }
+
+
+.main-content{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+  width: 100%;
+  background: linear-gradient(135deg, #F3BBEC, #F6C09B, #F4B03A);
+  /*background: url('/assets/Antobsgames.png');*/
+  background-size: cover; /* Asegura que la imagen cubra todo el espacio disponible */
+  background-position: center; /* Centra la imagen en el contenedor */
+
+}
+:host{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: #c47171;
+  height: 80vh;
+}
+
+
+
+/*.contenedor-perfil {*/
+/*  background: linear-gradient(135deg, #f3ec78, rgba(176, 92, 114, 0.73));*/
+/*  border-radius: 16px;*/
+/*  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);*/
+/*  padding: 30px;*/
+/*  max-width: 450px;*/
+/*  width: 100%;*/
+/*  margin: 20px;*/
+/*  box-sizing: border-box;*/
+/*  color: #333;*/
+/*}*/
+
+/*.cuerpo {*/
+/*  text-align: center;*/
+/*}*/
+
+/*.cabecera-perfil {*/
+/*  margin-bottom: 20px;*/
+/*}*/
+
+/*.cabecera-perfil h2 {*/
+/*  color: #fff;*/
+/*  margin: 0;*/
+/*  font-size: 24px;*/
+/*}*/
+
+/*.contenedor-foto {*/
+/*  margin-bottom: 20px;*/
+/*}*/
+
+/*.contenedor-foto p {*/
+/*  margin-bottom: 10px;*/
+/*  font-weight: bold;*/
+/*  color: #fff;*/
+/*}*/
+
+/*.photo_user {*/
+/*  border-radius: 50%;*/
+/*  width: 120px;*/
+/*  height: 120px;*/
+/*  object-fit: cover;*/
+/*  border: 3px solid #fff;*/
+/*}*/
+
+/*.contenedor-nombre-usuario, .contenedor-correo {*/
+/*  margin-bottom: 20px;*/
+/*}*/
+
+/*.titulo-nombre, .titulo-correo {*/
+/*  margin-bottom: 10px;*/
+/*  font-weight: bold;*/
+/*  color: #fff;*/
+/*}*/
+
+/*.nombre p, .correo p {*/
+/*  margin: 0;*/
+/*  padding: 10px;*/
+/*  border: 1px solid #ccc;*/
+/*  border-radius: 4px;*/
+/*  box-sizing: border-box;*/
+/*  background-color: #fff;*/
+/*  color: #333;*/
+/*  font-size: 16px;*/
+/*}*/
+
+/*!* Responsive Styles *!*/
+/*@media (min-width: 768px) {*/
+/*  .contenedor-perfil {*/
+/*    max-width: 600px;*/
+/*  }*/
+/*}*/
+.contenedor-perfil {
+  background: linear-gradient(135deg, #f3bbec, #f6c09b, #f4b03a);
+  border-radius: 16px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  padding: 30px;
+  max-width: 450px;
+  width: 100%;
+  margin: 20px;
+  box-sizing: border-box;
+  color: #333;
+}
+
+.cuerpo {
+  text-align: center;
+}
+
+.cabecera-perfil {
+  margin-bottom: 20px;
+  position: relative;
+}
+
+.boton-volver {
+  position: absolute;
+  left: 0;
+  top: 50%;
+  transform: translateY(-50%);
+  background-color: #fff;
+  color: #333;
+  border: none;
+  border-radius: 8px;
+  padding: 10px 20px;
+  cursor: pointer;
+  font-weight: bold;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  transition: background-color 0.3s ease;
+}
+
+.boton-volver:hover {
+  background-color: #f4b03a;
+  color: #fff;
+}
+
+.cabecera-perfil h2 {
+  color: #fff;
+  margin: 0;
+  /*font-size: 24px;*/
+}
+
+.contenedor-foto {
+  margin-bottom: 20px;
+}
+
+.contenedor-foto p {
+  margin-bottom: 10px;
+  font-weight: bold;
+  color: #fff;
+}
+
+.photo_user {
+  border-radius: 50%;
+  width: 120px;
+  height: 120px;
+  object-fit: cover;
+  border: 3px solid #fff;
+}
+
+.contenedor-nombre-usuario, .contenedor-correo {
+  margin-bottom: 20px;
+}
+
+.titulo-nombre, .titulo-correo {
+  margin-bottom: 10px;
+  font-weight: bold;
+  color: #fff;
+}
+
+.nombre p, .correo p {
+  margin: 0;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  box-sizing: border-box;
+  background-color: #fff;
+  color: #333;
+  font-size: 16px;
+}
+
+
+/* Responsive Styles */
+@media (min-width: 768px) {
+  .contenedor-perfil {
+    max-width: 600px;
+  }
+}

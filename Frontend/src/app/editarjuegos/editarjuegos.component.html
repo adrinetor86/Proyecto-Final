@@ -6,22 +6,22 @@
       <fieldset class="block1">
         <legend>Datos</legend>
         <label for="titulo">Título:</label>
-        <input type="text" id="titulo" ngModel name="title" class="form-control" placeholder="ejem: Genshin Impact...">
+        <input type="text" id="titulo" ngModel name="title"  [(ngModel)]="juegoPrueba.title" class="form-control" placeholder="ejem: Genshin Impact...">
         <br>
 
         <label for="developer">Developer:</label>
-        <input type="text" id="developer" ngModel name="developer" class="form-control" placeholder="ejem: Hoyoverse..."><br>
+        <input type="text" id="developer" ngModel name="developer" [(ngModel)]="juegoPrueba.developer" class="form-control" placeholder="ejem: Hoyoverse..."><br>
 
         <label for="url1">Enlace trailer:</label>
-        <input type="url" id="url1" ngModel name="link_trailer" class="form-control" placeholder="ejem: https://www.youtube.com/watch?v=HLUY1nICQRY&ab_channel=IGN">
+        <input type="url" id="url1" ngModel name="link_trailer" class="form-control" [(ngModel)]="juegoPrueba.link_trailer" placeholder="ejem: https://www.youtube.com/watch?v=HLUY1nICQRY&ab_channel=IGN">
         <br>
 
         <label for="url2">Enlace descarga:</label>
-        <input type="url" id="url2" ngModel name="link_download" class="form-control" placeholder="ejem: https://www.youtube.com/watch?v=HLUY1nICQRY&ab_channel=IGN">
+        <input type="url" id="url2" ngModel name="link_download" class="form-control" [(ngModel)]="juegoPrueba.link_download" placeholder="ejem: https://www.youtube.com/watch?v=HLUY1nICQRY&ab_channel=IGN">
         <br>
 
         <label for="fecha">Fecha:</label>
-        <input type="date" id="fecha" ngModel name="release_date" class="form-control"><br>
+        <input type="date" id="fecha" ngModel name="release_date" [(ngModel)]="juegoPrueba.release_date" class="form-control"><br>
         <br>
 
         <p class="aviso">* Todos los campos son obligatorios.</p>
@@ -31,13 +31,13 @@
       <fieldset class="block2">
         <legend>Especificaciones</legend>
         <label for="sinopsis">Sinopsis:</label>
-        <textarea id="sinopsis" ngModel name="synopsis" rows="10" class="form-control" placeholder="ejem: Genshin Impact es un JRPG gratuito de mundo abierto en el que podremos explorar un mundo vasto lleno de..."></textarea>
+        <textarea id="sinopsis" ngModel name="synopsis" [(ngModel)]="juegoPrueba.synopsis" rows="10"  class="form-control" placeholder="ejem: Genshin Impact es un JRPG gratuito de mundo abierto en el que podremos explorar un mundo vasto lleno de..."></textarea>
         <label>Géneros:</label>
         <div class="genders">
 
           <div *ngFor="let genre of generosOpciones">
             <label>
-              <input type="checkbox" name="generos" [value]="genre[0]" (change)="updateGenres(genre[0], $event)" >
+              <input type="checkbox" name="generos" [value]="genre[0]"  (change)="updateGenres(genre[0], $event)" >
               {{ genre[1] }}
             </label>
           </div>
@@ -65,11 +65,11 @@
         <section class="container_example_frontPage">
           <article class="insert_image">
             <label for="portada">Subir Imagen:</label>
-            <input type="file" id="portada" ngModel name="front_page" (change)="onImageChange_front($event)" accept="image/*" class="form-control">
+            <input type="file" id="portada" ngModel name="front_page" [(ngModel)]="juegoPrueba.front_page" (change)="onImageChange_front($event)" accept="image/*" class="form-control">
           </article>
           <article class="view_image front_page" *ngIf="image_preview">
             <label>Ejemplo</label>
-            <img [src]="image_preview" alt="no disponible" id="front_page_example">
+            <img [src]="image_preview"  alt="no disponible" id="front_page_example">
           </article>
         </section>
         <p class="aviso2">* Imagen de Portada obligatoria.</p>
@@ -106,4 +106,3 @@
     </div>
   </form>
 </main>
-

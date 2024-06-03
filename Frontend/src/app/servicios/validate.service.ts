@@ -51,12 +51,14 @@ export class ValidService {
   }
   changePasswordAccount(email:string, new_password:string){
     const token = localStorage.getItem("token")
+
     const headers = { 'Content-Type': 'application/x-www-form-urlencoded',
       'Authorization': token };
     const body = new HttpParams()
       .set('email', email)
       .set('new_password', new_password)
-
+    console.log("entra")
+    console.log(body.toString())
     return this.httpClient.post("http://127.0.0.1:8000/change_password/", body.toString(), { headers });
   }
   get isLogged(): Observable<boolean> {

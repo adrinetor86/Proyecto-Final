@@ -55,9 +55,10 @@
             <div class="enlaces">
               <a href="{{juegoPrueba.link_trailer}}">Enlace Trailer</a>
             </div>
-
-            <button class="eliminar-juego" *ngIf="isAdmin"><i class="bi bi-trash-fill"></i>Borrar Juego</button>
-
+        <div class="contenedores-botones-admin">
+          <button class="editar-juego" *ngIf="isAdmin" routerLink="/editarJuego/{{idJuego}}"><i class="bi bi-pencil-fill"></i>Editar Juego</button>
+            <button class="eliminar-juego" *ngIf="isAdmin" (click)="onDelete()"><i class="bi bi-trash-fill"></i>Borrar Juego</button>
+        </div>
           </div>
 
         </div>

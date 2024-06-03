@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import {Observable, Subscription} from "rxjs";
 import {HttpClient, HttpParams} from "@angular/common/http";
+import {Location} from "@angular/common";
 
 @Component({
   selector: 'app-view-profile',
@@ -12,7 +13,7 @@ export class ViewProfileComponent {
   nameUser = localStorage.getItem("perfilUsuarioExterno");
   datosUsuario;
   suscripcion:Subscription;
-  constructor(private http:HttpClient) {
+  constructor(private http:HttpClient,private location:Location) {
   }
   ngOnInit(): void {
     console.log("OHHH DIOS MIOS")
@@ -26,6 +27,9 @@ export class ViewProfileComponent {
       }
     });
   }
+  onBack() {
+  this.location.back();
+  }
   obtenerDatosUsuario(username: string): Observable<Object> {
     const headers = { 'Content-Type': 'application/x-www-form-urlencoded' };
     const body = new HttpParams()
@@ -34,3 +38,5 @@ export class ViewProfileComponent {
     return this.http.post("http://127.0.0.1:8000/your_profile/"+username+"/", body.toString(),{ headers });
   }
 }
+
+

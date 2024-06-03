@@ -1,5 +1,5 @@
 import {Component, OnDestroy, OnInit, ViewChild} from '@angular/core';
-import {Observable, Subscription} from "rxjs";
+import {catchError, Observable, of, Subscription} from "rxjs";
 import {HttpClient, HttpParams} from "@angular/common/http";
 import {NgForm} from "@angular/forms";
 import {ValidService} from "../servicios/validate.service";
@@ -18,6 +18,8 @@ export class PerfilComponent implements OnInit, OnDestroy{
   selectedFile: File | null = null;
   base64Image: string = '';
   datosToken: any;
+  errorValidate = false;
+  errorMessage = '';
   constructor(private http: HttpClient,private validateservice:ValidService,private route:Router) { }
   ngOnInit(): void {
      this.datosToken= this.getData();
@@ -79,6 +81,9 @@ export class PerfilComponent implements OnInit, OnDestroy{
 
     return this.http.post("http://127.0.0.1:8000/your_profile/"+username+"/", body.toString(),{ headers });
   }
+
+
+
   ngOnDestroy(): void {
     this.suscripcion.unsubscribe();
   }

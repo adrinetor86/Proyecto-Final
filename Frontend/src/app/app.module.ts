@@ -52,6 +52,7 @@ import {SidebarModule} from "primeng/sidebar";
 import {ViewProfileComponent} from "./view-profile/view-profile.component";
 import { LoaderComponent } from './loader/loader.component';
 import {MatProgressSpinner} from "@angular/material/progress-spinner";
+import { EditarjuegosComponent } from './editarjuegos/editarjuegos.component';
 
 @NgModule({
   declarations: [
@@ -76,7 +77,8 @@ import {MatProgressSpinner} from "@angular/material/progress-spinner";
     NuestroequipoComponent,
     ContactaconosotrosComponent,
     ViewProfileComponent,
-    LoaderComponent
+    LoaderComponent,
+    EditarjuegosComponent
   ],
   imports: [
     BrowserModule,
