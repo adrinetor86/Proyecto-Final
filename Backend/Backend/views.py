@@ -369,7 +369,6 @@ def insert_comment(request, id_game, father_comment=None):
 @csrf_exempt
 def insert_map(request, id_game):
     if request.method == 'POST':
-        #maps = request.POST.getlist("maps", [])
         data = json.loads(request.body)
         maps = data.get('maps', [])
 
@@ -410,7 +409,19 @@ def get_maps(request, id_game):
         return JsonResponse({"error": "Bad Request"}, status=405)
 
 def delete_game(request, id_game):
-    if request.method == 'GET':
+    if request.method == 'POST':
+        data = json.loads(request.body)
+        controller2 = ControllerUser(username=data.get("username"))
+        data_user = controller2.get_a_user()
+
+        if data_user is None:
+            return JsonResponse({"error": "No authorizated"}, status=400)
+
+        authorization_token = request.headers.get("Authorization", "").strip()
+
+        if not confirm_user_rol(authorization_token, data_user):
+            return JsonResponse({"error": "Access denied"}, status=400)
+
         controller = ControllerGames(id=id_game)
         response = controller.delete_game()
 
@@ -420,3 +431,4 @@ def delete_game(request, id_game):
             return JsonResponse({"error": response.get("error", "Unknown error")}, status=response.get("code", 400))
     else:
         return JsonResponse({"error": "Bad Request"}, status=405)
+    

@@ -35,7 +35,7 @@ export class ViewProfileComponent {
     const body = new HttpParams()
       .set('username',username)
 
-    return this.http.post("http://127.0.0.1:8000/your_profile/"+username+"/", body.toString(),{ headers });
+    return this.http.post("http://127.0.0.1:8000/view_profile/"+username+"/", body.toString(),{ headers });
   }
 }
 

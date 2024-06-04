@@ -60,7 +60,6 @@ def confirm_email(encoded_jwt, email):
 
 def confirm_user_rol(encoded_jwt, data_user):
     try:
-
         payload = jwt.decode(encoded_jwt, config.SECRET_KEY, algorithms=['HS256'])
         print(payload)
         print(data_user)
