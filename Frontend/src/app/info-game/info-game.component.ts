@@ -50,15 +50,14 @@ export class InfoGameComponent implements OnInit,OnDestroy{
   suscriptionComment: Subscription;
   suscriptionMapas: Subscription;
   mostrarComentarios: boolean[] = [];
+  mostrarComentarios2: boolean[] = [];
   noCommentsMessageGame = "Actualmente no hay comentarios para este juego";
   idCommentFather = 0;
   seeMore = false;
   seeMoreButton = "Ver más";
-  seeMoreComments = "Ver más comentarios";
-  seeLessComments = "Ocultar comentarios";
   seeLess = "Ver menos";
+  valorCampoNextHijo;
   searchDot: number;
-  mostrarFormHijo = false;
   mostrarBotonesFormPadre = false;
   mostrarBotonesResponderComment = true;
   indiceComentario;
@@ -262,9 +261,6 @@ onDelete(){
     this.mostrarBotonesResponderComment = false;
     this.indiceComentario=indice;
     this.idCommentFather = this.gameComment[indice].id_comment;
-    // const idComentarioPadre = this.gameComment[indice].nextFieldValue.match(/\/comment\/\d+\/(\d+)\//);
-    // this.idCommentFather = idComentarioPadre[1];
-    // alert(this.idCommentFather);
 
     this.userCommentFather = '@'+this.gameComment[indice].user;
   }
@@ -291,7 +287,6 @@ onDelete(){
   }
   viewProfile(usuario:string){
     localStorage.setItem("perfilUsuarioExterno", usuario);
-    alert(usuario);
     this.routerNavigate.navigate(['/viewProfile/',usuario]);
   }
 
