@@ -98,9 +98,15 @@ class ControllerGames:
         else:
             return {"error": "Invalid fields", "code": 409}
 
+    def delete_game(self):
+        if self.__id != 0 or self.__id.is_integer():
+            return self.__games_model.delete_game(self.__id)
+        else:
+            return {"error": "Params error", "code":409}
+
     def __validate_fields(self):
 
-        if self.__id == 0:
+        if self.__id == 0 or not self.__id.is_integer():
             return False
 
         if len(self.__title) > 200 or len(self.__title) == 0:

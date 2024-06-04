@@ -550,3 +550,17 @@ class Games:
             print(e.msg)
             return {"error": "Cannot insert game", "code": 400}
 
+    def delete_game(self, id):
+        sql = f"DELETE FROM games WHERE id = {id}"
+
+        try:
+            cursor = self.__connection.cursor()
+            cursor.execute(sql)
+            cursor.close()
+            self.__connection.commit()
+
+            return {"success": "Game deleted successfully"}
+        except mysql.connector.Error:
+            return {"error": "Unknown error, try again", "code": 400}
+
+

@@ -408,3 +408,15 @@ def get_maps(request, id_game):
         return JsonResponse({"maps": response.get("maps", [])}, status=response.get("code", 400))
     else:
         return JsonResponse({"error": "Bad Request"}, status=405)
+
+def delete_game(request, id_game):
+    if request.method == 'GET':
+        controller = ControllerGames(id=id_game)
+        response = controller.delete_game()
+
+        if response.get("error", "") == "":
+            return JsonResponse(response, status=200)
+        else:
+            return JsonResponse({"error": response.get("error", "Unknown error")}, status=response.get("code", 400))
+    else:
+        return JsonResponse({"error": "Bad Request"}, status=405)
