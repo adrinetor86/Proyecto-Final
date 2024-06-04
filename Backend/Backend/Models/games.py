@@ -224,7 +224,7 @@ class Games:
             return -1
 
     def __get_genders(self, id) -> str:
-        sql = (f"SELECT name_gender FROM {self.__tables["type_genders"]} " 
+        sql = (f"SELECT name_gender, id_type_gender FROM {self.__tables["type_genders"]} " 
                f"INNER JOIN games_genders ON games_genders.id_gender = type_genders.id_type_gender "
                f"where id_game = {id}")
         genders = ''
@@ -233,17 +233,15 @@ class Games:
             cursor = self.__connection.cursor()
             cursor.execute(sql)
             data = cursor.fetchall()
-            for data_genders in data:
-                genders += data_genders[0] + ', '
             cursor.close()
         except mysql.connector.Error as error:
             print(f'Error get genders: {error.msg}')
-            return ""
+            return []
 
-        return genders.strip(", ")
+        return data
 
     def __get_plataforms(self, id) -> str:
-        sql = (f"SELECT name_plataform FROM {self.__tables["type_plataforms"]} " 
+        sql = (f"SELECT name_plataform, id_type_plataform FROM {self.__tables["type_plataforms"]} " 
                f"INNER JOIN games_plataforms ON games_plataforms.id_plataform = type_plataform.id_type_plataform "
                f"where id_game = {id}")
         plataforms = ''
@@ -252,14 +250,12 @@ class Games:
             cursor = self.__connection.cursor()
             cursor.execute(sql)
             data = cursor.fetchall()
-            for data_genders in data:
-                plataforms += data_genders[0] + ', '
             cursor.close()
         except mysql.connector.Error as error:
             print(f'Error get plataforms: {error.msg}')
-            return ""
+            return []
 
-        return plataforms.strip(", ")
+        return data
 
     #SELECT * FROM comments where id_game = 1 and parent_comment = 3
     #ESTA CONSULTA SIRVE PARA LOS HIJOS DEL COMENTARIO
