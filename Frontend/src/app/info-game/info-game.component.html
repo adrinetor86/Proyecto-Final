@@ -10,7 +10,7 @@
 
       <picture>
 
-        <img [src]="juegoPrueba.front_page" alt="No se encontro la imagen">
+        <img [src]="juegoPrueba.background_picture" alt="No se encontro la imagen">
 <!--        <img src="https://webstatic.hoyoverse.com/upload/op-public/2023/07/05/c4602ccbf1b3a7fbaeec0da7eaf07e7a_4589175142699820420.jpeg" alt="No se encontro la imagen">-->
       </picture>
 
@@ -33,12 +33,12 @@
               <h4 class="nombre-juego">{{juegoPrueba.title}}</h4></div>
 
               <div class="plataformas">
-                  <i class="bi bi-playstation"  *ngIf="arrPlataformas.includes('Play Station')" title="PlayStation"></i>
-                  <i class="bi bi-nintendo-switch"  *ngIf="arrPlataformas.includes('Nintendo')" title="Nintendo"></i>
-                  <i class="bi bi-xbox"  *ngIf="arrPlataformas.includes('XBOX')" title="XBOX"></i>
-                  <i class="bi bi-steam" *ngIf="arrPlataformas.includes('PC')" title="STEAM" ></i>
-                  <i class="bi bi-android2" *ngIf="arrPlataformas.includes('Android')" title="ANDROID"></i>
-                  <i class="bi bi-apple" *ngIf="arrPlataformas.includes('Iphone')" title="IOS"></i>
+                  <i class="bi bi-playstation"  *ngIf="plataformasArray.includes('Play Station')" title="PlayStation"></i>
+                  <i class="bi bi-nintendo-switch"  *ngIf="plataformasArray.includes('Nintendo')" title="Nintendo"></i>
+                  <i class="bi bi-xbox"  *ngIf="plataformasArray.includes('XBOX')" title="XBOX"></i>
+                  <i class="bi bi-steam" *ngIf="plataformasArray.includes('PC')" title="STEAM" ></i>
+                  <i class="bi bi-android2" *ngIf="plataformasArray.includes('Android')" title="ANDROID"></i>
+                  <i class="bi bi-apple" *ngIf="plataformasArray.includes('Iphone')" title="IOS"></i>
               </div>
             <div class="generos">
 

@@ -6,6 +6,7 @@ import {HttpClient, HttpParams} from "@angular/common/http";
 import {Observable, Subscription} from "rxjs";
 import {JuegoPrueba} from "../interfaces/juego";
 import {ActivatedRoute} from "@angular/router";
+import {Mapas} from "../interfaces/mapas";
 @Component({
   selector: 'app-editarjuegos',
   templateUrl: './editarjuegos.component.html',
@@ -23,6 +24,7 @@ export class EditarjuegosComponent {
     genres: [] as string[],
     platforms: [] as string[],
     front_page: null as string | null,
+    background_picture: null as string | null,
     maps: [] as string []
   };
 
@@ -36,6 +38,7 @@ export class EditarjuegosComponent {
     release_date:'',
     genders:'',
     plataforms:'',
+    background_picture:'',
     front_page:'',
   }
 
@@ -58,19 +61,21 @@ export class EditarjuegosComponent {
   respuestaError: boolean;
   arrPlataformas: string[] = [];
   arrGeneros: string[] = [];
+  plataformasArray: string[] = [];
+  front_page: string;
+  maps: string[] = [];
+  unifiedGeneros: string[] = [];
+  mapasJuegos: Mapas[] =  [];
+  mapas: string[] = [];
+
   constructor(private httpClient: HttpClient, private validateService: ValidService,private filtrosService:FiltrosService,
               private route: ActivatedRoute,) {}
   ngOnInit() {
-
-
 
     this.suscripcionFiltros=this.filtrosService.getFiltros().subscribe(filtros => {
       this.opcionesFiltro = filtros;
       this.generosOpciones=this.opcionesFiltro['genders']
       this.plataformasOpciones=this.opcionesFiltro['platforms']
-
-      console.log(this.generosOpciones);
-      console.log(this.plataformasOpciones);
 
     });
     this.suscripcionPrueba=
@@ -82,11 +87,42 @@ export class EditarjuegosComponent {
 
             this.juegoPrueba = JuegoRecibido as JuegoPrueba;
             this.searchDot = this.juegoPrueba.synopsis.indexOf('.')
-            this.arrPlataformas = this.juegoPrueba.plataforms.split(', ');
-            this.arrGeneros = this.juegoPrueba.genders.split(', ');
+
+            this.plataformas= JuegoRecibido['plataforms'];
+            this.generos= JuegoRecibido['genders'];
+            this.front_page=JuegoRecibido['front_page'];
+            this.maps=JuegoRecibido['maps'];
+            console.log("MAPAS")
+            console.log(this.maps)
+            for (let i = 0; i < this.plataformas.length; i++) {
+
+              this.plataformasArray.push(this.plataformas[i][1]);
+            }
+            console.log("plataaa")
+            console.log(this.plataformasArray)
+
+            for (let i = 0; i < this.generos.length; i++) {
+
+              this.arrGeneros.push(this.generos[i][1]);
+            }
+            console.log(this.arrGeneros);
+            console.log(this.plataformasArray);
             this.idJuego = parseInt(params['id']);
-            console.log(this.arrPlataformas)
-            console.log(this.arrGeneros)
+
+            this.httpClient.get('http://127.0.0.1:8000/get_maps/' + parseInt(params['id']) + '/').subscribe(MapasRecibidos => {
+
+              this.mapasJuegos = MapasRecibidos as Mapas[];
+              console.log(this.mapasJuegos);
+
+              for (let i = 0; i < this.mapasJuegos['maps'].length; i++) {
+
+                 this.mapas.push(this.mapasJuegos['maps'][i]);
+              }
+              console.log("el mapa")
+              console.log(this.mapas);
+            });
+
+
 
           } else {
             this.juegoPrueba = JuegoRecibido['error']['error'];
@@ -101,22 +137,34 @@ export class EditarjuegosComponent {
         });
 
       });
+
+
   }
 
   formularioJuego() {
+
     const title = this.formulario.value.title;
     const link_trailer = this.formulario.value.link_trailer;
     const link_download = this.formulario.value.link_download;
     const release_date = this.formulario.value.release_date;
     const developer = this.formulario.value.developer;
     const synopsis = this.formulario.value.synopsis;
-    const genders = this.generos;
-    const background_picture = this.image_preview_background;
-    const plataforms = this.plataformas;
-    const front_page = this.portada;
-    const maps = this.mapasPrueba;
+    // const genders = this.arrGeneros ? this.arrGeneros : this.juegoPrueba.genders;
+    const genders = this.generos ? this.generos : this.arrGeneros
+    const background_picture = this.image_preview_background ? this.image_preview_background : this.juegoPrueba.background_picture;
+    // const plataforms = this.plataformasArray ? this.plataformasArray : this.juegoPrueba.plataforms;
+    const plataforms = this.plataformasArray;
+    const front_page = this.front_page ? this.front_page : this.juegoPrueba.front_page;
+    // const maps = this.mapas  ? this.mapas :  this.game.maps;
+    const maps = this.mapasPrueba  ? this.mapasPrueba :  this.game.maps;
 
+    console.log("LOS ARR GENEROS");
+    console.log(this.arrGeneros)
 
+    console.log("LOS GENEROS");
+    console.log(this.generos)
+    console.log("LOS GENEROS unidos");
+    console.log(this.unifiedGeneros)
     this.editarJuego(title, link_trailer, link_download, release_date, developer, synopsis, genders,background_picture, plataforms, front_page, maps).subscribe(response => {
       console.log(response);
     });
@@ -152,14 +200,21 @@ export class EditarjuegosComponent {
   updateGenres(genre: string, event: any) {
     if (event.target.checked) {
       this.game.genres.push(genre);
+
+
     } else {
       const index = this.game.genres.indexOf(genre);
       if (index > -1) {
         this.game.genres.splice(index, 1);
       }
     }
+
     this.generos=this.game.genres;
+    console.log(this.generos)
+    this.unifiedGeneros = this.arrGeneros.concat(this.generos);
   }
+
+
 
   updatePlatforms(platform: string, event: any) {
     if (event.target.checked) {
@@ -183,6 +238,7 @@ export class EditarjuegosComponent {
       genres: [],
       platforms: [],
       front_page: null,
+      background_picture: null,
       maps: []
     };
     this.image_preview = null

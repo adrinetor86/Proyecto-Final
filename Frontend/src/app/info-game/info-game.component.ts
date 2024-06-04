@@ -39,6 +39,7 @@ export class InfoGameComponent implements OnInit,OnDestroy{
     genders:'',
     plataforms:'',
     front_page:'',
+    background_picture:''
     }
 
   gameComment: any;
@@ -64,15 +65,15 @@ export class InfoGameComponent implements OnInit,OnDestroy{
   userRoleSubscription: Subscription;
   errorMessage: string = '';
   userCommentFather: any;
-  arrPlataformas: string[] = ['PC','Play Station','Xbox','Nintendo','Android','iOS'];
   isAdmin = false;
-  arrGeneros: string[] = ['Fantastico', 'RPG', 'Animacion',
-                          'Supervivencia', 'Aventura', 'Accion',
-                          'Arcade', 'Deportes', 'Estrategia',
-                          'Simulacion', 'Juegos de mesa', 'Shooter',
-                          'Terror', 'Rol', 'Puzzle'];
+  arrGeneros: string[] = [];
   errorValidate = false;
   idJuego: number;
+  plataformas: [] ;
+  generos: [] ;
+  plataformasArray:string[] =[];
+  suscripcionBorrar: Subscription;
+  background_picture:string;
   constructor(private route: ActivatedRoute, private juegoservice:JuegosService, private routerNavigate: Router,
               private http: HttpClient, private isLoginUser: ValidService,public dialog: MatDialog,
               private mapaService: MapasService,private renderer: Renderer2,
@@ -80,13 +81,9 @@ export class InfoGameComponent implements OnInit,OnDestroy{
   // TOCAR AQUI PARA PONER LA IMAGEN
 
   ngOnInit(): void {
-
     this.renderer.setStyle(this.document.body, 'background', '#161a3a');
 
-
     this.respuestaError= false;
-
-
 
     this.suscripcionPrueba=
       this.route.params.subscribe(params => {
@@ -94,13 +91,27 @@ export class InfoGameComponent implements OnInit,OnDestroy{
           console.log(JuegoRecibido)
 
           if (!JuegoRecibido['error']) {
-
+           this.idJuego = parseInt(params['id']);
             this.juegoPrueba = JuegoRecibido as JuegoPrueba;
             this.searchDot = this.juegoPrueba.synopsis.indexOf('.')
-            this.arrPlataformas = this.juegoPrueba.plataforms.split(', ');
-            this.arrGeneros = this.juegoPrueba.genders.split(', ');
-            this.idJuego = parseInt(params['id']);
+            // this. arrPlataformas= this.juegoPrueba.plataforms.split(', ');
+            this.plataformas= JuegoRecibido['plataforms'];
+             this.generos= JuegoRecibido['genders'];
+             this.background_picture=JuegoRecibido['background_picture'];
+
+            for (let i = 0; i < this.plataformas.length; i++) {
+
+              this.plataformasArray.push(this.plataformas[i][0]);
+            }
+
+            for (let i = 0; i < this.generos.length; i++) {
+
+              this.arrGeneros.push(this.generos[i][0]);
+            }
+            console.log(this.plataformasArray)
             console.log(this.arrGeneros)
+
+
           } else {
             this.juegoPrueba = JuegoRecibido['error']['error'];
 
@@ -184,6 +195,18 @@ onDelete(){
   }).then((result) => {
     if (result.isConfirmed) {
      const id= this.route.snapshot.params['id'];
+     this.suscripcionBorrar= this.route.params.subscribe(params=>{
+       const body={
+          id: id,
+          username: this.validateService.getUserName()
+       }
+
+       this.http.post(`http://127.0.0.1:8000/delete_game/${id}/`,body).subscribe((response)=>{
+
+      console.log(response);
+       })
+
+     });
      this.routerNavigate.navigate(['/']);
       Swal.fire({
         title: "Deleted!",
@@ -193,6 +216,8 @@ onDelete(){
     }
   });
 }
+
+
   aniadirComentario() {
     if (this.isLoginUser.usuarioLogeado()) {
       console.log("entraa")

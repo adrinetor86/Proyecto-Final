@@ -19,5 +19,6 @@ export interface JuegoPrueba {
   release_date:string;
   genders:string;
   plataforms:string;
+  background_picture:string;
   front_page:string;
 }
