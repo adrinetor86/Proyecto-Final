@@ -164,6 +164,9 @@
                       <div class="comment-text" [innerHTML]="childComment.content_comment" (click)="viewProfile(comment.user)"></div>
                     </div>
                   </div>
+                  <a href="#" class="btn" *ngIf="comment.next  && contador<1" (click)="mostrarComentarioHijo2(i); $event.preventDefault()">
+                    Mostrar Comentarios
+                  </a>
                 </div>
               </div>
             </div>

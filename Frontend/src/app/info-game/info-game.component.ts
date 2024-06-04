@@ -46,6 +46,7 @@ export class InfoGameComponent implements OnInit,OnDestroy{
   gameCommentChild = {}
   respuestaError: boolean;
   subcripcion:Subscription;
+  contador = 0;
   suscripcionPrueba: Subscription;
   suscriptionComment: Subscription;
   suscriptionMapas: Subscription;
@@ -56,7 +57,7 @@ export class InfoGameComponent implements OnInit,OnDestroy{
   seeMore = false;
   seeMoreButton = "Ver más";
   seeLess = "Ver menos";
-  valorCampoNextHijo;
+  valorNextComentarios11;
   searchDot: number;
   mostrarBotonesFormPadre = false;
   mostrarBotonesResponderComment = true;
@@ -245,6 +246,22 @@ onDelete(){
     if (fieldNextUrlValue) {
       this.http.get(`http://127.0.0.1:8000${fieldNextUrlValue}`).subscribe((response: any) => {
         this.gameCommentChild[indice] = response.comments;
+        this.valorNextComentarios11 = response.next;
+        this.gameCommentChild[indice].forEach((childComment: { profile_picture: any }) => {
+          return childComment.profile_picture;
+        });
+      });
+    }
+  }
+  mostrarComentarioHijo2(indice: number) {
+    this.mostrarComentarios2[indice] = !this.mostrarComentarios2[indice];
+    console.log(this.mostrarComentarios2);
+    const fieldNextUrlValue = this.valorNextComentarios11;
+    console.log(fieldNextUrlValue);
+    this.contador++;
+    if (this.contador===1) {
+      this.http.get(`http://127.0.0.1:8000${fieldNextUrlValue}`).subscribe((response: any) => {
+        this.gameCommentChild[indice] = this.gameCommentChild[indice].concat(response.comments);
         this.gameCommentChild[indice].forEach((childComment: { profile_picture: any }) => {
           return childComment.profile_picture;
         });
