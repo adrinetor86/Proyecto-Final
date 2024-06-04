@@ -47,7 +47,8 @@
 <!--          </div>-->
 
           <div class="div-botones">
-            <button class="cancelar-btn" type="button" (click)="cancelSendCode()">Cancelar/Renviar</button>
+            <p class="p-error" *ngIf="errorMessage"> {{ errorMessage }}</p>
+            <button class="cancelar-btn" type="button" (click)="cancelSendCode()">Cancelar</button>
             <button class="confirmar-btn" type="submit" [disabled]="!formCodeVerify.valid" (click)="verifyCode()">Confirmar</button>
 
           </div>

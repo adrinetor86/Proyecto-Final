@@ -12,6 +12,7 @@ import {Mapas} from "../interfaces/mapas";
 import {MapasService} from "../servicios/mapaJuegos.service";
 import { DOCUMENT } from '@angular/common';
 import {CommentService} from "../servicios/comment.service";
+import Swal from 'sweetalert2';
 @Component({
   selector: 'app-info-game',
   templateUrl: './info-game.component.html',
@@ -71,6 +72,7 @@ export class InfoGameComponent implements OnInit,OnDestroy{
                           'Simulacion', 'Juegos de mesa', 'Shooter',
                           'Terror', 'Rol', 'Puzzle'];
   errorValidate = false;
+  idJuego: number;
   constructor(private route: ActivatedRoute, private juegoservice:JuegosService, private routerNavigate: Router,
               private http: HttpClient, private isLoginUser: ValidService,public dialog: MatDialog,
               private mapaService: MapasService,private renderer: Renderer2,
@@ -97,6 +99,7 @@ export class InfoGameComponent implements OnInit,OnDestroy{
             this.searchDot = this.juegoPrueba.synopsis.indexOf('.')
             this.arrPlataformas = this.juegoPrueba.plataforms.split(', ');
             this.arrGeneros = this.juegoPrueba.genders.split(', ');
+            this.idJuego = parseInt(params['id']);
             console.log(this.arrGeneros)
           } else {
             this.juegoPrueba = JuegoRecibido['error']['error'];
@@ -169,7 +172,27 @@ export class InfoGameComponent implements OnInit,OnDestroy{
       }
     });
   }
-
+onDelete(){
+  Swal.fire({
+    title: "Are you sure?",
+    text: "You won't be able to revert this!",
+    icon: "warning",
+    showCancelButton: true,
+    confirmButtonColor: "#3085d6",
+    cancelButtonColor: "#d33",
+    confirmButtonText: "Yes, delete it!"
+  }).then((result) => {
+    if (result.isConfirmed) {
+     const id= this.route.snapshot.params['id'];
+     this.routerNavigate.navigate(['/']);
+      Swal.fire({
+        title: "Deleted!",
+        text: "Your file has been deleted.",
+        icon: "success"
+      });
+    }
+  });
+}
   aniadirComentario() {
     if (this.isLoginUser.usuarioLogeado()) {
       console.log("entraa")

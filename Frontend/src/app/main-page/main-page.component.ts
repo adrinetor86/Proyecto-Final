@@ -5,6 +5,7 @@ import {Juego, juegoMain} from "../interfaces/juego";
 import {Subject, Subscription} from 'rxjs';
 import {BuscadorComponent} from "./buscador/buscador.component";
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
+import Swal from "sweetalert2";
 @Component({
   selector: 'app-main-page',
   templateUrl: './main-page.component.html',
@@ -26,7 +27,7 @@ export class MainPageComponent implements OnInit,OnDestroy {
   generosOpciones=[]
   plataformasOpciones=[]
   sidebarVisible: boolean = false;
-  isLoading = true;
+  isLoading = false;
   private getGamesSubject: Subject<void> = new Subject<void>();
   selectedGenres: number[] = [];
   selectedPlatforms: number[] = [];
@@ -39,6 +40,7 @@ export class MainPageComponent implements OnInit,OnDestroy {
 
       .subscribe({
         next: () => {
+          this.isLoading = false;
           this.suscripcion = this.juegosservice.getJuegosApi(this.currentPage,this.cadenaBusqueda,this.selectedGenres,this.selectedPlatforms).subscribe(juegos => {
             this.gamesPrueba = juegos['results'];
             this.currentPage = juegos['current_page'];
@@ -53,7 +55,16 @@ export class MainPageComponent implements OnInit,OnDestroy {
             console.log("JUEGOSSSSS")
             console.log(juegos);
           });
-        },
+        },error: (error) => {
+          this.isLoading = false;
+          Swal.fire({
+            icon: 'error',
+            title: 'Oops...',
+            text: 'Error fetching data',
+          })
+
+
+        }
 
       });
     this.suscripcionFiltros=this.filtrosService.getFiltros().subscribe(filtros => {
@@ -66,7 +77,6 @@ export class MainPageComponent implements OnInit,OnDestroy {
 
     });
 
-    this.isLoading = false;
     this.getGamesSubject.next();
 
   }

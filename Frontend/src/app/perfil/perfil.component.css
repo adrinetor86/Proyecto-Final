@@ -137,12 +137,19 @@
 /*  background-color: #f54f90;*/
 /*}*/
 
+:host {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 80vh;
 
+}
 
 .form-container {
+  /*margin-top:203px;*/
   max-width: 500px;
-  margin: auto;
-  padding: 20px;
+  /*margin: auto;*/
+  padding: 50px;
   background: rgb(22,26,58);
   background: linear-gradient(90deg, rgba(22,26,58,1) 0%, rgba(0,0,0,1) 60%);
   border-radius: 10px;

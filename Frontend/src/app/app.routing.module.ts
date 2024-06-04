@@ -17,6 +17,7 @@ import {NuestroequipoComponent} from "./footer/nuestroequipo/nuestroequipo.compo
 import {ContactaconosotrosComponent} from "./footer/contactaconosotros/contactaconosotros.component";
 import {ViewProfileComponent} from "./view-profile/view-profile.component";
 import {adminGuard} from "./admin.guard";
+import {EditarjuegosComponent} from "./editarjuegos/editarjuegos.component";
 
 const appRoutes: Routes = [
   { path: '', component: MainPageComponent },
@@ -34,6 +35,7 @@ const appRoutes: Routes = [
   { path: 'nuestroEquipo', component: NuestroequipoComponent },
   { path: 'contactaConNosotros', component: ContactaconosotrosComponent },
   { path: 'view_profile/:id', component: ViewProfileComponent },
+  { path: 'editarJuego/:id', canActivate:[adminGuard], component: EditarjuegosComponent },
   { path: '**', redirectTo: '/not-found', pathMatch: 'full'}
 ]
 @NgModule({

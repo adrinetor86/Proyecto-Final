@@ -471,6 +471,24 @@ p-carousel{
   margin-right:10px;
   color:black;
 }
+.bi-pencil-fill{
+  font-size:15px;
+  margin-right:10px;
+  color:black;
+}
+.editar-juego{
+  background-color: #2483f1;
+  padding:7px;
+  color:black;
+  border-radius: 15px;
+}
+
+.contenedores-botones-admin{
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+  margin-top: 20px;
+}
 .enlaces a{
   text-decoration: none;
 
@@ -501,6 +519,7 @@ p-carousel{
   padding: 20px;
   border-radius: 10px;
   max-width: 600px;
+  width: 100%;
   margin: 0 auto;
   color: #fff;
   font-family: 'Arial', sans-serif;

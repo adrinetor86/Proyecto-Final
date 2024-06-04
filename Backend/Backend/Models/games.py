@@ -92,6 +92,11 @@ class Games:
 
         sql += f" ORDER BY games.release_date LIMIT 15 OFFSET {offset}"
 
+
+#         print(sql)
+
+
+
         try:
             cursor = self.__connection.cursor(dictionary=True)
             cursor.execute(sql)
@@ -104,6 +109,12 @@ class Games:
                 return {"error": "Unknown error", "code": 400}
             else:
                 total_page = math.ceil(total_games/15)
+
+
+#                 print(dict_return)
+                print("longuitud es: " + str(len(dict_return)))
+
+
 
             if len(dict_return) != 0:
                 prev = self.__get_prev(page, value)
