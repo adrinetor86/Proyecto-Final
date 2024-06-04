@@ -138,7 +138,7 @@
                 </div>
                 <div class="comment-text">{{ comment.content_comment }}</div>
                 <div class="comment-actions" *ngIf="mostrarBotonesResponderComment">
-                  <a href="#" class="btn" *ngIf="comment.next" (click)="mostrarComentarioHijo(i); $event.preventDefault()">
+                  <a href="#" class="btn" *ngIf="comment.next" (click)="mostrarComentariosHijoPrincipales(i); $event.preventDefault()">
                     {{ mostrarComentarios[i] ? 'Ocultar comentarios' : 'Mostrar comentarios' }}
                   </a>
                   <a href="#" class="btn" (click)="mostrarFormComentarioHijo(i); $event.preventDefault()">Responder</a>
@@ -164,8 +164,8 @@
                       <div class="comment-text" [innerHTML]="childComment.content_comment" (click)="viewProfile(comment.user)"></div>
                     </div>
                   </div>
-                  <a href="#" class="btn" *ngIf="comment.next  && contador<1" (click)="mostrarComentarioHijo2(i); $event.preventDefault()">
-                    Mostrar Comentarios
+                  <a href="#" class="btn" *ngIf="mostrarComentarios2[i]" (click)="mostrarMasComentarios(i); $event.preventDefault()">
+                    Mostrar mas comentarios
                   </a>
                 </div>
               </div>

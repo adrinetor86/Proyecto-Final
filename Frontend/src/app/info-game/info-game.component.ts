@@ -57,7 +57,7 @@ export class InfoGameComponent implements OnInit,OnDestroy{
   seeMore = false;
   seeMoreButton = "Ver más";
   seeLess = "Ver menos";
-  valorNextComentarios11;
+  valorNextComentarioSiguiente;
   searchDot: number;
   mostrarBotonesFormPadre = false;
   mostrarBotonesResponderComment = true;
@@ -239,33 +239,38 @@ onDelete(){
       this.dialog.open(ModalCommentComponent);
     }
   }
-  mostrarComentarioHijo(indice: number) {
+  mostrarComentariosHijoPrincipales(indice: number) {
     this.mostrarComentarios[indice] = !this.mostrarComentarios[indice];
     console.log(this.mostrarComentarios);
     const fieldNextUrlValue = this.gameComment[indice].nextFieldValue;
     if (fieldNextUrlValue) {
       this.http.get(`http://127.0.0.1:8000${fieldNextUrlValue}`).subscribe((response: any) => {
         this.gameCommentChild[indice] = response.comments;
-        this.valorNextComentarios11 = response.next;
+        this.valorNextComentarioSiguiente = response.next;
         this.gameCommentChild[indice].forEach((childComment: { profile_picture: any }) => {
           return childComment.profile_picture;
         });
+        this.mostrarComentarios2[indice] = !!this.valorNextComentarioSiguiente;
       });
     }
   }
-  mostrarComentarioHijo2(indice: number) {
-    this.mostrarComentarios2[indice] = !this.mostrarComentarios2[indice];
-    console.log(this.mostrarComentarios2);
-    const fieldNextUrlValue = this.valorNextComentarios11;
+  sacarComentariosApi(indice:number, fieldNextUrlValue:string){
     console.log(fieldNextUrlValue);
-    this.contador++;
-    if (this.contador===1) {
-      this.http.get(`http://127.0.0.1:8000${fieldNextUrlValue}`).subscribe((response: any) => {
-        this.gameCommentChild[indice] = this.gameCommentChild[indice].concat(response.comments);
-        this.gameCommentChild[indice].forEach((childComment: { profile_picture: any }) => {
-          return childComment.profile_picture;
-        });
+    this.http.get(`http://127.0.0.1:8000${fieldNextUrlValue}`).subscribe((response: any) => {
+      this.gameCommentChild[indice] = this.gameCommentChild[indice].concat(response.comments);
+      this.valorNextComentarioSiguiente = response.next;
+      this.gameCommentChild[indice].forEach((childComment: { profile_picture: any }) => {
+        return childComment.profile_picture;
       });
+      this.mostrarComentarios2[indice] = !!this.valorNextComentarioSiguiente;
+      console.log(this.mostrarComentarios2[indice]);
+    });
+  }
+  mostrarMasComentarios(indice: number) {
+    const fieldNextUrlValue = this.valorNextComentarioSiguiente;
+    console.log(fieldNextUrlValue);
+    if (fieldNextUrlValue) {
+      this.sacarComentariosApi(indice, fieldNextUrlValue);
     }
   }
   cancelarComentario(){
