@@ -62,7 +62,7 @@ class ControllerGames:
             users = re.findall(r"@\w+[-\w_]*(?=\s|$|,)", content_comment)
 
             for i in range(0, len(users)):
-                users_link.append(f"<a href=\"/view_profile/{re.sub("@", "", users[i])}/\">{users[i]}<a>")
+                users_link.append(f"<a href=\"/view_profile/{re.sub("@", "", users[i])}/\">{users[i]}</a>")
 
             for j in range(0, len(users)):
                 content_comment = re.sub(users[j], users_link[j], content_comment)
