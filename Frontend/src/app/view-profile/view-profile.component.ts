@@ -11,13 +11,14 @@ import {Router} from "@angular/router";
 })
 export class ViewProfileComponent {
 
-  nameUser = localStorage.getItem("perfilUsuarioExterno");
+  nameUser: string;
   datosUsuario;
   suscripcion:Subscription;
   constructor(private http:HttpClient,private location:Location, private router:Router) {
   }
   ngOnInit(): void {
     console.log("OHHH DIOS MIOS")
+    this.nameUser = this.extractNameFromURL();
     console.log(this.nameUser);
     this.suscripcion= this.obtenerDatosUsuario(this.nameUser).subscribe({
       next: (value) => {
@@ -30,6 +31,15 @@ export class ViewProfileComponent {
   }
   onBack() {
     this.router.navigate(['/'])
+  }
+  extractNameFromURL(): string {
+    const url = this.router.url;
+    const segments = url.split('/');
+    const index = segments.indexOf('view_profile');
+    if (index !== -1) {
+      return segments[index + 1];
+    }
+    return '';
   }
   obtenerDatosUsuario(username: string): Observable<Object> {
     const headers = { 'Content-Type': 'application/x-www-form-urlencoded' };

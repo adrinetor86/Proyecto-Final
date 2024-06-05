@@ -431,4 +431,3 @@ def delete_game(request, id_game):
             return JsonResponse({"error": response.get("error", "Unknown error")}, status=response.get("code", 400))
     else:
         return JsonResponse({"error": "Bad Request"}, status=405)
-    

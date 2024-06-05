@@ -164,7 +164,9 @@
                         <span class="comment-user">{{ childComment.user }}</span>
                         <span class="comment-date">{{ comment.comment_date | slice: 2:10 }}</span>
                       </div>
-                      <div class="comment-text" [innerHTML]="childComment.content_comment" (click)="viewProfile(comment.user)"></div>
+                      <div class="comment-text">
+                        <div [innerHTML]=childComment.content_comment></div>
+                      </div>
                     </div>
                   </div>
                   <a href="#" class="btn" *ngIf="mostrarComentarios2[i]" (click)="mostrarMasComentarios(i); $event.preventDefault()">
