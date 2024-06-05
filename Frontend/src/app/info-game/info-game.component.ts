@@ -121,7 +121,7 @@ export class InfoGameComponent implements OnInit,OnDestroy{
         }, error => {
           this.respuestaError = true;
           console.log(error['error']['error']);
-
+          this.routerNavigate.navigate(['/not-found'])
         });
 
         this.http.get('http://127.0.0.1:8000/get_maps/' + parseInt(params['id']) + '/').subscribe(MapasRecibidos => {

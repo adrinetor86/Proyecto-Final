@@ -10,16 +10,16 @@ import { HttpClient } from '@angular/common/http';
 })
 export class BuscadorComponent {
 
-  @Output() resultadosBusqueda = new EventEmitter<any>();
-  // private terminoBusqueda = new Subject<string>();
-  constructor(private http: HttpClient) {
-    // this.terminoBusqueda.pipe(
-    //   debounceTime(300)
-    // ).subscribe(termino => this.resultadosBusqueda.emit(termino));
-  }
-
-  buscar(termino: any): void {
-    this.resultadosBusqueda.emit(termino);
-  }
+  // @Output() resultadosBusqueda = new EventEmitter<any>();
+  // // private terminoBusqueda = new Subject<string>();
+  // constructor(private http: HttpClient) {
+  //   // this.terminoBusqueda.pipe(
+  //   //   debounceTime(300)
+  //   // ).subscribe(termino => this.resultadosBusqueda.emit(termino));
+  // }
+  //
+  // buscar(termino: any): void {
+  //   this.resultadosBusqueda.emit(termino);
+  // }
 
 }

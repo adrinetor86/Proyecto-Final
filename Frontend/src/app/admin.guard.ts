@@ -10,6 +10,7 @@ export const adminGuard = () => {
   let isUserLoggedIn: boolean = false;
   let comprobarAdmin: boolean = false;
 
+  // Sirve para comprobar si el usario logado es admin o no
   loggedInSubscription = validateService.isLogged.subscribe(
     (loggedIn: boolean): void => {
       isUserLoggedIn = loggedIn;

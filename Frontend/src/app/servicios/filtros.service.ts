@@ -20,7 +20,6 @@ export class FiltrosService {
 
   }
 
-
   cerrarConexion(){
     this.suscripcion.unsubscribe();
   }

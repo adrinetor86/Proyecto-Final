@@ -6,6 +6,7 @@ import {Subject, Subscription} from 'rxjs';
 import {BuscadorComponent} from "./buscador/buscador.component";
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import Swal from "sweetalert2";
+import {Title} from "@angular/platform-browser";
 @Component({
   selector: 'app-main-page',
   templateUrl: './main-page.component.html',
@@ -31,9 +32,10 @@ export class MainPageComponent implements OnInit,OnDestroy {
   private getGamesSubject: Subject<void> = new Subject<void>();
   selectedGenres: number[] = [];
   selectedPlatforms: number[] = [];
-  constructor(private juegosservice:JuegosService,private filtrosService:FiltrosService) { }
+  constructor(private juegosservice:JuegosService,private filtrosService:FiltrosService,private tituloPagina:Title) { }
 
   ngOnInit() {
+    this.tituloPagina.setTitle("Listado Juegos")
     // this.loadData();
     this.isLoading = true;
     this.getGamesSubject

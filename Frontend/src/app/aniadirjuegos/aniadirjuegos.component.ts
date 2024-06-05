@@ -57,26 +57,26 @@ export class AniadirjuegosComponent implements OnInit, OnDestroy {
     this.suscripcionFiltros.unsubscribe();
   }
 
-  onPlatformChange(platformId: number, event: any): void {
-    if (event.target.checked) {
-      this.selectedPlatforms.push(platformId);
-
-    } else {
-      this.selectedPlatforms = this.selectedPlatforms.filter(id => id !== platformId);
-    }
-
-  }
-  onGenreChange(genreId: number, event: any): void {
-    if (event.target.checked) {
-      this.selectedGenres.push(genreId);
-      console.log(this.selectedGenres);
-    } else {
-      this.selectedGenres = this.selectedGenres.filter(id => id !== genreId);
-      console.log(this.selectedGenres);
-    }
-
-
-  }
+  // onPlatformChange(platformId: number, event: any): void {
+  //   if (event.target.checked) {
+  //     this.selectedPlatforms.push(platformId);
+  //
+  //   } else {
+  //     this.selectedPlatforms = this.selectedPlatforms.filter(id => id !== platformId);
+  //   }
+  //
+  // }
+  // onGenreChange(genreId: number, event: any): void {
+  //   if (event.target.checked) {
+  //     this.selectedGenres.push(genreId);
+  //     console.log(this.selectedGenres);
+  //   } else {
+  //     this.selectedGenres = this.selectedGenres.filter(id => id !== genreId);
+  //     console.log(this.selectedGenres);
+  //   }
+  //
+  //
+  // }
 
 
   formularioJuego() {
@@ -117,24 +117,11 @@ export class AniadirjuegosComponent implements OnInit, OnDestroy {
       maps: maps,
       username: this.validateService.getUserName()
     }
-      // .set('title', title)
-      // .set('link_trailer', link_trailer)
-      // .set('link_download', link_download)
-      // .set('release_date', release_date)
-      // .set('developer', developer)
-      // .set('synopsis', synopsis)
-      // .set('genders', genders)
-      // .set('background_picture', background_picture)
-      // .set('plataforms', plataforms)
-      // .set('front_page', front_page)
-      // .set('maps', maps)
-      // .set('username', this.validateService.getUserName());
 
 
     console.log("EL BODY");
     console.log(body);
-    // console.log("EL JSONNNN");
-    // console.log(maps.toString());
+
     return this.httpClient.post("http://127.0.0.1:8000/new_game/",  body, {headers});
   }
 

@@ -42,7 +42,6 @@ export class EditarjuegosComponent {
     front_page:'',
   }
 
-
   image_preview: string = null
   image_preview_background: string = null
   mapasPrueba: string[] | []
