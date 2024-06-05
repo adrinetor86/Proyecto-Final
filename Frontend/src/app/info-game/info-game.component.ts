@@ -307,10 +307,6 @@ onDelete(){
       this.dialog.open(ModalCommentComponent);
     }
   }
-  viewProfile(usuario:string){
-    localStorage.setItem("perfilUsuarioExterno", usuario);
-    this.routerNavigate.navigate(['/viewProfile/',usuario]);
-  }
 
   lookFullSynopsis(){
     return this.seeMore = !this.seeMore;
