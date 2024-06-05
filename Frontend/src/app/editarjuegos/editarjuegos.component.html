@@ -37,24 +37,21 @@
 
           <div *ngFor="let genre of generosOpciones">
             <label>
-              <input type="checkbox" name="generos" [value]="genre[0]"  (change)="updateGenres(genre[0], $event)" >
+              <input type="checkbox" name="generos" [value]="genre[0]"  (change)="updateGenres(genre[0], $event)" [checked]="arrGeneros.includes(genre[0])">
               {{ genre[1] }}
             </label>
           </div>
-
         </div>
-
-        <label>Plataformas:</label>
-        <div class="plataform">
-
-          <div *ngFor="let platform of plataformasOpciones">
-            <label>
-              <input type="checkbox" [value]="platform[0]"  name="plataforms"  (change)="updatePlatforms(platform[0], $event)">
-              {{ platform[1] }}
-            </label>
+          <label>Plataformas:</label>
+          <div class="plataform">
+            <div *ngFor="let platform of plataformasOpciones">
+              <label>
+                <input type="checkbox" [value]="platform[0]"  name="plataforms"  (change)="updatePlatforms(platform[0], $event)" [checked]="plataformasArray.includes(platform[0])">
+                {{ platform[1] }}
+              </label>
+            </div>
           </div>
 
-        </div>
 
         <p class="aviso2">* Todos los campos son obligatorios.</p>
       </fieldset>

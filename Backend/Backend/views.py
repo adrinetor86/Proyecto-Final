@@ -407,7 +407,7 @@ def get_maps(request, id_game):
         return JsonResponse({"maps": response.get("maps", [])}, status=response.get("code", 400))
     else:
         return JsonResponse({"error": "Bad Request"}, status=405)
-
+@csrf_exempt
 def delete_game(request, id_game):
     if request.method == 'POST':
         data = json.loads(request.body)

@@ -39,40 +39,41 @@ export class InfoGameComponent implements OnInit,OnDestroy{
     genders:'',
     plataforms:'',
     front_page:'',
+    background_picture:''
     }
 
   gameComment: any;
   gameCommentChild = {}
   respuestaError: boolean;
   subcripcion:Subscription;
+  contador = 0;
   suscripcionPrueba: Subscription;
   suscriptionComment: Subscription;
   suscriptionMapas: Subscription;
   mostrarComentarios: boolean[] = [];
+  mostrarComentarios2: boolean[] = [];
   noCommentsMessageGame = "Actualmente no hay comentarios para este juego";
   idCommentFather = 0;
   seeMore = false;
   seeMoreButton = "Ver más";
-  seeMoreComments = "Ver más comentarios";
-  seeLessComments = "Ocultar comentarios";
   seeLess = "Ver menos";
+  valorNextComentarioSiguiente;
   searchDot: number;
-  mostrarFormHijo = false;
   mostrarBotonesFormPadre = false;
   mostrarBotonesResponderComment = true;
   indiceComentario;
   userRoleSubscription: Subscription;
   errorMessage: string = '';
   userCommentFather: any;
-  arrPlataformas: string[] = ['PC','Play Station','Xbox','Nintendo','Android','iOS'];
   isAdmin = false;
-  arrGeneros: string[] = ['Fantastico', 'RPG', 'Animacion',
-                          'Supervivencia', 'Aventura', 'Accion',
-                          'Arcade', 'Deportes', 'Estrategia',
-                          'Simulacion', 'Juegos de mesa', 'Shooter',
-                          'Terror', 'Rol', 'Puzzle'];
+  arrGeneros: string[] = [];
   errorValidate = false;
   idJuego: number;
+  plataformas: [] ;
+  generos: [] ;
+  plataformasArray:string[] =[];
+  suscripcionBorrar: Subscription;
+  background_picture:string;
   constructor(private route: ActivatedRoute, private juegoservice:JuegosService, private routerNavigate: Router,
               private http: HttpClient, private isLoginUser: ValidService,public dialog: MatDialog,
               private mapaService: MapasService,private renderer: Renderer2,
@@ -80,13 +81,9 @@ export class InfoGameComponent implements OnInit,OnDestroy{
   // TOCAR AQUI PARA PONER LA IMAGEN
 
   ngOnInit(): void {
-
     this.renderer.setStyle(this.document.body, 'background', '#161a3a');
 
-
     this.respuestaError= false;
-
-
 
     this.suscripcionPrueba=
       this.route.params.subscribe(params => {
@@ -94,13 +91,27 @@ export class InfoGameComponent implements OnInit,OnDestroy{
           console.log(JuegoRecibido)
 
           if (!JuegoRecibido['error']) {
-
+           this.idJuego = parseInt(params['id']);
             this.juegoPrueba = JuegoRecibido as JuegoPrueba;
             this.searchDot = this.juegoPrueba.synopsis.indexOf('.')
-            this.arrPlataformas = this.juegoPrueba.plataforms.split(', ');
-            this.arrGeneros = this.juegoPrueba.genders.split(', ');
-            this.idJuego = parseInt(params['id']);
+            // this. arrPlataformas= this.juegoPrueba.plataforms.split(', ');
+            this.plataformas= JuegoRecibido['plataforms'];
+             this.generos= JuegoRecibido['genders'];
+             this.background_picture=JuegoRecibido['background_picture'];
+
+            for (let i = 0; i < this.plataformas.length; i++) {
+
+              this.plataformasArray.push(this.plataformas[i][0]);
+            }
+
+            for (let i = 0; i < this.generos.length; i++) {
+
+              this.arrGeneros.push(this.generos[i][0]);
+            }
+            console.log(this.plataformasArray)
             console.log(this.arrGeneros)
+
+
           } else {
             this.juegoPrueba = JuegoRecibido['error']['error'];
 
@@ -184,6 +195,18 @@ onDelete(){
   }).then((result) => {
     if (result.isConfirmed) {
      const id= this.route.snapshot.params['id'];
+     this.suscripcionBorrar= this.route.params.subscribe(params=>{
+       const body={
+          id: id,
+          username: this.validateService.getUserName()
+       }
+
+       this.http.post(`http://127.0.0.1:8000/delete_game/${id}/`,body).subscribe((response)=>{
+
+      console.log(response);
+       })
+
+     });
      this.routerNavigate.navigate(['/']);
       Swal.fire({
         title: "Deleted!",
@@ -193,6 +216,8 @@ onDelete(){
     }
   });
 }
+
+
   aniadirComentario() {
     if (this.isLoginUser.usuarioLogeado()) {
       console.log("entraa")
@@ -214,17 +239,38 @@ onDelete(){
       this.dialog.open(ModalCommentComponent);
     }
   }
-  mostrarComentarioHijo(indice: number) {
+  mostrarComentariosHijoPrincipales(indice: number) {
     this.mostrarComentarios[indice] = !this.mostrarComentarios[indice];
     console.log(this.mostrarComentarios);
     const fieldNextUrlValue = this.gameComment[indice].nextFieldValue;
     if (fieldNextUrlValue) {
       this.http.get(`http://127.0.0.1:8000${fieldNextUrlValue}`).subscribe((response: any) => {
         this.gameCommentChild[indice] = response.comments;
+        this.valorNextComentarioSiguiente = response.next;
         this.gameCommentChild[indice].forEach((childComment: { profile_picture: any }) => {
           return childComment.profile_picture;
         });
+        this.mostrarComentarios2[indice] = !!this.valorNextComentarioSiguiente;
       });
+    }
+  }
+  sacarComentariosApi(indice:number, fieldNextUrlValue:string){
+    console.log(fieldNextUrlValue);
+    this.http.get(`http://127.0.0.1:8000${fieldNextUrlValue}`).subscribe((response: any) => {
+      this.gameCommentChild[indice] = this.gameCommentChild[indice].concat(response.comments);
+      this.valorNextComentarioSiguiente = response.next;
+      this.gameCommentChild[indice].forEach((childComment: { profile_picture: any }) => {
+        return childComment.profile_picture;
+      });
+      this.mostrarComentarios2[indice] = !!this.valorNextComentarioSiguiente;
+      console.log(this.mostrarComentarios2[indice]);
+    });
+  }
+  mostrarMasComentarios(indice: number) {
+    const fieldNextUrlValue = this.valorNextComentarioSiguiente;
+    console.log(fieldNextUrlValue);
+    if (fieldNextUrlValue) {
+      this.sacarComentariosApi(indice, fieldNextUrlValue);
     }
   }
   cancelarComentario(){
@@ -237,9 +283,6 @@ onDelete(){
     this.mostrarBotonesResponderComment = false;
     this.indiceComentario=indice;
     this.idCommentFather = this.gameComment[indice].id_comment;
-    // const idComentarioPadre = this.gameComment[indice].nextFieldValue.match(/\/comment\/\d+\/(\d+)\//);
-    // this.idCommentFather = idComentarioPadre[1];
-    // alert(this.idCommentFather);
 
     this.userCommentFather = '@'+this.gameComment[indice].user;
   }
@@ -266,7 +309,6 @@ onDelete(){
   }
   viewProfile(usuario:string){
     localStorage.setItem("perfilUsuarioExterno", usuario);
-    alert(usuario);
     this.routerNavigate.navigate(['/viewProfile/',usuario]);
   }
 

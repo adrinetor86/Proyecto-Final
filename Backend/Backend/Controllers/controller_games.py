@@ -89,13 +89,17 @@ class ControllerGames:
             return {"error": "Invalid fields", "code": 409}
 
     def new_game(self):
+        print("entra")
         if self.__validate_fields():
+            print("entra id")
+
             return self.__games_model.insert_game(self.__title, self.__synopsis,
                                                   self.__developer, self.__link_download,
                                                   self.__link_trailer, self.__release_date,
                                                   self.__front_page, self.__background_picture,
                                                   self.__plataforms, self.__genders, self.__maps)
         else:
+            print("aaaaa")
             return {"error": "Invalid fields", "code": 409}
 
     def delete_game(self):
@@ -106,8 +110,7 @@ class ControllerGames:
 
     def __validate_fields(self):
 
-        if self.__id == 0 or not self.__id.is_integer():
-            return False
+
 
         if len(self.__title) > 200 or len(self.__title) == 0:
             return False

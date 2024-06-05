@@ -1,8 +1,3 @@
-
-<!--@if(respuestaError == false){-->
-
-
-
 <div class="main-content">
   <div class="contenedor-padre">
 
@@ -10,7 +5,7 @@
 
       <picture>
 
-        <img [src]="juegoPrueba.front_page" alt="No se encontro la imagen">
+        <img [src]="juegoPrueba.background_picture" alt="No se encontro la imagen">
 <!--        <img src="https://webstatic.hoyoverse.com/upload/op-public/2023/07/05/c4602ccbf1b3a7fbaeec0da7eaf07e7a_4589175142699820420.jpeg" alt="No se encontro la imagen">-->
       </picture>
 
@@ -33,12 +28,12 @@
               <h4 class="nombre-juego">{{juegoPrueba.title}}</h4></div>
 
               <div class="plataformas">
-                  <i class="bi bi-playstation"  *ngIf="arrPlataformas.includes('Play Station')" title="PlayStation"></i>
-                  <i class="bi bi-nintendo-switch"  *ngIf="arrPlataformas.includes('Nintendo')" title="Nintendo"></i>
-                  <i class="bi bi-xbox"  *ngIf="arrPlataformas.includes('XBOX')" title="XBOX"></i>
-                  <i class="bi bi-steam" *ngIf="arrPlataformas.includes('PC')" title="STEAM" ></i>
-                  <i class="bi bi-android2" *ngIf="arrPlataformas.includes('Android')" title="ANDROID"></i>
-                  <i class="bi bi-apple" *ngIf="arrPlataformas.includes('Iphone')" title="IOS"></i>
+                  <i class="bi bi-playstation"  *ngIf="plataformasArray.includes('Play Station')" title="PlayStation"></i>
+                  <i class="bi bi-nintendo-switch"  *ngIf="plataformasArray.includes('Nintendo')" title="Nintendo"></i>
+                  <i class="bi bi-xbox"  *ngIf="plataformasArray.includes('XBOX')" title="XBOX"></i>
+                  <i class="bi bi-steam" *ngIf="plataformasArray.includes('PC')" title="STEAM" ></i>
+                  <i class="bi bi-android2" *ngIf="plataformasArray.includes('Android')" title="ANDROID"></i>
+                  <i class="bi bi-apple" *ngIf="plataformasArray.includes('Iphone')" title="IOS"></i>
               </div>
             <div class="generos">
 
@@ -129,7 +124,7 @@
           <form #formComments="ngForm">
             <input type="text" class="showInput" placeholder="Añadir Comentario" ngModel required name="commentValue" (focus)="mostrarBotonesFormPadre=true">
             <div style="display: flex" *ngIf="mostrarBotonesFormPadre">
-              <button type="button" class="btn" (click)="cancelarComentario()">Cancelar</button>
+              <button type="button" class="btnCancel" (click)="cancelarComentario()">Cancelar</button>
               <button type="submit" class="btn" (click)="aniadirComentario()">Comentar</button>
             </div>
           </form>
@@ -143,7 +138,7 @@
                 </div>
                 <div class="comment-text">{{ comment.content_comment }}</div>
                 <div class="comment-actions" *ngIf="mostrarBotonesResponderComment">
-                  <a href="#" class="btn" (click)="mostrarComentarioHijo(i); $event.preventDefault()">
+                  <a href="#" class="btn" *ngIf="comment.next" (click)="mostrarComentariosHijoPrincipales(i); $event.preventDefault()">
                     {{ mostrarComentarios[i] ? 'Ocultar comentarios' : 'Mostrar comentarios' }}
                   </a>
                   <a href="#" class="btn" (click)="mostrarFormComentarioHijo(i); $event.preventDefault()">Responder</a>
@@ -156,6 +151,7 @@
                       <button type="submit" class="btn" (click)="aniadirComentarioHijo()">Comentar</button>
                     </div>
                   </form>
+
                 </div>
                 <div class="childComments" *ngIf="mostrarComentarios[i]">
                   <div *ngFor="let childComment of gameCommentChild[i]" class="comment">
@@ -165,13 +161,16 @@
                         <span class="comment-user">{{ childComment.user }}</span>
                         <span class="comment-date">{{ comment.comment_date | slice: 2:10 }}</span>
                       </div>
-                      <div class="comment-text" [innerHTML]="childComment.content_comment" (click)="viewProfile(childComment.user)"></div>
+                      <div class="comment-text" [innerHTML]="childComment.content_comment" (click)="viewProfile(comment.user)"></div>
                     </div>
                   </div>
+                  <a href="#" class="btn" *ngIf="mostrarComentarios2[i]" (click)="mostrarMasComentarios(i); $event.preventDefault()">
+                    Mostrar mas comentarios
+                  </a>
                 </div>
               </div>
             </div>
-            <div *ngIf="!gameComment.length">
+            <div *ngIf="gameComment.length===0">
               {{ noCommentsMessageGame }}
             </div>
           </div>
