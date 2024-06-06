@@ -44,5 +44,5 @@ urlpatterns = [
     path('get_maps/<id_game>/', get_maps, name='get_maps'),
     path('get_filters/', get_filters, name='get_filters'),
     path('delete_game/<id_game>/', delete_game, name='delete_game'),
-    path('send_warn_email/username/', send_warn_email, name='send_warn_email'),
+    path('send_warn_email/<username>/', send_warn_email, name='send_warn_email'),
 ]
