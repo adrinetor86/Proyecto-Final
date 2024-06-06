@@ -55,3 +55,9 @@ class ControllerUser:
 
     def get_a_user(self):
         return self.__user_model.get_a_user(self.__username)
+
+    def send_warn_email(self, subject, message):
+        if subject is None or message is None:
+            return {"error": "Void or incorrect fields", "code": 409}
+
+        return self.__user_model.send_warn_email(self.__username, subject, message)

@@ -431,3 +431,21 @@ def delete_game(request, id_game):
             return JsonResponse({"error": response.get("error", "Unknown error")}, status=response.get("code", 400))
     else:
         return JsonResponse({"error": "Bad Request"}, status=405)
+
+@csrf_exempt
+def send_warn_email(request,username):
+    if request.method == 'GET':
+        authorization_token = request.headers.get("Authorization", "").strip()
+
+        if not confirm_user(authorization_token, username):
+            return JsonResponse({"error": "Access denied"}, status=400)
+
+        controller = ControllerUser(username=username)
+        response = controller.send_warn_email(request.GET.get("subject", None), request.GET.get("message", None))
+
+        if response.get("error", "") == "":
+            return JsonResponse(response, status=200)
+        else:
+            return JsonResponse({"error": response.get("error", "Unknown error")}, status=response.get("code", 400))
+    else:
+        return JsonResponse({"error": "Bad Request"}, status=405)

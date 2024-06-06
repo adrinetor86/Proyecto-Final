@@ -18,7 +18,7 @@ from django.contrib import admin
 from django.urls import path
 from Backend.views import (games, game, login, register, child_comments, confirm_exist_user, confirm_code, change_password,
                            search, your_profile, change_picture, view_profile, new_game, portada, insert_comment, resend_email,
-                           insert_map, get_maps, get_filters, edit_game, delete_game)
+                           insert_map, get_maps, get_filters, edit_game, delete_game, send_warn_email)
 
 urlpatterns = [
     path('admin/', admin.site.urls),
@@ -44,4 +44,5 @@ urlpatterns = [
     path('get_maps/<id_game>/', get_maps, name='get_maps'),
     path('get_filters/', get_filters, name='get_filters'),
     path('delete_game/<id_game>/', delete_game, name='delete_game'),
+    path('send_warn_email/username/', send_warn_email, name='send_warn_email'),
 ]

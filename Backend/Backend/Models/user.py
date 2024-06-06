@@ -243,18 +243,12 @@ class User:
         mensaje['To'] = email
         mensaje['Subject'] = 'Account confirmation code'
 
-        with open(os.path.normpath(os.path.join(os.path.dirname(os.path.abspath(__file__)), '..', 'Images', 'Email', 'background_code.txt')),'r') as file:
-            background_image = file.read()
-
-        with open(os.path.normpath(os.path.join(os.path.dirname(os.path.abspath(__file__)), '..', 'Images', 'Email', 'marco.txt')),'r') as file:
-            marco = file.read()
-
         # Cuerpo del correo
         cuerpo = f"""
         <head>
             <title>Confirmación de Código de Verificación</title>
         </head>
-        <body style="margin: 0; display: flex; min-height: 50vh; flex-flow: column; justify-content: center; align-items: center; background-image: url('{background_image}'); background-size: 100%; background-repeat: no-repeat; background-position: bottom;">
+        <body style="margin: 0; display: flex; min-height: 50vh; flex-flow: column; justify-content: center; align-items: center; background-size: 100%; background-repeat: no-repeat; background-position: bottom;">
             <table>
                 <tr>
                     <td>
@@ -268,7 +262,7 @@ class User:
                 </tr>
                 <tr>
                     <td>
-                        <p id='code' style="margin: 2% 0; font-size: xx-large; color: rgb(211, 175, 81); text-align: center; background-image: url('{marco}'); background-size: 300px;">{code}</p>
+                        <p id='code' style="margin: 2% 0; font-size: xx-large; color: rgb(211, 175, 81); text-align: center; background-size: 300px;">{code}</p>
                     </td>
                 </tr>
                 <tr>
@@ -386,3 +380,63 @@ class User:
             return False
         else:
             return True
+
+    def send_warn_email(self, username, subject, message):
+        # Configuración del servidor SMTP de Gmail
+        smtp_server = 'smtp.gmail.com'
+        smtp_port = 587  # Puerto para TLS/STARTTLS
+
+        # Información de inicio de sesión en el servidor SMTP
+        sender_email = 'antobsgames@gmail.com'
+        email = 'antobsgames@gmail.com'
+        password = 'g v d d b x a pe w v z x g p r'
+
+        # Crear objeto mensaje
+        mensaje = MIMEMultipart()
+        mensaje['From'] = sender_email
+        mensaje['To'] = email
+        mensaje['Subject'] = subject
+
+        # Cuerpo del correo
+        cuerpo = f"""
+        <head>
+            <title>Comentario de Usuario - {subject}</title>
+        </head>
+        <body style="margin: 0; display: flex; min-height: 50vh; flex-flow: column; justify-content: center; align-items: center; background-size: 100%; background-repeat: no-repeat; background-position: bottom;">
+            <table>
+                <tr>
+                    <td>
+                        <p style="font-weight: bold; text-align: center;">El usuario {username} quiere decir:</p>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <p style="font-weight: bold; text-align: center;">{message}</p>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <p style="font-weight: bold; text-align: center;"><strong>@Antobs Company</strong></p>
+                    </td>
+                </tr>
+            </table>
+        </body>
+        """
+
+        mensaje.attach(MIMEText(cuerpo, 'html'))
+
+        # Iniciar sesión en el servidor SMTP y enviar el correo
+        try:
+            server = smtplib.SMTP(smtp_server, smtp_port)
+            server.starttls()  # Habilitar cifrado TLS
+            server.login(sender_email, password)
+            text = mensaje.as_string()
+            server.sendmail(sender_email, email, text)
+            print('Correo enviado correctamente')
+        except Exception as e:
+            print('Error al enviar el correo:', e)
+            return {"error": "Email was not sent correctly", "code": 400}
+        finally:
+            server.quit()
+
+        return {"success": "Email was sent correctly"}
