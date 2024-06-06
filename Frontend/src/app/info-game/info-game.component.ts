@@ -277,6 +277,7 @@ onDelete(){
     this.indiceComentario = null;
     this.mostrarBotonesResponderComment = true;
     this.mostrarBotonesFormPadre = false;
+    this.errorValidate = false;
   }
 
   mostrarFormComentarioHijo(indice:number){
