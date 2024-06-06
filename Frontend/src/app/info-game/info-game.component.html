@@ -135,6 +135,9 @@
         <div class="cuerpo-comentarios">
           <form #formComments="ngForm">
             <input type="text" class="showInput" placeholder="Añadir Comentario" ngModel required name="commentValue" (focus)="mostrarBotonesFormPadre=true">
+            <div class="p-error" *ngIf="errorValidate">
+              {{ errorMessage }}
+            </div>
             <div style="display: flex" *ngIf="mostrarBotonesFormPadre">
               <button type="button" class="btnCancel" (click)="cancelarComentario()">Cancelar</button>
               <button type="submit" class="btn" (click)="aniadirComentario()">Comentar</button>
