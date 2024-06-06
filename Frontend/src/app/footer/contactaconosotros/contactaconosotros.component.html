@@ -2,15 +2,15 @@
 <div class="main-content">
 <div class="container">
   <h1>Contacta con Nosotros</h1>
-  <form action="mailto:contacto@nombreapp.com" method="post" enctype="text/plain">
+  <form method="post" #form="ngForm" enctype="text/plain">
 
     <label for="subject">Asunto</label>
-    <input type="text" id="subject" name="subject" required placeholder="Asunto del correo">
+    <input type="text" id="subject" ngModel name="subject" required placeholder="Asunto del correo">
 
     <label for="message">Mensaje</label>
-    <textarea id="message" name="message" rows="6" required placeholder="Mensaje"></textarea>
+    <input id="message" rows="6" ngModel name="message" required placeholder="Mensaje">
 
-    <button type="submit">Enviar</button>
+    <button type="submit" (click)="enviarCorreo()">Enviar</button>
   </form>
 </div>
 </div>

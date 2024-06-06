@@ -3,6 +3,7 @@ import {NgForm} from "@angular/forms";
 import { ValidService } from "../../servicios/validate.service";
 import {Router} from "@angular/router";
 import {catchError, of} from "rxjs";
+import {Title} from "@angular/platform-browser";
 
 @Component({
   selector: 'app-new-account',
@@ -11,13 +12,14 @@ import {catchError, of} from "rxjs";
 })
 export class NewAccountComponent implements OnInit {
   @ViewChild('formNewAccount', { static: false }) formNewAccount: NgForm;
-  constructor(private validService: ValidService, private router: Router){
+  constructor(private validService: ValidService, private router: Router,private tituloPagina:Title){
   }
   errorMessage = '';
   errorValidate = false;
 
 
   ngOnInit() {
+    this.tituloPagina.setTitle('Registro');
     if(this.validService.usuarioLogeado()){
       this.router.navigate(['/']).then(r => {});
     }

@@ -3,6 +3,7 @@ import {NgForm} from "@angular/forms";
 import {ValidService} from "../servicios/validate.service";
 import {Router} from "@angular/router";
 import {catchError, of} from "rxjs";
+import {Title} from "@angular/platform-browser";
 
 
 @Component({
@@ -12,11 +13,12 @@ import {catchError, of} from "rxjs";
 })
 export class LoginComponent implements OnInit {
   @ViewChild('form', { static: false }) formAccount: NgForm;
-  constructor(private validateService: ValidService, private route:Router) { }
+  constructor(private validateService: ValidService, private route:Router,private tituloPagina:Title) { }
   errorMessage = '';
   errorValidate = false;
 
 ngOnInit() {
+  this.tituloPagina.setTitle('Login');
   if(this.validateService.usuarioLogeado()){
     this.route.navigate(['/']).then(r => {});
 

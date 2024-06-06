@@ -80,7 +80,7 @@ export class SubirFotosComponent {
       maps: Maps
     };
     console.log(body);
-    this.http.post("http://127.0.0.1:8000/insert_maps/29/", JSON.stringify(body), { headers })
+    this.http.post("http://127.0.0.1:8000/insert_maps/30/", JSON.stringify(body), { headers })
       .subscribe(response => console.log(response));
   }
 

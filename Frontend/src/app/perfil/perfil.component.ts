@@ -4,6 +4,7 @@ import {HttpClient, HttpParams} from "@angular/common/http";
 import {NgForm} from "@angular/forms";
 import {ValidService} from "../servicios/validate.service";
 import {Router} from "@angular/router";
+import {Title} from "@angular/platform-browser";
 
 @Component({
   selector: 'app-perfil',
@@ -18,10 +19,10 @@ export class PerfilComponent implements OnInit, OnDestroy{
   selectedFile: File | null = null;
   base64Image: string = '';
   datosToken: any;
-  errorValidate = false;
   errorMessage = '';
-  constructor(private http: HttpClient,private validateservice:ValidService,private route:Router) { }
+  constructor(private http: HttpClient,private validateservice:ValidService,private route:Router,private tituloPagina:Title) { }
   ngOnInit(): void {
+    this.tituloPagina.setTitle('Perfil');
      this.datosToken= this.getData();
      console.log("OHHH DIOS MIOS")
      console.log(this.datosToken.name)
@@ -46,9 +47,7 @@ export class PerfilComponent implements OnInit, OnDestroy{
     return {name,rol};
   }
   onSubmit() {
-    // const id= this.formAccount.value.juegoId;
-    // console.log("el id mi loko");
-    // console.log(id);
+
     if (this.selectedFile) {
       const reader = new FileReader();
       reader.onload = () => {

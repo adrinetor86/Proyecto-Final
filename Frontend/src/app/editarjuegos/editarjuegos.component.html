@@ -2,7 +2,6 @@
   <h1>Formulario Juego</h1>
   <form #form="ngForm">
     <div class="form-container">
-      <!-- Primer bloque -->
       <fieldset class="block1">
         <legend>Datos</legend>
         <label for="titulo">Título:</label>
@@ -27,7 +26,6 @@
         <p class="aviso">* Todos los campos son obligatorios.</p>
       </fieldset>
 
-      <!-- Segundo bloque -->
       <fieldset class="block2">
         <legend>Especificaciones</legend>
         <label for="sinopsis">Sinopsis:</label>
@@ -37,7 +35,7 @@
 
           <div *ngFor="let genre of generosOpciones">
             <label>
-              <input type="checkbox" name="generos" [value]="genre[0]"  (change)="updateGenres(genre[0], $event)" [checked]="arrGeneros.includes(genre[0])">
+              <input type="checkbox" name="generos" [value]="genre[0]"  (change)="updateArray(genre[0], this.arrGeneros)" [checked]="arrGeneros.includes(genre[0])">
               {{ genre[1] }}
             </label>
           </div>
@@ -46,7 +44,7 @@
           <div class="plataform">
             <div *ngFor="let platform of plataformasOpciones">
               <label>
-                <input type="checkbox" [value]="platform[0]"  name="plataforms"  (change)="updatePlatforms(platform[0], $event)" [checked]="plataformasArray.includes(platform[0])">
+                <input type="checkbox" [value]="platform[0]"  name="plataforms"  (change)="updateArray(platform[0], this.plataformasArray)" [checked]="plataformasArray.includes(platform[0])">
                 {{ platform[1] }}
               </label>
             </div>
@@ -56,7 +54,6 @@
         <p class="aviso2">* Todos los campos son obligatorios.</p>
       </fieldset>
 
-      <!-- Tercer bloque -->
       <fieldset class="block3">
         <legend>Portada</legend>
         <section class="container_example_frontPage">
@@ -72,7 +69,6 @@
         <p class="aviso2">* Imagen de Portada obligatoria.</p>
       </fieldset>
 
-      <!-- Cuarto bloque -->
       <fieldset class="block4">
         <legend>Fondo</legend>
         <section class="container_example_backgroundPage">
@@ -88,7 +84,6 @@
         <p class="aviso2">* Imagen de Fondo obligatoria.</p>
       </fieldset>
 
-      <!-- Quinto bloque -->
       <fieldset class="block5">
         <legend>Mapas</legend>
         <label for="maps">Subir Mapas:</label>
@@ -99,7 +94,7 @@
     </div>
     <div class="content_button">
       <button type="reset" (click)="resetForm()" >Vaciar Campos</button>
-      <button type="submit" (click)="formularioJuego()">Enviar</button>
+      <button type="submit" (click)="formularioJuego()">Editar</button>
     </div>
   </form>
 </main>

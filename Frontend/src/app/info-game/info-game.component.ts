@@ -12,6 +12,7 @@ import {Mapas} from "../interfaces/mapas";
 import {MapasService} from "../servicios/mapaJuegos.service";
 import { DOCUMENT } from '@angular/common';
 import {CommentService} from "../servicios/comment.service";
+import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
 import Swal from 'sweetalert2';
 @Component({
   selector: 'app-info-game',
@@ -23,7 +24,7 @@ export class InfoGameComponent implements OnInit,OnDestroy{
   @ViewChild('formCommentsChild', { static: false }) formCommentsChildValue: NgForm;
   //para sacar todos los datos del juego habria que crear un servicio que se conectará con la base de datos
   mapas: Mapas[] | undefined;
-
+  youtubeUrl: SafeResourceUrl;
   responsiveOptions: any[] | undefined;
   mapasJuegos: Mapas[] | undefined;
   juego:Juego={title:'',url:'',id:0}
@@ -45,18 +46,13 @@ export class InfoGameComponent implements OnInit,OnDestroy{
   gameComment: any;
   gameCommentChild = {}
   respuestaError: boolean;
-  subcripcion:Subscription;
-  contador = 0;
   suscripcionPrueba: Subscription;
   suscriptionComment: Subscription;
-  suscriptionMapas: Subscription;
   mostrarComentarios: boolean[] = [];
   mostrarComentarios2: boolean[] = [];
   noCommentsMessageGame = "Actualmente no hay comentarios para este juego";
   idCommentFather = 0;
   seeMore = false;
-  seeMoreButton = "Ver más";
-  seeLess = "Ver menos";
   valorNextComentarioSiguiente;
   searchDot: number;
   mostrarBotonesFormPadre = false;
@@ -76,12 +72,13 @@ export class InfoGameComponent implements OnInit,OnDestroy{
   background_picture:string;
   constructor(private route: ActivatedRoute, private juegoservice:JuegosService, private routerNavigate: Router,
               private http: HttpClient, private isLoginUser: ValidService,public dialog: MatDialog,
-              private mapaService: MapasService,private renderer: Renderer2,
+              private mapaService: MapasService,private renderer: Renderer2,private sanitizer: DomSanitizer,
               @Inject(DOCUMENT) private document: Document, private commentService:CommentService,private validateService:ValidService) { }
   // TOCAR AQUI PARA PONER LA IMAGEN
 
   ngOnInit(): void {
     this.renderer.setStyle(this.document.body, 'background', '#161a3a');
+    // this.youtubeUrl= 'https://www.youtube.com/embed/OCZIzzQpJUw?si=3Xwp2VhHFl1Ndvkl';
 
     this.respuestaError= false;
 
@@ -98,7 +95,7 @@ export class InfoGameComponent implements OnInit,OnDestroy{
             this.plataformas= JuegoRecibido['plataforms'];
              this.generos= JuegoRecibido['genders'];
              this.background_picture=JuegoRecibido['background_picture'];
-
+            this.youtubeUrl = this.sanitizer.bypassSecurityTrustResourceUrl(JuegoRecibido['link_trailer']);
             for (let i = 0; i < this.plataformas.length; i++) {
 
               this.plataformasArray.push(this.plataformas[i][0]);
@@ -138,18 +135,18 @@ export class InfoGameComponent implements OnInit,OnDestroy{
           this.responsiveOptions = [
             {
               breakpoint: '1199px',
-              numVisible: 4,
+              numVisible: 3,
               numScroll: 3
             },
             {
               breakpoint: '800px',
               numVisible: 1,
-              numScroll: 1
+              numScroll:3
             },
             {
               breakpoint: '767px',
               numVisible: 1,
-              numScroll: 2
+              numScroll: 3
             }
           ];
         });
@@ -185,13 +182,13 @@ export class InfoGameComponent implements OnInit,OnDestroy{
   }
 onDelete(){
   Swal.fire({
-    title: "Are you sure?",
-    text: "You won't be able to revert this!",
+    title: "Estas seguro?",
+    text: "Se borrara el juego!",
     icon: "warning",
     showCancelButton: true,
     confirmButtonColor: "#3085d6",
     cancelButtonColor: "#d33",
-    confirmButtonText: "Yes, delete it!"
+    confirmButtonText: "Confirmar"
   }).then((result) => {
     if (result.isConfirmed) {
      const id= this.route.snapshot.params['id'];
@@ -209,8 +206,8 @@ onDelete(){
      });
      this.routerNavigate.navigate(['/']);
       Swal.fire({
-        title: "Deleted!",
-        text: "Your file has been deleted.",
+        title: "Se ha borrado el juego!",
+        text: "Juego borrado.",
         icon: "success"
       });
     }
@@ -308,12 +305,12 @@ onDelete(){
     }
   }
 
-  lookFullSynopsis(){
-    return this.seeMore = !this.seeMore;
-  }
-  isEmpty(obj: any) {
-    return Object.keys(obj).length > 0;
-  };
+  // lookFullSynopsis(){
+  //   return this.seeMore = !this.seeMore;
+  // }
+  // isEmpty(obj: any) {
+  //   return Object.keys(obj).length > 0;
+  // };
 
   ngOnDestroy(){
 

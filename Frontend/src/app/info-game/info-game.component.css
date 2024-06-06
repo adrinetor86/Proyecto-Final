@@ -358,7 +358,112 @@ h4:not(.nombre-juego){
 .table-cell{
   display: table-cell;
 }
+.contenedor-video{
+  margin-bottom: 30px;
+  padding-bottom: 56.25%;
+  position: relative;
+  /*margin: 40px 0;*/
+  margin-right:40px;
+  margin-left:40px;
+}
+.cabecera-video{
+  width:100%;
+  display: flex;
+  justify-content: start;
+  /*margin-bottom: 20px;*/
+  text-align: start;
+  margin-bottom:20px;
 
+}
+iframe{
+
+  border-radius: 10px;
+  height: 100%;
+  left: 0;
+  /*margin-top:20px;*/
+  position: absolute;
+  top: 0;
+  width: 100%;
+}
+
+.imagen-carusel{
+  height: auto;
+  width: 80%;
+}
+@media screen and (max-width: 1000px) {
+  .contenedor-mapas {
+    width: auto;
+    height:auto;
+  }
+  .carusel-mapas{
+    width: auto;;
+    height:auto;
+  }
+  .carusel{
+    width: auto;
+    height:auto;
+  }
+  .imagen-carusel{
+    /*height: auto;*/
+    min-height:100px;
+    width: 80%;
+    min-width:100px;
+  }
+
+}
+/*@media screen and (max-width: 1260px) {*/
+/*  .contenedor-video{*/
+/*    display: flex;*/
+/*    justify-content: center;*/
+/*    align-items: center;*/
+/*    width: 80%;*/
+/*    height:80%;*/
+/*    flex-direction: column;*/
+
+/*  }*/
+/*  .cabecera-video{*/
+/*    width:100%;*/
+/*    display: flex;*/
+/*    justify-content: start;*/
+/*    margin-bottom: 20px;*/
+/*    text-align: start;*/
+/*  }*/
+/*  iframe{*/
+/*    width:100%;*/
+/*    height: 100%;*/
+/*  }*/
+/*}*/
+/*@media screen and (max-width: 1000px) {*/
+/*  .contenedor-video {*/
+/*    display: flex;*/
+/*    justify-content: center;*/
+/*    align-items: center;*/
+/*    flex-direction: column;*/
+/*    margin: 40px 0;*/
+/*  }*/
+/*  .cabecera-video{*/
+/*    width:100%;*/
+/*    display: flex;*/
+/*    justify-content: start;*/
+/*    margin-bottom: 20px;*/
+/*    text-align: start;*/
+/*  }*/
+/*  iframe{*/
+/*    width: 500px;*/
+/*    height: 350px;*/
+/*  }*/
+/*}*/
+
+/*@media screen and (max-width: 800px) {*/
+/*  .contenedor-video {*/
+/*    display: flex;*/
+/*    justify-content: center;*/
+/*    align-items: center;*/
+/*    flex-direction: column;*/
+/*    margin: 40px 0;*/
+
+/*  }*/
+/*}*/
 
 .main-content{
   display: flex;
@@ -403,14 +508,8 @@ h4:not(.nombre-juego){
 
   background-color:#161a3a;
 }
-p-carousel{
 
 
-}
-.imagen-carusel{
-  height: auto;
-  width: 80%;
-}
 
 
 
@@ -509,10 +608,7 @@ p-carousel{
     height: 50px;
     margin-right: 10px;
 }
-/*.comment{*/
-/*    display: flex;*/
-/*    align-items: center;*/
-/*}*/
+
 /* Estilos generales para la sección de comentarios */
 .comments-section {
   background-color: #1e1e30;

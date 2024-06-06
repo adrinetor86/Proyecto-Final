@@ -9,7 +9,6 @@
       <picture>
 
         <img [src]="juegoPrueba.background_picture" alt="No se encontro la imagen">
-<!--        <img src="https://webstatic.hoyoverse.com/upload/op-public/2023/07/05/c4602ccbf1b3a7fbaeec0da7eaf07e7a_4589175142699820420.jpeg" alt="No se encontro la imagen">-->
       </picture>
 
     </div>
@@ -46,9 +45,9 @@
               </span>
             </div>
 
-            <div class="enlaces">
-              <a href="{{juegoPrueba.link_download}}">Enlace Descarga</a>
-            </div>
+<!--            <div class="enlaces">-->
+<!--              <a href="{{juegoPrueba.link_download}}">Enlace Descarga</a>-->
+<!--            </div>-->
 
             <div class="enlaces">
               <a href="{{juegoPrueba.link_trailer}}">Enlace Trailer</a>
@@ -100,7 +99,7 @@
                         [numScroll]="2"
                         [circular]="true"
                         [responsiveOptions]="responsiveOptions"
-                        autoplayInterval="7000"
+                        autoplayInterval="10000"
                       >
                         <ng-template let-mapa pTemplate="item" >
                           <div class="border-1 ms-1"  >
@@ -118,7 +117,17 @@
                     </div>
         </div>
       </div>
-
+      <div class="cabecera-video">
+        <h4>Trailer</h4>
+      </div>
+      <div class="contenedor-video">
+<!--        <div class="cabecera-video">-->
+<!--          <h4>Trailer</h4>-->
+<!--        </div>-->
+          <div class="cuerpo-video">
+          <iframe [src]="youtubeUrl" width="560" height="315" frameborder="0" allowfullscreen></iframe>
+          </div>
+      </div>
       <div class="comments-section">
         <div class="cabecera-comentarios">
           <h4>Comentarios</h4>

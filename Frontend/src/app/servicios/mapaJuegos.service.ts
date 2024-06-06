@@ -10,9 +10,6 @@ export class MapasService {
 
   getMapasData(mapas) {
 
-    // console.log("MAPÀS")
-    // console.log(mapas)
-
     return mapas.maps.map(mapa => ({image: mapa}));
 
   }

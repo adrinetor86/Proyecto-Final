@@ -7,6 +7,7 @@ import {Observable, Subscription} from "rxjs";
 import {JuegoPrueba} from "../interfaces/juego";
 import {ActivatedRoute} from "@angular/router";
 import {Mapas} from "../interfaces/mapas";
+import {Title} from "@angular/platform-browser";
 @Component({
   selector: 'app-editarjuegos',
   templateUrl: './editarjuegos.component.html',
@@ -68,8 +69,13 @@ export class EditarjuegosComponent {
   mapas: string[] = [];
 
   constructor(private httpClient: HttpClient, private validateService: ValidService,private filtrosService:FiltrosService,
-              private route: ActivatedRoute,) {}
-  ngOnInit() {
+              private route: ActivatedRoute, private tituloPagina:Title) {}
+
+
+
+ngOnInit() {
+  this.tituloPagina.setTitle("Editar Juego")
+
 
     this.suscripcionFiltros=this.filtrosService.getFiltros().subscribe(filtros => {
       this.opcionesFiltro = filtros;
@@ -83,28 +89,25 @@ export class EditarjuegosComponent {
           console.log(JuegoRecibido)
 
           if (!JuegoRecibido['error']) {
-
             this.juegoPrueba = JuegoRecibido as JuegoPrueba;
             this.searchDot = this.juegoPrueba.synopsis.indexOf('.')
-
             this.plataformas= JuegoRecibido['plataforms'];
             this.generos= JuegoRecibido['genders'];
             this.front_page=JuegoRecibido['front_page'];
             this.maps=JuegoRecibido['maps'];
             console.log("MAPAS")
             console.log(this.maps)
-            for (let i = 0; i < this.plataformas.length; i++) {
 
+            for (let i = 0; i < this.plataformas.length; i++) {
               this.plataformasArray.push(this.plataformas[i][1]);
             }
-            console.log("plataaa")
-            console.log(this.plataformasArray)
 
             for (let i = 0; i < this.generos.length; i++) {
-
               this.arrGeneros.push(this.generos[i][1]);
             }
+            console.log("LOS GENEROS")
             console.log(this.arrGeneros);
+            console.log("LAS PLATAFORMAS")
             console.log(this.plataformasArray);
             this.idJuego = parseInt(params['id']);
 
@@ -120,8 +123,6 @@ export class EditarjuegosComponent {
               console.log("el mapa")
               console.log(this.mapas);
             });
-
-
 
           } else {
             this.juegoPrueba = JuegoRecibido['error']['error'];
@@ -148,14 +149,11 @@ export class EditarjuegosComponent {
     const release_date = this.formulario.value.release_date;
     const developer = this.formulario.value.developer;
     const synopsis = this.formulario.value.synopsis;
-    // const genders = this.arrGeneros ? this.arrGeneros : this.juegoPrueba.genders;
-    const genders = this.generos ? this.generos : this.arrGeneros
-    const background_picture = this.image_preview_background ? this.image_preview_background : this.juegoPrueba.background_picture;
-    // const plataforms = this.plataformasArray ? this.plataformasArray : this.juegoPrueba.plataforms;
+    const genders = this.arrGeneros
+    const background_picture = this.game.front_page ? this.game.front_page : this.juegoPrueba.background_picture;
     const plataforms = this.plataformasArray;
-    const front_page = this.front_page ? this.front_page : this.juegoPrueba.front_page;
-    // const maps = this.mapas  ? this.mapas :  this.game.maps;
-    const maps = this.mapasPrueba  ? this.mapasPrueba :  this.game.maps;
+    const front_page = this.portada ? this.portada : this.front_page
+    const maps = this.mapas
 
     console.log("LOS ARR GENEROS");
     console.log(this.arrGeneros)
@@ -196,36 +194,36 @@ export class EditarjuegosComponent {
     return this.httpClient.post("http://127.0.0.1:8000/edit_game/",  body, {headers});
   }
 
-  updateGenres(genre: string, event: any) {
-    if (event.target.checked) {
-      this.game.genres.push(genre);
-
-
+  arrayContains:number []=[];
+  updateArray(id: string, arr: any): void {
+    console.log(arr);
+    const index = arr.indexOf(id);
+    if (index > -1) {
+      // El id ya está en el array, lo eliminamos
+      arr.splice(index, 1);
     } else {
-      const index = this.game.genres.indexOf(genre);
-      if (index > -1) {
-        this.game.genres.splice(index, 1);
-      }
+      // El id no está en el array, lo agregamos
+      arr.push(id);
     }
-
-    this.generos=this.game.genres;
-    console.log(this.generos)
-    this.unifiedGeneros = this.arrGeneros.concat(this.generos);
+    this.arrayContains=arr;
+    console.log(this.arrayContains);
+  }
+  updateMapas(base: string, arr: any): void {
+    console.log(arr);
+    const index = arr.indexOf(base);
+    if (index > -1) {
+      // El id ya está en el array, lo eliminamos
+      arr.splice(index, 1);
+    } else {
+      // El id no está en el array, lo agregamos
+      arr.push(base);
+    }
+    this.arrayContains=arr;
+    console.log("UPDATE MAPASSSS");
+    console.log(this.arrayContains);
   }
 
 
-
-  updatePlatforms(platform: string, event: any) {
-    if (event.target.checked) {
-      this.game.platforms.push(platform);
-    } else {
-      const index = this.game.platforms.indexOf(platform);
-      if (index > -1) {
-        this.game.platforms.splice(index, 1);
-      }
-    }
-    this.plataformas=this.game.platforms;
-  }
 
   resetForm() {
     this.game = {
@@ -270,11 +268,12 @@ export class EditarjuegosComponent {
       for (let i = 0; i < event.target.files.length; i++) {
         const file = event.target.files[i];
         this.convertToBase64(file).then((base64: string) => {
-          console.log("EL BASEEEEEE");
-          // console.log(base64);
           this.game.maps.push(base64);
           this.mapasPrueba = this.game.maps;
 
+          // this.updateMapas(base64, this.mapas)
+          this.updateMapas(base64, this.mapas)
+          console.log("mapas pruebaaaa");
           console.log(this.mapasPrueba);
           // this.game.maps.push(base64);
         });

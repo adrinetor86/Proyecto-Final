@@ -1,9 +1,10 @@
 import {Component, OnDestroy, OnInit, ViewChild} from '@angular/core';
 import {NgForm} from "@angular/forms";
 import {Observable, Subscription} from "rxjs";
-import {HttpClient, HttpParams} from "@angular/common/http";
+import {HttpClient} from "@angular/common/http";
 import {ValidService} from "../servicios/validate.service";
 import {FiltrosService} from "../servicios/filtros.service";
+import {Title} from "@angular/platform-browser";
 @Component({
   selector: 'app-aniadirjuegos',
   templateUrl: './aniadirjuegos.component.html',
@@ -35,13 +36,18 @@ export class AniadirjuegosComponent implements OnInit, OnDestroy {
   generosOpciones=[]
   plataformasOpciones=[]
 
-  selectedGenres: number[] = [];
-  selectedPlatforms: number[] = [];
-  constructor(private httpClient: HttpClient, private validateService: ValidService,private filtrosService:FiltrosService) {
+  constructor(private httpClient: HttpClient, private validateService: ValidService,private filtrosService:FiltrosService,private tituloPagina:Title) {
   }
 
 
-  ngOnInit() {
+
+
+
+
+
+ngOnInit() {
+  this.tituloPagina.setTitle("Añadir Juego")
+
     this.suscripcionFiltros=this.filtrosService.getFiltros().subscribe(filtros => {
       this.opcionesFiltro = filtros;
       this.generosOpciones=this.opcionesFiltro['genders']
@@ -57,26 +63,6 @@ export class AniadirjuegosComponent implements OnInit, OnDestroy {
     this.suscripcionFiltros.unsubscribe();
   }
 
-  // onPlatformChange(platformId: number, event: any): void {
-  //   if (event.target.checked) {
-  //     this.selectedPlatforms.push(platformId);
-  //
-  //   } else {
-  //     this.selectedPlatforms = this.selectedPlatforms.filter(id => id !== platformId);
-  //   }
-  //
-  // }
-  // onGenreChange(genreId: number, event: any): void {
-  //   if (event.target.checked) {
-  //     this.selectedGenres.push(genreId);
-  //     console.log(this.selectedGenres);
-  //   } else {
-  //     this.selectedGenres = this.selectedGenres.filter(id => id !== genreId);
-  //     console.log(this.selectedGenres);
-  //   }
-  //
-  //
-  // }
 
 
   formularioJuego() {
