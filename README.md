@@ -1,4 +1,12 @@
-# PROYECTO
+<p align="center" style="margin-bottom: 0;">
+  <img src="Frontend/src/assets/logo.png" width="300">
+</p>
+
+<h1 align="center" style="margin-top: 0;">
+  Antobsgames
+</h1>
+
+Este proyecto de fin de ciclo ha sido desarrollado por [Adrián Jacek](https://github.com/adrinetor86), [Nahuel Hidalgo](https://github.com/adrinetor86) y [Jorge Pulluaguari](https://github.com/adrinetor86)
 
 ## FRONTEND
 
