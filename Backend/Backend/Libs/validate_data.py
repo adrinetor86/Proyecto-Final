@@ -7,4 +7,4 @@ def validate_password(password):
     return re.match(r'^(?=.*\d)(?=.*[a-zA-Z]).{8,}$', password)
 
 def validate_username(username):
-    return len(username) > 4
+    return re.match(r'^[^\s\-+\*/=^%]{4,}$', username)
