@@ -15,7 +15,7 @@ La aplicación esta dividida en dos roles: Administrador y Usuario. En donde el 
 <table>
   <tr>
     <th>Categoría</th>
-    <th>Imágenes</th>
+    <th>Tecnologías</th>
   </tr>
   <tr>
     <td>Frontend</td>
@@ -56,15 +56,8 @@ La aplicación esta dividida en dos roles: Administrador y Usuario. En donde el 
     <td>Herramientas de Desarrollo</td>
     <td>
       <img src="https://seeklogo.com/images/P/pycharm-edu-logo-73119B2E09-seeklogo.com.png" alt="Pycharm" width="50">
-      <img src="https://example.com/images/vscode.png" alt="Webstorm" width="50">
-      <img src="https://example.com/images/postman.png" alt="Postman" width="50">
-    </td>
-  </tr>
-  <tr>
-    <td>Despliegue</td>
-    <td>
-      <img src="https://example.com/images/heroku.png" alt="Heroku" width="50">
-      <img src="https://example.com/images/netlify.png" alt="Netlify" width="50">
+      <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/c/c0/WebStorm_Icon.svg/1200px-WebStorm_Icon.svg.png" alt="Webstorm" width="50">
+      <img src="https://cdn.worldvectorlogo.com/logos/postman.svg" alt="Postman" width="50">
     </td>
   </tr>
 </table>
