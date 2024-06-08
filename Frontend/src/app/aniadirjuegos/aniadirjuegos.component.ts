@@ -54,8 +54,8 @@ ngOnInit() {
       this.generosOpciones=this.opcionesFiltro['genders']
       this.plataformasOpciones=this.opcionesFiltro['platforms']
 
-      console.log(this.generosOpciones);
-      console.log(this.plataformasOpciones);
+      // console.log(this.generosOpciones);
+      // console.log(this.plataformasOpciones);
 
     });
 
@@ -81,7 +81,7 @@ ngOnInit() {
 
 
     this.enviarJuego(title, link_trailer, link_download, release_date, developer, synopsis, genders,background_picture, plataforms, front_page, maps).subscribe(response => {
-      console.log(response);
+      // console.log(response);
     });
 
   }
@@ -106,8 +106,8 @@ ngOnInit() {
     }
 
 
-    console.log("EL BODY");
-    console.log(body);
+    // console.log("EL BODY");
+    // console.log(body);
 
     // return this.httpClient.post("http://127.0.0.1:8000/new_game/",  body, {headers});
     return this.httpClient.post(environment.apiUrl+"/new_game/",  body, {headers});
@@ -157,7 +157,7 @@ ngOnInit() {
 
 
   onSubmit() {
-    console.log(this.game);
+    // console.log(this.game);
   }
 
   onImageChange_front(event: any) {
@@ -189,7 +189,7 @@ ngOnInit() {
           this.game.maps.push(base64);
           this.mapasPrueba = this.game.maps;
 
-          console.log(this.mapasPrueba);
+          // console.log(this.mapasPrueba);
           // this.game.maps.push(base64);
         });
       }
@@ -224,7 +224,7 @@ ngOnInit() {
   // }
   private convertToBase64(file: File): Promise<string> {
     return new Promise<string>((resolve, reject) => {
-      console.log("Converting to base64");
+      // console.log("Converting to base64");
       const reader = new FileReader();
       reader.readAsDataURL(file);
 
@@ -233,7 +233,7 @@ ngOnInit() {
          // this.mapasPrueba.push(result);
        // console.log('Base64 conversion result:', result);
         resolve(result);
-        console.log('Base64 conversion result:', this.mapasPrueba);
+        // console.log('Base64 conversion result:', this.mapasPrueba);
       };
 
       reader.onerror = error => {

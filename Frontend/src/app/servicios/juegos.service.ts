@@ -17,9 +17,9 @@ export class JuegosService {
   constructor(private http: HttpClient) { }
 
   getJuegosApi(pagina:number,cadenaBusqueda:string,selectedGenres:number[],selectedPlatforms:number[]):Observable<juegoMain[]> {
-    console.log("LA URLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLL")
-    console.log(environment.apiUrl);
-    console.log("hace llamada manito a la pagina: "+pagina)
+    // console.log("LA URLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLL")
+    // console.log(environment.apiUrl);
+    // console.log("hace llamada manito a la pagina: "+pagina)
 
     let queryParams = `?page=${pagina}&value=${cadenaBusqueda}`
 

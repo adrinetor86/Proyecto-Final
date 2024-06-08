@@ -61,8 +61,8 @@ export class ValidService {
     const body = new HttpParams()
       .set('email', email)
       .set('new_password', new_password)
-    console.log("entra")
-    console.log(body.toString())
+    // console.log("entra")
+    // console.log(body.toString())
     // return this.httpClient.post("http://127.0.0.1:8000/change_password/", body.toString(), { headers });
     return this.httpClient.post(environment.apiUrl+"/change_password/", body.toString(), { headers });
   }
@@ -108,7 +108,7 @@ export class ValidService {
     try {
       return jwtDecode(token);
     } catch (Error) {
-      console.error("Error decoding token", Error);
+      // console.error("Error decoding token", Error);
       return null;
     }
   }
@@ -133,8 +133,8 @@ export class ValidService {
     }
 
     const decodedToken = this.decodeToken(accessToken);
-    console.log("EL DECODED");
-    console.log(decodedToken);
+    // console.log("EL DECODED");
+    // console.log(decodedToken);
     return decodedToken ? decodedToken.rol : 0;
 
   }

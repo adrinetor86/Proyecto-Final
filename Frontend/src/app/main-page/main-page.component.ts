@@ -79,8 +79,8 @@ export class MainPageComponent implements OnInit,OnDestroy {
       this.generosOpciones=this.opcionesFiltro['genders']
       this.plataformasOpciones=this.opcionesFiltro['platforms']
 
-       console.log(this.generosOpciones);
-       console.log(this.plataformasOpciones);
+       // console.log(this.generosOpciones);
+       // console.log(this.plataformasOpciones);
 
     });
 
@@ -99,10 +99,10 @@ export class MainPageComponent implements OnInit,OnDestroy {
   onGenreChange(genreId: number, event: any): void {
     if (event.target.checked) {
       this.selectedGenres.push(genreId);
-      console.log(this.selectedGenres);
+      // console.log(this.selectedGenres);
     } else {
       this.selectedGenres = this.selectedGenres.filter(id => id !== genreId);
-      console.log(this.selectedGenres);
+      // console.log(this.selectedGenres);
     }
     this.getGamesSubject.next();
   }
@@ -134,8 +134,8 @@ export class MainPageComponent implements OnInit,OnDestroy {
   changePage(page: number) {
 
       this.currentPage = page;
-      console.log("cambia de pagina")
-      console.log(this.currentPage)
+      // console.log("cambia de pagina")
+      // console.log(this.currentPage)
       this.getGamesSubject.next();
   }
 

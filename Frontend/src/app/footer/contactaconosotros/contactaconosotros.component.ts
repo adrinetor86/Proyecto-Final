@@ -42,7 +42,7 @@ ngOnInit() {
      this.httpClient.get(environment.apiUrl+"/send_warn_email/"+this.username+"/"+parametros, { headers }).subscribe(
 
       response => {
-        console.log(response);
+        // console.log(response);
         this.routerNavigate.navigate(['/']);
       },error => {
         console.log(error);

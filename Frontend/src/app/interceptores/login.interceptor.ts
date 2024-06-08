@@ -11,7 +11,7 @@ export class LoginInterceptor implements HttpInterceptor {
   constructor(private validateService: ValidService) {}
 
   intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
-    console.log("entrando en el interceptor")
+    // console.log("entrando en el interceptor")
     return next.handle(req)
       .pipe(
         tap(event => {
@@ -24,8 +24,8 @@ export class LoginInterceptor implements HttpInterceptor {
             this.validateService.logeado.next(true);
             this.validateService.setRole(accessToken);
           }
-          console.log("entrando en el else")
-          console.log(req.url)
+          // console.log("entrando en el else")
+          // console.log(req.url)
 
         }),
         catchError((error) => {

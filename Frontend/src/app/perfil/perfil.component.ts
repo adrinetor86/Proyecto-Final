@@ -26,12 +26,11 @@ export class PerfilComponent implements OnInit, OnDestroy{
     this.tituloPagina.setTitle('Perfil');
     this.isFileInputEnabled = true;
      this.datosToken= this.getData();
-     console.log("OHHH DIOS MIOS")
-     console.log(this.datosToken.name)
+
     this.suscripcion= this.obtenerDatosUsuario(this.datosToken.name).subscribe({
       next: (value) => {
-        console.log(value);
-        console.log("f")
+        // console.log(value);
+        // console.log("f")
         this.datosUsuario = value['profile'];
 
       }
@@ -40,14 +39,14 @@ export class PerfilComponent implements OnInit, OnDestroy{
       this.route.navigate(['/']).then(r => {});
 
     }
-console.log("pruebaaaaaaaaaaaaaaaaa")
-    console.log(this.datosUsuario.profile_picture)
+// console.log("pruebaaaaaaaaaaaaaaaaa")
+//     console.log(this.datosUsuario.profile_picture)
   }
   getData() {
     const name= this.validateservice.getUserName();
     const rol = this.validateservice.getUserRole();
-    console.log("holaaaa");
-    console.log(name,rol);
+    // console.log("holaaaa");
+    // console.log(name,rol);
     return {name,rol};
   }
   onSubmit() {
@@ -57,7 +56,7 @@ console.log("pruebaaaaaaaaaaaaaaaaa")
       reader.onload = () => {
          this.base64Image = reader.result as string;
         // Aquí tienes tu imagen en base64
-        console.log(this.base64Image);
+        // console.log(this.base64Image);
 
         this.pasarFoto(this.datosUsuario.username, this.base64Image);
         window.location.reload();
@@ -70,8 +69,8 @@ console.log("pruebaaaaaaaaaaaaaaaaa")
     const headers = { 'Content-Type': 'application/x-www-form-urlencoded' };
     const body = new HttpParams()
       .set('new_picture', imagen);
-    console.log("NUEVA FOTO")
-    console.log(body.toString());
+    // console.log("NUEVA FOTO")
+    // console.log(body.toString());
 
     // console.log(imagen);
     // this.http.post("http://127.0.0.1:8000/change_picture_profile/"+username+"/", body.toString(), { headers })

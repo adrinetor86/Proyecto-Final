@@ -24,13 +24,13 @@ export class ViewProfileComponent {
   ngOnInit(): void {
     this.subirScroll();
     this.nameUser = this.extractNameFromURL();
-    console.log(this.nameUser);
+    // console.log(this.nameUser);
     this.suscripcion= this.obtenerDatosUsuario(this.nameUser).subscribe({
       next: (value) => {
-        console.log(value);
+        // console.log(value);
         this.datosUsuario = value['profile'];
-        console.log("los datos")
-        console.log(this.datosUsuario);
+        // console.log("los datos")
+        // console.log(this.datosUsuario);
 
       }
     });

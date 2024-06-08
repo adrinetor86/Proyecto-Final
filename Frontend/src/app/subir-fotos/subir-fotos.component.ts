@@ -39,7 +39,7 @@ export class SubirFotosComponent {
 
   onSubmit() {
     const id = this.formAccount.value.juegoId;
-    console.log("El ID es:", id);
+    // console.log("El ID es:", id);
 
     // Convertir los archivos seleccionados a base64 y almacenarlos en el array base64Images
     this.base64Images = []; // Reiniciar el array de imágenes en base64
@@ -72,7 +72,11 @@ export class SubirFotosComponent {
 
     // this.http.post("http://127.0.0.1:8000/insertar_guarro/", body.toString(), { headers })
     this.http.post(environment.apiUrl+"/insertar_guarro/", body.toString(), { headers })
-      .subscribe((response) => console.log(response));
+      .subscribe((response) =>{
+        // console.log(response)
+        }
+
+      );
   }
 
   pasarFotos(id: number, Maps: string[]) {
@@ -80,7 +84,7 @@ export class SubirFotosComponent {
     const body = {
       maps: Maps
     };
-    console.log(body);
+    // console.log(body);
     // this.http.post("http://127.0.0.1:8000/insert_maps/30/", JSON.stringify(body), { headers })
     this.http.post(environment.apiUrl+"/insert_maps/30/", JSON.stringify(body), { headers })
       .subscribe(response => console.log(response));

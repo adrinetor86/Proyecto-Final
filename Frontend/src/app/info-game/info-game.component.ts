@@ -89,7 +89,7 @@ export class InfoGameComponent implements OnInit,OnDestroy{
       this.route.params.subscribe(params => {
         // this.http.get('http://127.0.0.1:8000/api/v1/game/' + parseInt(params['id']) + '/').subscribe(JuegoRecibido => {
         this.http.get(environment.apiUrl+'/api/v1/game/' + parseInt(params['id']) + '/').subscribe(JuegoRecibido => {
-          console.log(JuegoRecibido)
+          // console.log(JuegoRecibido)
 
           if (!JuegoRecibido['error']) {
            this.idJuego = parseInt(params['id']);
@@ -109,15 +109,15 @@ export class InfoGameComponent implements OnInit,OnDestroy{
 
               this.arrGeneros.push(this.generos[i][0]);
             }
-            console.log(this.plataformasArray)
-            console.log(this.arrGeneros)
+            // console.log(this.plataformasArray)
+            // console.log(this.arrGeneros)
 
 
           } else {
             this.juegoPrueba = JuegoRecibido['error']['error'];
 
-            console.log("ERRORRRR")
-            console.log(this.juegoPrueba);
+            // console.log("ERRORRRR")
+            // console.log(this.juegoPrueba);
           }
         }, error => {
           this.respuestaError = true;
@@ -129,9 +129,9 @@ export class InfoGameComponent implements OnInit,OnDestroy{
         this.http.get(environment.apiUrl+'/get_maps/' + parseInt(params['id']) + '/').subscribe(MapasRecibidos => {
 
           this.mapasJuegos = MapasRecibidos as Mapas[];
-          console.log(this.mapasJuegos)
-          console.log("MAPAS")
-          console.log(this.mapasJuegos)
+          // console.log(this.mapasJuegos)
+          // console.log("MAPAS")
+          // console.log(this.mapasJuegos)
 
 
           this.mapaService.getMapassSmall(this.mapasJuegos).then((mapas) => {
@@ -158,7 +158,7 @@ export class InfoGameComponent implements OnInit,OnDestroy{
       });
     this.userRoleSubscription = this.validateService.userRole.subscribe((role: number) => {
 
-      console.log(role);
+      // console.log(role);
       this.isAdmin = role === 1;
     });
     this.suscriptionComment = this.route.params.subscribe(params=>{
@@ -168,7 +168,7 @@ export class InfoGameComponent implements OnInit,OnDestroy{
         this.gameComment = response.comments;
         this.verificarCampoNext();
         this.fotoUsuario();
-        console.log(this.gameComment)
+        // console.log(this.gameComment)
       })
     });
   }
@@ -182,7 +182,7 @@ export class InfoGameComponent implements OnInit,OnDestroy{
 
       if (comment.next) {
         this.gameComment[index].nextFieldValue = comment.next;
-        console.log(this.gameComment[index].nextFieldValue);
+        // console.log(this.gameComment[index].nextFieldValue);
       }
     });
   }
@@ -207,7 +207,7 @@ onDelete(){
        // this.http.post(`http://127.0.0.1:8000/delete_game/${id}/`,body).subscribe((response)=>{
        this.http.post(environment.apiUrl+`/delete_game/${id}/`,body).subscribe((response)=>{
 
-      console.log(response);
+      // console.log(response);
        })
 
      });
@@ -224,9 +224,9 @@ onDelete(){
 
   aniadirComentario() {
     if (this.isLoginUser.usuarioLogeado()) {
-      console.log("entraa")
+      // console.log("entraa")
       let commentValue = this.formCommentsValue.value.commentValue;
-      console.log(commentValue);
+      // console.log(commentValue);
       this.commentService.insertCommentFather(commentValue, this.juegoPrueba.id).pipe(
         catchError((error) => {
           this.errorValidate = true;
@@ -245,7 +245,7 @@ onDelete(){
   }
   mostrarComentariosHijoPrincipales(indice: number) {
     this.mostrarComentarios[indice] = !this.mostrarComentarios[indice];
-    console.log(this.mostrarComentarios);
+    // console.log(this.mostrarComentarios);
     const fieldNextUrlValue = this.gameComment[indice].nextFieldValue;
     if (fieldNextUrlValue) {
       // this.http.get(`http://127.0.0.1:8000${fieldNextUrlValue}`).subscribe((response: any) => {
@@ -261,7 +261,7 @@ onDelete(){
     }
   }
   sacarComentariosApi(indice:number, fieldNextUrlValue:string){
-    console.log(fieldNextUrlValue);
+    // console.log(fieldNextUrlValue);
     // this.http.get(`http://127.0.0.1:8000${fieldNextUrlValue}`).subscribe((response: any) => {
     this.http.get(environment.apiUrl+`${fieldNextUrlValue}`).subscribe((response: any) => {
 
@@ -271,12 +271,12 @@ onDelete(){
         return childComment.profile_picture;
       });
       this.mostrarComentarios2[indice] = !!this.valorNextComentarioSiguiente;
-      console.log(this.mostrarComentarios2[indice]);
+      // console.log(this.mostrarComentarios2[indice]);
     });
   }
   mostrarMasComentarios(indice: number) {
     const fieldNextUrlValue = this.valorNextComentarioSiguiente;
-    console.log(fieldNextUrlValue);
+    // console.log(fieldNextUrlValue);
     if (fieldNextUrlValue) {
       this.sacarComentariosApi(indice, fieldNextUrlValue);
     }

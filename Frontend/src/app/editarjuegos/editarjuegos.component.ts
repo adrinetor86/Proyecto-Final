@@ -89,7 +89,7 @@ ngOnInit() {
       this.route.params.subscribe(params => {
         // this.httpClient.get('http://127.0.0.1:8000/api/v1/game/' + parseInt(params['id']) + '/').subscribe(JuegoRecibido => {
         this.httpClient.get(environment.apiUrl+'/api/v1/game/' + parseInt(params['id']) + '/').subscribe(JuegoRecibido => {
-          console.log(JuegoRecibido)
+          // console.log(JuegoRecibido)
 
           if (!JuegoRecibido['error']) {
             this.juegoPrueba = JuegoRecibido as JuegoPrueba;
@@ -98,8 +98,8 @@ ngOnInit() {
             this.generos= JuegoRecibido['genders'];
             this.front_page=JuegoRecibido['front_page'];
             this.maps=JuegoRecibido['maps'];
-            console.log("MAPAS")
-            console.log(this.maps)
+            // console.log("MAPAS")
+            // console.log(this.maps)
 
             for (let i = 0; i < this.plataformas.length; i++) {
               this.plataformasArray.push(this.plataformas[i][1]);
@@ -108,35 +108,35 @@ ngOnInit() {
             for (let i = 0; i < this.generos.length; i++) {
               this.arrGeneros.push(this.generos[i][1]);
             }
-            console.log("LOS GENEROS")
-            console.log(this.arrGeneros);
-            console.log("LAS PLATAFORMAS")
-            console.log(this.plataformasArray);
+            // console.log("LOS GENEROS")
+            // console.log(this.arrGeneros);
+            // console.log("LAS PLATAFORMAS")
+            // console.log(this.plataformasArray);
             this.idJuego = parseInt(params['id']);
 
             // this.httpClient.get('http://127.0.0.1:8000/get_maps/' + parseInt(params['id']) + '/').subscribe(MapasRecibidos => {
             this.httpClient.get(environment.apiUrl+'/get_maps/' + parseInt(params['id']) + '/').subscribe(MapasRecibidos => {
 
               this.mapasJuegos = MapasRecibidos as Mapas[];
-              console.log(this.mapasJuegos);
+              // console.log(this.mapasJuegos);
 
               for (let i = 0; i < this.mapasJuegos['maps'].length; i++) {
 
                  this.mapas.push(this.mapasJuegos['maps'][i]);
               }
-              console.log("el mapa")
-              console.log(this.mapas);
+              // console.log("el mapa")
+              // console.log(this.mapas);
             });
 
           } else {
             this.juegoPrueba = JuegoRecibido['error']['error'];
 
-            console.log("ERRORRRR")
-            console.log(this.juegoPrueba);
+            // console.log("ERRORRRR")
+            // console.log(this.juegoPrueba);
           }
         }, error => {
           this.respuestaError = true;
-          console.log(error['error']['error']);
+          // console.log(error['error']['error']);
 
         });
 
