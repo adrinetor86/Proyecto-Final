@@ -15,7 +15,6 @@ class ControllerUser:
 
     def register(self):
         if validator.validate_email(self.__email) and validator.validate_username(self.__username) and validator.validate_password(self.__password):
-
             return self.__user_model.insert_user(self.__email.lower().strip(), self.__username.strip(), self.__password.strip(), self.__rol)
         else:
             return {"error": "Void or incorrect fields", "code": 409}

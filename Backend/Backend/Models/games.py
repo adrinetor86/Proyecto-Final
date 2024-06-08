@@ -61,14 +61,6 @@ class Games:
             return {"error": "game not found", "code": 403}
 
     def search_game(self, value: str, page: int, genders, plataforms):
-        """
-        -- Generado por CHATGPT --
-        SELECT id, title, front_page FROM games WHERE id IN
-        ( SELECT DISTINCT gp.id_game FROM games_plataforms gp WHERE gp.id_plataform IN (5,6))
-        AND id IN (SELECT DISTINCT gg.id_game FROM games_genders gg WHERE gg.id_gender IN (5,6))
-        AND title LIKE '%a%' ORDER BY games.release_date;
-        """
-
         limit = page * 15
         offset = limit - 15
         sql = f"SELECT id, title, front_page FROM {self.__tables["games"]} WHERE title LIKE '%{value}%' "
@@ -90,12 +82,7 @@ class Games:
                 query += f"AND id IN (SELECT DISTINCT gp.id_game FROM games_plataforms gp WHERE gp.id_plataform IN {plataforms}) "
                 sql += f"AND id IN (SELECT DISTINCT gp.id_game FROM games_plataforms gp WHERE gp.id_plataform IN {plataforms}) "
 
-        sql += f" ORDER BY games.release_date LIMIT 15 OFFSET {offset}"
-
-
-#         print(sql)
-
-
+        sql += f" ORDER BY games.release_date DESC LIMIT 15 OFFSET {offset}"
 
         try:
             cursor = self.__connection.cursor(dictionary=True)
@@ -109,12 +96,6 @@ class Games:
                 return {"error": "Unknown error", "code": 400}
             else:
                 total_page = math.ceil(total_games/15)
-
-
-#                 print(dict_return)
-                print("longuitud es: " + str(len(dict_return)))
-
-
 
             if len(dict_return) != 0:
                 prev = self.__get_prev(page, value)
@@ -156,7 +137,8 @@ class Games:
 
     def insert_comment(self, username, id_game, content_comment, parent_comment):
 
-        sql = f"INSERT INTO comments (user, id_game, content_comment, parent_comment) values ('{username}', {id_game}, '{content_comment}'"
+        sql = (f"INSERT INTO comments (user, id_game, content_comment, parent_comment) "
+               f"values ('{username}', {id_game}, '{content_comment}'")
         if parent_comment != None:
             sql += f", {parent_comment})"
         else:
@@ -437,16 +419,17 @@ class Games:
 
         return dict_return
 
-    def insert_game(self, title, synopsis, developer, link_download, link_trailer, release_date, front_page, background_picture, plataforms, genders, maps):
+    def insert_game(self, title, synopsis, developer, link_download, link_trailer, release_date, front_page,
+                    background_picture, plataforms, genders, maps):
         sql = (f"INSERT INTO {self.__tables["games"]} "
                "(title, synopsis, developer, link_download, link_trailer, release_date, front_page,background_picture) "
                "VALUES "
-               f"('{title}', '{synopsis}', '{developer}', '{link_download}', '{link_trailer}', '{release_date}', '{front_page}', '{background_picture}')")
+               f"('{title}', '{synopsis}', '{developer}', '{link_download}', '{link_trailer}', '{release_date}', "
+               f"'{front_page}', '{background_picture}')")
 
         try:
             cursor = self.__connection.cursor()
             cursor.execute(sql)
-            #self.__connection.commit()
 
             id = self.__find_id_game(title, cursor)
 
@@ -467,7 +450,6 @@ class Games:
 
             return {"success": "Insert game was success"}
         except mysql.connector.Error as e:
-            print(e.msg)
             return {"error": "Cannot insert game", "code": 400}
 
 
@@ -479,8 +461,6 @@ class Games:
             cursor.execute(sql)
             for plataform in plataforms:
                 cursor.execute(f"INSERT INTO {self.__tables["own_plataforms"]} (id_plataform, id_game) VALUES ({plataform}, {id_game})")
-
-            #self.__connection.commit()
 
             return True
         except mysql.connector.Error:
@@ -495,8 +475,6 @@ class Games:
             for gender in genders:
                 cursor.execute(f"INSERT INTO {self.__tables["own_genders"]} (id_gender, id_game) VALUES ({gender}, {id_game})")
 
-            #self.__connection.commit()
-
             return True
         except mysql.connector.Error:
             return False
@@ -510,8 +488,6 @@ class Games:
             for map in maps:
                 cursor.execute(f"INSERT INTO {self.__tables["own_maps"]} (url_map, id_game) VALUES ('{map}', {id_game})")
 
-            #self.__connection.commit()
-
             return True
         except mysql.connector.Error:
             return False
@@ -523,11 +499,15 @@ class Games:
             cursor.execute(sql)
             data = cursor.fetchone()
 
+            if data is None:
+                return -1
+
             return data[0]
         except mysql.connector.Error as error:
             return -1
 
-    def update_game(self, id, title, synopsis, developer, link_download, link_trailer, release_date, front_page, background_picture, plataforms, genders, maps):
+    def update_game(self, id, title, synopsis, developer, link_download, link_trailer, release_date, front_page,
+                    background_picture, plataforms, genders, maps):
         sql = (f"UPDATE {self.__tables['games']} "
                f"SET title = '{title}', synopsis = '{synopsis}', developer = '{developer}', "
                f"link_download = '{link_download}', link_trailer = '{link_trailer}', "
@@ -554,7 +534,6 @@ class Games:
 
             return {"success": "Insert game was success"}
         except mysql.connector.Error as e:
-            print(e.msg)
             return {"error": "Cannot insert game", "code": 400}
 
     def delete_game(self, id):
@@ -569,5 +548,3 @@ class Games:
             return {"success": "Game deleted successfully"}
         except mysql.connector.Error:
             return {"error": "Unknown error, try again", "code": 400}
-
-

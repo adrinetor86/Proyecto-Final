@@ -1,8 +1,6 @@
 import datetime
-import html
 import re
 from Backend.Models.games import Games
-from Backend.conf import KEY_IDENTIFIED_USER
 from bs4 import BeautifulSoup
 
 class ControllerGames:
@@ -89,17 +87,13 @@ class ControllerGames:
             return {"error": "Invalid fields", "code": 409}
 
     def new_game(self):
-        print("entra")
         if self.__validate_fields():
-            print("entra id")
-
             return self.__games_model.insert_game(self.__title, self.__synopsis,
                                                   self.__developer, self.__link_download,
                                                   self.__link_trailer, self.__release_date,
                                                   self.__front_page, self.__background_picture,
                                                   self.__plataforms, self.__genders, self.__maps)
         else:
-            print("aaaaa")
             return {"error": "Invalid fields", "code": 409}
 
     def delete_game(self):
@@ -109,8 +103,6 @@ class ControllerGames:
             return {"error": "Params error", "code":409}
 
     def __validate_fields(self):
-
-
 
         if len(self.__title) > 200 or len(self.__title) == 0:
             return False
@@ -136,12 +128,14 @@ class ControllerGames:
         if len(self.__maps) < 1:
             return False
 
+        if self.__background_picture == "":
+            return False
+
         #try:
-            #    self.__release_date = re.sub("/", "-", self.__release_date)
-            #    date = self.__release_date.split("-")
+        #    self.__release_date = re.sub("/", "-", self.__release_date)
+        #    date = self.__release_date.split("-")
         #    datetime.date(date[0], date[1], date[2])
         #except Exception as e:
-        #   print("Error: " + e)
         #   return False
 
         return True
