@@ -11,7 +11,7 @@
 
       <div class="contenedor-foto">
         <p>Foto de Perfil</p>
-        <img class="foto-perfil" src="{{datosUsuario.profile_picture}}">
+        <img *ngIf="isFileInputEnabled" class="foto-perfil" src="{{datosUsuario.profile_picture}}">
         <input type="file" (change)="onFileChange($event)" required>
       </div>
 

@@ -29,6 +29,7 @@ export class ViewProfileComponent {
       next: (value) => {
         console.log(value);
         this.datosUsuario = value['profile'];
+        console.log("los datos")
         console.log(this.datosUsuario);
 
       }

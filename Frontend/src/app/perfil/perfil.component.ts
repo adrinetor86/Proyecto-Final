@@ -20,9 +20,11 @@ export class PerfilComponent implements OnInit, OnDestroy{
   base64Image: string = '';
   datosToken: any;
   errorMessage = '';
+  isFileInputEnabled: boolean;
   constructor(private http: HttpClient,private validateservice:ValidService,private route:Router,private tituloPagina:Title) { }
   ngOnInit(): void {
     this.tituloPagina.setTitle('Perfil');
+    this.isFileInputEnabled = true;
      this.datosToken= this.getData();
      console.log("OHHH DIOS MIOS")
      console.log(this.datosToken.name)
@@ -68,12 +70,23 @@ console.log("pruebaaaaaaaaaaaaaaaaa")
     const headers = { 'Content-Type': 'application/x-www-form-urlencoded' };
     const body = new HttpParams()
       .set('new_picture', imagen);
-    console.log(body.toString());
     console.log("NUEVA FOTO")
-    console.log(imagen);
+    console.log(body.toString());
+
+    // console.log(imagen);
     // this.http.post("http://127.0.0.1:8000/change_picture_profile/"+username+"/", body.toString(), { headers })
-    this.http.post(environment.apiUrl+"change_picture_profile/"+username+"/", body.toString(), { headers })
-      .subscribe((response) => console.log("ENTRAAAAA"+response));
+    this.http.post(environment.apiUrl+"/change_picture_profile/"+username+"/", body.toString(), { headers })
+      // .pipe(
+      //   catchError((error) => {
+      //     this.errorMessage = error.error;
+      //     console.log(this.errorMessage);
+      //     console.log("ERRRRRPRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRR");
+      //     return of(null);
+      //   })
+      // )
+      .subscribe((response) => {
+
+      });
   }
   onFileChange(event: any) {
     this.selectedFile = event.target.files[0];

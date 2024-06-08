@@ -34,8 +34,8 @@ export class HeaderComponent implements OnInit,OnDestroy {
 
   ngOnInit(): void {
   //   se suscribe al observable isLogged para saber si el usuario esta logeado o no
-    console.log("comprobando si esta logeado");
-    console.log(this.validateService.isLogged);
+  //   console.log("comprobando si esta logeado");
+  //   console.log(this.validateService.isLogged);
 
     this.usuarioSub = this.validateService.isLogged.subscribe({
     next: (value) => {
@@ -43,15 +43,15 @@ export class HeaderComponent implements OnInit,OnDestroy {
 
 
       this.suscripcion= this.obtenerDatosUsuario(this.validateService.getUserName())
-        .pipe(debounceTime(1000))
+        .pipe(debounceTime(2000))
         .subscribe({
         next: (value) => {
           this.datosUsuario = value['profile'];
-          console.log("LOS DATOS DEL USUARIO");
-          console.log(this.datosUsuario);
+          // console.log("LOS DATOS DEL USUARIO");
+          // console.log(this.datosUsuario);
           this.rolUsuario = this.datosUsuario['rol'];
-          console.log("EL ROLE");
-          console.log(this.rolUsuario);
+          // console.log("EL ROLE");
+          // console.log(this.rolUsuario);
           this.fotoUsuario=this.datosUsuario['profile_picture'];
           this.nombreUsuario=this.datosUsuario['username'];
         }
@@ -62,12 +62,12 @@ export class HeaderComponent implements OnInit,OnDestroy {
   })
     this.userRoleSubscription = this.validateService.userRole.subscribe((role: number) => {
 
-      console.log(role);
+      // console.log(role);
       this.isAdmin = role === 1;
     });
 
-    console.log(this.usuarioSub)
-    console.log("se ha suscrito");
+    // console.log(this.usuarioSub)
+    // console.log("se ha suscrito");
   }
 
 
@@ -85,7 +85,7 @@ export class HeaderComponent implements OnInit,OnDestroy {
 
   @ViewChild('loginContainer') loginContainer: ElementRef;
   ngOnDestroy(): void {
-    console.log("se ha fue")
+
     this.usuarioSub.unsubscribe();
     this.suscripcion.unsubscribe();
     // this.suscripcion.unsubscribe();
