@@ -3,7 +3,7 @@
   </div>
   <div class="contenedor-buscador">
 
-    <input type="search"  placeholder="Buscar..." (input)="onSearchTermChange($event.target.value)" name="buscador">
+    <input type="text"  placeholder="Buscar..." (input)="onSearchTermChange($event.target.value)" name="buscador">
     <div>
       <p-sidebar [(visible)]="sidebarVisible">
 
@@ -14,7 +14,7 @@
             <div class="filter-section">
               <h5>Géneros</h5>
               <div class="contenedor-generos">
-
+A
                   <div *ngFor="let genre of generosOpciones">
                     <label>
                       <input type="checkbox" [value]="genre[0]" (change)="onGenreChange(genre[0], $event)" >

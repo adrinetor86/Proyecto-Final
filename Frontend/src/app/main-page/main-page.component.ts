@@ -29,7 +29,9 @@ export class MainPageComponent implements OnInit,OnDestroy {
   plataformasOpciones=[]
   sidebarVisible: boolean = false;
   isLoading = false;
+
   private getGamesSubject: Subject<void> = new Subject<void>();
+
   selectedGenres: number[] = [];
   selectedPlatforms: number[] = [];
   constructor(private juegosservice:JuegosService,private filtrosService:FiltrosService,private tituloPagina:Title) { }
@@ -50,19 +52,13 @@ export class MainPageComponent implements OnInit,OnDestroy {
             this.prevPage = juegos['prev'];
             this.totalGames = juegos['count_results'];
 
-            console.log("hace llamada manito")
-            console.log(this.gamesPrueba);
-            console.log(this.nextPage);
-            console.log(this.prevPage);
-            console.log("JUEGOSSSSS")
-            console.log(juegos);
           });
         },error: (error) => {
           this.isLoading = false;
           Swal.fire({
             icon: 'error',
             title: 'Oops...',
-            text: 'Error fetching data',
+            text: 'No se encontró el juego',
           })
 
 
