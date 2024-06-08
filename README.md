@@ -7,7 +7,9 @@
 </h1>
 
 Este proyecto de fin de ciclo ha sido desarrollado por [Adrián Jacek](https://github.com/adrinetor86), [Nahuel Hidalgo](https://github.com/adrinetor86) y [Jorge Pulluaguari](https://github.com/adrinetor86) en el cual hemos utilizado principalmente Angular 17 para la parte del cliente y para el backend Django 5.0.4 y Pythoon 3.12.3 y MySQL para la base de datos  
-
+## DESCRIPCIÓN
+Antobsgames es una aplicacion desarrollada con el fin de ayudar a los usuarios a la hora de comprar o descargar cualquier juego. Gracias a la información que mostramos de cada juego y la posibilidad que tienen los usuarios de realizar comentarios en cada juego.
+La aplicación esta dividida en dos roles: Administrador y Usuario. En donde el administrador pordrá crear, editar o borrar juegos.
 ## FRONTEND
 
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 17.3.0.  
