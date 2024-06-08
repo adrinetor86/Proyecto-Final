@@ -6,7 +6,7 @@
   Antobsgames
 </h1>
 
-Este proyecto de fin de ciclo ha sido desarrollado por [Adrián Jacek](https://github.com/adrinetor86), [Nahuel Hidalgo](https://github.com/adrinetor86) y [Jorge Pulluaguari](https://github.com/adrinetor86)
+Este proyecto de fin de ciclo ha sido desarrollado por [Adrián Jacek](https://github.com/adrinetor86), [Nahuel Hidalgo](https://github.com/adrinetor86) y [Jorge Pulluaguari](https://github.com/adrinetor86) en el cual hemos utilizado principalmente Angular 17 para la parte del cliente y para el backend Django 5.0.4 y Pythoon 3.12.3 y MySQL para la base de datos  
 
 ## FRONTEND
 
