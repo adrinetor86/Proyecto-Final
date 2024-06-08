@@ -2,6 +2,7 @@ import datetime
 import re
 from Backend.Models.user import User
 import Backend.Libs.validate_data as validator
+import base64
 
 class ControllerUser:
 
@@ -44,6 +45,7 @@ class ControllerUser:
         return self.__user_model.get_other_profile(self.__username.strip())
 
     def change_picture(self):
+
         if self.__picture is not None:
             return self.__user_model.change_picture(self.__picture, self.__username.strip())
         else:

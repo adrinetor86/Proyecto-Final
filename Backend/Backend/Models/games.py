@@ -20,8 +20,8 @@ class Games:
         self.__connection = bd.connect(**config.DATABASE)
 
     def select_games(self, page) -> dict | None:
-        limit = int(page) * 15
-        offset = limit - 15
+        limit = int(page) * 9
+        offset = limit - 9
         sql = f"SELECT id, title, release_date FROM {self.__tables["games"]} LIMIT {limit} OFFSET {offset}"
 
         try:
@@ -61,8 +61,8 @@ class Games:
             return {"error": "game not found", "code": 403}
 
     def search_game(self, value: str, page: int, genders, plataforms):
-        limit = page * 15
-        offset = limit - 15
+        limit = page * 9
+        offset = limit - 9
         sql = f"SELECT id, title, front_page FROM {self.__tables["games"]} WHERE title LIKE '%{value}%' "
         query = f"SELECT count(*) FROM {self.__tables["games"]} WHERE title LIKE '%{value}%' "
 
@@ -82,7 +82,7 @@ class Games:
                 query += f"AND id IN (SELECT DISTINCT gp.id_game FROM games_plataforms gp WHERE gp.id_plataform IN {plataforms}) "
                 sql += f"AND id IN (SELECT DISTINCT gp.id_game FROM games_plataforms gp WHERE gp.id_plataform IN {plataforms}) "
 
-        sql += f" ORDER BY games.release_date DESC LIMIT 15 OFFSET {offset}"
+        sql += f" ORDER BY games.release_date DESC LIMIT 9 OFFSET {offset}"
 
         try:
             cursor = self.__connection.cursor(dictionary=True)
@@ -95,7 +95,7 @@ class Games:
             if total_games == -1:
                 return {"error": "Unknown error", "code": 400}
             else:
-                total_page = math.ceil(total_games/15)
+                total_page = math.ceil(total_games/9)
 
             if len(dict_return) != 0:
                 prev = self.__get_prev(page, value)
@@ -264,7 +264,6 @@ class Games:
             data = cursor.fetchall()
             cursor.close()
         except mysql.connector.Error as error:
-            print(f'Error get plataforms: {error.msg}')
             return {'error': 'get comments'}
 
         for comment in data:

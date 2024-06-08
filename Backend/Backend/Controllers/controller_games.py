@@ -37,8 +37,6 @@ class ControllerGames:
         if not self.__validate_fields():
             return {"error": "Invalid type fields"}
 
-        print("intentas insertar un juego")
-
     def search(self, page):
         self.__genders = tuple(self.__genders)
         self.__plataforms = tuple(self.__plataforms)
