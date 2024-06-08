@@ -89,6 +89,14 @@ https://www.python.org/downloads/
 
 Ruta base de Django: http://127.0.0.1:8000/
 
+### Obtener base de datos y dependencias
+*Partiremos desde el directorio raiz del proyecto*
+
+    cd ./Backend
+    python .\update_database.py
+    python .\install-dependencies.py
+
+
 
 # COSAS A TENER EN CUENTA / IDEAS
 * Poder indicar cuantos juegos mostrar por pantalla 

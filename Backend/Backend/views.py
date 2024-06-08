@@ -1,6 +1,5 @@
 import json
 from urllib import request
-
 from django.http import JsonResponse, HttpResponse
 from Backend.Controllers.controller_games import ControllerGames
 from Backend.Controllers.controller_user import ControllerUser

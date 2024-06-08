@@ -1,8 +1,6 @@
 import datetime
-import html
 import re
 from Backend.Models.games import Games
-from Backend.conf import KEY_IDENTIFIED_USER
 from bs4 import BeautifulSoup
 
 class ControllerGames:
@@ -133,11 +131,11 @@ class ControllerGames:
         if self.__background_picture == "":
             return False
 
-        try:
-            self.__release_date = re.sub("/", "-", self.__release_date)
-            date = self.__release_date.split("-")
-            datetime.date(date[0], date[1], date[2])
-        except Exception as e:
-           return False
+        #try:
+        #    self.__release_date = re.sub("/", "-", self.__release_date)
+        #    date = self.__release_date.split("-")
+        #    datetime.date(date[0], date[1], date[2])
+        #except Exception as e:
+        #   return False
 
         return True
