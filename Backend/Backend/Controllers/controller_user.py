@@ -45,10 +45,6 @@ class ControllerUser:
         return self.__user_model.get_other_profile(self.__username.strip())
 
     def change_picture(self):
-        decoded_content = base64.b64decode(self.__picture, validate=True)
-        
-        if base64.b64encode(decoded_content) != self.__picture.strip():
-            return {"error": "Picture was bad sent", "code": 409}
 
         if self.__picture is not None:
             return self.__user_model.change_picture(self.__picture, self.__username.strip())
