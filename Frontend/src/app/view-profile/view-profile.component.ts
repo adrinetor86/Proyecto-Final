@@ -17,7 +17,6 @@ export class ViewProfileComponent {
   constructor(private http:HttpClient,private location:Location, private router:Router) {
   }
   ngOnInit(): void {
-    console.log("OHHH DIOS MIOS")
     this.nameUser = this.extractNameFromURL();
     console.log(this.nameUser);
     this.suscripcion= this.obtenerDatosUsuario(this.nameUser).subscribe({

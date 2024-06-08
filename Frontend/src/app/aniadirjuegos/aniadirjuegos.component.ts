@@ -184,8 +184,6 @@ ngOnInit() {
       for (let i = 0; i < event.target.files.length; i++) {
         const file = event.target.files[i];
         this.convertToBase64(file).then((base64: string) => {
-          console.log("EL BASEEEEEE");
-          // console.log(base64);
           this.game.maps.push(base64);
           this.mapasPrueba = this.game.maps;
 

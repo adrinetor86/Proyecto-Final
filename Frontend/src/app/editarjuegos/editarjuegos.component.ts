@@ -206,7 +206,7 @@ ngOnInit() {
       arr.push(id);
     }
     this.arrayContains=arr;
-    console.log(this.arrayContains);
+
   }
   updateMapas(base: string, arr: any): void {
     console.log(arr);
@@ -219,8 +219,7 @@ ngOnInit() {
       arr.push(base);
     }
     this.arrayContains=arr;
-    console.log("UPDATE MAPASSSS");
-    console.log(this.arrayContains);
+
   }
 
 

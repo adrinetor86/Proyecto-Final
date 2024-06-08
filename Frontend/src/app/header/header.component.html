@@ -5,7 +5,6 @@
 
     <li class="logo"> <a routerLink="/"></a></li>
 <!--    <li class="hideOnMobile" [class.hideOnMobile]="!menuOpen"><a class="enlace-nombre-usuario">Hola de nuevo {{datosUsuario.username}}</a></li>-->
-    <li *ngIf="usuarioLogado" class="hideOnMobile" [class.hideOnMobile]="!menuOpen" ><a [routerLink]="['/testeo']">Fotos</a></li>
 <!--    <li *ngIf="usuarioLogado" class="hideOnMobile" [class.hideOnMobile]="!menuOpen" ><a [routerLink]="['/perfil']" >Perfil</a></li>-->
     <li *ngIf="usuarioLogado" class="hideOnMobile" [class.hideOnMobile]="!menuOpen" ><a style="color:white">Bienvenido/a {{nombreUsuario}}</a></li>
     <li *ngIf="isAdmin" class="hideOnMobile"   [class.hideOnMobile]="!menuOpen" ><a routerLink="/aniadirJuegos" >Añadir Juegos</a></li>
