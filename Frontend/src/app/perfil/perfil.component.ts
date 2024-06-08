@@ -56,6 +56,7 @@ export class PerfilComponent implements OnInit, OnDestroy{
         console.log(this.base64Image);
 
         this.pasarFoto(this.datosUsuario.username, this.base64Image);
+        window.location.reload();
       };
       reader.readAsDataURL(this.selectedFile);
     }
