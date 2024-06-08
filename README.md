@@ -71,6 +71,9 @@ This project was generated with [Angular CLI](https://github.com/angular/angular
 ### Instalar Prime Angular
     npm install primeng
 
+### Instalar dependencias
+    npm install
+
 ## BACKEND
 
 ### Instalar python 
@@ -95,7 +98,6 @@ Ruta base de Django: http://127.0.0.1:8000/
     cd ./Backend
     python .\update_database.py
     python .\install-dependencies.py
-
 
 
 # COSAS A TENER EN CUENTA / IDEAS
