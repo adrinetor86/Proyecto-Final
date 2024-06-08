@@ -18,6 +18,7 @@ export class LoginComponent implements OnInit {
   errorValidate = false;
 
 ngOnInit() {
+  scrollTo(0,0);
   this.tituloPagina.setTitle('Login');
   if(this.validateService.usuarioLogeado()){
     this.route.navigate(['/']).then(r => {});

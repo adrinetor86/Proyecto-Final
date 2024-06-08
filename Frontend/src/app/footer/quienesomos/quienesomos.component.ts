@@ -12,7 +12,7 @@ export class QuienesomosComponent implements OnInit,OnDestroy{
   constructor(private renderer: Renderer2,
               @Inject(DOCUMENT) private document: Document,private tituloPagina:Title) { }
   ngOnInit(): void {
-
+  scrollTo(0,0);
       this.tituloPagina.setTitle("Quienes Somos")
     this.renderer.setStyle(this.document.body, 'background', '#161a3a');
   }

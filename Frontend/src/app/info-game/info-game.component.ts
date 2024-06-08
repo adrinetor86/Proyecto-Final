@@ -13,7 +13,9 @@ import {MapasService} from "../servicios/mapaJuegos.service";
 import { DOCUMENT } from '@angular/common';
 import {CommentService} from "../servicios/comment.service";
 import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
+import { environment } from '../enviroments/enviroments';
 import Swal from 'sweetalert2';
+
 @Component({
   selector: 'app-info-game',
   templateUrl: './info-game.component.html',
@@ -77,6 +79,7 @@ export class InfoGameComponent implements OnInit,OnDestroy{
   // TOCAR AQUI PARA PONER LA IMAGEN
 
   ngOnInit(): void {
+    this.subirScroll();
     this.renderer.setStyle(this.document.body, 'background', '#161a3a');
     // this.youtubeUrl= 'https://www.youtube.com/embed/OCZIzzQpJUw?si=3Xwp2VhHFl1Ndvkl';
 
@@ -84,7 +87,8 @@ export class InfoGameComponent implements OnInit,OnDestroy{
 
     this.suscripcionPrueba=
       this.route.params.subscribe(params => {
-        this.http.get('http://127.0.0.1:8000/api/v1/game/' + parseInt(params['id']) + '/').subscribe(JuegoRecibido => {
+        // this.http.get('http://127.0.0.1:8000/api/v1/game/' + parseInt(params['id']) + '/').subscribe(JuegoRecibido => {
+        this.http.get(environment.apiUrl+'/api/v1/game/' + parseInt(params['id']) + '/').subscribe(JuegoRecibido => {
           console.log(JuegoRecibido)
 
           if (!JuegoRecibido['error']) {
@@ -121,7 +125,8 @@ export class InfoGameComponent implements OnInit,OnDestroy{
           this.routerNavigate.navigate(['/not-found'])
         });
 
-        this.http.get('http://127.0.0.1:8000/get_maps/' + parseInt(params['id']) + '/').subscribe(MapasRecibidos => {
+        // this.http.get('http://127.0.0.1:8000/get_maps/' + parseInt(params['id']) + '/').subscribe(MapasRecibidos => {
+        this.http.get(environment.apiUrl+'/get_maps/' + parseInt(params['id']) + '/').subscribe(MapasRecibidos => {
 
           this.mapasJuegos = MapasRecibidos as Mapas[];
           console.log(this.mapasJuegos)
@@ -158,7 +163,8 @@ export class InfoGameComponent implements OnInit,OnDestroy{
     });
     this.suscriptionComment = this.route.params.subscribe(params=>{
       const gameId = params['id'];
-      this.http.get(`http://127.0.0.1:8000/api/v1/game/${gameId}/`).subscribe((response:any)=>{
+      // this.http.get(`http://127.0.0.1:8000/api/v1/game/${gameId}/`).subscribe((response:any)=>{
+      this.http.get(environment.apiUrl+`/api/v1/game/${gameId}/`).subscribe((response:any)=>{
         this.gameComment = response.comments;
         this.verificarCampoNext();
         this.fotoUsuario();
@@ -198,7 +204,8 @@ onDelete(){
           username: this.validateService.getUserName()
        }
 
-       this.http.post(`http://127.0.0.1:8000/delete_game/${id}/`,body).subscribe((response)=>{
+       // this.http.post(`http://127.0.0.1:8000/delete_game/${id}/`,body).subscribe((response)=>{
+       this.http.post(environment.apiUrl+`/delete_game/${id}/`,body).subscribe((response)=>{
 
       console.log(response);
        })
@@ -241,7 +248,9 @@ onDelete(){
     console.log(this.mostrarComentarios);
     const fieldNextUrlValue = this.gameComment[indice].nextFieldValue;
     if (fieldNextUrlValue) {
-      this.http.get(`http://127.0.0.1:8000${fieldNextUrlValue}`).subscribe((response: any) => {
+      // this.http.get(`http://127.0.0.1:8000${fieldNextUrlValue}`).subscribe((response: any) => {
+      this.http.get(environment.apiUrl+`${fieldNextUrlValue}`).subscribe((response: any) => {
+
         this.gameCommentChild[indice] = response.comments;
         this.valorNextComentarioSiguiente = response.next;
         this.gameCommentChild[indice].forEach((childComment: { profile_picture: any }) => {
@@ -253,7 +262,9 @@ onDelete(){
   }
   sacarComentariosApi(indice:number, fieldNextUrlValue:string){
     console.log(fieldNextUrlValue);
-    this.http.get(`http://127.0.0.1:8000${fieldNextUrlValue}`).subscribe((response: any) => {
+    // this.http.get(`http://127.0.0.1:8000${fieldNextUrlValue}`).subscribe((response: any) => {
+    this.http.get(environment.apiUrl+`${fieldNextUrlValue}`).subscribe((response: any) => {
+
       this.gameCommentChild[indice] = this.gameCommentChild[indice].concat(response.comments);
       this.valorNextComentarioSiguiente = response.next;
       this.gameCommentChild[indice].forEach((childComment: { profile_picture: any }) => {
@@ -276,7 +287,9 @@ onDelete(){
     this.mostrarBotonesFormPadre = false;
     this.errorValidate = false;
   }
-
+subirScroll(){
+  scrollTo(0,0);
+}
   mostrarFormComentarioHijo(indice:number){
     this.mostrarBotonesResponderComment = false;
     this.indiceComentario=indice;

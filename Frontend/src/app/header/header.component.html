@@ -5,9 +5,11 @@
 
     <li class="logo"> <a routerLink="/"></a></li>
 <!--    <li class="hideOnMobile" [class.hideOnMobile]="!menuOpen"><a class="enlace-nombre-usuario">Hola de nuevo {{datosUsuario.username}}</a></li>-->
-<!--    <li *ngIf="usuarioLogado" class="hideOnMobile" [class.hideOnMobile]="!menuOpen" ><a [routerLink]="['/perfil']" >Perfil</a></li>-->
+
     <li *ngIf="usuarioLogado" class="hideOnMobile" [class.hideOnMobile]="!menuOpen" ><a style="color:white">Bienvenido/a {{nombreUsuario}}</a></li>
     <li *ngIf="isAdmin" class="hideOnMobile"   [class.hideOnMobile]="!menuOpen" ><a routerLink="/aniadirJuegos" >Añadir Juegos</a></li>
+    <li *ngIf="usuarioLogado && menuOpen" class="hideOnMobile" [class.hideOnMobile]="!menuOpen" ><a [routerLink]="['/perfil']" >Perfil</a></li>
+    <li *ngIf="usuarioLogado && menuOpen" class="hideOnMobile" [class.hideOnMobile]="!menuOpen" ><a (click)="desconectar()" >Desconectar</a></li>
     <li class="hideOnMobile" [class.hideOnMobile]="!menuOpen">
 <!--      <p-avatar image="{{datosUsuario.profile_picture}}"  icon="pi pi-user" styleClass="mr-2" size="large"  [style]="{ 'background-color': '#9c27b0', color: '#ffffff' }" shape="circle"></p-avatar>-->
 
@@ -61,7 +63,7 @@
       </div>
 
       }@else {
-      <a [routerLink]="['/login']"  class="icono">Iniciar Sesion/Registrarse</a>
+      <a *ngIf="!usuarioLogado" [routerLink]="['/login']"  class="icono">Iniciar Sesion/Registrarse</a>
       }
 
 

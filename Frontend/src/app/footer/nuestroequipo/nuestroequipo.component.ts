@@ -12,6 +12,7 @@ export class NuestroequipoComponent implements OnInit{
   constructor(private tituloPagina:Title) { }
 
   ngOnInit() {
+    scrollTo(0,0);
     this.tituloPagina.setTitle("Nuestro Equipo")
   }
 

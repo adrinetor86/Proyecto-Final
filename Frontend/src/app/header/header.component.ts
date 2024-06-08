@@ -3,7 +3,9 @@ import {Router} from "@angular/router";
 import {ValidService} from "../servicios/validate.service";
 import {Observable, Subscription} from "rxjs";
 import {HttpClient, HttpParams} from "@angular/common/http";
+import { environment } from '../enviroments/enviroments';
 
+import { debounceTime } from 'rxjs/operators';
 @Component({
   selector: 'app-header',
   templateUrl: './header.component.html',
@@ -40,7 +42,9 @@ export class HeaderComponent implements OnInit,OnDestroy {
       this.usuarioLogado = value;
 
 
-      this.suscripcion= this.obtenerDatosUsuario(this.validateService.getUserName()).subscribe({
+      this.suscripcion= this.obtenerDatosUsuario(this.validateService.getUserName())
+        .pipe(debounceTime(1000))
+        .subscribe({
         next: (value) => {
           this.datosUsuario = value['profile'];
           console.log("LOS DATOS DEL USUARIO");
@@ -51,6 +55,7 @@ export class HeaderComponent implements OnInit,OnDestroy {
           this.fotoUsuario=this.datosUsuario['profile_picture'];
           this.nombreUsuario=this.datosUsuario['username'];
         }
+
       });
     }
 
@@ -74,7 +79,8 @@ export class HeaderComponent implements OnInit,OnDestroy {
     const body = new HttpParams()
       .set('username',username)
 
-    return this.http.post("http://127.0.0.1:8000/your_profile/"+username+"/", body.toString(),{ headers });
+    // return this.http.post("http://127.0.0.1:8000/your_profile/"+username+"/", body.toString(),{ headers });
+    return this.http.post(environment.apiUrl+"your_profile/"+username+"/", body.toString(),{ headers });
   }
 
   @ViewChild('loginContainer') loginContainer: ElementRef;

@@ -6,6 +6,7 @@ import {error} from "@angular/compiler-cli/src/transformers/util";
 import {NgForm} from "@angular/forms";
 import {Router} from "@angular/router";
 import {Title} from "@angular/platform-browser";
+import { environment } from '../../enviroments/enviroments';
 
 @Component({
   selector: 'app-contactaconosotros',
@@ -25,6 +26,7 @@ username: string = '';
 
 
 ngOnInit() {
+  scrollTo(0,0);
   this.tituloPagina.setTitle("Contactanos")
   this.username=  this.ValidateSercice.getUserName();
 }
@@ -36,7 +38,8 @@ ngOnInit() {
     let parametros;
     parametros = "?subject="+subject+"&message="+message;
 
-     this.httpClient.get("http://127.0.0.1:8000/send_warn_email/"+this.username+"/"+parametros, { headers }).subscribe(
+     // this.httpClient.get("http://127.0.0.1:8000/send_warn_email/"+this.username+"/"+parametros, { headers }).subscribe(
+     this.httpClient.get(environment.apiUrl+"/send_warn_email/"+this.username+"/"+parametros, { headers }).subscribe(
 
       response => {
         console.log(response);

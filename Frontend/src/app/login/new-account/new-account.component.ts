@@ -19,6 +19,7 @@ export class NewAccountComponent implements OnInit {
 
 
   ngOnInit() {
+    scrollTo(0,0);
     this.tituloPagina.setTitle('Registro');
     if(this.validService.usuarioLogeado()){
       this.router.navigate(['/']).then(r => {});

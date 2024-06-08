@@ -7,6 +7,8 @@ import {BuscadorComponent} from "./buscador/buscador.component";
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import Swal from "sweetalert2";
 import {Title} from "@angular/platform-browser";
+import { debounceTime } from 'rxjs/operators';
+
 @Component({
   selector: 'app-main-page',
   templateUrl: './main-page.component.html',
@@ -29,19 +31,26 @@ export class MainPageComponent implements OnInit,OnDestroy {
   plataformasOpciones=[]
   sidebarVisible: boolean = false;
   isLoading = false;
-
+  searchTerm = new Subject<string>();
   private getGamesSubject: Subject<void> = new Subject<void>();
 
   selectedGenres: number[] = [];
   selectedPlatforms: number[] = [];
   constructor(private juegosservice:JuegosService,private filtrosService:FiltrosService,private tituloPagina:Title) { }
-
+  subirScroll(){
+    scrollTo(0,0);
+  }
   ngOnInit() {
+    this.subirScroll();
     this.tituloPagina.setTitle("Listado Juegos")
+
+
     // this.loadData();
     this.isLoading = true;
     this.getGamesSubject
-
+      .pipe(
+        debounceTime(500)
+      )
       .subscribe({
         next: () => {
           this.isLoading = false;

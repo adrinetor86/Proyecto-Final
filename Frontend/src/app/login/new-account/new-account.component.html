@@ -1,51 +1,86 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="new-account.component.css">
-</head>
-<body>
-  <div class="div-padre-formulario">
-    <form #formNewAccount="ngForm">
-      <div class="formulario">
-        <div>
-          <label>Usuario</label><br>
-          <input class="input-formulario" type="text" ngModel name="usernameNew" required minLength="5">
-          <br><br>
-          <label>Correo</label><br>
-          <input class="input-formulario" type="email" ngModel name="emailNew" email required>
-          <br><br>
-          <label>Contraseña</label><br>
-          <input class="input-formulario" type="password" ngModel name="passwordNew" required>
-          <br><br>
-          <span *ngIf="errorValidate" class="p-error">
-            {{ errorMessage }}
-          </span>
+<!--<!DOCTYPE html>-->
+<!--<html lang="en">-->
+<!--<head>-->
+<!--  <meta charset="UTF-8">-->
+<!--  <meta name="viewport" content="width=device-width, initial-scale=1.0">-->
+<!--  <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">-->
+<!--  <link rel="stylesheet" href="new-account.component.css">-->
+<!--</head>-->
+<!--<body>-->
+<!--  <div class="div-padre-formulario">-->
+<!--    <form #formNewAccount="ngForm">-->
+<!--      <div class="formulario">-->
+<!--        <div>-->
+<!--          <label>Usuario</label><br>-->
+<!--          <input class="input-formulario" type="text" ngModel name="usernameNew" required minLength="5">-->
+<!--          <br><br>-->
+<!--          <label>Correo</label><br>-->
+<!--          <input class="input-formulario" type="email" ngModel name="emailNew" email required>-->
+<!--          <br><br>-->
+<!--          <label>Contraseña</label><br>-->
+<!--          <input class="input-formulario" type="password" ngModel name="passwordNew" required>-->
+<!--          <br><br>-->
+<!--          <span *ngIf="errorValidate" class="p-error">-->
+<!--            {{ errorMessage }}-->
+<!--          </span>-->
 
-        </div>
+<!--        </div>-->
 
 
-        <div class="prueba" style="display:flex">
-          <button class="cancel" type="button" (click)="cancelRegister()">Atras</button>
-          <button class="register-button" type="submit"
-                  [disabled]="!formNewAccount.valid" (click)="registerNewUser()">Create Account</button>
-        </div>
+<!--        <div class="prueba" style="display:flex">-->
+<!--          <button class="cancel" type="button" (click)="cancelRegister()">Atras</button>-->
+<!--          <button class="register-button" type="submit"-->
+<!--                  [disabled]="!formNewAccount.valid" (click)="registerNewUser()">Create Account</button>-->
+<!--        </div>-->
+
+<!--      </div>-->
+
+<!--    </form>-->
+
+
+<!--    <div class="drops">-->
+<!--      <div class="drop-drop-1"></div>-->
+<!--      <div class="drop-drop-2"></div>-->
+<!--      <div class="drop-drop-3"></div>-->
+<!--      <div class="drop-drop-4"></div>-->
+<!--      <div class="drop-drop-5"></div>-->
+<!--    </div>-->
+<!--  </div>-->
+
+<!--</body>-->
+<div class="main-content">
+
+  <div class="contenedor-formulario">
+    <div class="cabecera-formulario">
+      <h3>Crear Cuenta</h3>
+    </div>
+    <form #formNewAccount="ngForm" class="formulario">
+
+                <label>Usuario</label>
+                <input class="input-formulario" type="text" ngModel name="usernameNew" required minLength="5">
+
+                <label>Correo</label>
+                <input class="input-formulario" type="email" ngModel name="emailNew" email required>
+
+                <label>Contraseña</label>
+                <input class="input-formulario" type="password" ngModel name="passwordNew" required>
+
+                <span *ngIf="errorValidate" class="p-error">
+               {{ errorMessage }}
+              </span>
+
+            <div class="contenedor-botones">
+
+
+              <button class="cancel" type="button" (click)="cancelRegister()">Atras</button>
+        <button class="confirmar" [disabled]="!formNewAccount.valid" (click)="registerNewUser()">Crear Cuenta</button>
 
       </div>
 
     </form>
-
-
-    <div class="drops">
-      <div class="drop-drop-1"></div>
-      <div class="drop-drop-2"></div>
-      <div class="drop-drop-3"></div>
-      <div class="drop-drop-4"></div>
-      <div class="drop-drop-5"></div>
-    </div>
   </div>
 
-</body>
+  <div class="contenedor-imagen"> </div>
 
+
+</div>

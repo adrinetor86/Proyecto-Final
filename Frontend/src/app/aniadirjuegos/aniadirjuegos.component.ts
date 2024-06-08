@@ -5,6 +5,7 @@ import {HttpClient} from "@angular/common/http";
 import {ValidService} from "../servicios/validate.service";
 import {FiltrosService} from "../servicios/filtros.service";
 import {Title} from "@angular/platform-browser";
+import { environment } from '../enviroments/enviroments';
 @Component({
   selector: 'app-aniadirjuegos',
   templateUrl: './aniadirjuegos.component.html',
@@ -108,7 +109,8 @@ ngOnInit() {
     console.log("EL BODY");
     console.log(body);
 
-    return this.httpClient.post("http://127.0.0.1:8000/new_game/",  body, {headers});
+    // return this.httpClient.post("http://127.0.0.1:8000/new_game/",  body, {headers});
+    return this.httpClient.post(environment.apiUrl+"/new_game/",  body, {headers});
   }
 
 

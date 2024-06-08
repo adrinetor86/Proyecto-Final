@@ -5,7 +5,7 @@ import {NgForm} from "@angular/forms";
 import {ValidService} from "../servicios/validate.service";
 import {Router} from "@angular/router";
 import {Title} from "@angular/platform-browser";
-
+import { environment } from '../enviroments/enviroments';
 @Component({
   selector: 'app-perfil',
   templateUrl: './perfil.component.html',
@@ -29,6 +29,7 @@ export class PerfilComponent implements OnInit, OnDestroy{
     this.suscripcion= this.obtenerDatosUsuario(this.datosToken.name).subscribe({
       next: (value) => {
         console.log(value);
+        console.log("f")
         this.datosUsuario = value['profile'];
 
       }
@@ -37,7 +38,8 @@ export class PerfilComponent implements OnInit, OnDestroy{
       this.route.navigate(['/']).then(r => {});
 
     }
-
+console.log("pruebaaaaaaaaaaaaaaaaa")
+    console.log(this.datosUsuario.profile_picture)
   }
   getData() {
     const name= this.validateservice.getUserName();
@@ -67,8 +69,11 @@ export class PerfilComponent implements OnInit, OnDestroy{
     const body = new HttpParams()
       .set('new_picture', imagen);
     console.log(body.toString());
-    this.http.post("http://127.0.0.1:8000/change_picture_profile/"+username+"/", body.toString(), { headers })
-      .subscribe((response) => console.log(response));
+    console.log("NUEVA FOTO")
+    console.log(imagen);
+    // this.http.post("http://127.0.0.1:8000/change_picture_profile/"+username+"/", body.toString(), { headers })
+    this.http.post(environment.apiUrl+"change_picture_profile/"+username+"/", body.toString(), { headers })
+      .subscribe((response) => console.log("ENTRAAAAA"+response));
   }
   onFileChange(event: any) {
     this.selectedFile = event.target.files[0];
@@ -79,7 +84,8 @@ export class PerfilComponent implements OnInit, OnDestroy{
     const body = new HttpParams()
       .set('username',username)
 
-    return this.http.post("http://127.0.0.1:8000/your_profile/"+username+"/", body.toString(),{ headers });
+    // return this.http.post("http://127.0.0.1:8000/your_profile/"+username+"/", body.toString(),{ headers });
+    return this.http.post(environment.apiUrl+"your_profile/"+username+"/", body.toString(),{ headers });
   }
 
 

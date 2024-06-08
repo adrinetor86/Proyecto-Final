@@ -28,6 +28,10 @@ DEBUG = True
 ALLOWED_HOSTS = [
 '127.0.0.1',
 'localhost:4200',
+'https://mk5fjhp3-4200.uks1.devtunnels.ms',
+'https://mk5fjhp3-8000.uks1.devtunnels.ms',
+    'localhost',
+'localhost:8000',
 ]
 
 # Application definition

@@ -8,6 +8,7 @@ import {JuegoPrueba} from "../interfaces/juego";
 import {ActivatedRoute} from "@angular/router";
 import {Mapas} from "../interfaces/mapas";
 import {Title} from "@angular/platform-browser";
+import { environment } from '../enviroments/enviroments';
 @Component({
   selector: 'app-editarjuegos',
   templateUrl: './editarjuegos.component.html',
@@ -74,6 +75,7 @@ export class EditarjuegosComponent {
 
 
 ngOnInit() {
+  scrollTo(0,0);
   this.tituloPagina.setTitle("Editar Juego")
 
 
@@ -85,7 +87,8 @@ ngOnInit() {
     });
     this.suscripcionPrueba=
       this.route.params.subscribe(params => {
-        this.httpClient.get('http://127.0.0.1:8000/api/v1/game/' + parseInt(params['id']) + '/').subscribe(JuegoRecibido => {
+        // this.httpClient.get('http://127.0.0.1:8000/api/v1/game/' + parseInt(params['id']) + '/').subscribe(JuegoRecibido => {
+        this.httpClient.get(environment.apiUrl+'/api/v1/game/' + parseInt(params['id']) + '/').subscribe(JuegoRecibido => {
           console.log(JuegoRecibido)
 
           if (!JuegoRecibido['error']) {
@@ -111,7 +114,8 @@ ngOnInit() {
             console.log(this.plataformasArray);
             this.idJuego = parseInt(params['id']);
 
-            this.httpClient.get('http://127.0.0.1:8000/get_maps/' + parseInt(params['id']) + '/').subscribe(MapasRecibidos => {
+            // this.httpClient.get('http://127.0.0.1:8000/get_maps/' + parseInt(params['id']) + '/').subscribe(MapasRecibidos => {
+            this.httpClient.get(environment.apiUrl+'/get_maps/' + parseInt(params['id']) + '/').subscribe(MapasRecibidos => {
 
               this.mapasJuegos = MapasRecibidos as Mapas[];
               console.log(this.mapasJuegos);
@@ -191,7 +195,8 @@ ngOnInit() {
     console.log(body);
     // console.log("EL JSONNNN");
     // console.log(maps.toString());
-    return this.httpClient.post("http://127.0.0.1:8000/edit_game/",  body, {headers});
+    // return this.httpClient.post("http://127.0.0.1:8000/edit_game/",  body, {headers});
+    return this.httpClient.post(environment.apiUrl+"/edit_game/",  body, {headers});
   }
 
   arrayContains:number []=[];

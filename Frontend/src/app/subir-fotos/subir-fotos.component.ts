@@ -3,7 +3,7 @@ import {Observable, Subscription} from "rxjs";
 import {HttpClient, HttpParams} from "@angular/common/http";
 import {NgForm} from "@angular/forms";
 import {ActivatedRoute} from "@angular/router";
-
+import { environment } from '../enviroments/enviroments';
 @Component({
   selector: 'app-subir-fotos',
   templateUrl: './subir-fotos.component.html',
@@ -70,7 +70,8 @@ export class SubirFotosComponent {
       .set('id', id)
       .set('front_page', imagen);
 
-    this.http.post("http://127.0.0.1:8000/insertar_guarro/", body.toString(), { headers })
+    // this.http.post("http://127.0.0.1:8000/insertar_guarro/", body.toString(), { headers })
+    this.http.post(environment.apiUrl+"/insertar_guarro/", body.toString(), { headers })
       .subscribe((response) => console.log(response));
   }
 
@@ -80,7 +81,8 @@ export class SubirFotosComponent {
       maps: Maps
     };
     console.log(body);
-    this.http.post("http://127.0.0.1:8000/insert_maps/30/", JSON.stringify(body), { headers })
+    // this.http.post("http://127.0.0.1:8000/insert_maps/30/", JSON.stringify(body), { headers })
+    this.http.post(environment.apiUrl+"/insert_maps/30/", JSON.stringify(body), { headers })
       .subscribe(response => console.log(response));
   }
 
