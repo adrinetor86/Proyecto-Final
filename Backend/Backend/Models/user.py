@@ -25,7 +25,8 @@ class User:
     def insert_user(self, email, username, password, role=3):
         hashed_password = self.__ph.hash(config.SALT + password)
 
-        sql = f"INSERT INTO {self.__tables["users"]} (email, username, password, date_creation, rol_user) VALUES ('{email}', '{username}', '{hashed_password}', CURDATE(), {role})"
+        sql = (f"INSERT INTO {self.__tables["users"]} (email, username, password, date_creation, rol_user) "
+               f"VALUES ('{email}', '{username}', '{hashed_password}', CURDATE(), {role})")
 
         if not self.__exist_username(username):
             if not self.__exist_email(email):
@@ -36,14 +37,12 @@ class User:
                     self.__connection.commit()
                     return {"success": "Account created successfully"}
                 except mysql.connector.Error as error:
-                    print('Error: ' + error.msg)
                     return {"error": "Unknown error, try again", "code": 400}
             else:
                 return {"error": "Email already exists", "code": 409}
         else:
             return {"error": "Username already exists", "code": 409}
 
-    #Confirma el usuario
     def confirm_user(self, email, password):
         try:
             data = self.__get_data_user(email)
@@ -53,16 +52,17 @@ class User:
                     password_hashed = dict_access.get("password", "")
                     username = dict_access.get("username", "")
                     self.__ph.verify(password_hashed, (config.SALT + password))
-                    print('llega aqui')
-                    return {"username": username,
-                            "rol_user": dict_access.get("rol_user", 3),
-                            "name_rol": dict_access.get("name_rol", "usuario")}
+                    return {
+                        "username": username,
+                        "rol_user": dict_access.get("rol_user", 3),
+                        "name_rol": dict_access.get("name_rol", "usuario")
+                    }
                 else:
                     return {"error": "User not found", "code": 400}
             else:
-                return {"error": "Email not found", "code": 403}
+                return {"error": "Email not found", "code": 409}
         except argon2.exceptions.VerifyMismatchError:
-            return {"error": "Incorrect password or email", "code": 403}
+            return {"error": "Incorrect password or email", "code": 409}
         except Exception:
             return {"error": "Email not found", "code": 409}
 

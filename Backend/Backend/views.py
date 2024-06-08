@@ -224,9 +224,6 @@ def change_picture(request, username):
         if not confirm_user(authorization_token, username):
             return JsonResponse({"error": "Invalid access token"}, status=401)
 
-        #data = json.loads(request.body)
-        #picture = data.get('picture', None)
-
         picture = request.POST.get("new_picture", None)
 
         controller = ControllerUser(username=username, picture=picture)
