@@ -22,6 +22,9 @@
         <div class="input-nombre">
           <input type="text" value="{{datosUsuario.username}}" placeholder="{{datosUsuario.username}}" disabled>
         </div>
+        <div *ngIf="errorValidate" class="p-error">
+          {{ errorMessage }}
+        </div>
       </div>
 
       <div class="contenedor-correo">
