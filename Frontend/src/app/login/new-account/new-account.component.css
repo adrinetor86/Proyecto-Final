@@ -122,7 +122,7 @@ h3{
 .contenedor-imagen{
   /*background-image: url('https://imgs.callofduty.com/content/dam/atvi/callofduty/cod-touchui/blackops6/home/CERBERUS_KA.webp');*/
   background-size: cover;
-  background: linear-gradient(90deg, rgba(0,0,0,1) 0%, rgba(0,0,0,0) 100%), url('https://imgs.callofduty.com/content/dam/atvi/callofduty/cod-touchui/blackops6/home/CERBERUS_KA.webp') no-repeat center center;
+  background: linear-gradient(90deg, rgba(0,0,0,1) 0%, rgba(0,0,0,0) 100%), url('/assets/fondo-login2.webp') no-repeat center center;
   background-position: center;
 
   /*background-color: #5c1a83;*/

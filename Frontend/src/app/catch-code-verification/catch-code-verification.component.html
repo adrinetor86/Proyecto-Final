@@ -1,19 +1,34 @@
 
-<div class="div-padre-formulario">
-  <form #formCodeVerify="ngForm">
-    <div class="formulario">
-      <div>
-        <label>Introduzca el código de verificación</label><br>
-                <input class="input-formulario" type="text" ngModel required name="code" pattern="[0-9]{5}" maxlength="5">
 
+<div class="main-content">
 
-
-          <div class="div-botones">
-            <p class="p-error" *ngIf="errorMessage"> {{ errorMessage }}</p>
-            <button class="cancelar-btn" type="button" (click)="cancelSendCode()">Cancelar</button>
-            <button class="confirmar-btn" type="submit" [disabled]="!formCodeVerify.valid" (click)="verifyCode()">Confirmar</button>
-          </div>
-      </div>
+  <div class="contenedor-formulario">
+    <div class="cabecera-formulario">
+      <h3>CONFIRMACIÓN DE CÓDIGO</h3>
     </div>
-  </form>
+    <form #formCodeVerify="ngForm" class="formulario">
+
+
+      <label>Introduzca el código de verificación</label><br>
+      <input class="input-formulario" type="text" ngModel required name="code" pattern="[0-9]{5}" maxlength="5">
+
+      <div class="contenedor-botones">
+
+        <button class="cancelar" (click)="cancelSendCode()" >Cancelar</button>
+        <button class="confirmar" [disabled]="!formCodeVerify.valid" (click)="verifyCode()">Iniciar Sesion</button>
+
+      </div>
+
+      <p *ngIf="errorValidate" class="p-error">{{errorMessage}}</p>
+    </form>
+  </div>
+
+
+  <div class="contenedor-imagen">
+
+
+
+  </div>
+
+
 </div>
