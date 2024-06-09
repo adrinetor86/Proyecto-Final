@@ -24,7 +24,27 @@ main {
   background-position: bottom;
   box-sizing: border-box;
 }
+.contenedor-imagen-mapa{
+  width: auto;
+  height: auto;
+  display: flex;
+  /*justify-content: center;*/
+  gap:50px;
+  align-items: center;
+  margin-bottom:50px;
+}
 
+.imagen-mapa{
+  width: 40%;
+}
+.boton-borrar-mapa{
+  width: 30%;
+  height: 10%;
+  background-color: #a64040;
+  color: #ffffff;
+  letter-spacing:2px;
+  border: none;
+}
 fieldset {
   padding: 10px;
   margin: 0;

@@ -5,10 +5,11 @@ import {FiltrosService} from "../servicios/filtros.service";
 import {HttpClient, HttpParams} from "@angular/common/http";
 import {Observable, Subscription} from "rxjs";
 import {JuegoPrueba} from "../interfaces/juego";
-import {ActivatedRoute} from "@angular/router";
+import {ActivatedRoute, Router} from "@angular/router";
 import {Mapas} from "../interfaces/mapas";
 import {Title} from "@angular/platform-browser";
 import { environment } from '../enviroments/enviroments';
+import Swal from "sweetalert2";
 @Component({
   selector: 'app-editarjuegos',
   templateUrl: './editarjuegos.component.html',
@@ -70,7 +71,7 @@ export class EditarjuegosComponent {
   mapas: string[] = [];
 
   constructor(private httpClient: HttpClient, private validateService: ValidService,private filtrosService:FiltrosService,
-              private route: ActivatedRoute, private tituloPagina:Title) {}
+              private route: ActivatedRoute, private tituloPagina:Title,private routerNavigate:Router) {}
 
 
 
@@ -159,18 +160,40 @@ ngOnInit() {
     const front_page = this.portada ? this.portada : this.front_page
     const maps = this.mapas
 
-    console.log("LOS ARR GENEROS");
-    console.log(this.arrGeneros)
+    Swal.fire({
+      title: "Estas seguro?",
+      text: "Se editará el juego!",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#3085d6",
+      cancelButtonColor: "#d33",
+      confirmButtonText: "Confirmar"
+    }).then((result) => {
+      if (result.isConfirmed) {
 
-    console.log("LOS GENEROS");
-    console.log(this.generos)
-    console.log("LOS GENEROS unidos");
-    console.log(this.unifiedGeneros)
-    this.editarJuego(title, link_trailer, link_download, release_date, developer, synopsis, genders,background_picture, plataforms, front_page, maps).subscribe(response => {
-      console.log(response);
+        this.editarJuego(title, link_trailer, link_download, release_date, developer, synopsis, genders,background_picture, plataforms, front_page, maps).subscribe(response => {
+          this.routerNavigate.navigate(['/infoGame/'+this.idJuego]);
+          Swal.fire({
+            title: "Se ha editado el juego!",
+            text: "Juego insertado.",
+            icon: "success"
+          });
+        }, error => {
+          Swal.fire({
+            title: "Error!",
+            text: "Error al editar el juego.",
+            icon: "error"
+          });
+
+        });
+
+      }
     });
 
   }
+
+
+
   editarJuego(title: string, link_trailer: string, link_download: string, release_date, developer, synopsis, genders,background_picture, plataforms, front_page, maps): Observable<Object> {
 
     const headers = {'Content-Type': 'application/x-www-form-urlencoded'};
@@ -191,10 +214,6 @@ ngOnInit() {
       id:this.idJuego
     }
 
-    console.log("EL BODY");
-    console.log(body);
-    // console.log("EL JSONNNN");
-    // console.log(maps.toString());
     // return this.httpClient.post("http://127.0.0.1:8000/edit_game/",  body, {headers});
     return this.httpClient.post(environment.apiUrl+"/edit_game/",  body, {headers});
   }
@@ -213,6 +232,14 @@ ngOnInit() {
     this.arrayContains=arr;
 
   }
+
+  deleteMap(map: string) {
+    const index = this.mapas.indexOf(map);
+    if (index > -1) {
+      this.mapas.splice(index, 1);
+    }
+  }
+
   updateMapas(base: string, arr: any): void {
     console.log(arr);
     const index = arr.indexOf(base);

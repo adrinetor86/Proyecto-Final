@@ -52,12 +52,12 @@ export class PerfilComponent implements OnInit, OnDestroy{
   }
   onSubmit() {
     if (this.selectedFile) {
-      const validImageTypes = ['image/jpeg', 'image/png', 'image/jpg'];
-      if (!validImageTypes.includes(this.selectedFile.type)) {
-        this.errorValidate = true;
-        this.errorMessage = 'El archivo seleccionado no es una imagen';
-        return;
-      }
+      // const validImageTypes = ['image/jpeg', 'image/png', 'image/jpg'];
+      // if (!validImageTypes.includes(this.selectedFile.type)) {
+      //   this.errorValidate = true;
+        // this.errorMessage = 'El archivo seleccionado no es una imagen';
+        // return;
+      // }
 
       const reader = new FileReader();
       reader.onload = () => {

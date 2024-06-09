@@ -89,6 +89,10 @@
         <label for="maps">Subir Mapas:</label>
         <input type="file" id="maps" name="maps" (change)="onMapChange($event)" accept="image/*" class="form-control">
         <button type="button" class="add" (click)="addMap()"></button>
+        <div class="contenedor-imagen-mapa" *ngFor="let map of mapas">
+          <img class="imagen-mapa" src="{{map}}">
+          <button class="boton-borrar-mapa" type="button" (click)="deleteMap(map)">Eliminar</button>
+        </div>
       </fieldset>
       <p class="aviso2">* Debe contener al menos 1 mapa (máximo 7).</p>
     </div>

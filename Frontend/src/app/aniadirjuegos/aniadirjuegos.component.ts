@@ -6,6 +6,8 @@ import {ValidService} from "../servicios/validate.service";
 import {FiltrosService} from "../servicios/filtros.service";
 import {Title} from "@angular/platform-browser";
 import { environment } from '../enviroments/enviroments';
+import Swal from "sweetalert2";
+import {Router} from "@angular/router";
 @Component({
   selector: 'app-aniadirjuegos',
   templateUrl: './aniadirjuegos.component.html',
@@ -37,10 +39,45 @@ export class AniadirjuegosComponent implements OnInit, OnDestroy {
   generosOpciones=[]
   plataformasOpciones=[]
 
-  constructor(private httpClient: HttpClient, private validateService: ValidService,private filtrosService:FiltrosService,private tituloPagina:Title) {
+  constructor(private httpClient: HttpClient, private validateService: ValidService,private filtrosService:FiltrosService,
+              private tituloPagina:Title,private routerNavigate:Router){
   }
 
+  onInsert(){
+    Swal.fire({
+      title: "Estas seguro?",
+      text: "Se añadira el juego!",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#3085d6",
+      cancelButtonColor: "#d33",
+      confirmButtonText: "Confirmar"
+    }).then((result) => {
+      if (result.isConfirmed) {
+        // const id= this.route.snapshot.params['id'];
 
+        // this.suscripcionBorrar= this.route.params.subscribe(params=>{
+        //   const body={
+        //     id: id,
+        //     username: this.validateService.getUserName()
+        //   }
+        //
+        //   // this.http.post(`http://127.0.0.1:8000/delete_game/${id}/`,body).subscribe((response)=>{
+        //   this.http.post(environment.apiUrl+`/delete_game/${id}/`,body).subscribe((response)=>{
+        //
+        //     // console.log(response);
+        //   })
+        //
+        // });
+        this.routerNavigate.navigate(['/']);
+        Swal.fire({
+          title: "Se ha insertado el juego!",
+          text: "Juego isnertado.",
+          icon: "success"
+        });
+      }
+    });
+  }
 
 
 
@@ -64,8 +101,6 @@ ngOnInit() {
     this.suscripcionFiltros.unsubscribe();
   }
 
-
-
   formularioJuego() {
     const title = this.formulario.value.title;
     const link_trailer = this.formulario.value.link_trailer;
@@ -79,9 +114,34 @@ ngOnInit() {
     const front_page = this.portada;
     const maps = this.mapasPrueba;
 
+    Swal.fire({
+      title: "Estas seguro?",
+      text: "Se añadira el juego!",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#3085d6",
+      cancelButtonColor: "#d33",
+      confirmButtonText: "Confirmar"
+    }).then((result) => {
+      if (result.isConfirmed) {
 
-    this.enviarJuego(title, link_trailer, link_download, release_date, developer, synopsis, genders,background_picture, plataforms, front_page, maps).subscribe(response => {
-      // console.log(response);
+        this.enviarJuego(title, link_trailer, link_download, release_date, developer, synopsis, genders,background_picture, plataforms, front_page, maps).subscribe(response => {
+          this.routerNavigate.navigate(['/']);
+          Swal.fire({
+            title: "Se ha insertado el juego!",
+            text: "Juego insertado.",
+            icon: "success"
+          });
+        }, error => {
+          Swal.fire({
+            title: "Error!",
+            text: "Error al insertar el juego.",
+            icon: "error"
+          });
+
+        });
+
+      }
     });
 
   }
