@@ -387,8 +387,16 @@ iframe{
 }
 
 .imagen-carusel{
-  height: auto;
-  width: 80%;
+  display: flex;
+  align-self: center;
+  height: 370px;
+  width: 370px;
+}
+
+.center{
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 @media screen and (max-width: 1000px) {
   .contenedor-mapas {
@@ -406,8 +414,8 @@ iframe{
   .imagen-carusel{
     /*height: auto;*/
     min-height:100px;
-    width: 80%;
-    min-width:100px;
+    width: 400px;
+    min-width: 400px;
   }
 
 }

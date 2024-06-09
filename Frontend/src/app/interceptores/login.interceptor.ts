@@ -15,9 +15,9 @@ export class LoginInterceptor implements HttpInterceptor {
     return next.handle(req)
       .pipe(
         tap(event => {
-          console.log("entrando en el tap")
+          //console.log("entrando en el tap")
           if (event instanceof HttpResponse && req.url.endsWith('/login/')) {
-            console.log("entrando en el if")
+            //console.log("entrando en el if")
            const accessToken = event.body.token;
             // console.log(event.body)
             this.validateService.almacenarToken(accessToken);
