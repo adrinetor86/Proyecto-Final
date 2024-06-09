@@ -206,6 +206,18 @@ input[type="file"] {
 .contenedor-correo {
   margin-bottom: 20px;
 }
+.p-error {
+  display: block;
+  background-color: #f8d7da;
+  color: #721c24;
+  padding: 10px 15px;
+  border-radius: 5px;
+  border: 1px solid #f5c6cb;
+  margin-bottom: 10px;
+  box-sizing: border-box;
+  font-size: 14px;
+  width: 31vh;
+}
 
 .titulo-nombre p,
 .titulo-correo p {

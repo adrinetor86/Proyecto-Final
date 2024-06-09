@@ -20,6 +20,7 @@ export class PerfilComponent implements OnInit, OnDestroy{
   base64Image: string = '';
   datosToken: any;
   errorMessage = '';
+  errorValidate = false;
   isFileInputEnabled: boolean;
   constructor(private http: HttpClient,private validateservice:ValidService,private route:Router,private tituloPagina:Title) { }
   ngOnInit(): void {
@@ -51,11 +52,17 @@ console.log("pruebaaaaaaaaaaaaaaaaa")
     return {name,rol};
   }
   onSubmit() {
-
     if (this.selectedFile) {
+      const validImageTypes = ['image/jpeg', 'image/png', 'image/jpg'];
+      if (!validImageTypes.includes(this.selectedFile.type)) {
+        this.errorValidate = true;
+        this.errorMessage = 'El archivo seleccionado no es una imagen';
+        return;
+      }
+
       const reader = new FileReader();
       reader.onload = () => {
-         this.base64Image = reader.result as string;
+        this.base64Image = reader.result as string;
         // Aquí tienes tu imagen en base64
         console.log(this.base64Image);
 
@@ -65,6 +72,7 @@ console.log("pruebaaaaaaaaaaaaaaaaa")
       reader.readAsDataURL(this.selectedFile);
     }
   }
+
 
   pasarFoto(username: string,imagen: string) {
     const headers = { 'Content-Type': 'application/x-www-form-urlencoded' };
@@ -76,14 +84,6 @@ console.log("pruebaaaaaaaaaaaaaaaaa")
     // console.log(imagen);
     // this.http.post("http://127.0.0.1:8000/change_picture_profile/"+username+"/", body.toString(), { headers })
     this.http.post(environment.apiUrl+"/change_picture_profile/"+username+"/", body.toString(), { headers })
-      // .pipe(
-      //   catchError((error) => {
-      //     this.errorMessage = error.error;
-      //     console.log(this.errorMessage);
-      //     console.log("ERRRRRPRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRR");
-      //     return of(null);
-      //   })
-      // )
       .subscribe((response) => {
 
       });
