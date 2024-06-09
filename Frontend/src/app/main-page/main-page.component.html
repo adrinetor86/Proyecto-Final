@@ -53,7 +53,7 @@
    <div *ngIf="!isLoading"  class="juegos">
      @if(gamesPrueba.length > 0){
 
-      <div class="juego" *ngFor="let game of (gamesPrueba | paginate: { id: 'gamesListPagination', itemsPerPage: 15, currentPage: currentPage, totalItems: totalGames })">
+      <div class="juego" *ngFor="let game of (gamesPrueba | paginate: { id: 'gamesListPagination', itemsPerPage: 9, currentPage: currentPage, totalItems: totalGames })">
 
 
         <a>

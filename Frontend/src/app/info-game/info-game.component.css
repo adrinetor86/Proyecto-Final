@@ -413,9 +413,12 @@ iframe{
   }
   .imagen-carusel{
     /*height: auto;*/
+    display: flex;
+    align-self: flex-start;
     min-height:100px;
-    width: 400px;
-    min-width: 400px;
+    height: 125px;
+    width: 125px;
+    min-width: 125px;
   }
 
 }
