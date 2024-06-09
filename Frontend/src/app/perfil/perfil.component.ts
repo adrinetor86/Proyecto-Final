@@ -50,16 +50,14 @@ export class PerfilComponent implements OnInit, OnDestroy{
     return {name,rol};
   }
   onSubmit() {
-
     if (this.selectedFile) {
       const reader = new FileReader();
       reader.onload = () => {
          this.base64Image = reader.result as string;
         // Aquí tienes tu imagen en base64
         // console.log(this.base64Image);
-
         this.pasarFoto(this.datosUsuario.username, this.base64Image);
-        window.location.reload();
+        // window.location.reload();
       };
       reader.readAsDataURL(this.selectedFile);
     }

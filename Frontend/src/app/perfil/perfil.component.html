@@ -12,7 +12,7 @@
       <div class="contenedor-foto">
         <p>Foto de Perfil</p>
         <img *ngIf="isFileInputEnabled" class="foto-perfil" src="{{datosUsuario.profile_picture}}">
-        <input type="file" (change)="onFileChange($event)" required>
+        <input type="file" (change)="onFileChange($event)"  required>
       </div>
 
       <div class="contenedor-nombre-usuario">
@@ -35,7 +35,7 @@
 
       <div class="contenedor-botones">
         <button class="boton-cancelar" routerLink="/">Cancelar</button>
-        <button class="boton-guardar"  type="submit" [disabled]="!imageForm.valid">Aceptar</button>
+        <button class="boton-guardar"  type="submit" [disabled]="!imageForm.valid && !isFileInputEnabled" >Aceptar</button>
       </div>
 
     </div>
