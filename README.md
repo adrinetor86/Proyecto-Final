@@ -55,7 +55,6 @@ La aplicación esta dividida en dos roles: Administrador y Usuario. En donde el 
   <tr>
     <td>Herramientas de Desarrollo</td>
     <td>
-      <img src="https://seeklogo.com/images/P/pycharm-edu-logo-73119B2E09-seeklogo.com.png" alt="Pycharm" width="50">
       <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/c/c0/WebStorm_Icon.svg/1200px-WebStorm_Icon.svg.png" alt="Webstorm" width="50">
       <img src="https://cdn.worldvectorlogo.com/logos/postman.svg" alt="Postman" width="50">
     </td>
